@@ -1,12 +1,25 @@
 import { defineStore } from 'pinia'
-import { DualSense } from 'dualsense.js'
+import { DualSense, type DualSenseState } from 'dualsense.js'
 import { ref } from 'vue'
 
-export const useDualSense = defineStore('dualsense', () => {
+// 节流函数
+function throttle(fn: Function, delay: number) {
+  let timer: number | null = null
+  return function (this: any, ...args: any[]) {
+    if (timer) {
+      return
+    }
+    timer = setTimeout(() => {
+      fn.apply(this, args)
+      timer = null
+    }, delay)
+  }
+}
+
+export const useDualSenseStore = defineStore('dualsense', () => {
   const dualsense = new DualSense({
     persistCalibration: true
   })
-
   const isConnected = ref(false)
   const state = ref(dualsense.state)
 
@@ -18,12 +31,19 @@ export const useDualSense = defineStore('dualsense', () => {
     isConnected.value = false
   })
 
+  const updateState = (detail: DualSenseState) => {
+    state.value = {...detail}
+  }
+
+  const throttledUpdateState = throttle(updateState, 10)
+
   dualsense.addEventListener('state-change', ({ detail }) => {
-    state.value = detail
+    throttledUpdateState(detail)
   })
 
   return {
     dualsense,
-    isConnected
+    isConnected,
+    state
   }
 })
