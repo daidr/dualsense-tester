@@ -375,10 +375,10 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
     this.state.axes.accelRoll = accelZ
 
     // TODO: add support for trigger feedback
-    // l2ForceCheckbox.checked = l2feedback & 0x10;
-    // l2StateText.value = l2feedback & 0x0f;
-    // r2ForceCheckbox.checked = r2feedback & 0x10;
-    // r2StateText.value = r2feedback & 0x0f;
+    // l2feedback = l2feedback & 0x10;
+    // l2feedback value = l2feedback & 0x0f;
+    // r2feedback = r2feedback & 0x10;
+    // r2feedback value = r2feedback & 0x0f;
 
     this.state.battery.charging = batteryCharging
     this.state.battery.full = batteryFull
@@ -616,10 +616,10 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
     this.state.axes.accelPitch = accelZ
 
     // TODO: add support for trigger feedback
-    // l2ForceCheckbox.checked = l2feedback & 0x10;
-    // l2StateText.value = l2feedback & 0x0f;
-    // r2ForceCheckbox.checked = r2feedback & 0x10;
-    // r2StateText.value = r2feedback & 0x0f;
+    // l2feedback = l2feedback & 0x10;
+    // l2feedback value = l2feedback & 0x0f;
+    // r2feedback = r2feedback & 0x10;
+    // r2feedback value = r2feedback & 0x0f;
 
     this.state.battery.charging = batteryCharging
     this.state.battery.full = batteryFull
