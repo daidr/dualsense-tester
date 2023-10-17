@@ -22,5 +22,9 @@
     },
     "info_panel":{
         "tips": "Please connect your DualSense first"
+    },
+    "output_panel": {
+        "in_progress": "In progress",
+        "tips": "The development of features such as haptic feedback (advanced vibration), adaptive triggers, and light adjustment is still in progress. Please be patient."
     }
 }

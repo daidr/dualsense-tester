@@ -22,5 +22,9 @@
     },
     "info_panel":{
         "tips": "请先连接你的 DualSense 手柄"
+    },
+    "output_panel": {
+        "in_progress": "开发中...",
+        "tips": "对触感(高级震动)、自适应扳机、灯光的调试功能还在开发中，请耐心等待"
     }
 }
