@@ -93,7 +93,7 @@ const tryViewTranisition = async (func: () => boolean) => {
     @apply rounded-full;
     @apply select-none cursor-pointer;
     @apply transition;
-    @apply border-1.5 border-primary/30;
+    @apply dou-sc-colorborder;
 
     &-thumb {
         @apply absolute top-1/2 left-1/2 w-5 h-5;
