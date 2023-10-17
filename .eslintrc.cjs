@@ -10,7 +10,10 @@ module.exports = {
     '@vue/eslint-config-prettier/skip-formatting',
     "@unocss"
   ],
+  rules: {
+    '@unocss/order': 'off'
+  },
   parserOptions: {
     ecmaVersion: 'latest'
-  }
+  },
 }
