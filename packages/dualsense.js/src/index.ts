@@ -13,6 +13,12 @@ import {
 import { DualSenseInterface, DualSenseState, defaultState } from './gadgets/state'
 import { TypedEventTarget, defineTypedCustomEvent, defineTypedEvent } from 'typed-event-target'
 import { normalizeButton, normalizeThumbStickAxis, normalizeTriggerAxis } from './utils/controller'
+
+export type {
+  DualSenseState,
+  DualSenseInterface
+}
+
 export interface DualSenseOptions {
   persistCalibration?: boolean
 }
@@ -40,7 +46,7 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
   lastSentReport?: ArrayBuffer
 
   /** Current controller state */
-  state = defaultState
+  state: DualSenseState = defaultState
 
   /**
    * calibrate gyroscope
