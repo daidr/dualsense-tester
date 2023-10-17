@@ -1,0 +1,27 @@
+.blur-fade-enter-active {
+  transition:
+    opacity 0.3s ease-out,
+    filter 0.3s ease-out,
+    transform 0.3s ease-out;
+}
+
+.blur-fade-leave-active {
+  transition:
+    opacity 0.3s ease-in,
+    filter 0.3s ease-in,
+    transform 0.3s ease-in;
+}
+
+.blur-fade-enter-from,
+.blur-fade-leave-to {
+  opacity: 0;
+  filter: blur(20px);
+  transform: translateY(30px);
+}
+
+.blur-fade-enter-to,
+.blur-fade-leave-from {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}

@@ -16,7 +16,7 @@
       @apply text-white bg-primary;
 
       &::before {
-        @apply scale-130 border-primary/30;
+        @apply scale-130 border-primary/30 dark-border-primary/50;
       }
     }
 
