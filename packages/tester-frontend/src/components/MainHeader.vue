@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import DarkModeSwitch from './DarkModeSwitch.vue';
+import LangSwitcher from './LangSwitcher.vue';
 
 
 </script>
@@ -9,9 +10,10 @@ import DarkModeSwitch from './DarkModeSwitch.vue';
         <div class="header">
             <div class="logo-wrapper">
                 <div class="i-icon-park-twotone-game-ps"></div>
-                <h1>DualSense Tester</h1>
+                <h1>{{ $t('application.name') }}</h1>
             </div>
             <div class="tools-wrapper">
+                <LangSwitcher />
                 <DarkModeSwitch />
                 <a href="https://github.com/daidr/dualsense-tester" target="_blank" class="dou-icon-link">
                     <div class="i-mingcute-github-line"></div>
@@ -28,7 +30,7 @@ header {
 
     .header {
         @apply max-w-[var(--max-width)] w-full text-lg;
-        @apply flex justify-between items-center mx-auto my-2;
+        @apply flex justify-between items-center mx-auto my-3;
         @apply dou-sc-container;
     }
 
