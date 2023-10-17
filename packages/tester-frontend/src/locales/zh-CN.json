@@ -13,7 +13,12 @@
         "tips": "使用 <b>USB 线缆</b> 或 <b>蓝牙</b> 将 DualSense 连接到你的电脑，然后点击下面的 “连接” 按钮。",
         "connect": "连接",
         "not_connected": "未连接",
-        "connected": "已连接"
+        "connected": "已连接",
+        "report_time": "Report 时间戳",
+        "battery_level": "电量",
+        "battery_charging_state": "充电状态",
+        "battery_level_charging": "充电中",
+        "battery_level_not_charging": "未充电"
     },
     "info_panel":{
         "tips": "请先连接你的 DualSense 手柄"

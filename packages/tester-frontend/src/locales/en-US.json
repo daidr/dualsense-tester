@@ -13,7 +13,12 @@
         "tips": "Connect the DualSense to your computer using either a <b>USB cable</b> or <b>Bluetooth</b>, then click the \"Connect\" button below.",
         "connect": "Connect",
         "not_connected": "Not connected",
-        "connected": "Connected"
+        "connected": "Connected",
+        "report_time": "Report time",
+        "battery_level": "Battery level",
+        "battery_charging_state": "Charging state",
+        "battery_level_charging": "Charging",
+        "battery_level_not_charging": "Not charging"
     },
     "info_panel":{
         "tips": "Please connect your DualSense first"
