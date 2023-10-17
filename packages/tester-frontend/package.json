@@ -1,0 +1,31 @@
+{
+  "name": "dualsense-tester-frontend",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "run-p type-check \"build-only {@}\" --",
+    "preview": "vite preview",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --noEmit -p ../../tsconfig.app.json --composite false",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "format": "prettier --write src/"
+  },
+  "dependencies": {
+    "@unocss/reset": "^0.56.5",
+    "@vueuse/core": "^10.5.0",
+    "pinia": "^2.1.7",
+    "vue": "^3.3.4",
+    "dualsense.js": "workspace:*"
+  },
+  "devDependencies": {
+    "@unocss/inspector": "^0.56.5",
+    "@unocss/transformer-directives": "^0.56.5",
+    "@unocss/transformer-variant-group": "^0.56.5",
+    "@vitejs/plugin-vue": "^4.3.4",
+    "npm-run-all2": "^6.0.6",
+    "sass": "^1.69.3",
+    "unocss": "^0.56.5",
+    "vue-tsc": "^1.8.11"
+  }
+}

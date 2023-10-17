@@ -1,0 +1,32 @@
+{
+  "name": "dualsense.js",
+  "description": "A DualSense controller library based on WebHID",
+  "author": "daidr",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "./dist/cjs/dualsense.js",
+  "module": "./dist/es/dualsense.js",
+  "types": "./dist/types/index.d.ts",
+  "private": true,
+  "exports": {
+    ".": {
+      "require": "./dist/cjs/dualsense.js",
+      "import": "./dist/es/dualsense.js",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "type:check": "tsc --noEmit",
+    "clean": "rimraf dist",
+    "build": "pnpm type:check && pnpm clean && pnpm build:bundle && pnpm build:types",
+    "build:bundle": "vite build",
+    "build:types": "tsc -p tsconfig.types.json"
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.5",
+    "typed-event-target": "^1.4.1"
+  }
+}

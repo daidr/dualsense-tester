@@ -1,0 +1,27 @@
+.dou {
+  &-icon-link {
+    @apply w-7 h-7 text-lg;
+    @apply flex justify-center items-center;
+    @apply text-primary rounded-full;
+    @apply transition-colors;
+    @apply relative;
+
+    &::before {
+      @apply content-empty absolute top-0 left-0 right-0 bottom-0;
+      @apply border-1.5 border-primary/0 rounded-full;
+      @apply transition transform-gpu;
+    }
+
+    &:hover {
+      @apply text-white bg-primary;
+
+      &::before {
+        @apply scale-130 border-primary/30;
+      }
+    }
+
+    &:active::before {
+      @apply scale-100;
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": [
+    "env.d.ts",
+    "packages/tester-frontend/src/**/*",
+    "packages/tester-frontend/src/**/*.vue"
+  ],
+  "exclude": [
+    "packages/tester-frontend/src/**/__tests__/*"
+  ],
+  "compilerOptions": {
+    "composite": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./packages/tester-frontend/src/*"
+      ]
+    }
+  },
+  "typeRoots": [
+    "packages/tester-frontend/src/@types"
+  ]
+}
