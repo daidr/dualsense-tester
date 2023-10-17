@@ -20,8 +20,11 @@
         "battery_level_charging": "Charging",
         "battery_level_not_charging": "Not charging"
     },
-    "info_panel":{
-        "tips": "Please connect your DualSense first"
+    "info_panel": {
+        "tips": "Please connect your DualSense first",
+        "title_buttons": "Basic Buttons",
+        "title_accelerometer": "Accelerometer",
+        "title_gyroscope": "Gyroscope"
     },
     "output_panel": {
         "in_progress": "In progress",

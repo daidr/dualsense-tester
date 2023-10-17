@@ -21,7 +21,10 @@
         "battery_level_not_charging": "未充电"
     },
     "info_panel":{
-        "tips": "请先连接你的 DualSense 手柄"
+        "tips": "请先连接你的 DualSense 手柄",
+        "title_buttons": "基础按钮",
+        "title_accelerometer": "加速度计",
+        "title_gyroscope": "陀螺仪"
     },
     "output_panel": {
         "in_progress": "开发中...",
