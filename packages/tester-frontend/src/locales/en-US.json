@@ -24,10 +24,15 @@
         "tips": "Please connect your DualSense first",
         "title_buttons": "Basic Buttons",
         "title_accelerometer": "Accelerometer",
-        "title_gyroscope": "Gyroscope"
+        "title_gyroscope": "Gyroscope",
+        "pitch": "Pitch",
+        "yaw": "Yaw",
+        "roll": "Roll",
+        "gyroscope_in_progress": "In progress",
+        "gyroscope_tips": "The visualization of the gyroscope is under development."
     },
     "output_panel": {
         "in_progress": "In progress",
-        "tips": "The development of features such as haptic feedback (advanced vibration), adaptive triggers, and light adjustment is still in progress. Please be patient."
+        "tips": "The development of features such as haptic feedback (advanced vibration), adaptive triggers, and light adjustment is still in progress."
     }
 }
