@@ -3,6 +3,7 @@
   "include": [
     "env.d.ts",
     "packages/tester-frontend/src/**/*",
+    "packages/tester-frontend/src/**/*.json",
     "packages/tester-frontend/src/**/*.vue"
   ],
   "exclude": [
@@ -15,7 +16,10 @@
       "@/*": [
         "./packages/tester-frontend/src/*"
       ]
-    }
+    },
+    "types": [
+      "@intlify/unplugin-vue-i18n/messages"
+    ]
   },
   "typeRoots": [
     "packages/tester-frontend/src/@types"
