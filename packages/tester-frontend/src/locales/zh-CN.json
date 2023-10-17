@@ -1,0 +1,21 @@
+{
+    "application": {
+        "name": "DualSense 在线测试"
+    },
+    "locales": {
+        "zh-CN": "简体中文",
+        "en-US": "English (US)"
+    },
+    "common": {
+        "tips": "提示"
+    },
+    "connect_panel": {
+        "tips": "使用 <b>USB 线缆</b> 或 <b>蓝牙</b> 将 DualSense 连接到你的电脑，然后点击下面的 “连接” 按钮。",
+        "connect": "连接",
+        "not_connected": "未连接",
+        "connected": "已连接"
+    },
+    "info_panel":{
+        "tips": "请先连接你的 DualSense 手柄"
+    }
+}
