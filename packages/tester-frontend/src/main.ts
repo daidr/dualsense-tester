@@ -15,21 +15,12 @@ import { createI18n } from 'vue-i18n'
 import messages from '@intlify/unplugin-vue-i18n/messages'
 import { getPreferredLanguage } from '@/utils/lang.util'
 const lang = getPreferredLanguage(navigator.languages || [navigator.language])
-import globalLocale from '@/locales/global.json'
-
-const mergedMessages: typeof messages = {}
-
-for (const key in messages) {
-  mergedMessages[key] = {
-    ...globalLocale,
-    ...messages[key]
-  }
-}
 
 export const i18n = createI18n({
   locale: lang,
   fallbackLocale: 'en-US',
-  mergedMessages,
+  warnHtmlMessage: false,
+  messages,
   legacy: false,
   globalInjection: true
 })
