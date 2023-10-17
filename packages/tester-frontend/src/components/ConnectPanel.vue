@@ -12,35 +12,34 @@ const onConnectBtnClick = () => {
 <template>
     <div class="dou-sc-container space-y-2 self-start">
         <ContentTips>
-            <p>Connect the DualSense to your computer using either a <b>USB cable</b> or <b>Bluetooth</b>, then click the
-                “Connect” button below.</p>
+            <p v-html="$t('connect_panel.tips')"></p>
         </ContentTips>
         <div v-if="dualsenseStore.isConnected">
             <table>
                 <tr>
-                    <td class="label">Report Time</td>
+                    <td class="label">{{ $t('connect_panel.report_time') }}</td>
                     <td class="value">{{ dualsenseStore.state.timestamp.toFixed(2) }}</td>
                 </tr>
                 <tr>
-                    <td class="label">Battery</td>
+                    <td class="label">{{ $t('connect_panel.battery_level') }}</td>
                     <td class="value">{{ dualsenseStore.state.battery.level }}%</td>
                 </tr>
                 <tr>
-                    <td class="label">Charging</td>
-                    <td class="value">{{ dualsenseStore.state.battery.charging }}</td>
+                    <td class="label">{{ $t('connect_panel.battery_charging_state') }}</td>
+                    <td class="value">{{ dualsenseStore.state.battery.charging ? $t('connect_panel.battery_level_charging') : $t('connect_panel.battery_level_not_charging') }}</td>
                 </tr>
             </table>
         </div>
         <div class="flex items-center justify-between">
             <button class="dou-sc-btn" @click="onConnectBtnClick">{{
-                'Connect'
+                $t('connect_panel.connect')
             }}</button>
             <div class="flex items-center text-primary/80">
-                <div v-if="!dualsenseStore.isConnected">Not Connected</div>
+                <div v-if="!dualsenseStore.isConnected">{{ $t('connect_panel.not_connected') }}</div>
                 <template v-else>
                     <div v-if="dualsenseStore.state.interface === 'bt'" class="i-mingcute-bluetooth-line"></div>
                     <div v-else class="i-mingcute-usb-line"></div>
-                    <span class="ml-1">Connected</span>
+                    <span class="ml-1">{{ $t('connect_panel.connected') }}</span>
                 </template>
             </div>
         </div>
