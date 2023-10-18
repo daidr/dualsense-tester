@@ -31,5 +31,11 @@
         "roll": "Roll"
     },
     "output_panel": {
+        "mic_mute_led": "Mic status LED",
+        "lightbar_color": "Lightbar Color",
+        "player_led": "Player LED",
+        "player_led_off": "Off",
+        "rumble_left": "Rumble (Left)",
+        "rumble_right": "Rumble (Right)"
     }
 }
