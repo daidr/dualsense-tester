@@ -31,16 +31,16 @@
         "roll": "Roll"
     },
     "output_panel": {
-        "mic_mute_led": "Mic status LED",
-        "lightbar_color": "Lightbar Color",
-        "player_led": "Player LED",
-        "player_led_brightness": "Brightness of Player LED",
+        "mic_mute_led": "Mic status light",
+        "lightbar_color": "Lightbar color",
+        "player_led": "Player light",
+        "player_led_brightness": "Brightness",
         "player_led_brightness_high": "High",
         "player_led_brightness_medium": "Medium",
         "player_led_brightness_low": "Low",
         "player_led_off": "Off",
         "player_led_all": "All",
-        "rumble_heavy": "Rumble (Heavy)",
-        "rumble_soft": "Rumble (Soft)"
+        "rumble_heavy": "Rumble (heavy)",
+        "rumble_soft": "Rumble (soft)"
     }
 }
