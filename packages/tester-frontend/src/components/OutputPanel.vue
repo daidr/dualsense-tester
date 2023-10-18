@@ -98,7 +98,7 @@ const playerLightBrightnessSets = computed(() => {
                 </td>
             </tr>
             <tr>
-                <td class="label">{{ $t('output_panel.rumble_left') }}</td>
+                <td class="label">{{ $t('output_panel.rumble_heavy') }}</td>
                 <td class="value">
                     <div>
                         <SelfResettingSlider class="w-full" :min="0" :max="255" v-model="dualsenseStore.output.motorLeft" />
@@ -106,7 +106,7 @@ const playerLightBrightnessSets = computed(() => {
                 </td>
             </tr>
             <tr>
-                <td class="label">{{ $t('output_panel.rumble_right') }}</td>
+                <td class="label">{{ $t('output_panel.rumble_soft') }}</td>
                 <td class="value">
                     <div>
                         <SelfResettingSlider class="w-full" :min="0" :max="255"
