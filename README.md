@@ -1,25 +1,17 @@
-# dualsense-tester
+# DualSense Tester
 
-This template should help get you started developing with Vue 3 in Vite.
+Test your DualSense controller in the browser.
 
-## Recommended IDE Setup
+<https://ds.daidr.me>
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Features
 
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
-
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+* Test all buttons and axes
+* Test the touchpad
+* Test the gyroscope and accelerometer
+* Test the vibration motors
+* Test the lights
+* **TODO:** Test the adaptive triggers
 
 ## Project Setup
 
@@ -27,20 +19,26 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 pnpm install
 ```
 
+### Compile dualsense.js first
+
+```sh
+pnpm build:lib
+```
+
 ### Compile and Hot-Reload for Development
 
 ```sh
-pnpm dev
+pnpm dev:fe
 ```
 
 ### Type-Check, Compile and Minify for Production
 
 ```sh
-pnpm build
+pnpm build:fe
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+## Credits
 
-```sh
-pnpm lint
-```
+* [Ohjurot/DualSense-Windows](https://github.com/Ohjurot/DualSense-Windows)
+* [flok/pydualsense](https://github.com/flok/pydualsense/)
+* [nondebug/dualsense](https://github.com/nondebug/dualsense)
