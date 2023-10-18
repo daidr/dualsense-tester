@@ -18,21 +18,18 @@
         "battery_level": "电量",
         "battery_charging_state": "充电状态",
         "battery_level_charging": "充电中",
-        "battery_level_not_charging": "未充电"
+        "battery_level_not_charging": "未充电",
+        "headphone_connect_state": "耳机状态"
     },
-    "info_panel":{
+    "info_panel": {
         "tips": "请先连接你的 DualSense 手柄",
         "title_buttons": "基础按钮",
         "title_accelerometer": "加速度计",
         "title_gyroscope": "陀螺仪",
         "pitch": "俯仰角",
         "yaw": "偏航角",
-        "roll": "滚转角",
-        "gyroscope_in_progress": "开发中...",
-        "gyroscope_tips": "陀螺仪可视化正在开发中。"
+        "roll": "滚转角"
     },
     "output_panel": {
-        "in_progress": "开发中...",
-        "tips": "对触感(高级震动)、自适应扳机、灯光的调试功能还在开发中。"
     }
 }
