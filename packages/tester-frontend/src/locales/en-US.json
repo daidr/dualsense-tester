@@ -34,8 +34,13 @@
         "mic_mute_led": "Mic status LED",
         "lightbar_color": "Lightbar Color",
         "player_led": "Player LED",
+        "player_led_brightness": "Brightness of Player LED",
+        "player_led_brightness_high": "High",
+        "player_led_brightness_medium": "Medium",
+        "player_led_brightness_low": "Low",
         "player_led_off": "Off",
-        "rumble_left": "Rumble (Left)",
-        "rumble_right": "Rumble (Right)"
+        "player_led_all": "All",
+        "rumble_heavy": "Rumble (Heavy)",
+        "rumble_soft": "Rumble (Soft)"
     }
 }

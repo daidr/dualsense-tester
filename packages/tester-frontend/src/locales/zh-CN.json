@@ -34,8 +34,13 @@
         "mic_mute_led": "麦克风指示灯",
         "lightbar_color": "灯带颜色",
         "player_led": "玩家指示灯",
+        "player_led_brightness": "玩家指示灯亮度",
+        "player_led_brightness_high": "亮",
+        "player_led_brightness_medium": "中",
+        "player_led_brightness_low": "暗",
         "player_led_off": "关",
-        "rumble_left": "震动（左）",
-        "rumble_right": "震动（右）"
+        "player_led_all": "全部",
+        "rumble_heavy": "震动（重）",
+        "rumble_soft": "震动（轻）"
     }
 }
