@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { DualSense, type DualSenseState } from 'dualsense.js'
-import { ref } from 'vue'
+import { reactive, readonly, ref, watch } from 'vue'
 
 // 节流函数
 function throttle(fn: Function, delay: number) {
@@ -22,6 +22,11 @@ export const useDualSenseStore = defineStore('dualsense', () => {
   })
   const isConnected = ref(false)
   const state = ref(dualsense.state)
+  const output = reactive(dualsense.output)
+
+  watch(output, (newOutput) => {
+    dualsense.output = newOutput
+  })
 
   dualsense.addEventListener('connected', () => {
     isConnected.value = true
@@ -44,6 +49,7 @@ export const useDualSenseStore = defineStore('dualsense', () => {
   return {
     dualsense,
     isConnected,
-    state
+    state: readonly(state),
+    output
   }
 })
