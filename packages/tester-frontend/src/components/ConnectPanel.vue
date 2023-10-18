@@ -10,7 +10,7 @@ const onConnectBtnClick = () => {
 </script>
 
 <template>
-    <div class="dou-sc-container space-y-2 self-start">
+    <div class="dou-sc-container space-y-2 self-start w-full">
         <ContentTips>
             <p v-html="$t('connect_panel.tips')"></p>
         </ContentTips>
@@ -27,6 +27,10 @@ const onConnectBtnClick = () => {
                 <tr>
                     <td class="label">{{ $t('connect_panel.battery_charging_state') }}</td>
                     <td class="value">{{ dualsenseStore.state.battery.charging ? $t('connect_panel.battery_level_charging') : $t('connect_panel.battery_level_not_charging') }}</td>
+                </tr>
+                <tr>
+                    <td class="label">{{ $t('connect_panel.headphone_connect_state') }}</td>
+                    <td class="value">{{ dualsenseStore.state.headphoneConnected ? $t('connect_panel.connected') : $t('connect_panel.not_connected') }}</td>
                 </tr>
             </table>
         </div>
