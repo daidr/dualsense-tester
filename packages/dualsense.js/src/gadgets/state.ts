@@ -17,6 +17,9 @@ export interface DualSenseState {
   /** Touchpad */
   touchpad: DualSenseTouchpad;
 
+  /** Headphone Connected */
+  headphoneConnected: boolean;
+
   /** Timestamp of the last report */
   timestamp: number;
 }
@@ -100,23 +103,19 @@ export interface DualSenseAnalogState {
   /** Right trigger analog value */
   r2: number;
 
-  /** Accelerometer Pitch */
-  accelPitch: number;
-  /** Accelerometer Yaw */
-  accelYaw: number;
-  /** Accelerometer Roll */
-  accelRoll: number;
+  /** Accelerometer X */
+  accelX: number;
+  /** Accelerometer Y */
+  accelY: number;
+  /** Accelerometer Z */
+  accelZ: number;
 
-  /** Angular velocity Pitch */
-  gyroPitch: number;
-  /** Angular velocity Yaw */
-  gyroYaw: number;
-  /** Angular velocity Roll */
-  gyroRoll: number;
-
-  rawGyroPitch: number;
-  rawGyroYaw: number;
-  rawGyroRoll: number;
+  /** Angular velocity X */
+  gyroX: number;
+  /** Angular velocity Y */
+  gyroY: number;
+  /** Angular velocity Z */
+  gyroZ: number;
 }
 
 /** Touchpad State */
@@ -171,6 +170,8 @@ export const defaultState: DualSenseState = {
     level: 0,
   },
 
+  headphoneConnected: false,
+
   axes: {
     leftStickX: 0,
     leftStickY: 0,
@@ -180,17 +181,13 @@ export const defaultState: DualSenseState = {
     l2: 0,
     r2: 0,
 
-    accelPitch: 0,
-    accelYaw: 0,
-    accelRoll: 0,
+    accelX: 0,
+    accelY: 0,
+    accelZ: 0,
 
-    gyroPitch: 0,
-    gyroYaw: 0,
-    gyroRoll: 0,
-
-    rawGyroPitch: 0,
-    rawGyroYaw: 0,
-    rawGyroRoll: 0,
+    gyroX: 0,
+    gyroY: 0,
+    gyroZ: 0,
   },
 
   buttons: {

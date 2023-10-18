@@ -14,14 +14,9 @@ import { DualSenseInterface, DualSenseState, defaultState } from './gadgets/stat
 import { TypedEventTarget, defineTypedCustomEvent, defineTypedEvent } from 'typed-event-target'
 import { normalizeButton, normalizeThumbStickAxis, normalizeTriggerAxis } from './utils/controller'
 
-export type {
-  DualSenseState,
-  DualSenseInterface
-}
+export type { DualSenseState, DualSenseInterface }
 
-export interface DualSenseOptions {
-  persistCalibration?: boolean
-}
+export interface DualSenseOptions {}
 
 export class ControllerStateChangeEvent extends defineTypedCustomEvent<DualSenseState>()(
   'state-change'
@@ -48,13 +43,6 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
   /** Current controller state */
   state: DualSenseState = defaultState
 
-  /**
-   * calibrate gyroscope
-   */
-  #calibratedGyroPitch = 0
-  #calibratedGyroYaw = 0
-  #calibratedGyroRoll = 0
-
   constructor(options: DualSenseOptions) {
     super()
     if (!('hid' in navigator)) {
@@ -67,20 +55,11 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
 
     navigator.hid.addEventListener('connect', () => this.#checkGrantedController())
     navigator.hid.addEventListener('disconnect', ({ device }) => {
-      console.log(device, this[PROPERTY_DEVICE], device === this[PROPERTY_DEVICE])
       if (device === this[PROPERTY_DEVICE]) {
         this.#onConnectionError()
       }
       this.#checkGrantedController()
     })
-
-    if (options.persistCalibration) {
-      this.#calibratedGyroPitch =
-        Number(localStorage.getItem('dsjs:persist:calibratedGyroPitch')) || 0
-      this.#calibratedGyroYaw = Number(localStorage.getItem('dsjs:persist:calibratedGyroYaw')) || 0
-      this.#calibratedGyroRoll =
-        Number(localStorage.getItem('dsjs:persist:calibratedGyroRoll')) || 0
-    }
   }
 
   #onConnectionError() {
@@ -163,45 +142,6 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
   }
 
   /**
-   * Calibrate gyroscope
-   */
-  calibrateGyro(expectedTimeMS: number) {
-    let resolve: () => void
-    const promise = new Promise<void>((r) => {
-      resolve = r
-    })
-    const startTime = Date.now()
-    const gyroPitchs: number[] = []
-    const gyroYaws: number[] = []
-    const gyroRolls: number[] = []
-    const interval = setInterval(() => {
-      gyroPitchs.push(this.state.axes.rawGyroPitch)
-      gyroYaws.push(this.state.axes.rawGyroYaw)
-      gyroRolls.push(this.state.axes.rawGyroRoll)
-      if (startTime + expectedTimeMS < Date.now()) {
-        clearInterval(interval)
-        this.#calibratedGyroPitch = gyroPitchs.reduce((a, b) => a + b) / gyroPitchs.length
-        this.#calibratedGyroYaw = gyroYaws.reduce((a, b) => a + b) / gyroYaws.length
-        this.#calibratedGyroRoll = gyroRolls.reduce((a, b) => a + b) / gyroRolls.length
-
-        if (this[PROPERTY_OPTIONS]['persistCalibration']) {
-          localStorage.setItem(
-            'dsjs:persist:calibratedGyroPitch',
-            this.#calibratedGyroPitch.toString()
-          )
-          localStorage.setItem('dsjs:persist:calibratedGyroYaw', this.#calibratedGyroYaw.toString())
-          localStorage.setItem(
-            'dsjs:persist:calibratedGyroRoll',
-            this.#calibratedGyroRoll.toString()
-          )
-        }
-        resolve()
-      }
-    }, 10)
-    return promise
-  }
-
-  /**
    * Parses a report sent from the controller and updates the state.
    *
    * This function is called internally by the library each time a report is received.
@@ -215,11 +155,15 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
 
     if (this.state.interface == DualSenseInterface.USB) {
       if (reportId == 0x01) this.#handleUsbInputReport01(report)
-      else return
+      else {
+        return
+      }
     } else if (this.state.interface == DualSenseInterface.Bluetooth) {
       if (reportId == 0x01) this.#handleBluetoothInputReport01(report)
       else if (reportId == 0x31) this.#handleBluetoothInputReport31(report)
-      else return
+      else {
+        return
+      }
     } else {
       return
     }
@@ -243,13 +187,13 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
     // const timestamp1 = report.getUint8(12)
     // const timestamp2 = report.getUint8(13)
     // const timestamp3 = report.getUint8(14)
-    const accelX = report.getInt16(15, true)
-    const accelY = report.getInt16(17, true)
-    const accelZ = report.getInt16(19, true)
+    const gyroX = report.getInt16(15, true)
+    const gyroY = report.getInt16(17, true)
+    const gyroZ = report.getInt16(19, true)
 
-    const gyroX = report.getInt16(21, true)
-    const gyroY = report.getInt16(23, true)
-    const gyroZ = report.getInt16(25, true)
+    const accelX = report.getInt16(21, true)
+    const accelY = report.getInt16(23, true)
+    const accelZ = report.getInt16(25, true)
 
     // const sensorTimestamp0 = report.getUint8(27)
     // const sensorTimestamp1 = report.getUint8(28)
@@ -312,6 +256,7 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
     const batteryLevelPercent = Math.min((battery0 & 0x0f) * 10 + 5, 100)
     const batteryFull = !!(battery0 & 0x20)
     const batteryCharging = !!(battery1 & 0x08)
+    const headphoneConnected = !!(battery1 & 0x01)
 
     this.state.buttons.cross = cross
     this.state.buttons.circle = circle
@@ -364,15 +309,12 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
       })
     }
 
-    this.state.axes.rawGyroPitch = gyroX
-    this.state.axes.rawGyroYaw = gyroY
-    this.state.axes.rawGyroRoll = gyroZ
-    this.state.axes.gyroPitch = gyroX - this.#calibratedGyroPitch
-    this.state.axes.gyroYaw = gyroY - this.#calibratedGyroYaw
-    this.state.axes.gyroRoll = gyroZ - this.#calibratedGyroRoll
-    this.state.axes.accelPitch = accelX
-    this.state.axes.accelYaw = accelY
-    this.state.axes.accelRoll = accelZ
+    this.state.axes.gyroX = gyroX
+    this.state.axes.gyroY = gyroY
+    this.state.axes.gyroZ = gyroZ
+    this.state.axes.accelX = accelX
+    this.state.axes.accelY = accelY
+    this.state.axes.accelZ = accelZ
 
     // TODO: add support for trigger feedback
     // l2feedback = l2feedback & 0x10;
@@ -383,6 +325,7 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
     this.state.battery.charging = batteryCharging
     this.state.battery.full = batteryFull
     this.state.battery.level = batteryLevelPercent
+    this.state.headphoneConnected = headphoneConnected
 
     this.dispatchEvent(
       new ControllerStateChangeEvent({
@@ -465,6 +408,7 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
     this.state.battery.charging = false
     this.state.battery.full = false
     this.state.battery.level = NaN
+    this.state.headphoneConnected = false
 
     this.dispatchEvent(
       new ControllerStateChangeEvent({
@@ -492,13 +436,13 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
     // const timestamp1 = report.getUint8(13)
     // const timestamp2 = report.getUint8(14)
     // const timestamp3 = report.getUint8(15)
-    const accelX = report.getInt16(15, true)
-    const accelY = report.getInt16(17, true)
-    const accelZ = report.getInt16(19, true)
+    const gyroX = report.getInt16(16, true)
+    const gyroY = report.getInt16(18, true)
+    const gyroZ = report.getInt16(20, true)
 
-    const gyroX = report.getInt16(21, true)
-    const gyroY = report.getInt16(23, true)
-    const gyroZ = report.getInt16(25, true)
+    const accelX = report.getInt16(22, true)
+    const accelY = report.getInt16(24, true)
+    const accelZ = report.getInt16(26, true)
     // bytes 28-32?
     const touch00 = report.getUint8(33)
     const touch01 = report.getUint8(34)
@@ -556,6 +500,7 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
     const batteryLevelPercent = Math.min((battery0 & 0x0f) * 10 + 5, 100)
     const batteryFull = !!(battery0 & 0x20)
     const batteryCharging = !!(battery1 & 0x08)
+    const headphoneConnected = !!(battery1 & 0x01)
 
     this.state.buttons.cross = cross
     this.state.buttons.circle = circle
@@ -605,15 +550,12 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
       })
     }
 
-    this.state.axes.rawGyroPitch = gyroX
-    this.state.axes.rawGyroYaw = gyroY
-    this.state.axes.rawGyroRoll = gyroZ
-    this.state.axes.gyroPitch = gyroX - this.#calibratedGyroPitch
-    this.state.axes.gyroYaw = gyroY - this.#calibratedGyroYaw
-    this.state.axes.gyroRoll = gyroZ - this.#calibratedGyroRoll
-    this.state.axes.accelPitch = accelX
-    this.state.axes.accelYaw = accelY
-    this.state.axes.accelPitch = accelZ
+    this.state.axes.gyroX = gyroX
+    this.state.axes.gyroY = gyroY
+    this.state.axes.gyroZ = gyroZ
+    this.state.axes.accelX = accelX
+    this.state.axes.accelY = accelY
+    this.state.axes.accelZ = accelZ
 
     // TODO: add support for trigger feedback
     // l2feedback = l2feedback & 0x10;
@@ -624,6 +566,7 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
     this.state.battery.charging = batteryCharging
     this.state.battery.full = batteryFull
     this.state.battery.level = batteryLevelPercent
+    this.state.headphoneConnected = headphoneConnected
 
     this.dispatchEvent(
       new ControllerStateChangeEvent({
