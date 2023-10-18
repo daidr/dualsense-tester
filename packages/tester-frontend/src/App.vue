@@ -6,7 +6,7 @@ import { usePageStore } from './store/page';
 import ConnectPanel from './components/ConnectPanel.vue';
 import InfoPanel from './components/InfoPanel.vue';
 import { useDualSenseStore } from './store/dualsense';
-import ContentTips from './components/common/ContentTips.vue';
+import OutputPanel from './components/OutputPanel.vue';
 
 const dualsenseStore = useDualSenseStore()
 const pageStore = usePageStore()
@@ -21,13 +21,7 @@ const { isWebHIDSupported } = storeToRefs(pageStore)
       <div class="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-3 min-h-[var(--min-height)]">
         <div class="flex flex-col gap-3 items-start">
           <ConnectPanel />
-
-          <!-- TODO: Output report -->
-          <div v-if="dualsenseStore" class="dou-sc-container w-full">
-            <ContentTips icon="i-icon-park-twotone-code-laptop" :title="$t('output_panel.in_progress')">
-              {{ $t('output_panel.tips') }}
-            </ContentTips>
-          </div>
+          <OutputPanel v-if="dualsenseStore.isConnected" />
         </div>
         <div class="dou-sc-container">
           <InfoPanel />
