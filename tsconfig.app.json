@@ -16,10 +16,7 @@
       "@/*": [
         "./packages/tester-frontend/src/*"
       ]
-    },
-    "types": [
-      "@intlify/unplugin-vue-i18n/messages"
-    ]
+    }
   },
   "typeRoots": [
     "packages/tester-frontend/src/@types"
