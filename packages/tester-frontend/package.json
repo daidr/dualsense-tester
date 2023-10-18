@@ -28,6 +28,7 @@
     "npm-run-all2": "^6.0.6",
     "sass": "^1.69.3",
     "unocss": "^0.56.5",
+    "vite-plugin-pwa": "^0.16.5",
     "vue-tsc": "^1.8.11"
   }
 }
