@@ -13,8 +13,10 @@ import {
 import { DualSenseInterface, DualSenseState, defaultState } from './gadgets/state'
 import { TypedEventTarget, defineTypedCustomEvent, defineTypedEvent } from 'typed-event-target'
 import { normalizeButton, normalizeThumbStickAxis, normalizeTriggerAxis } from './utils/controller'
+import { DualSenseOutput, defaultOutput } from './gadgets/output'
+import { fillDualSenseChecksum } from './utils/crc32'
 
-export type { DualSenseState, DualSenseInterface }
+export type { DualSenseState, DualSenseInterface, DualSenseOutput }
 
 export interface DualSenseOptions {}
 
@@ -35,13 +37,19 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
   /** Internal Options */
   [PROPERTY_OPTIONS]: DualSenseOptions
 
+  /** Internal Output Seq index */
+  #outputSeq = 1
+
   /** Raw contents of the last HID Report sent by the controller. */
   lastReport?: ArrayBuffer
   /** Raw contents of the last HID Report sent to the controller. */
   lastSentReport?: ArrayBuffer
 
   /** Current controller state */
-  state: DualSenseState = defaultState
+  state: DualSenseState = { ...defaultState }
+
+  /** Current output report */
+  output: DualSenseOutput = { ...defaultOutput }
 
   constructor(options: DualSenseOptions) {
     super()
@@ -60,6 +68,8 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
       }
       this.#checkGrantedController()
     })
+
+    this.#onRAFBound()
   }
 
   #onConnectionError() {
@@ -573,5 +583,175 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
         detail: this.state
       })
     )
+  }
+
+  #onRAFBound = this.#onRAF.bind(this)
+  #sendOutputReportBound = this.#sendOutputReport.bind(this)
+  #setOutputReportDataBound = this.#setOutputReportData.bind(this)
+
+  async #onRAF() {
+    window.requestAnimationFrame(this.#onRAFBound)
+    if (this[PROPERTY_DEVICE]) {
+      const sent = await this.#sendOutputReportBound()
+      if (!sent) this.#onConnectionError()
+    }
+  }
+
+  /**
+   * Sends a Output Report to the controller.
+   */
+  async #sendOutputReport() {
+    if (this.state.interface == DualSenseInterface.USB) {
+      return await this.#sendOutputReportUSB()
+    } else {
+      return await this.#sendOutputReportBluetooth()
+    }
+  }
+
+  /**
+   * Sends a Output Report to the controller via USB.
+   */
+  async #sendOutputReportUSB() {
+    const reportId = 0x02
+    const reportData = new Uint8Array(47)
+
+    const common = new DataView(reportData.buffer, 0, 47)
+    const r2Effect = new DataView(common.buffer, 10, 8)
+    const l2Effect = new DataView(common.buffer, 21, 8)
+
+    // Set output report data
+    this.#setOutputReportDataBound(common, r2Effect, l2Effect)
+
+    // Send output report
+    try {
+      await this[PROPERTY_DEVICE]!.sendReport(reportId, reportData)
+    } catch (error) {
+      return false
+    }
+
+    return true
+  }
+
+  /**
+   * Sends a Output Report to the controller via Bluetooth.
+   */
+  async #sendOutputReportBluetooth() {
+    const reportId = 0x31
+    const reportData = new Uint8Array(77)
+
+    // seq
+    reportData[0] = this.#outputSeq << 4
+    if (++this.#outputSeq == 16) this.#outputSeq = 0
+
+    // tag
+    reportData[1] = 0x10 // DS_OUTPUT_TAG
+
+    const common = new DataView(reportData.buffer, 2, 47)
+    const r2Effect = new DataView(common.buffer, 12, 8)
+    const l2Effect = new DataView(common.buffer, 23, 8)
+
+    // Set output report data
+    this.#setOutputReportDataBound(common, r2Effect, l2Effect)
+
+    // crc32
+    fillDualSenseChecksum(reportId, reportData)
+
+    // Send output report
+    try {
+      await this[PROPERTY_DEVICE]!.sendReport(reportId, reportData)
+    } catch (error) {
+      return false
+    }
+
+    return true
+  }
+
+  /** Set output report data */
+  #setOutputReportData(common: DataView, r2Effect: DataView, l2Effect: DataView) {
+    // valid_flag0
+    // bit 0: COMPATIBLE_VIBRATION
+    // bit 1: HAPTICS_SELECT
+    common.setUint8(0, 0xff)
+
+    // valid_flag1
+    // bit 0: MIC_MUTE_LED_CONTROL_ENABLE
+    // bit 1: POWER_SAVE_CONTROL_ENABLE
+    // bit 2: LIGHTBAR_CONTROL_ENABLE
+    // bit 3: RELEASE_LEDS
+    // bit 4: PLAYER_INDICATOR_CONTROL_ENABLE
+    common.setUint8(1, 0xf7)
+
+    // DualShock 4 compatibility mode.
+    common.setUint8(2, this.output.motorRight)
+    common.setUint8(3, this.output.motorLeft)
+
+    // mute_button_led
+    // 0: mute LED off
+    // 1: mute LED on
+    common.setUint8(8, this.output.micLight ? 0x01 : 0x00)
+
+    // power_save_control
+    // bit 4: POWER_SAVE_CONTROL_MIC_MUTE
+    common.setUint8(9, this.output.micLight ? 0x00 : 0x10)
+
+    // TODO: effect
+    r2Effect.setUint8(0, 0x00)
+    l2Effect.setUint8(0, 0x00)
+    r2Effect.setUint8(1, 0x00)
+    l2Effect.setUint8(1, 0x00)
+    r2Effect.setUint8(2, 0x00)
+    l2Effect.setUint8(2, 0x00)
+    r2Effect.setUint8(3, 0x00)
+    l2Effect.setUint8(3, 0x00)
+    r2Effect.setUint8(4, 0x00)
+    l2Effect.setUint8(4, 0x00)
+    r2Effect.setUint8(5, 0x00)
+    l2Effect.setUint8(5, 0x00)
+    r2Effect.setUint8(6, 0x00)
+    l2Effect.setUint8(6, 0x00)
+    r2Effect.setUint8(7, 0x00)
+    l2Effect.setUint8(7, 0x00)
+
+    // player_leds
+    common.setUint8(38, 3)
+
+    // valid_flag2
+    // bit 1: LIGHTBAR_SETUP_CONTROL_ENABLE
+    common.setUint8(39, 0x02)
+
+
+    // lightbar_setup
+    // 1: Disable LEDs
+    // 2: Enable LEDs
+    common.setUint8(41, 0x02)
+
+    // player_leds_brightness
+    common.setUint8(42, this.output.playerLightBrightness)
+
+    // player_leds
+    // 0x00: LED off
+    // 0x04: player 1
+    // 0x0a: player 2
+    // 0x15: player 3
+    // 0x1b: player 4
+    // 0x1f: all
+    if (this.output.playerLight == 0) {
+      common.setUint8(43, 0x00)
+    } else if (this.output.playerLight == 1) {
+      common.setUint8(43, 0x04)
+    } else if (this.output.playerLight == 2) {
+      common.setUint8(43, 0x0a)
+    } else if (this.output.playerLight == 3) {
+      common.setUint8(43, 0x15)
+    } else if (this.output.playerLight == 4) {
+      common.setUint8(43, 0x1b)
+    } else if (this.output.playerLight == 5) {
+      common.setUint8(43, 0x1f)
+    }
+
+    // Lightbar RGB
+    common.setUint8(44, this.output.lightbar[0])
+    common.setUint8(45, this.output.lightbar[1])
+    common.setUint8(46, this.output.lightbar[2])
   }
 }
