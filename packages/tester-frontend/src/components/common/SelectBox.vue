@@ -1,6 +1,6 @@
 <script setup lang="ts" generic="T extends string | number | symbol">
-import { useElementBounding } from '@vueuse/core';
-import { ref } from 'vue';
+import { useElementBounding, useWindowSize } from '@vueuse/core';
+import { computed, ref } from 'vue';
 
 const modelValue = defineModel<T>({ required: true })
 
@@ -18,7 +18,17 @@ const updateValue = (value: T) => {
 
 const open = ref(false)
 const SelectBoxRef = ref<HTMLElement | null>(null)
+const PopupRef = ref<HTMLElement | null>(null)
 const { x, y, height } = useElementBounding(SelectBoxRef)
+const { width } = useElementBounding(PopupRef)
+const { width: wWidth } = useWindowSize()
+const safeX = computed(() => {
+    if (x.value + width.value + 20 < wWidth.value) {
+        return x.value;
+    } else {
+        return wWidth.value - width.value - 20;
+    }
+})
 </script>
 
 <template>
@@ -32,8 +42,8 @@ const { x, y, height } = useElementBounding(SelectBoxRef)
         <Teleport to="body">
             <div v-if="open" class="mask" @click="open = false"></div>
             <Transition name="blur-fade">
-                <div v-if="open" class="popup-wrapper" :style="{
-                    '--x': x + 'px',
+                <div ref="PopupRef" v-if="open" class="popup-wrapper" :style="{
+                    '--x': safeX + 'px',
                     '--y': y + height + 5 + 'px',
                 }">
                     <div class="popup-content">
