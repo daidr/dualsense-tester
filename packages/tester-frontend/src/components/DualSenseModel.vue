@@ -177,11 +177,11 @@ svg {
     }
 
     .ds-active {
-        @apply fill-primary stroke-primary;
+        @apply important-fill-primary important-stroke-primary;
     }
 
     .ds-touchpad-active {
-        @apply stroke-primary;
+        @apply important-stroke-primary;
     }
 }
 </style>
