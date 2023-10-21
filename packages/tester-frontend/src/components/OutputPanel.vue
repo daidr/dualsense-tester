@@ -3,10 +3,11 @@ import { useDualSenseStore } from '@/store/dualsense';
 import SwitchBox from './common/SwitchBox.vue';
 import ColorInput from './common/ColorInput.vue';
 import { hexToRgb, rgbToHex } from '@/utils/color.util';
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import GroupedButton from './common/GroupedButton.vue';
 import { useI18n } from 'vue-i18n';
 import SelfResettingSlider from './common/SelfResettingSlider.vue';
+import TriggerEffect from './TriggerEffect.vue';
 
 const dualsenseStore = useDualSenseStore()
 console.log(rgbToHex(dualsenseStore.output.lightbar))
@@ -114,6 +115,8 @@ const playerLightBrightnessSets = computed(() => {
                     </div>
                 </td>
             </tr>
+            <TriggerEffect is="left" />
+            <TriggerEffect is="right" />
         </table>
     </div>
 </template>
@@ -122,15 +125,20 @@ const playerLightBrightnessSets = computed(() => {
 table {
     @apply w-full;
 
-    .label {
-        @apply text-primary/70 font-bold;
-    }
 
-    .value {
+}
 
-        &>div {
-            @apply flex items-center justify-end;
-        }
+.label,
+:deep(.label) {
+    @apply text-primary/70 font-bold whitespace-nowrap;
+}
+
+.value,
+:deep(.value) {
+    @apply w-full pl-2;
+
+    &>div {
+        @apply flex items-center justify-end;
     }
 }
 </style>

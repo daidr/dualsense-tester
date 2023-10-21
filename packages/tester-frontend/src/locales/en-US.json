@@ -41,6 +41,20 @@
         "player_led_off": "Off",
         "player_led_all": "All",
         "rumble_heavy": "Rumble (heavy)",
-        "rumble_soft": "Rumble (soft)"
+        "rumble_soft": "Rumble (soft)",
+        "left_trigger_mode": "Left trigger mode",
+        "right_trigger_mode": "Right trigger mode",
+        "trigger_mode": {
+            "off": "Off",
+            "resitance": "Resitance",
+            "trigger": "Trigger",
+            "auto_trigger": "Automatic Trigger"
+        },
+        "trigger_values": {
+            "start_pos": "Start",
+            "end_pos": "End",
+            "frequency": "Frequency",
+            "force": "Force"
+        }
     }
 }
