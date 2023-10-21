@@ -14,7 +14,7 @@ const onButtonClick = (value: T) => {
 </script>
 
 <template>
-    <div class="dou-sc-colorborder h-1.25rem p-2px rounded-10px relative flex gap-1">
+    <div class="dou-sc-colorborder h-1.5rem p-2px rounded-full relative flex gap-1">
         <button v-for="button of sets" :key="button.value" :class="{ active: button.value === modelValue }"
             @click="onButtonClick(button.value)">
             {{ button.label }}

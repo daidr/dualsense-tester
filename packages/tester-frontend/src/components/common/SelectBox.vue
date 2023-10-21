@@ -1,6 +1,6 @@
 <script setup lang="ts" generic="T extends string | number | symbol">
 import { useElementBounding, useWindowSize } from '@vueuse/core';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 const modelValue = defineModel<T>({ required: true })
 
@@ -19,7 +19,7 @@ const updateValue = (value: T) => {
 const open = ref(false)
 const SelectBoxRef = ref<HTMLElement | null>(null)
 const PopupRef = ref<HTMLElement | null>(null)
-const { x, y, height } = useElementBounding(SelectBoxRef)
+const { x, y, height, update } = useElementBounding(SelectBoxRef)
 const { width } = useElementBounding(PopupRef)
 const { width: wWidth } = useWindowSize()
 const safeX = computed(() => {
@@ -28,6 +28,10 @@ const safeX = computed(() => {
     } else {
         return wWidth.value - width.value - 20;
     }
+})
+
+watch(open, () => {
+    update()
 })
 </script>
 
@@ -99,6 +103,10 @@ const safeX = computed(() => {
 
     &:active {
         @apply bg-primary text-white;
+
+        .label {
+            @apply text-white;
+        }
     }
 }
 </style>
