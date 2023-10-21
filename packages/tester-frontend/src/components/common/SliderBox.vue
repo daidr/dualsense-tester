@@ -39,29 +39,14 @@ const onPointerMove = (e: PointerEvent) => {
     } else {
         modelValue.value = current
     }
-    startX = ~~currentX
+    startX = currentX
 }
 
 const onPointerUp = (e: PointerEvent) => {
     (e.target as HTMLDivElement).releasePointerCapture(e.pointerId)
     window.removeEventListener('pointermove', onPointerMove)
     window.removeEventListener('pointerup', onPointerUp)
-    autoResetModelValue()
 }
-
-const autoResetModelValue = () => {
-    let initialSpeed = 1
-    const interval = setInterval(() => {
-        if (modelValue.value <= 2) {
-            modelValue.value = 0
-            clearInterval(interval)
-        } else {
-            modelValue.value = Math.max(0, modelValue.value - initialSpeed)
-        }
-        initialSpeed = initialSpeed + 1
-    }, 10)
-}
-
 </script>
 
 <template>
