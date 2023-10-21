@@ -11,7 +11,7 @@ const onConnectBtnClick = () => {
 
 <template>
     <div class="dou-sc-container space-y-2 self-start w-full">
-        <ContentTips>
+        <ContentTips v-if="!dualsenseStore.isConnected">
             <p v-html="$t('connect_panel.tips')"></p>
         </ContentTips>
         <div v-if="dualsenseStore.isConnected">
