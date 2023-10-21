@@ -37,12 +37,12 @@ const getStickPoint = (x: number) => {
     <svg viewBox="0 0 1117 892">
         <path id="r2"
             d="M866.471,116.785l114.214,0c12.312,0 -1.248,-110.916 -78.919,-110.916c-37.32,-0 -51.81,110.916 -35.295,110.916Z"
-            class="ds-stroke-normal" :class="{ 'ds-active': state.buttons.r2 }" :style="{
+            class="ds-stroke-normal" :class="{ 'ds-trigger-active': state.buttons.r2 }" :style="{
                 '--un-fill-opacity': state.axes.r2
             }" />
         <path id="l2"
             d="M252.212,116.785l-114.214,0c-12.312,0 1.248,-110.916 78.919,-110.916c37.32,-0 51.81,110.916 35.295,110.916Z"
-            class="ds-stroke-normal" :class="{ 'ds-active': state.buttons.l2 }" :style="{
+            class="ds-stroke-normal" :class="{ 'ds-trigger-active': state.buttons.l2 }" :style="{
                 '--un-fill-opacity': state.axes.l2
             }" />
         <g id="dpad-up">
@@ -178,6 +178,10 @@ svg {
 
     .ds-active {
         @apply important-fill-primary important-stroke-primary;
+    }
+
+    .ds-trigger-active {
+        @apply fill-primary important-stroke-primary;
     }
 
     .ds-touchpad-active {

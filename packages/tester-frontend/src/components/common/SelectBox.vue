@@ -90,7 +90,5 @@ const { x, y, height } = useElementBounding(SelectBoxRef)
     &:active {
         @apply bg-primary text-white;
     }
-
-
 }
 </style>
