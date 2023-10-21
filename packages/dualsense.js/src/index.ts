@@ -695,22 +695,26 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
     common.setUint8(9, this.output.micLight ? 0x00 : 0x10)
 
     // TODO: effect
-    r2Effect.setUint8(0, 0x00)
-    l2Effect.setUint8(0, 0x00)
-    r2Effect.setUint8(1, 0x00)
-    l2Effect.setUint8(1, 0x00)
-    r2Effect.setUint8(2, 0x00)
-    l2Effect.setUint8(2, 0x00)
-    r2Effect.setUint8(3, 0x00)
-    l2Effect.setUint8(3, 0x00)
-    r2Effect.setUint8(4, 0x00)
-    l2Effect.setUint8(4, 0x00)
-    r2Effect.setUint8(5, 0x00)
-    l2Effect.setUint8(5, 0x00)
-    r2Effect.setUint8(6, 0x00)
-    l2Effect.setUint8(6, 0x00)
-    r2Effect.setUint8(7, 0x00)
-    l2Effect.setUint8(7, 0x00)
+    // r2Effect.setUint8(0, 0x00)
+    // l2Effect.setUint8(0, 0x00)
+    // r2Effect.setUint8(1, 0x00)
+    // l2Effect.setUint8(1, 0x00)
+    // r2Effect.setUint8(2, 0x00)
+    // l2Effect.setUint8(2, 0x00)
+    // r2Effect.setUint8(3, 0x00)
+    // l2Effect.setUint8(3, 0x00)
+    // r2Effect.setUint8(4, 0x00)
+    // l2Effect.setUint8(4, 0x00)
+    // r2Effect.setUint8(5, 0x00)
+    // l2Effect.setUint8(5, 0x00)
+    // r2Effect.setUint8(6, 0x00)
+    // l2Effect.setUint8(6, 0x00)
+    // r2Effect.setUint8(7, 0x00)
+    // l2Effect.setUint8(7, 0x00)
+
+    // trigger effect
+    setTriggerEffect(l2Effect, this.output.leftTriggerEffect, this.output.leftTriggerEffectData)
+    setTriggerEffect(r2Effect, this.output.rightTriggerEffect, this.output.rightTriggerEffectData)
 
     // player_leds
     common.setUint8(38, 3)
@@ -718,7 +722,6 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
     // valid_flag2
     // bit 1: LIGHTBAR_SETUP_CONTROL_ENABLE
     common.setUint8(39, 0x02)
-
 
     // lightbar_setup
     // 1: Disable LEDs
@@ -753,5 +756,53 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
     common.setUint8(44, this.output.lightbar[0])
     common.setUint8(45, this.output.lightbar[1])
     common.setUint8(46, this.output.lightbar[2])
+  }
+}
+
+const setTriggerEffect = (effect: DataView, effectMode: number, effectData: number[]) => {
+  effect.setUint8(0, 0x00)
+  effect.setUint8(1, 0x00)
+  effect.setUint8(2, 0x00)
+  effect.setUint8(3, 0x00)
+  effect.setUint8(4, 0x00)
+  effect.setUint8(5, 0x00)
+  effect.setUint8(6, 0x00)
+  effect.setUint8(7, 0x00)
+  switch (effectMode) {
+    case 0:
+      // off
+      break
+    case 1:
+      // resitance
+      effect.setUint8(0, 0x01)
+      // start pos
+      effect.setUint8(1, effectData[0])
+      // force
+      effect.setUint8(2, effectData[1])
+      break
+    case 2:
+      // soft trigger
+      effect.setUint8(0, 0x02)
+
+      // start pos
+      effect.setUint8(1, effectData[0])
+      // end pos
+      effect.setUint8(2, effectData[1])
+      // force
+      effect.setUint8(3, effectData[2])
+      break
+    case 3:
+      // automatic trigger
+      effect.setUint8(0, 0x06)
+
+      // start pos
+      effect.setUint8(3, effectData[0])
+
+      // force
+      effect.setUint8(2, effectData[1])
+
+      // frequency
+      effect.setUint8(1, effectData[2])
+      break
   }
 }

@@ -27,6 +27,25 @@ export interface DualSenseOutput {
     motorLeft: number;
     /** The right rumble motor intensity (0-255). */
     motorRight: number;
+    /** The right trigger effect
+     * 
+     * 0 = off
+     * 1 = resitance
+     * 2 = soft trigger
+     * 3 = automatic trigger
+     */
+    rightTriggerEffect: number;
+    /** The left trigger effect
+     * 
+     * 0 = off
+     * 1 = resitance
+     * 2 = soft trigger
+     * 3 = automatic trigger
+     */
+    leftTriggerEffect: number;
+
+    rightTriggerEffectData: number[];
+    leftTriggerEffectData: number[];
 }
 
 /**
@@ -40,4 +59,8 @@ export const defaultOutput: DualSenseOutput = {
     motorLeft: 0,
     motorRight: 0,
     playerLightBrightness: 0,
+    rightTriggerEffect: 0,
+    leftTriggerEffect: 0,
+    rightTriggerEffectData: [],
+    leftTriggerEffectData: [],
 }
