@@ -42,8 +42,8 @@
         "player_led_all": "All",
         "rumble_heavy": "Rumble (heavy)",
         "rumble_soft": "Rumble (soft)",
-        "left_trigger_mode": "Left trigger mode",
-        "right_trigger_mode": "Right trigger mode",
+        "left_trigger_mode": "Left trigger",
+        "right_trigger_mode": "Right trigger",
         "trigger_mode": {
             "off": "Off",
             "resitance": "Resitance",

@@ -98,6 +98,30 @@ watch([startpos, endpos, force, frequency], () => {
             break;
     }
 })
+
+watch(currentTriggerEffect, () => {
+    switch (currentTriggerEffect.value) {
+        case 1:
+            // resistance
+            startpos.value = 40
+            force.value = 230
+            break;
+        case 2:
+            // trigger
+            startpos.value = 15
+            endpos.value = 100
+            force.value = 255
+            break;
+        case 3:
+            // automatic trigger
+            startpos.value = 20
+            force.value = 255
+            frequency.value = 10
+            break;
+    }
+}, {
+    immediate: true
+})
 </script>
 
 <template>
