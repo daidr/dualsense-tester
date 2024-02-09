@@ -17,12 +17,12 @@ function throttle(fn: Function, delay: number) {
 }
 
 export const useDualSenseStore = defineStore('dualsense', () => {
-  if(!window.navigator.hid) {
+  if (!('hid' in window.navigator)) {
     return {
-      dualsense: null,
+      dualsense: {} as DualSense,
       isConnected: ref(false),
-      state: ref(null),
-      output: null
+      state: ref({} as DualSenseState),
+      output: {} as typeof DualSense.prototype.output
     }
   }
   const dualsense = new DualSense({
@@ -45,12 +45,12 @@ export const useDualSenseStore = defineStore('dualsense', () => {
   })
 
   const updateState = (detail: DualSenseState) => {
-    state.value = {...detail}
+    state.value = { ...detail }
   }
 
   const throttledUpdateState = throttle(updateState, 10)
 
-  dualsense.addEventListener('state-change', ({ detail }) => {
+  dualsense.addEventListener('state-change', ({ detail }: { detail: any }) => {
     throttledUpdateState(detail)
   })
 
