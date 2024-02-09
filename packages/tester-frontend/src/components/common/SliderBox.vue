@@ -16,7 +16,6 @@ const { width } = useElementBounding(TrackRef, {
 })
 
 const factor = computed(() => {
-    console.log(width.value / (props.max - props.min))
     return width.value / (props.max - props.min)
 })
 

@@ -6,8 +6,6 @@ import { getAvailableLanguages } from '@/utils/lang.util';
 const i18n = useI18n();
 
 const availableLocales = getAvailableLanguages();
-
-console.log(availableLocales)
 </script>
 
 <template>

@@ -17,6 +17,14 @@ function throttle(fn: Function, delay: number) {
 }
 
 export const useDualSenseStore = defineStore('dualsense', () => {
+  if(!window.navigator.hid) {
+    return {
+      dualsense: null,
+      isConnected: ref(false),
+      state: ref(null),
+      output: null
+    }
+  }
   const dualsense = new DualSense({
     persistCalibration: true
   })
