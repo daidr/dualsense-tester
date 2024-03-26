@@ -30,7 +30,7 @@ export interface DualSenseOutput {
     /** The right trigger effect
      * 
      * 0 = off
-     * 1 = resitance
+     * 1 = resistance
      * 2 = soft trigger
      * 3 = automatic trigger
      */
@@ -38,7 +38,7 @@ export interface DualSenseOutput {
     /** The left trigger effect
      * 
      * 0 = off
-     * 1 = resitance
+     * 1 = resistance
      * 2 = soft trigger
      * 3 = automatic trigger
      */
