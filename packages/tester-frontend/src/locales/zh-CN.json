@@ -46,7 +46,7 @@
         "right_trigger_mode": "右自适应扳机（右）",
         "trigger_mode": {
             "off": "关",
-            "resitance": "阻尼",
+            "resistance": "阻尼",
             "trigger": "扳机",
             "auto_trigger": "自动步枪扳机"
         },

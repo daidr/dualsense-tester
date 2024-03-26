@@ -773,7 +773,7 @@ const setTriggerEffect = (effect: DataView, effectMode: number, effectData: numb
       // off
       break
     case 1:
-      // resitance
+      // resistance
       effect.setUint8(0, 0x01)
       // start pos
       effect.setUint8(1, effectData[0])

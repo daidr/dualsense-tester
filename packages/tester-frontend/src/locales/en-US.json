@@ -46,7 +46,7 @@
         "right_trigger_mode": "Right trigger",
         "trigger_mode": {
             "off": "Off",
-            "resitance": "Resitance",
+            "resistance": "resistance",
             "trigger": "Trigger",
             "auto_trigger": "Automatic Trigger"
         },
