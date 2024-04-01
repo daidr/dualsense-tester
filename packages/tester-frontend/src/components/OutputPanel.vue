@@ -102,7 +102,8 @@ const playerLightBrightnessSets = computed(() => {
                 <td class="label">{{ $t('output_panel.rumble_heavy') }}</td>
                 <td class="value">
                     <div>
-                        <SelfResettingSlider class="w-full" :min="0" :max="255" v-model="dualsenseStore.output.motorLeft" />
+                        <SelfResettingSlider class="w-full" :min="0" :max="255"
+                            v-model="dualsenseStore.output.motorLeft" />
                     </div>
                 </td>
             </tr>
@@ -130,12 +131,12 @@ table {
 
 .label,
 :deep(.label) {
-    @apply text-primary/70 font-bold whitespace-nowrap;
+    @apply text-primary/70 font-bold whitespace-pre-wrap;
 }
 
 .value,
 :deep(.value) {
-    @apply w-full pl-2;
+    @apply max-w-50% pl-2;
 
     &>div {
         @apply flex items-center justify-end;
