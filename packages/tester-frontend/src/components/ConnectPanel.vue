@@ -26,18 +26,21 @@ const onConnectBtnClick = () => {
                 </tr>
                 <tr>
                     <td class="label">{{ $t('connect_panel.battery_charging_state') }}</td>
-                    <td class="value">{{ dualsenseStore.state.battery.charging ? $t('connect_panel.battery_level_charging') : $t('connect_panel.battery_level_not_charging') }}</td>
+                    <td class="value">{{ dualsenseStore.state.battery.charging ?
+            $t('connect_panel.battery_level_charging') : $t('connect_panel.battery_level_not_charging') }}
+                    </td>
                 </tr>
                 <tr>
                     <td class="label">{{ $t('connect_panel.headphone_connect_state') }}</td>
-                    <td class="value">{{ dualsenseStore.state.headphoneConnected ? $t('connect_panel.connected') : $t('connect_panel.not_connected') }}</td>
+                    <td class="value">{{ dualsenseStore.state.headphoneConnected ? $t('connect_panel.connected') :
+            $t('connect_panel.not_connected') }}</td>
                 </tr>
             </table>
         </div>
         <div class="flex items-center justify-between">
             <button class="dou-sc-btn" @click="onConnectBtnClick">{{
-                $t('connect_panel.connect')
-            }}</button>
+            $t('connect_panel.connect')
+        }}</button>
             <div class="flex items-center text-primary/80">
                 <div v-if="!dualsenseStore.isConnected">{{ $t('connect_panel.not_connected') }}</div>
                 <template v-else>
@@ -52,10 +55,10 @@ const onConnectBtnClick = () => {
 
 <style scoped lang="scss">
 table {
-    @apply w-full;
+    @apply min-w-full w-0;
 
     .label {
-        @apply text-primary/70 font-bold;
+        @apply text-primary/70 font-bold whitespace-pre-wrap;
     }
 
     .value {
