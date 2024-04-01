@@ -23,7 +23,7 @@ const triggerModeSets = computed(() => {
         },
         {
             value: 1,
-            label: t('output_panel.trigger_mode.resitance')
+            label: t('output_panel.trigger_mode.resistance')
         },
         {
             value: 2,
