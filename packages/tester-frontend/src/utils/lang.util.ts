@@ -6,7 +6,7 @@ export const getAvailableLanguages = (): string[] => {
 
 export const getLangWithoutScript = (lang: string): string => {
   const langPart = lang.split('-')
-  if (langPart.length === 1) {
+  if (langPart.length === 2) {
     return `${langPart[0].toLowerCase()}-${langPart[1].toUpperCase()}`
   } else if (langPart.length === 3) {
     return `${langPart[0].toLowerCase()}-${langPart[2].toUpperCase()}`
