@@ -31,7 +31,11 @@
         "title_gyroscope": "Gyroscope",
         "pitch": "Pitch",
         "yaw": "Yaw",
-        "roll": "Roll"
+        "roll": "Roll",
+        "model_value": {
+            "on": "Value display on",
+            "off": "Value display off"
+        }
     },
     "output_panel": {
         "mic_mute_led": "Mic status light",

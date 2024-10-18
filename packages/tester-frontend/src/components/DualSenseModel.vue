@@ -3,6 +3,10 @@ import { useDualSenseStore } from '@/store/dualsense';
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
 
+defineProps<{
+    showValue: boolean
+}>()
+
 const dualsenseStore = useDualSenseStore()
 const { state } = storeToRefs(dualsenseStore)
 const TouchpadGroupRef = ref<SVGElement | null>(null)
@@ -35,16 +39,25 @@ const getStickPoint = (x: number) => {
 
 <template>
     <svg viewBox="0 0 1117 892">
-        <path id="r2"
-            d="M866.471,116.785l114.214,0c12.312,0 -1.248,-110.916 -78.919,-110.916c-37.32,-0 -51.81,110.916 -35.295,110.916Z"
-            class="ds-stroke-normal" :class="{ 'ds-trigger-active': state.buttons.r2 }" :style="{
-                '--un-fill-opacity': state.axes.r2
-            }" />
-        <path id="l2"
-            d="M252.212,116.785l-114.214,0c-12.312,0 1.248,-110.916 78.919,-110.916c37.32,-0 51.81,110.916 35.295,110.916Z"
-            class="ds-stroke-normal" :class="{ 'ds-trigger-active': state.buttons.l2 }" :style="{
-                '--un-fill-opacity': state.axes.l2
-            }" />
+        <g>
+            <path id="r2"
+                d="M866.471,116.785l114.214,0c12.312,0 -1.248,-110.916 -78.919,-110.916c-37.32,-0 -51.81,110.916 -35.295,110.916Z"
+                class="ds-stroke-normal" :class="{ 'ds-trigger-active': state.buttons.r2 }" :style="{
+                    '--un-fill-opacity': state.axes.r2
+                }" />
+            <text v-if="showValue" x="970" y="30" font-size="25" class="ds-text">{{ state.axes.r2.toPrecision(8)
+                }}</text>
+        </g>
+        <g>
+            <path id="l2"
+                d="M252.212,116.785l-114.214,0c-12.312,0 1.248,-110.916 78.919,-110.916c37.32,-0 51.81,110.916 35.295,110.916Z"
+                class="ds-stroke-normal" :class="{ 'ds-trigger-active': state.buttons.l2 }" :style="{
+                    '--un-fill-opacity': state.axes.l2
+                }" />
+            <text v-if="showValue" x="150" y="30" font-size="25" class="ds-text" text-anchor="end">{{
+                state.axes.l2.toPrecision(8)
+                }}</text>
+        </g>
         <g id="dpad-up">
             <path
                 d="M213.487,271.996c0,-11.214 -9.091,-20.305 -20.305,-20.305l-28.888,-0c-11.215,-0 -20.306,9.091 -20.306,20.305l0,24.336c0,6.286 2.397,12.335 6.703,16.915c6.856,7.293 17.331,18.436 23.351,24.838c1.218,1.296 2.917,2.031 4.696,2.031c1.778,-0 3.478,-0.735 4.696,-2.031c6.019,-6.402 16.494,-17.545 23.35,-24.838c4.306,-4.58 6.703,-10.629 6.703,-16.915c0,-6.766 0,-16.013 0,-24.336Z"
@@ -130,6 +143,10 @@ const getStickPoint = (x: number) => {
                 :class="{ 'ds-active': state.buttons.r3 }" :style="{
                     transform: `translate(${getStickPoint(state.axes.rightStickX)}px, ${getStickPoint(state.axes.rightStickY)}px)`
                 }" />
+            <text v-if="showValue" x="850" y="700" font-size="25" class="ds-text" text-anchor="end">{{
+                state.axes.rightStickX.toPrecision(9) }} X</text>
+            <text v-if="showValue" x="850" y="730" font-size="25" class="ds-text" text-anchor="end">{{
+                state.axes.rightStickY.toPrecision(9) }} Y</text>
         </g>
         <g id="l3group">
             <circle id="l3-border" cx="351.764" cy="528.548" r="87.347" class="ds-stroke-normal" />
@@ -137,6 +154,10 @@ const getStickPoint = (x: number) => {
                 :class="{ 'ds-active': state.buttons.l3 }" :style="{
                     transform: `translate(${getStickPoint(state.axes.leftStickX)}px, ${getStickPoint(state.axes.leftStickY)}px)`
                 }" />
+            <text v-if="showValue" x="270" y="700" font-size="25" class="ds-text">X {{
+                state.axes.leftStickX.toPrecision(9) }}</text>
+            <text v-if="showValue" x="270" y="730" font-size="25" class="ds-text">Y {{
+                state.axes.leftStickY.toPrecision(9) }}</text>
         </g>
         <path id="ps"
             d="M525.1,538.049c-6.333,-1.817 -7.382,-5.56 -4.509,-7.734c2.071,-1.361 4.45,-2.545 6.969,-3.436l0.232,-0.072l18.72,-6.713l-0,7.71l-13.419,4.906c-2.351,0.905 -2.751,2.108 -0.798,2.754c0.974,0.248 2.089,0.392 3.239,0.392c1.641,-0 3.212,-0.291 4.666,-0.822l-0.094,0.029l6.462,-2.353l-0,6.915c-0.4,0.099 -0.854,0.147 -1.299,0.243c-2.068,0.363 -4.448,0.571 -6.875,0.571c-4.744,0 -9.3,-0.795 -13.547,-2.257l0.293,0.088l-0.04,-0.221Zm39.449,0.789l20.99,-7.584c2.383,-0.859 2.753,-2.084 0.819,-2.727c-0.968,-0.237 -2.078,-0.373 -3.222,-0.373c-1.66,-0 -3.255,0.288 -4.733,0.813l0.099,-0.029l-14.02,5l0,-7.958l0.801,-0.283c2.801,-0.931 6.093,-1.654 9.489,-2.03l0.221,-0.022c1.249,-0.133 2.695,-0.208 4.16,-0.208c5.007,0 9.809,0.883 14.254,2.505l-0.288,-0.093c6.16,2.003 6.8,4.906 5.252,6.907c-1.491,1.486 -3.294,2.662 -5.303,3.42l-0.104,0.035l-28.484,10.359l-0,-7.654l0.069,-0.078Zm-15.521,-54.146l-0,58.498l13.051,4.204l-0,-49.061c-0,-2.3 1.013,-3.836 2.646,-3.303c2.121,0.601 2.534,2.713 2.534,5.018l0,19.587c8.137,3.978 14.543,-0.008 14.543,-10.508c-0,-10.791 -3.754,-15.585 -14.796,-19.427c-4.762,-1.729 -10.778,-3.452 -16.933,-4.815l-1.037,-0.193l-0.008,0Z"
@@ -162,6 +183,11 @@ svg {
 
     .ds-filled-icon {
         @apply fill-black/50 dark-fill-white/50;
+    }
+
+    .ds-text {
+        @apply fill-black dark-fill-white;
+        @apply font-mono select-none;
     }
 
     .ds-stroke-normal {

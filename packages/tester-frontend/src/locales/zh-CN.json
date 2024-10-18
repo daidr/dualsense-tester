@@ -31,7 +31,11 @@
         "title_gyroscope": "陀螺仪",
         "pitch": "俯仰角",
         "yaw": "偏航角",
-        "roll": "滚转角"
+        "roll": "滚转角",
+        "model_value": {
+            "on": "数值显示开启",
+            "off": "数值显示关闭"
+        }
     },
     "output_panel": {
         "mic_mute_led": "麦克风指示灯",
