@@ -8,7 +8,9 @@
         "ru-RU": "Русский"
     },
     "common": {
-        "tips": "提示"
+        "tips": "提示",
+        "not_support_title": "你的浏览器不支持 WebHID",
+        "not_support_content": "请尝试使用最新版本的 Google Chrome 或 Microsoft Edge"
     },
     "connect_panel": {
         "tips": "使用 <b>USB 线缆</b> 或 <b>蓝牙</b> 将 DualSense 连接到你的电脑，然后点击下面的 “连接” 按钮。",

@@ -31,8 +31,8 @@ const { isWebHIDSupported } = storeToRefs(pageStore)
     <template v-else>
       <div class="h-[var(--min-height)] flex flex-col items-center justify-center">
         <div class="i-mingcute-confused-line text-5xl"></div>
-        <p class="text-xl">Your browser does not support WebHID</p>
-        <p class="text-base">Try to use the latest version of Google Chrome or Microsoft Edge</p>
+        <p class="text-xl">{{ $t("common.not_support_title") }}</p>
+        <p class="text-base">{{ $t("common.not_support_content") }}</p>
       </div>
     </template>
   </main>
