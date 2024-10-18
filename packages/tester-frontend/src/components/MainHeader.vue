@@ -15,6 +15,9 @@ import LangSwitcher from './LangSwitcher.vue';
             <div class="tools-wrapper">
                 <LangSwitcher />
                 <DarkModeSwitch />
+                <a href="https://producthunt.com/products/dualsense-tester" target="_blank" class="dou-icon-link">
+                    <div class="i-mingcute-thumb-up-2-line"></div>
+                </a>
                 <a href="https://github.com/daidr/dualsense-tester" target="_blank" class="dou-icon-link">
                     <div class="i-mingcute-github-line"></div>
                 </a>
