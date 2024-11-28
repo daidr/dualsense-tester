@@ -1,15 +1,11 @@
-import { defineConfig } from 'unocss'
-import presetUno from 'unocss/preset-uno'
-import { presetIcons } from 'unocss'
-import transformerVariantGroup from '@unocss/transformer-variant-group'
-import transformerDirectives from '@unocss/transformer-directives'
+import { defineConfig, presetIcons, presetUno, transformerDirectives, transformerVariantGroup } from 'unocss'
 
 export default defineConfig({
   presets: [
     presetUno({
-      dark: 'class'
+      dark: 'class',
     }),
-    presetIcons({})
+    presetIcons({}),
   ],
   transformers: [transformerVariantGroup(), transformerDirectives()],
   theme: {
@@ -17,9 +13,9 @@ export default defineConfig({
       primary: {
         light: '#e8effb',
         DEFAULT: '#2f81f7',
-        dark: '#071f40'
-      }
-    }
+        dark: '#071f40',
+      },
+    },
   },
   shortcuts: {
     'dou-sc-capsule':
@@ -32,6 +28,6 @@ export default defineConfig({
     'dou-sc-autobg': 'bg-primary/20 dark-bg-primary/50',
     'dou-sc-title': 'text-xl font-bold text-primary lh-1em',
     'dou-sc-subtitle': 'text-xl font-bold text-primary/60 lh-1.2em my-2',
-    'dou-sc-link': 'text-primary hover:underline'
-  }
+    'dou-sc-link': 'text-primary hover:underline',
+  },
 })

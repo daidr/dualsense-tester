@@ -5,11 +5,11 @@ export default defineConfig({
     target: 'modules',
     lib: {
       entry: './src/index.ts',
-      name: "DualSense",
+      name: 'DualSense',
       fileName: (format) => {
         return `${format}/dualsense.js`
       },
-      formats: ['es', 'umd', 'cjs']
-    }
-  }
+      formats: ['es', 'umd', 'cjs'],
+    },
+  },
 })

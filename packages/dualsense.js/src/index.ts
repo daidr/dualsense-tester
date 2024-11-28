@@ -1,30 +1,31 @@
+import type { DualSenseOutput } from './gadgets/output'
+import type { DualSenseState } from './gadgets/state'
+import { defineTypedCustomEvent, defineTypedEvent, TypedEventTarget } from 'typed-event-target'
 import {
-  VENDOR_ID_SONY,
-  PRODUCT_ID_DUAL_SENSE,
-  USAGE_PAGE_GENERIC_DESKTOP,
-  USAGE_ID_GD_GAME_PAD,
-  DUAL_SENSE_USB_INPUT_REPORT_0x01_SIZE,
   DUAL_SENSE_BT_INPUT_REPORT_0x01_SIZE,
   DUAL_SENSE_BT_INPUT_REPORT_0x31_SIZE,
+  DUAL_SENSE_USB_INPUT_REPORT_0x01_SIZE,
+  PRODUCT_ID_DUAL_SENSE,
   PROPERTY_DEVICE,
-  PROPERTY_OPTIONS
+  PROPERTY_OPTIONS,
+  USAGE_ID_GD_GAME_PAD,
+  USAGE_PAGE_GENERIC_DESKTOP,
+  VENDOR_ID_SONY,
 } from './constants'
-
-import { DualSenseInterface, DualSenseState, defaultState } from './gadgets/state'
-import { TypedEventTarget, defineTypedCustomEvent, defineTypedEvent } from 'typed-event-target'
+import { defaultOutput } from './gadgets/output'
+import { defaultState, DualSenseInterface } from './gadgets/state'
 import { normalizeButton, normalizeThumbStickAxis, normalizeTriggerAxis } from './utils/controller'
-import { DualSenseOutput, defaultOutput } from './gadgets/output'
 import { fillDualSenseChecksum } from './utils/crc32'
 
-export type { DualSenseState, DualSenseInterface, DualSenseOutput }
+export type { DualSenseInterface, DualSenseOutput, DualSenseState }
 
-export interface DualSenseOptions {}
+export interface DualSenseOptions { }
 
 export class ControllerStateChangeEvent extends defineTypedCustomEvent<DualSenseState>()(
-  'state-change'
-) {}
-export class ControllerConnectEvent extends defineTypedEvent('connected') {}
-export class ControllerDisconnectEvent extends defineTypedEvent('disconnected') {}
+  'state-change',
+) { }
+export class ControllerConnectEvent extends defineTypedEvent('connected') { }
+export class ControllerDisconnectEvent extends defineTypedEvent('disconnected') { }
 export type AllSupportControllerEvents =
   | ControllerStateChangeEvent
   | ControllerConnectEvent
@@ -88,14 +89,17 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
     // Check if we already have permissions for a DualSense device.
     const _devices = await navigator.hid.getDevices()
     for (const device of _devices) {
-      if (device.vendorId == VENDOR_ID_SONY && device.productId == PRODUCT_ID_DUAL_SENSE) {
+      if (device.vendorId === VENDOR_ID_SONY && device.productId === PRODUCT_ID_DUAL_SENSE) {
         if (!device.opened) {
           await device.open()
-          if (!device.opened) continue
+          if (!device.opened) {
+            continue
+          }
         }
 
         this.dispatchEvent(new ControllerConnectEvent())
         this[PROPERTY_DEVICE] = device
+        console.log('device', device)
         this.#checkConnectInterface(this[PROPERTY_DEVICE])
         this[PROPERTY_DEVICE].oninputreport = this.#handleControllerReport.bind(this)
         return
@@ -108,7 +112,7 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
    */
   #checkConnectInterface(device: HIDDevice) {
     for (const c of device.collections) {
-      if (c.usagePage != USAGE_PAGE_GENERIC_DESKTOP || c.usage != USAGE_ID_GD_GAME_PAD) {
+      if (c.usagePage !== USAGE_PAGE_GENERIC_DESKTOP || c.usage !== USAGE_ID_GD_GAME_PAD) {
         continue
       }
 
@@ -118,12 +122,13 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
           max,
           report.items!.reduce((sum, item) => {
             return sum + item.reportSize! * item.reportCount!
-          }, 0)
+          }, 0),
         )
       }, 0)
-      if (maxInputReportBytes == 504) {
+      if (maxInputReportBytes === 504) {
         this.state.interface = DualSenseInterface.USB
-      } else if (maxInputReportBytes == 616) {
+      }
+      else if (maxInputReportBytes === 616) {
         this.state.interface = DualSenseInterface.Bluetooth
       }
     }
@@ -138,13 +143,14 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
             vendorId: VENDOR_ID_SONY,
             productId: PRODUCT_ID_DUAL_SENSE,
             usagePage: USAGE_PAGE_GENERIC_DESKTOP,
-            usage: USAGE_ID_GD_GAME_PAD
-          }
+            usage: USAGE_ID_GD_GAME_PAD,
+          },
           // TODO: DualSense Edge
-        ]
+        ],
       })
       await this.#checkGrantedController()
-    } catch (error) {
+    }
+    catch (error) {
       console.error(error)
       return false
     }
@@ -156,31 +162,31 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
    *
    * This function is called internally by the library each time a report is received.
    *
-   * @param report - HID Report sent by the controller.
+   * @param event - HID Input Report Event
    */
   #handleControllerReport(event: HIDInputReportEvent) {
     const { data: report, reportId } = event
     this.state.timestamp = event.timeStamp
-    this.lastReport = report.buffer
+    this.lastReport = report.buffer as ArrayBuffer
 
-    if (this.state.interface == DualSenseInterface.USB) {
-      if (reportId == 0x01) this.#handleUsbInputReport01(report)
-      else {
-        return
+    if (this.state.interface === DualSenseInterface.USB) {
+      if (reportId === 0x01) {
+        this.#handleUsbInputReport01(report)
       }
-    } else if (this.state.interface == DualSenseInterface.Bluetooth) {
-      if (reportId == 0x01) this.#handleBluetoothInputReport01(report)
-      else if (reportId == 0x31) this.#handleBluetoothInputReport31(report)
-      else {
-        return
+    }
+    else if (this.state.interface === DualSenseInterface.Bluetooth) {
+      if (reportId === 0x01) {
+        this.#handleBluetoothInputReport01(report)
       }
-    } else {
-      return
+      else if (reportId === 0x31) {
+        this.#handleBluetoothInputReport31(report)
+      }
     }
   }
 
   #handleUsbInputReport01(report: DataView) {
-    if (report.byteLength != DUAL_SENSE_USB_INPUT_REPORT_0x01_SIZE) return
+    if (report.byteLength !== DUAL_SENSE_USB_INPUT_REPORT_0x01_SIZE)
+      return
 
     const axes0 = report.getUint8(0)
     const axes1 = report.getUint8(1)
@@ -233,11 +239,11 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
     const l2axis = normalizeTriggerAxis(axes4)
     const r2axis = normalizeTriggerAxis(axes5)
 
-    const dpad = buttons0 & 0x0f
-    const up = normalizeButton(dpad == 0 || dpad == 1 || dpad == 7)
-    const down = normalizeButton(dpad == 3 || dpad == 4 || dpad == 5)
-    const left = normalizeButton(dpad == 5 || dpad == 6 || dpad == 7)
-    const right = normalizeButton(dpad == 1 || dpad == 2 || dpad == 3)
+    const dpad = buttons0 & 0x0F
+    const up = normalizeButton(dpad === 0 || dpad === 1 || dpad === 7)
+    const down = normalizeButton(dpad === 3 || dpad === 4 || dpad === 5)
+    const left = normalizeButton(dpad === 5 || dpad === 6 || dpad === 7)
+    const right = normalizeButton(dpad === 1 || dpad === 2 || dpad === 3)
     const square = normalizeButton(buttons0 & 0x10)
     const cross = normalizeButton(buttons0 & 0x20)
     const circle = normalizeButton(buttons0 & 0x40)
@@ -255,15 +261,15 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
     const mute = normalizeButton(buttons2 & 0x04)
 
     const touch0active = !(touch00 & 0x80)
-    const touch0id = touch00 & 0x7f
-    const touch0x = ((touch02 & 0x0f) << 8) | touch01
-    const touch0y = (touch03 << 4) | ((touch02 & 0xf0) >> 4)
+    const touch0id = touch00 & 0x7F
+    const touch0x = ((touch02 & 0x0F) << 8) | touch01
+    const touch0y = (touch03 << 4) | ((touch02 & 0xF0) >> 4)
     const touch1active = !(touch10 & 0x80)
-    const touch1id = touch10 & 0x7f
-    const touch1x = ((touch12 & 0x0f) << 8) | touch11
-    const touch1y = (touch13 << 4) | ((touch12 & 0xf0) >> 4)
+    const touch1id = touch10 & 0x7F
+    const touch1x = ((touch12 & 0x0F) << 8) | touch11
+    const touch1y = (touch13 << 4) | ((touch12 & 0xF0) >> 4)
 
-    const batteryLevelPercent = Math.min((battery0 & 0x0f) * 10 + 5, 100)
+    const batteryLevelPercent = Math.min((battery0 & 0x0F) * 10 + 5, 100)
     const batteryFull = !!(battery0 & 0x20)
     const batteryCharging = !!(battery1 & 0x08)
     const headphoneConnected = !!(battery1 & 0x01)
@@ -308,14 +314,14 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
       this.state.touchpad.touches.push({
         touchId: touch0id,
         x: touch0x,
-        y: touch0y
+        y: touch0y,
       })
     }
     if (touch1active) {
       this.state.touchpad.touches.push({
         touchId: touch1id,
         x: touch1x,
-        y: touch1y
+        y: touch1y,
       })
     }
 
@@ -339,13 +345,14 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
 
     this.dispatchEvent(
       new ControllerStateChangeEvent({
-        detail: this.state
-      })
+        detail: this.state,
+      }),
     )
   }
 
   #handleBluetoothInputReport01(report: DataView) {
-    if (report.byteLength != DUAL_SENSE_BT_INPUT_REPORT_0x01_SIZE) return
+    if (report.byteLength !== DUAL_SENSE_BT_INPUT_REPORT_0x01_SIZE)
+      return
 
     const axes0 = report.getUint8(0)
     const axes1 = report.getUint8(1)
@@ -364,11 +371,11 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
     const l2axis = normalizeTriggerAxis(axes4)
     const r2axis = normalizeTriggerAxis(axes5)
 
-    const dpad = buttons0 & 0x0f
-    const up = normalizeButton(dpad == 0 || dpad == 1 || dpad == 7)
-    const down = normalizeButton(dpad == 3 || dpad == 4 || dpad == 5)
-    const left = normalizeButton(dpad == 5 || dpad == 6 || dpad == 7)
-    const right = normalizeButton(dpad == 1 || dpad == 2 || dpad == 3)
+    const dpad = buttons0 & 0x0F
+    const up = normalizeButton(dpad === 0 || dpad === 1 || dpad === 7)
+    const down = normalizeButton(dpad === 3 || dpad === 4 || dpad === 5)
+    const left = normalizeButton(dpad === 5 || dpad === 6 || dpad === 7)
+    const right = normalizeButton(dpad === 1 || dpad === 2 || dpad === 3)
     const square = normalizeButton(buttons0 & 0x10)
     const cross = normalizeButton(buttons0 & 0x20)
     const circle = normalizeButton(buttons0 & 0x40)
@@ -417,18 +424,19 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
 
     this.state.battery.charging = false
     this.state.battery.full = false
-    this.state.battery.level = NaN
+    this.state.battery.level = Number.NaN
     this.state.headphoneConnected = false
 
     this.dispatchEvent(
       new ControllerStateChangeEvent({
-        detail: this.state
-      })
+        detail: this.state,
+      }),
     )
   }
 
   #handleBluetoothInputReport31(report: DataView) {
-    if (report.byteLength != DUAL_SENSE_BT_INPUT_REPORT_0x31_SIZE) return
+    if (report.byteLength !== DUAL_SENSE_BT_INPUT_REPORT_0x31_SIZE)
+      return
 
     // byte 0?
     const axes0 = report.getUint8(1)
@@ -477,11 +485,11 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
     const l2axis = normalizeTriggerAxis(axes4)
     const r2axis = normalizeTriggerAxis(axes5)
 
-    const dpad = buttons0 & 0x0f
-    const up = normalizeButton(dpad == 0 || dpad == 1 || dpad == 7)
-    const down = normalizeButton(dpad == 3 || dpad == 4 || dpad == 5)
-    const left = normalizeButton(dpad == 5 || dpad == 6 || dpad == 7)
-    const right = normalizeButton(dpad == 1 || dpad == 2 || dpad == 3)
+    const dpad = buttons0 & 0x0F
+    const up = normalizeButton(dpad === 0 || dpad === 1 || dpad === 7)
+    const down = normalizeButton(dpad === 3 || dpad === 4 || dpad === 5)
+    const left = normalizeButton(dpad === 5 || dpad === 6 || dpad === 7)
+    const right = normalizeButton(dpad === 1 || dpad === 2 || dpad === 3)
     const square = normalizeButton(buttons0 & 0x10)
     const cross = normalizeButton(buttons0 & 0x20)
     const circle = normalizeButton(buttons0 & 0x40)
@@ -499,15 +507,15 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
     const mute = normalizeButton(buttons2 & 0x04)
 
     const touch0active = !(touch00 & 0x80)
-    const touch0id = touch00 & 0x7f
-    const touch0x = ((touch02 & 0x0f) << 8) | touch01
-    const touch0y = (touch03 << 4) | ((touch02 & 0xf0) >> 4)
+    const touch0id = touch00 & 0x7F
+    const touch0x = ((touch02 & 0x0F) << 8) | touch01
+    const touch0y = (touch03 << 4) | ((touch02 & 0xF0) >> 4)
     const touch1active = !(touch10 & 0x80)
-    const touch1id = touch10 & 0x7f
-    const touch1x = ((touch12 & 0x0f) << 8) | touch11
-    const touch1y = (touch13 << 4) | ((touch12 & 0xf0) >> 4)
+    const touch1id = touch10 & 0x7F
+    const touch1x = ((touch12 & 0x0F) << 8) | touch11
+    const touch1y = (touch13 << 4) | ((touch12 & 0xF0) >> 4)
 
-    const batteryLevelPercent = Math.min((battery0 & 0x0f) * 10 + 5, 100)
+    const batteryLevelPercent = Math.min((battery0 & 0x0F) * 10 + 5, 100)
     const batteryFull = !!(battery0 & 0x20)
     const batteryCharging = !!(battery1 & 0x08)
     const headphoneConnected = !!(battery1 & 0x01)
@@ -549,14 +557,14 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
       this.state.touchpad.touches.push({
         touchId: touch0id,
         x: touch0x,
-        y: touch0y
+        y: touch0y,
       })
     }
     if (touch1active) {
       this.state.touchpad.touches.push({
         touchId: touch1id,
         x: touch1x,
-        y: touch1y
+        y: touch1y,
       })
     }
 
@@ -580,8 +588,8 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
 
     this.dispatchEvent(
       new ControllerStateChangeEvent({
-        detail: this.state
-      })
+        detail: this.state,
+      }),
     )
   }
 
@@ -593,7 +601,8 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
     window.requestAnimationFrame(this.#onRAFBound)
     if (this[PROPERTY_DEVICE]) {
       const sent = await this.#sendOutputReportBound()
-      if (!sent) this.#onConnectionError()
+      if (!sent)
+        this.#onConnectionError()
     }
   }
 
@@ -601,9 +610,10 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
    * Sends a Output Report to the controller.
    */
   async #sendOutputReport() {
-    if (this.state.interface == DualSenseInterface.USB) {
+    if (this.state.interface === DualSenseInterface.USB) {
       return await this.#sendOutputReportUSB()
-    } else {
+    }
+    else {
       return await this.#sendOutputReportBluetooth()
     }
   }
@@ -625,7 +635,8 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
     // Send output report
     try {
       await this[PROPERTY_DEVICE]!.sendReport(reportId, reportData)
-    } catch (error) {
+    }
+    catch (error) {
       return false
     }
 
@@ -641,7 +652,8 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
 
     // seq
     reportData[0] = this.#outputSeq << 4
-    if (++this.#outputSeq == 16) this.#outputSeq = 0
+    if (++this.#outputSeq === 16)
+      this.#outputSeq = 0
 
     // tag
     reportData[1] = 0x10 // DS_OUTPUT_TAG
@@ -659,7 +671,8 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
     // Send output report
     try {
       await this[PROPERTY_DEVICE]!.sendReport(reportId, reportData)
-    } catch (error) {
+    }
+    catch (error) {
       return false
     }
 
@@ -671,7 +684,7 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
     // valid_flag0
     // bit 0: COMPATIBLE_VIBRATION
     // bit 1: HAPTICS_SELECT
-    common.setUint8(0, 0xff)
+    common.setUint8(0, 0xFF)
 
     // valid_flag1
     // bit 0: MIC_MUTE_LED_CONTROL_ENABLE
@@ -679,7 +692,7 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
     // bit 2: LIGHTBAR_CONTROL_ENABLE
     // bit 3: RELEASE_LEDS
     // bit 4: PLAYER_INDICATOR_CONTROL_ENABLE
-    common.setUint8(1, 0xf7)
+    common.setUint8(1, 0xF7)
 
     // DualShock 4 compatibility mode.
     common.setUint8(2, this.output.motorRight)
@@ -738,18 +751,23 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
     // 0x15: player 3
     // 0x1b: player 4
     // 0x1f: all
-    if (this.output.playerLight == 0) {
+    if (this.output.playerLight === 0) {
       common.setUint8(43, 0x00)
-    } else if (this.output.playerLight == 1) {
+    }
+    else if (this.output.playerLight === 1) {
       common.setUint8(43, 0x04)
-    } else if (this.output.playerLight == 2) {
-      common.setUint8(43, 0x0a)
-    } else if (this.output.playerLight == 3) {
+    }
+    else if (this.output.playerLight === 2) {
+      common.setUint8(43, 0x0A)
+    }
+    else if (this.output.playerLight === 3) {
       common.setUint8(43, 0x15)
-    } else if (this.output.playerLight == 4) {
-      common.setUint8(43, 0x1b)
-    } else if (this.output.playerLight == 5) {
-      common.setUint8(43, 0x1f)
+    }
+    else if (this.output.playerLight === 4) {
+      common.setUint8(43, 0x1B)
+    }
+    else if (this.output.playerLight === 5) {
+      common.setUint8(43, 0x1F)
     }
 
     // Lightbar RGB
@@ -759,7 +777,7 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
   }
 }
 
-const setTriggerEffect = (effect: DataView, effectMode: number, effectData: number[]) => {
+function setTriggerEffect(effect: DataView, effectMode: number, effectData: number[]) {
   effect.setUint8(0, 0x00)
   effect.setUint8(1, 0x00)
   effect.setUint8(2, 0x00)

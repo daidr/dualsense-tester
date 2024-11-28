@@ -5,23 +5,23 @@
  */
 export interface DualSenseState {
   /** Interface used for communication (USB/Bluetooth) */
-  interface: DualSenseInterface;
+  interface: DualSenseInterface
 
   /** Battery status */
-  battery: DualSenseBatteryStatus;
+  battery: DualSenseBatteryStatus
 
   /** Analog positions */
-  axes: DualSenseAnalogState;
+  axes: DualSenseAnalogState
   /** Buttons pressed */
-  buttons: DualSenseButtonState;
+  buttons: DualSenseButtonState
   /** Touchpad */
-  touchpad: DualSenseTouchpad;
+  touchpad: DualSenseTouchpad
 
   /** Headphone Connected */
-  headphoneConnected: boolean;
+  headphoneConnected: boolean
 
   /** Timestamp of the last report */
-  timestamp: number;
+  timestamp: number
 }
 
 /**
@@ -31,49 +31,49 @@ export interface DualSenseState {
  */
 export interface DualSenseButtonState {
   /** Triangle Button */
-  triangle: boolean;
+  triangle: boolean
   /** Circle Button */
-  circle: boolean;
+  circle: boolean
   /** Cross Button */
-  cross: boolean;
+  cross: boolean
   /** Square Button */
-  square: boolean;
+  square: boolean
 
   /** D-Pad Up */
-  dPadUp: boolean;
+  dPadUp: boolean
   /** D-Pad Right */
-  dPadRight: boolean;
+  dPadRight: boolean
   /** D-Pad Down */
-  dPadDown: boolean;
+  dPadDown: boolean
   /** D-Pad Left */
-  dPadLeft: boolean;
+  dPadLeft: boolean
 
   /** L1 Button */
-  l1: boolean;
+  l1: boolean
   /** L2 Trigger (non-analog value) */
-  l2: boolean;
+  l2: boolean
   /** L3 Button */
-  l3: boolean;
+  l3: boolean
 
   /** R1 Button */
-  r1: boolean;
+  r1: boolean
   /** R2 Trigger (non-analog value) */
-  r2: boolean;
+  r2: boolean
   /** R3 Button */
-  r3: boolean;
+  r3: boolean
 
   /** Options Button */
-  options: boolean;
+  options: boolean
   /** Create Button */
-  create: boolean;
+  create: boolean
   /** PS Button */
-  playStation: boolean;
+  playStation: boolean
 
   /** Touchpad Button */
-  touchPadClick: boolean;
+  touchPadClick: boolean
 
   /** Mute Button */
-  mute: boolean;
+  mute: boolean
 }
 
 /**
@@ -81,7 +81,7 @@ export interface DualSenseButtonState {
  *
  * Stores information for analog axes.
  *
- * - Values for thumbsticks are stored using the range **-1.0** (left, top) to **1.0** (right, bottom).
+ * - Values for thumbSticks are stored using the range **-1.0** (left, top) to **1.0** (right, bottom).
  *
  * - Values for triggers use the range **0.0** (released) to **1.0** (pressed)
  *
@@ -89,39 +89,39 @@ export interface DualSenseButtonState {
  */
 export interface DualSenseAnalogState {
   /** Left Stick Horizontal position. */
-  leftStickX: number;
+  leftStickX: number
   /** Left Stick Vertical position. */
-  leftStickY: number;
+  leftStickY: number
 
   /** Right Stick Horizontal position. */
-  rightStickX: number;
+  rightStickX: number
   /** Right Stick Vertical position. */
-  rightStickY: number;
+  rightStickY: number
 
   /** Left trigger analog value */
-  l2: number;
+  l2: number
   /** Right trigger analog value */
-  r2: number;
+  r2: number
 
   /** Accelerometer X */
-  accelX: number;
+  accelX: number
   /** Accelerometer Y */
-  accelY: number;
+  accelY: number
   /** Accelerometer Z */
-  accelZ: number;
+  accelZ: number
 
   /** Angular velocity X */
-  gyroX: number;
+  gyroX: number
   /** Angular velocity Y */
-  gyroY: number;
+  gyroY: number
   /** Angular velocity Z */
-  gyroZ: number;
+  gyroZ: number
 }
 
 /** Touchpad State */
 export interface DualSenseTouchpad {
   /** Current touches */
-  touches: DualSenseTouchpadTouch[];
+  touches: DualSenseTouchpadTouch[]
 }
 
 /**
@@ -131,31 +131,31 @@ export interface DualSenseTouchpad {
  */
 export interface DualSenseTouchpadTouch {
   /** Touch ID. Changes with every new touch. */
-  touchId: number;
+  touchId: number
   /** X Position. */
-  x: number;
+  x: number
   /** Y Position. */
-  y: number;
+  y: number
 }
 
 /**
  * Current Interface
  */
 export enum DualSenseInterface {
-  Disconnected = "none",
+  Disconnected = 'none',
   /** The controller is connected over USB */
-  USB = "usb",
+  USB = 'usb',
   /** The controller is connected over Bluetooth */
-  Bluetooth = "bt",
+  Bluetooth = 'bt',
 }
 
 /**
  * Battery Status
  */
 export interface DualSenseBatteryStatus {
-  full: boolean;
-  charging: boolean;
-  level: number;
+  full: boolean
+  charging: boolean
+  level: number
 }
 
 /**
@@ -221,4 +221,4 @@ export const defaultState: DualSenseState = {
   },
 
   timestamp: -1,
-};
+}

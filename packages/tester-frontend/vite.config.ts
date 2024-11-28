@@ -1,10 +1,10 @@
-import { fileURLToPath, URL } from 'node:url'
 import path from 'node:path'
+import { fileURLToPath, URL } from 'node:url'
 
-import { defineConfig } from 'vite'
+import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import vue from '@vitejs/plugin-vue'
 import UnoCSS from 'unocss/vite'
-import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
+import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vitejs.dev/config/
@@ -12,13 +12,13 @@ export default defineConfig({
   plugins: [
     vue({
       script: {
-        defineModel: true
-      }
+        defineModel: true,
+      },
     }),
     UnoCSS(),
     VueI18nPlugin({
       include: [path.resolve(__dirname, './src/locales/**.json')],
-      strictMessage: false
+      strictMessage: false,
     }),
     VitePWA({
       registerType: 'autoUpdate',
@@ -44,22 +44,22 @@ export default defineConfig({
           {
             src: '/pwa/android-chrome-192x192.png',
             sizes: '192x192',
-            type: 'image/png'
+            type: 'image/png',
           },
           {
             src: '/pwa/android-chrome-512x512.png',
             sizes: '512x512',
-            type: 'image/png'
-          }
+            type: 'image/png',
+          },
         ],
         theme_color: '#ffffff',
-        background_color: '#ffffff'
-      }
-    })
+        background_color: '#ffffff',
+      },
+    }),
   ],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
-  }
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
 })

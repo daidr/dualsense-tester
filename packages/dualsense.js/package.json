@@ -1,20 +1,20 @@
 {
   "name": "dualsense.js",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
   "description": "A DualSense controller library based on WebHID",
   "author": "daidr",
-  "version": "0.0.1",
-  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/es/dualsense.js",
+      "require": "./dist/cjs/dualsense.js"
+    }
+  },
   "main": "./dist/cjs/dualsense.js",
   "module": "./dist/es/dualsense.js",
   "types": "./dist/types/index.d.ts",
-  "private": true,
-  "exports": {
-    ".": {
-      "require": "./dist/cjs/dualsense.js",
-      "import": "./dist/es/dualsense.js",
-      "types": "./dist/types/index.d.ts"
-    }
-  },
   "files": [
     "dist"
   ],
