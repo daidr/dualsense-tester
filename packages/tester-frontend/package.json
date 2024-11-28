@@ -29,8 +29,9 @@
     "@vitejs/plugin-vue": "^5.2.1",
     "npm-run-all2": "^7.0.1",
     "sass-embedded": "^1.81.0",
+    "typescript": "5.6.2",
     "unocss": "^0.64.1",
     "vite-plugin-pwa": "^0.21.0",
-    "vue-tsc": "^2.1.10"
+    "vue-tsc": "2.0.29"
   }
 }
