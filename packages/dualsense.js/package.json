@@ -7,26 +7,32 @@
   "author": "daidr",
   "exports": {
     ".": {
-      "types": "./dist/types/index.d.ts",
-      "import": "./dist/es/dualsense.js",
-      "require": "./dist/cjs/dualsense.js"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     }
   },
-  "main": "./dist/cjs/dualsense.js",
-  "module": "./dist/es/dualsense.js",
-  "types": "./dist/types/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "unpkg": "./dist/index.global.js",
+  "jsdelivr": "./dist/index.global.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "type:check": "tsc --noEmit",
-    "clean": "rimraf dist",
-    "build": "pnpm type:check && pnpm clean && pnpm build:bundle && pnpm build:types",
-    "build:bundle": "vite build",
-    "build:types": "tsc -p tsconfig.types.json"
+    "build": "tsup --metafile",
+    "dev": "tsup --watch"
   },
   "devDependencies": {
+    "@swc/core": "^1.9.3",
     "rimraf": "^5.0.5",
+    "tsup": "^8.3.5",
     "typed-event-target": "^1.4.1"
   }
 }

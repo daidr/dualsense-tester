@@ -4,12 +4,14 @@
   "scripts": {
     "build:fe": "pnpm -C packages/tester-frontend build",
     "dev:fe": "pnpm -C packages/tester-frontend dev",
-    "build:lib": "pnpm -C packages/dualsense.js build"
+    "build:lib": "pnpm -C packages/dualsense.js build",
+    "dev:lib": "pnpm -C packages/dualsense.js dev"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^3.11.0",
     "@eslint/eslintrc": "^3.2.0",
     "@tsconfig/node18": "^18.2.2",
+    "@types/lodash-es": "^4.17.12",
     "@types/node": "^18.17.17",
     "@types/w3c-web-hid": "^1.0.6",
     "@unocss/eslint-config": "^0.64.1",
