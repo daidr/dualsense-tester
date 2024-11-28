@@ -1,67 +1,72 @@
 {
-    "application": {
-        "name": "DualSense 在线测试"
-    },
-    "locales": {
-        "zh-CN": "简体中文",
-        "en-US": "English (US)",
-        "ru-RU": "Русский"
-    },
-    "common": {
-        "tips": "提示",
-        "not_support_title": "你的浏览器不支持 WebHID",
-        "not_support_content": "请尝试使用最新版本的 Google Chrome 或 Microsoft Edge"
-    },
-    "connect_panel": {
-        "tips": "使用 <b>USB 线缆</b> 或 <b>蓝牙</b> 将 DualSense 连接到你的电脑，然后点击下面的 “连接” 按钮。",
-        "connect": "连接",
-        "not_connected": "未连接",
-        "connected": "已连接",
-        "report_time": "Report 时间戳",
-        "battery_level": "电量",
-        "battery_charging_state": "充电状态",
-        "battery_level_charging": "充电中",
-        "battery_level_not_charging": "未充电",
-        "headphone_connect_state": "耳机状态"
-    },
-    "info_panel": {
-        "tips": "请先连接你的 DualSense 手柄",
-        "title_buttons": "基础按钮",
-        "title_accelerometer": "加速度计",
-        "title_gyroscope": "陀螺仪",
-        "pitch": "俯仰角",
-        "yaw": "偏航角",
-        "roll": "滚转角",
-        "model_value": {
-            "on": "数值显示开启",
-            "off": "数值显示关闭"
-        }
-    },
-    "output_panel": {
-        "mic_mute_led": "麦克风指示灯",
-        "lightbar_color": "灯带颜色",
-        "player_led": "玩家指示灯",
-        "player_led_brightness": "玩家指示灯亮度",
-        "player_led_brightness_high": "亮",
-        "player_led_brightness_medium": "中",
-        "player_led_brightness_low": "暗",
-        "player_led_off": "关",
-        "player_led_all": "全部",
-        "rumble_heavy": "震动（重）",
-        "rumble_soft": "震动（轻）",
-        "left_trigger_mode": "自适应扳机（左）",
-        "right_trigger_mode": "右自适应扳机（右）",
-        "trigger_mode": {
-            "off": "关",
-            "resistance": "阻尼",
-            "trigger": "扳机",
-            "auto_trigger": "自动步枪扳机"
-        },
-        "trigger_values": {
-            "start_pos": "起始位置",
-            "end_pos": "结束位置",
-            "frequency": "频率",
-            "force": "强度"
-        }
+  "application": {
+    "name": "DualSense 在线测试"
+  },
+  "shared": {
+    "unknown": "未知"
+  },
+  "locales": {
+    "zh-CN": "简体中文",
+    "en-US": "English (US)",
+    "ru-RU": "Русский"
+  },
+  "common": {
+    "tips": "提示",
+    "not_support_title": "你的浏览器不支持 WebHID",
+    "not_support_content": "请尝试使用最新版本的 Google Chrome 或 Microsoft Edge"
+  },
+  "connect_panel": {
+    "tips": "使用 <b>USB 线缆</b> 或 <b>蓝牙</b> 将 DualSense 连接到你的电脑，然后点击下面的 “连接” 按钮。",
+    "connect": "连接",
+    "disconnect": "断开连接",
+    "not_connected": "未连接",
+    "connected": "已连接",
+    "report_time": "Report 时间戳",
+    "battery_level": "电量",
+    "battery_charging_state": "充电状态",
+    "battery_level_charging": "充电中",
+    "battery_level_not_charging": "未充电",
+    "headphone_connect_state": "耳机状态",
+    "firmware_version": "固件版本"
+  },
+  "info_panel": {
+    "tips": "请先连接你的 DualSense 手柄",
+    "title_buttons": "基础按钮",
+    "title_accelerometer": "加速度计",
+    "title_gyroscope": "陀螺仪",
+    "pitch": "俯仰角",
+    "yaw": "偏航角",
+    "roll": "滚转角",
+    "model_value": {
+      "on": "数值显示开启",
+      "off": "数值显示关闭"
     }
+  },
+  "output_panel": {
+    "mic_mute_led": "麦克风指示灯",
+    "lightbar_color": "灯带颜色",
+    "player_led": "玩家指示灯",
+    "player_led_brightness": "玩家指示灯亮度",
+    "player_led_brightness_high": "亮",
+    "player_led_brightness_medium": "中",
+    "player_led_brightness_low": "暗",
+    "player_led_off": "关",
+    "player_led_all": "全部",
+    "rumble_heavy": "震动（重）",
+    "rumble_soft": "震动（轻）",
+    "left_trigger_mode": "自适应扳机（左）",
+    "right_trigger_mode": "右自适应扳机（右）",
+    "trigger_mode": {
+      "off": "关",
+      "resistance": "阻尼",
+      "trigger": "扳机",
+      "auto_trigger": "自动步枪扳机"
+    },
+    "trigger_values": {
+      "start_pos": "起始位置",
+      "end_pos": "结束位置",
+      "frequency": "频率",
+      "force": "强度"
+    }
+  }
 }

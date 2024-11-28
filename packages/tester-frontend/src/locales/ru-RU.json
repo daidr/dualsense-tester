@@ -1,67 +1,72 @@
 {
-    "application": {
-        "name": "Тестер контроллера DualSense"
-    },
-    "locales": {
-        "zh-CN": "简体中文",
-        "en-US": "English (US)",
-        "ru-RU": "Русский"
-    },
-    "common": {
-        "tips": "Подсказки",
-        "not_support_title": "Ваш браузер не поддерживает WebHID",
-        "not_support_content": "Попробуйте использовать последнюю версию Google Chrome или Microsoft Edge"
-    },
-    "connect_panel": {
-        "tips": "Подключите контроллер DualSense к вашему компьютеру, используя <b>кабель USB</b> или <b>протокол Bluetooth</b>, затем нажмите на кнопку \"Подключить\", расположенную снизу.",
-        "connect": "Подключить",
-        "not_connected": "Не подключено",
-        "connected": "Подключено",
-        "report_time": "Время отсчёта",
-        "battery_level": "Уровень заряда",
-        "battery_charging_state": "Состояние зарядки",
-        "battery_level_charging": "Заряжается",
-        "battery_level_not_charging": "Не заряжается",
-        "headphone_connect_state": "Наушники"
-    },
-    "info_panel": {
-        "tips": "Сначала подключите ваш DualSense",
-        "title_buttons": "Основные кнопки",
-        "title_accelerometer": "Акселерометр",
-        "title_gyroscope": "Гироскоп",
-        "pitch": "Тангаж",
-        "yaw": "Рыскание",
-        "roll": "Крен",
-        "model_value": {
-            "on": "Отображение значений включено",
-            "off": "Отображение значений выключено"
-        }
-    },
-    "output_panel": {
-        "mic_mute_led": "Огонёк состояния микрофона",
-        "lightbar_color": "Цвет индикатора",
-        "player_led": "Огонёк номера игрока",
-        "player_led_brightness": "Яркость",
-        "player_led_brightness_high": "Высокая",
-        "player_led_brightness_medium": "Средне",
-        "player_led_brightness_low": "Низкая",
-        "player_led_off": "Выкл.",
-        "player_led_all": "Все",
-        "rumble_heavy": "Вибрация (сильная)",
-        "rumble_soft": "Вибрация (лёгкая)",
-        "left_trigger_mode": "Левый триггер",
-        "right_trigger_mode": "Правый триггер",
-        "trigger_mode": {
-            "off": "Нет",
-            "resistance": "Сопротивление",
-            "trigger": "Курок",
-            "auto_trigger": "Курок автомата"
-        },
-        "trigger_values": {
-            "start_pos": "Начало",
-            "end_pos": "Конец",
-            "frequency": "Частота",
-            "force": "Сила"
-        }
+  "application": {
+    "name": "Тестер контроллера DualSense"
+  },
+  "shared": {
+    "unknown": "Неизвестно"
+  },
+  "locales": {
+    "zh-CN": "简体中文",
+    "en-US": "English (US)",
+    "ru-RU": "Русский"
+  },
+  "common": {
+    "tips": "Подсказки",
+    "not_support_title": "Ваш браузер не поддерживает WebHID",
+    "not_support_content": "Попробуйте использовать последнюю версию Google Chrome или Microsoft Edge"
+  },
+  "connect_panel": {
+    "tips": "Подключите контроллер DualSense к вашему компьютеру, используя <b>кабель USB</b> или <b>протокол Bluetooth</b>, затем нажмите на кнопку \"Подключить\", расположенную снизу.",
+    "connect": "Подключить",
+    "disconnect": "Отключить",
+    "not_connected": "Не подключено",
+    "connected": "Подключено",
+    "report_time": "Время отсчёта",
+    "battery_level": "Уровень заряда",
+    "battery_charging_state": "Состояние зарядки",
+    "battery_level_charging": "Заряжается",
+    "battery_level_not_charging": "Не заряжается",
+    "headphone_connect_state": "Наушники",
+    "firmware_version": "Версия прошивки"
+  },
+  "info_panel": {
+    "tips": "Сначала подключите ваш DualSense",
+    "title_buttons": "Основные кнопки",
+    "title_accelerometer": "Акселерометр",
+    "title_gyroscope": "Гироскоп",
+    "pitch": "Тангаж",
+    "yaw": "Рыскание",
+    "roll": "Крен",
+    "model_value": {
+      "on": "Отображение значений включено",
+      "off": "Отображение значений выключено"
     }
+  },
+  "output_panel": {
+    "mic_mute_led": "Огонёк состояния микрофона",
+    "lightbar_color": "Цвет индикатора",
+    "player_led": "Огонёк номера игрока",
+    "player_led_brightness": "Яркость",
+    "player_led_brightness_high": "Высокая",
+    "player_led_brightness_medium": "Средне",
+    "player_led_brightness_low": "Низкая",
+    "player_led_off": "Выкл.",
+    "player_led_all": "Все",
+    "rumble_heavy": "Вибрация (сильная)",
+    "rumble_soft": "Вибрация (лёгкая)",
+    "left_trigger_mode": "Левый триггер",
+    "right_trigger_mode": "Правый триггер",
+    "trigger_mode": {
+      "off": "Нет",
+      "resistance": "Сопротивление",
+      "trigger": "Курок",
+      "auto_trigger": "Курок автомата"
+    },
+    "trigger_values": {
+      "start_pos": "Начало",
+      "end_pos": "Конец",
+      "frequency": "Частота",
+      "force": "Сила"
+    }
+  }
 }

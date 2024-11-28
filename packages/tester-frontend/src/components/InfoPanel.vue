@@ -46,15 +46,15 @@ const showValueSets = computed(() => {
 
         <div class="flex justify-between w-full text-primary font-sans">
             <p class="font-bold">X</p>
-            <p>{{ test(state.axes.accelX) }}</p>
+            <p class="w-1/2 text-right">{{ test(state.axes.accelX) }}</p>
         </div>
         <div class="flex justify-between w-full text-primary font-sans">
             <p class="font-bold">Y</p>
-            <p>{{ test(state.axes.accelY) }}</p>
+            <p class="w-1/2 text-right">{{ test(state.axes.accelY) }}</p>
         </div>
         <div class="flex justify-between w-full text-primary font-sans">
             <p class="font-bold">Z</p>
-            <p>{{ test(state.axes.accelZ) }}</p>
+            <p class="w-1/2 text-right">{{ test(state.axes.accelZ) }}</p>
         </div>
     </div>
 </template>

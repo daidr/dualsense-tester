@@ -1,3 +1,4 @@
+import type { DualSenseFirmwareInfo } from './gadgets/firmware'
 import type { DualSenseOutput } from './gadgets/output'
 import type { DualSenseState } from './gadgets/state'
 import { defineTypedCustomEvent, defineTypedEvent, TypedEventTarget } from 'typed-event-target'
@@ -17,7 +18,8 @@ import { defaultState, DualSenseInterface } from './gadgets/state'
 import { normalizeButton, normalizeThumbStickAxis, normalizeTriggerAxis } from './utils/controller'
 import { fillDualSenseChecksum } from './utils/crc32'
 
-export type { DualSenseInterface, DualSenseOutput, DualSenseState }
+export type { DualSenseFirmwareInfo, DualSenseOutput, DualSenseState }
+export { DualSenseInterface }
 
 export interface DualSenseOptions { }
 
@@ -75,6 +77,8 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
 
   #onConnectionError() {
     this[PROPERTY_DEVICE]?.close()
+    this[PROPERTY_DEVICE] = undefined
+    this.dispatchEvent(new ControllerDisconnectEvent())
   }
 
   /**
@@ -97,11 +101,10 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
           }
         }
 
-        this.dispatchEvent(new ControllerConnectEvent())
         this[PROPERTY_DEVICE] = device
-        console.log('device', device)
         this.#checkConnectInterface(this[PROPERTY_DEVICE])
         this[PROPERTY_DEVICE].oninputreport = this.#handleControllerReport.bind(this)
+        this.dispatchEvent(new ControllerConnectEvent())
         return
       }
     }
@@ -155,6 +158,31 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
       return false
     }
     return true
+  }
+
+  async disconnect() {
+    if (this[PROPERTY_DEVICE]) {
+      this[PROPERTY_DEVICE].close()
+      this.#onConnectionError()
+    }
+  }
+
+  async getFirmwareVersion(): Promise<DualSenseFirmwareInfo | null> {
+    if (!this[PROPERTY_DEVICE]) {
+      return null
+    }
+
+    const data = await this[PROPERTY_DEVICE].receiveFeatureReport(0x20)
+
+    const decoder = new TextDecoder()
+
+    const buildTime = decoder.decode(new DataView(data.buffer, 1, 19))
+    const version = data.getUint16(19 + 25, true).toString(16).padStart(4, '0')
+
+    return {
+      buildTime,
+      version,
+    }
   }
 
   /**

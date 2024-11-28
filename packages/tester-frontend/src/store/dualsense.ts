@@ -1,20 +1,7 @@
+import { DualSense, type DualSenseFirmwareInfo, type DualSenseState } from 'dualsense.js'
+import { throttle } from 'lodash-es'
 import { defineStore } from 'pinia'
-import { DualSense, type DualSenseState } from 'dualsense.js'
 import { reactive, readonly, ref, watch } from 'vue'
-
-// 节流函数
-function throttle(fn: Function, delay: number) {
-  let timer: number | null = null
-  return function (this: any, ...args: any[]) {
-    if (timer) {
-      return
-    }
-    timer = setTimeout(() => {
-      fn.apply(this, args)
-      timer = null
-    }, delay)
-  }
-}
 
 export const useDualSenseStore = defineStore('dualsense', () => {
   if (!('hid' in window.navigator)) {
@@ -22,13 +9,15 @@ export const useDualSenseStore = defineStore('dualsense', () => {
       dualsense: {} as DualSense,
       isConnected: ref(false),
       state: ref({} as DualSenseState),
-      output: {} as typeof DualSense.prototype.output
+      output: {} as typeof DualSense.prototype.output,
+      firmwareVersion: null,
     }
   }
   const dualsense = new DualSense({
-    persistCalibration: true
+    persistCalibration: true,
   })
   const isConnected = ref(false)
+  const firmwareVersion = ref<DualSenseFirmwareInfo | null>(null)
   const state = ref(dualsense.state)
   const output = reactive(dualsense.output)
 
@@ -38,6 +27,9 @@ export const useDualSenseStore = defineStore('dualsense', () => {
 
   dualsense.addEventListener('connected', () => {
     isConnected.value = true
+    dualsense.getFirmwareVersion().then((version) => {
+      firmwareVersion.value = version
+    })
   })
 
   dualsense.addEventListener('disconnected', () => {
@@ -58,6 +50,7 @@ export const useDualSenseStore = defineStore('dualsense', () => {
     dualsense,
     isConnected,
     state: readonly(state),
-    output
+    output,
+    firmwareVersion,
   }
 })

@@ -11,7 +11,9 @@ Test your DualSense controller in the browser.
 * Test the gyroscope and accelerometer
 * Test the vibration motors
 * Test the lights
-* **TODO:** Test the adaptive triggers
+* Test the adaptive triggers
+* **TODO**: DualSense Edge Support (2024Q4)
+* **TODO**: DualSense Edge Customization (2025Q1)
 
 ## Project Setup
 
@@ -19,10 +21,16 @@ Test your DualSense controller in the browser.
 pnpm install
 ```
 
-### Compile dualsense.js first
+### 1. Compile dualsense.js first
 
 ```sh
 pnpm build:lib
+```
+
+### 1. (Optional) Compile and Watch dualsense.js for Development
+
+```sh
+pnpm dev:lib
 ```
 
 ### Compile and Hot-Reload for Development

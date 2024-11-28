@@ -10,7 +10,6 @@ import SelfResettingSlider from './common/SelfResettingSlider.vue';
 import TriggerEffect from './TriggerEffect.vue';
 
 const dualsenseStore = useDualSenseStore()
-console.log(rgbToHex(dualsenseStore.output.lightbar))
 const lightbarColor = computed({
     get: () => rgbToHex(dualsenseStore.output.lightbar),
     set: (value: string) => dualsenseStore.output.lightbar = hexToRgb(value)
@@ -65,59 +64,61 @@ const playerLightBrightnessSets = computed(() => {
 <template>
     <div class="dou-sc-container space-y-2 self-start w-full">
         <table>
-            <tr>
-                <td class="label">{{ $t('output_panel.mic_mute_led') }}</td>
-                <td class="value">
-                    <div>
-                        <SwitchBox v-model="dualsenseStore.output.micLight" />
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="label">{{ $t('output_panel.lightbar_color') }}</td>
-                <td class="value">
-                    <div>
-                        <ColorInput v-model="lightbarColor" />
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="label">{{ $t('output_panel.player_led') }}</td>
-                <td class="value">
-                    <div>
-                        <GroupedButton v-model="dualsenseStore.output.playerLight" :sets="playerLightSets" />
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="label">{{ $t('output_panel.player_led_brightness') }}</td>
-                <td class="value">
-                    <div>
-                        <GroupedButton v-model="dualsenseStore.output.playerLightBrightness"
-                            :sets="playerLightBrightnessSets" />
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="label">{{ $t('output_panel.rumble_heavy') }}</td>
-                <td class="value">
-                    <div>
-                        <SelfResettingSlider class="w-full" :min="0" :max="255"
-                            v-model="dualsenseStore.output.motorLeft" />
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="label">{{ $t('output_panel.rumble_soft') }}</td>
-                <td class="value">
-                    <div>
-                        <SelfResettingSlider class="w-full" :min="0" :max="255"
-                            v-model="dualsenseStore.output.motorRight" />
-                    </div>
-                </td>
-            </tr>
-            <TriggerEffect is="left" />
-            <TriggerEffect is="right" />
+            <tbody>
+                <tr>
+                    <td class="label">{{ $t('output_panel.mic_mute_led') }}</td>
+                    <td class="value">
+                        <div>
+                            <SwitchBox v-model="dualsenseStore.output.micLight" />
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">{{ $t('output_panel.lightbar_color') }}</td>
+                    <td class="value">
+                        <div>
+                            <ColorInput v-model="lightbarColor" />
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">{{ $t('output_panel.player_led') }}</td>
+                    <td class="value">
+                        <div>
+                            <GroupedButton v-model="dualsenseStore.output.playerLight" :sets="playerLightSets" />
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">{{ $t('output_panel.player_led_brightness') }}</td>
+                    <td class="value">
+                        <div>
+                            <GroupedButton v-model="dualsenseStore.output.playerLightBrightness"
+                                :sets="playerLightBrightnessSets" />
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">{{ $t('output_panel.rumble_heavy') }}</td>
+                    <td class="value">
+                        <div>
+                            <SelfResettingSlider class="w-full" :min="0" :max="255"
+                                v-model="dualsenseStore.output.motorLeft" />
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">{{ $t('output_panel.rumble_soft') }}</td>
+                    <td class="value">
+                        <div>
+                            <SelfResettingSlider class="w-full" :min="0" :max="255"
+                                v-model="dualsenseStore.output.motorRight" />
+                        </div>
+                    </td>
+                </tr>
+                <TriggerEffect is="left" />
+                <TriggerEffect is="right" />
+            </tbody>
         </table>
     </div>
 </template>

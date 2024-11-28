@@ -1,5 +1,5 @@
-@import './base-components.scss';
-@import './transitions.scss';
+@use 'base-components.scss';
+@use 'transitions.scss';
 
 * {
   font-family:
