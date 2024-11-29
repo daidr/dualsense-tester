@@ -25,15 +25,17 @@ export const useDualSenseStore = defineStore('dualsense', () => {
     dualsense.output = newOutput
   })
 
-  dualsense.addEventListener('connected', () => {
+  dualsense.addEventListener('connected', ({ detail }) => {
     isConnected.value = true
     dualsense.getFirmwareVersion().then((version) => {
       firmwareVersion.value = version
     })
+    umami?.track('connect', { model: detail.model })
   })
 
   dualsense.addEventListener('disconnected', () => {
     isConnected.value = false
+    umami?.track('disconnect')
   })
 
   const updateState = (detail: DualSenseState) => {
@@ -42,7 +44,7 @@ export const useDualSenseStore = defineStore('dualsense', () => {
 
   const throttledUpdateState = throttle(updateState, 10)
 
-  dualsense.addEventListener('state-change', ({ detail }: { detail: any }) => {
+  dualsense.addEventListener('state-change', ({ detail }) => {
     throttledUpdateState(detail)
   })
 

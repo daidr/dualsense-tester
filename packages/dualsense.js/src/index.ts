@@ -1,7 +1,7 @@
 import type { DualSenseFirmwareInfo } from './gadgets/firmware'
 import type { DualSenseOutput } from './gadgets/output'
 import type { DualSenseState } from './gadgets/state'
-import { defineTypedCustomEvent, defineTypedEvent, TypedEventTarget } from 'typed-event-target'
+import { TypedEventTarget } from 'typed-event-target'
 import {
   DUALSENSE_BT_INPUT_REPORT_0x01_SIZE,
   DUALSENSE_BT_INPUT_REPORT_0x31_SIZE,
@@ -16,23 +16,16 @@ import {
 } from './constants'
 import { defaultOutput } from './gadgets/output'
 import { defaultState, DualSenseInterface } from './gadgets/state'
-import { normalizeButton, normalizeThumbStickAxis, normalizeTriggerAxis } from './utils/controller'
+import { type AllSupportControllerEvents, ControllerConnectEvent, ControllerDisconnectEvent, ControllerStateChangeEvent } from './types/event'
+import { getDualSenseModel, isDualSenseCompatible, normalizeButton, normalizeThumbStickAxis, normalizeTriggerAxis } from './utils/controller'
 import { fillDualSenseChecksum } from './utils/crc32'
+
+export * from './types'
 
 export type { DualSenseFirmwareInfo, DualSenseOutput, DualSenseState }
 export { DualSenseInterface }
 
 export interface DualSenseOptions { }
-
-export class ControllerStateChangeEvent extends defineTypedCustomEvent<DualSenseState>()(
-  'state-change',
-) { }
-export class ControllerConnectEvent extends defineTypedEvent('connected') { }
-export class ControllerDisconnectEvent extends defineTypedEvent('disconnected') { }
-export type AllSupportControllerEvents =
-  | ControllerStateChangeEvent
-  | ControllerConnectEvent
-  | ControllerDisconnectEvent
 
 export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
   /** Internal WebHID device */
@@ -94,14 +87,8 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
     // Check if we already have permissions for a DualSense device.
     const _devices = await navigator.hid.getDevices()
     for (const device of _devices) {
-      if (device.vendorId === VENDOR_ID_SONY && device.productId === PRODUCT_ID_DUALSENSE) {
-        // Dualsense
-      }
-      else if (device.vendorId === VENDOR_ID_SONY && device.productId === PRODUCT_ID_DUALSENSE_EDGE) {
-        // Dualsense Edge
-      }
-      else {
-        return
+      if (!isDualSenseCompatible(device)) {
+        continue
       }
       if (!device.opened) {
         await device.open()
@@ -113,7 +100,12 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
       this[PROPERTY_DEVICE] = device
       this.#checkConnectInterface(this[PROPERTY_DEVICE])
       this[PROPERTY_DEVICE].oninputreport = this.#handleControllerReport.bind(this)
-      this.dispatchEvent(new ControllerConnectEvent())
+      this.dispatchEvent(new ControllerConnectEvent({
+        detail: {
+          device,
+          model: getDualSenseModel(device)!,
+        },
+      }))
       return
     }
   }

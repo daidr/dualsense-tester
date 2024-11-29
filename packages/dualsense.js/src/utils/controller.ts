@@ -1,5 +1,7 @@
+import { DualSenseModel } from '@/types/model'
 import {
   PRODUCT_ID_DUALSENSE,
+  PRODUCT_ID_DUALSENSE_EDGE,
   VENDOR_ID_SONY,
 } from '../constants'
 
@@ -8,6 +10,27 @@ export function isDualSense(device: HIDDevice) {
     device.vendorId === VENDOR_ID_SONY
     && device.productId === PRODUCT_ID_DUALSENSE
   )
+}
+
+export function isDualSenseEdge(device: HIDDevice) {
+  return (
+    device.vendorId === VENDOR_ID_SONY
+    && device.productId === PRODUCT_ID_DUALSENSE_EDGE
+  )
+}
+
+export function isDualSenseCompatible(device: HIDDevice) {
+  return isDualSense(device) || isDualSenseEdge(device)
+}
+
+export function getDualSenseModel(device: HIDDevice) {
+  if (isDualSense(device)) {
+    return DualSenseModel.DualSense
+  }
+  if (isDualSenseEdge(device)) {
+    return DualSenseModel.DualSenseEdge
+  }
+  return null
 }
 
 // Normalize an 8-bit thumbStick axis to the range [-1, +1].
