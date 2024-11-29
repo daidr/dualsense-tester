@@ -3,10 +3,11 @@ import type { DualSenseOutput } from './gadgets/output'
 import type { DualSenseState } from './gadgets/state'
 import { defineTypedCustomEvent, defineTypedEvent, TypedEventTarget } from 'typed-event-target'
 import {
-  DUAL_SENSE_BT_INPUT_REPORT_0x01_SIZE,
-  DUAL_SENSE_BT_INPUT_REPORT_0x31_SIZE,
-  DUAL_SENSE_USB_INPUT_REPORT_0x01_SIZE,
-  PRODUCT_ID_DUAL_SENSE,
+  DUALSENSE_BT_INPUT_REPORT_0x01_SIZE,
+  DUALSENSE_BT_INPUT_REPORT_0x31_SIZE,
+  DUALSENSE_USB_INPUT_REPORT_0x01_SIZE,
+  PRODUCT_ID_DUALSENSE,
+  PRODUCT_ID_DUALSENSE_EDGE,
   PROPERTY_DEVICE,
   PROPERTY_OPTIONS,
   USAGE_ID_GD_GAME_PAD,
@@ -93,20 +94,27 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
     // Check if we already have permissions for a DualSense device.
     const _devices = await navigator.hid.getDevices()
     for (const device of _devices) {
-      if (device.vendorId === VENDOR_ID_SONY && device.productId === PRODUCT_ID_DUAL_SENSE) {
-        if (!device.opened) {
-          await device.open()
-          if (!device.opened) {
-            continue
-          }
-        }
-
-        this[PROPERTY_DEVICE] = device
-        this.#checkConnectInterface(this[PROPERTY_DEVICE])
-        this[PROPERTY_DEVICE].oninputreport = this.#handleControllerReport.bind(this)
-        this.dispatchEvent(new ControllerConnectEvent())
+      if (device.vendorId === VENDOR_ID_SONY && device.productId === PRODUCT_ID_DUALSENSE) {
+        // Dualsense
+      }
+      else if (device.vendorId === VENDOR_ID_SONY && device.productId === PRODUCT_ID_DUALSENSE_EDGE) {
+        // Dualsense Edge
+      }
+      else {
         return
       }
+      if (!device.opened) {
+        await device.open()
+        if (!device.opened) {
+          continue
+        }
+      }
+
+      this[PROPERTY_DEVICE] = device
+      this.#checkConnectInterface(this[PROPERTY_DEVICE])
+      this[PROPERTY_DEVICE].oninputreport = this.#handleControllerReport.bind(this)
+      this.dispatchEvent(new ControllerConnectEvent())
+      return
     }
   }
 
@@ -144,7 +152,13 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
           // DualSense
           {
             vendorId: VENDOR_ID_SONY,
-            productId: PRODUCT_ID_DUAL_SENSE,
+            productId: PRODUCT_ID_DUALSENSE,
+            usagePage: USAGE_PAGE_GENERIC_DESKTOP,
+            usage: USAGE_ID_GD_GAME_PAD,
+          },
+          {
+            vendorId: VENDOR_ID_SONY,
+            productId: PRODUCT_ID_DUALSENSE_EDGE,
             usagePage: USAGE_PAGE_GENERIC_DESKTOP,
             usage: USAGE_ID_GD_GAME_PAD,
           },
@@ -213,7 +227,7 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
   }
 
   #handleUsbInputReport01(report: DataView) {
-    if (report.byteLength !== DUAL_SENSE_USB_INPUT_REPORT_0x01_SIZE)
+    if (report.byteLength !== DUALSENSE_USB_INPUT_REPORT_0x01_SIZE)
       return
 
     const axes0 = report.getUint8(0)
@@ -379,7 +393,7 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
   }
 
   #handleBluetoothInputReport01(report: DataView) {
-    if (report.byteLength !== DUAL_SENSE_BT_INPUT_REPORT_0x01_SIZE)
+    if (report.byteLength !== DUALSENSE_BT_INPUT_REPORT_0x01_SIZE)
       return
 
     const axes0 = report.getUint8(0)
@@ -463,7 +477,7 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
   }
 
   #handleBluetoothInputReport31(report: DataView) {
-    if (report.byteLength !== DUAL_SENSE_BT_INPUT_REPORT_0x31_SIZE)
+    if (report.byteLength !== DUALSENSE_BT_INPUT_REPORT_0x31_SIZE)
       return
 
     // byte 0?

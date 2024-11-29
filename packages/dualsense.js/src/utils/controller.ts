@@ -1,12 +1,12 @@
 import {
-  PRODUCT_ID_DUAL_SENSE,
+  PRODUCT_ID_DUALSENSE,
   VENDOR_ID_SONY,
 } from '../constants'
 
 export function isDualSense(device: HIDDevice) {
   return (
     device.vendorId === VENDOR_ID_SONY
-    && device.productId === PRODUCT_ID_DUAL_SENSE
+    && device.productId === PRODUCT_ID_DUALSENSE
   )
 }
 
