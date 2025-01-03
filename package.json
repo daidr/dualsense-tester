@@ -3,7 +3,9 @@
   "private": true,
   "scripts": {
     "build:fe": "pnpm -C packages/tester-frontend build",
+    "build:fe:iwa": "pnpm -C packages/tester-frontend build --config vite.config.iwa.ts",
     "dev:fe": "pnpm -C packages/tester-frontend dev",
+    "dev:fe:iwa": "pnpm -C packages/tester-frontend dev --config vite.config.iwa.ts",
     "build:lib": "pnpm -C packages/dualsense.js build",
     "dev:lib": "pnpm -C packages/dualsense.js dev"
   },
