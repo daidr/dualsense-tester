@@ -39,3 +39,9 @@ html.dark {
   animation: none;
   mix-blend-mode: normal;
 }
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}

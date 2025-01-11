@@ -7,18 +7,22 @@ import ConnectPanel from './components/ConnectPanel.vue';
 import InfoPanel from './components/InfoPanel.vue';
 import { useDualSenseStore } from './store/dualsense';
 import OutputPanel from './components/OutputPanel.vue';
+import { useOverlayHeader } from './composibles/useOverlayHeader';
+import OverlayHeader from './components/OverlayHeader.vue';
 
 const dualsenseStore = useDualSenseStore()
 const pageStore = usePageStore()
 const { isWebHIDSupported } = storeToRefs(pageStore)
+const showOverlayHeader = useOverlayHeader()
 </script>
 
 <template>
-  <MainHeader />
+  <OverlayHeader v-if="showOverlayHeader" />
+  <MainHeader v-else />
 
   <main>
     <template v-if="isWebHIDSupported">
-      <div class="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-3 min-h-[var(--min-height)]">
+      <div class="flex flex-col lg:grid lg:grid-cols-[400px_1fr] gap-3 flex-grow">
         <div class="flex flex-col gap-3 items-start">
           <ConnectPanel />
           <OutputPanel v-if="dualsenseStore.isConnected" />
@@ -41,8 +45,7 @@ const { isWebHIDSupported } = storeToRefs(pageStore)
 
 <style scoped>
 main {
-  --min-height: calc(100vh - 5rem - 4rem);
-  min-height: var(--min-height);
   @apply w-full max-w-[--max-width] mx-auto px-2;
+  @apply flex flex-col flex-grow;
 }
 </style>

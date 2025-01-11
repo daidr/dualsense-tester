@@ -2,7 +2,7 @@ import type { KeyObject } from 'node:crypto'
 import { Buffer } from 'node:buffer'
 
 import { writeFileSync, writeSync } from 'node:fs'
-import path, { join, toNamespacedPath } from 'node:path'
+import path, { join, resolve, toNamespacedPath } from 'node:path'
 import process from 'node:process'
 import { fileURLToPath, URL } from 'node:url'
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
@@ -16,6 +16,9 @@ import pkgJSON from './package.json'
 const TEMPLATE = {
   name: 'DualSense Tester',
   short_name: 'DualSense Tester',
+  display_override: [
+    'window-controls-overlay',
+  ],
   display: 'standalone',
   scope: '/',
   start_url: '/',
