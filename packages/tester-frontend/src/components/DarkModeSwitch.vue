@@ -4,8 +4,8 @@ import { usePageStore } from '@/store/page'
 
 const pageStore = usePageStore()
 
-const wrapperedSwitchMode = () => {
-    tryViewTranisition(switchMode)
+const wrappedSwitchMode = () => {
+    tryViewTransition(switchMode)
 }
 
 const switchMode = () => {
@@ -30,7 +30,7 @@ const switchMode = () => {
 
 const switchRef = ref<HTMLElement | null>(null)
 
-const tryViewTranisition = async (func: () => boolean) => {
+const tryViewTransition = async (func: () => boolean) => {
     if (!document.startViewTransition) {
         func()
         return;
@@ -77,7 +77,7 @@ const tryViewTranisition = async (func: () => boolean) => {
 </script>
 
 <template>
-    <div ref="switchRef" class="switch" @click="wrapperedSwitchMode">
+    <div ref="switchRef" class="switch" @click="wrappedSwitchMode">
         <div class="switch-thumb" :class="[pageStore.currentColorMode]">
             <div v-if="pageStore.currentColorMode === 'light'" class="i-mingcute-sun-line"></div>
             <div v-if="pageStore.currentColorMode === 'auto'">A</div>

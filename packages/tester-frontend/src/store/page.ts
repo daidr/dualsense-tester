@@ -1,6 +1,6 @@
 import { useColorMode } from '@vueuse/core'
 import { defineStore } from 'pinia'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 
 export const usePageStore = defineStore('page', () => {
   const { store: currentColorMode, system: systemColorMode } = useColorMode({
@@ -21,6 +21,10 @@ export const usePageStore = defineStore('page', () => {
   onMounted(() => {
     isWebHIDSupported.value = 'hid' in navigator
   })
+
+  watch(currentColorMode, () => {
+    document.querySelector('meta[name="theme-color"]')!.setAttribute('content', colorModeState.value === 'dark' ? '#000000' : '#ffffff')
+  }, { immediate: true })
 
   return {
     currentColorMode,

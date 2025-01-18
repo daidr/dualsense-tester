@@ -3,24 +3,56 @@ import { useDualSenseStore } from '@/store/dualsense';
 import ContentTips from '@/components/common/ContentTips.vue';
 import { DualSenseInterface } from 'dualsense.js';
 import { formatFirmwareTime } from '@/utils/time.util';
+import SelectBox from './common/SelectBox.vue';
+import { computed, ref } from 'vue';
+import { checkConnectionType } from '@/dualsense/utils';
+import { DualSenseConnectionType } from '@/dualsense/types';
+import LabeledValue from './common/LabeledValue.vue';
+import { decodeShiftJIS, mapDataViewToU8Hex, numberToMacAddress, numberToXHex } from '@/utils/format.util';
+import FactorySubPanel from './FactorySubPanel.vue';
+import InputInfoSubPanel from './InputInfoSubPanel.vue';
 
 const dualsenseStore = useDualSenseStore()
 
 const onConnectBtnClick = () => {
-    dualsenseStore.dualsense.requestDevice()
+    // dualsenseStore.dualsense.requestDevice()
+    dualsenseStore.requestControllerDevice()
 }
 
-const onDisconnectBtnClick = () => {
-    dualsenseStore.dualsense.disconnect()
-}
+const deviceList = computed(() => {
+    return dualsenseStore.deviceList.map((item, i) => ({
+        value: i,
+        label: item.device.productName,
+        extra: {
+            productName: item.device.productName,
+            connectionType: checkConnectionType(item.device)
+        }
+    }))
+})
 </script>
 
 <template>
     <div class="dou-sc-container space-y-2 self-start w-full">
-        <ContentTips v-if="!dualsenseStore.isConnected">
+        <ContentTips v-if="!deviceList.length">
             <p v-html="$t('connect_panel.tips')"></p>
         </ContentTips>
-        <div v-if="dualsenseStore.isConnected">
+        <SelectBox v-if="deviceList.length" :options="deviceList" :model-value="dualsenseStore.currentDeviceIndex"
+            @update:model-value="dualsenseStore.setCurrentDeviceIndex">
+            <template #default="{ index, extra }">
+                <div class="flex text-base items-center py-0.5 gap-1 min-w-0">
+                    <div
+                        class="bg-black/10 dark-bg-white/20 text-black/70 dark-text-white/70 px-2 text-sm rounded font-mono">
+                        #{{
+                        index + 1 }}</div>
+                    <div class="flex-1 ml-2 whitespace-nowrap min-w-0 overflow-hidden text-ellipsis">{{
+                        extra!.productName }}</div>
+                    <div v-if="extra!.connectionType === DualSenseConnectionType.Bluetooth"
+                        class="i-mingcute-bluetooth-line"></div>
+                    <div v-else class="i-mingcute-usb-line"></div>
+                </div>
+            </template>
+        </SelectBox>
+        <!-- <div v-if="dualsenseStore.isConnected">
             <table>
                 <tbody>
                     <tr>
@@ -35,16 +67,16 @@ const onDisconnectBtnClick = () => {
                     <tr>
                         <td class="label">{{ $t('connect_panel.battery_charging_state') }}</td>
                         <td class="value"><span>{{ dualsenseStore.state.battery.charging ?
-                            $t('connect_panel.battery_level_charging') :
-                            $t('connect_panel.battery_level_not_charging')
+                                $t('connect_panel.battery_level_charging') :
+                                $t('connect_panel.battery_level_not_charging')
                                 }}</span>
                         </td>
                     </tr>
                     <tr>
                         <td class="label">{{ $t('connect_panel.headphone_connect_state') }}</td>
                         <td class="value"><span>{{ dualsenseStore.state.headphoneConnected ?
-                            $t('connect_panel.connected') :
-                            $t('connect_panel.not_connected') }}</span></td>
+                                $t('connect_panel.connected') :
+                                $t('connect_panel.not_connected') }}</span></td>
                     </tr>
                     <tr>
                         <td class="label">{{ $t('connect_panel.firmware_version') }}</td>
@@ -57,22 +89,14 @@ const onDisconnectBtnClick = () => {
                     </tr>
                 </tbody>
             </table>
-        </div>
-        <div class="flex items-center justify-between">
-            <button v-if="!dualsenseStore.isConnected" class="dou-sc-btn" @click="onConnectBtnClick">{{
-                $t('connect_panel.connect')
-            }}</button>
-            <button v-else class="dou-sc-btn" @click="onDisconnectBtnClick">{{ $t('connect_panel.disconnect')
+        </div> -->
+        <InputInfoSubPanel />
+        <FactorySubPanel />
+
+        <div class="flex items-center justify-end">
+            <button class="dou-sc-btn" @click="onConnectBtnClick">{{
+                $t('connect_panel.add_device')
                 }}</button>
-            <div class="flex items-center text-primary/80">
-                <div v-if="!dualsenseStore.isConnected">{{ $t('connect_panel.not_connected') }}</div>
-                <template v-else>
-                    <div v-if="dualsenseStore.state.interface === DualSenseInterface.Bluetooth"
-                        class="i-mingcute-bluetooth-line"></div>
-                    <div v-else class="i-mingcute-usb-line"></div>
-                    <span class="ml-1">{{ $t('connect_panel.connected') }}</span>
-                </template>
-            </div>
         </div>
     </div>
 </template>
