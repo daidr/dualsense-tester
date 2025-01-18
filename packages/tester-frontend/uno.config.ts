@@ -16,6 +16,9 @@ export default defineConfig({
         dark: '#071f40',
       },
     },
+    fontFamily: {
+      mono: ['Noto Sans Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace'],
+    },
   },
   shortcuts: {
     'dou-sc-capsule':

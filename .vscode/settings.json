@@ -1,119 +1,123 @@
 {
-    // Disable the default formatter, use eslint instead
-    "prettier.enable": false,
-    "editor.formatOnSave": false,
-    // Auto fix
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": "explicit",
-        "source.organizeImports": "never"
+  "i18n-ally.localesPaths": [
+    "./packages/tester-frontend/src/locales"
+  ],
+  // Disable the default formatter, use eslint instead
+  "prettier.enable": false,
+  "editor.formatOnSave": false,
+  // Auto fix
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "never"
+  },
+  // Silent the stylistic rules in you IDE, but still auto fix them
+  "eslint.rules.customizations": [
+    {
+      "rule": "style/*",
+      "severity": "off",
+      "fixable": true
     },
-    // Silent the stylistic rules in you IDE, but still auto fix them
-    "eslint.rules.customizations": [
-        {
-            "rule": "style/*",
-            "severity": "off",
-            "fixable": true
-        },
-        {
-            "rule": "format/*",
-            "severity": "off",
-            "fixable": true
-        },
-        {
-            "rule": "*-indent",
-            "severity": "off",
-            "fixable": true
-        },
-        {
-            "rule": "*-spacing",
-            "severity": "off",
-            "fixable": true
-        },
-        {
-            "rule": "*-spaces",
-            "severity": "off",
-            "fixable": true
-        },
-        {
-            "rule": "*-order",
-            "severity": "off",
-            "fixable": true
-        },
-        {
-            "rule": "*-dangle",
-            "severity": "off",
-            "fixable": true
-        },
-        {
-            "rule": "*-newline",
-            "severity": "off",
-            "fixable": true
-        },
-        {
-            "rule": "*quotes",
-            "severity": "off",
-            "fixable": true
-        },
-        {
-            "rule": "*semi",
-            "severity": "off",
-            "fixable": true
-        }
-    ],
-    // Enable eslint for all supported languages
-    "eslint.validate": [
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact",
-        "vue",
-        "html",
-        "markdown",
-        "json",
-        "jsonc",
-        "yaml",
-        "toml",
-        "xml",
-        "gql",
-        "graphql",
-        "astro",
-        "svelte",
-        "css",
-        "less",
-        "scss",
-        "pcss",
-        "postcss"
-    ],
-    "i18next.i18nPaths": "e:/devFolder/webProjects/dualsense-tester/packages/tester-frontend/src/locales",
-    "cSpell.words": [
-        "autobg",
-        "autoborder",
-        "BDADR",
-        "CALIB",
-        "colorborder",
-        "dualsense",
-        "EFUSE",
-        "geometrychange",
-        "HWVERSION",
-        "inputreport",
-        "intlify",
-        "lightbar",
-        "MANU",
-        "metafile",
-        "mstile",
-        "nodrag",
-        "oninputreport",
-        "pcba",
-        "PCBAID",
-        "RSSI",
-        "SWITCHOFF",
-        "TRACABILITY",
-        "twotone",
-        "TXPOWER",
-        "VCOM",
-        "VERISION",
-        "WAVEOUT",
-        "XTAL",
-        "Русский"
-    ]
+    {
+      "rule": "format/*",
+      "severity": "off",
+      "fixable": true
+    },
+    {
+      "rule": "*-indent",
+      "severity": "off",
+      "fixable": true
+    },
+    {
+      "rule": "*-spacing",
+      "severity": "off",
+      "fixable": true
+    },
+    {
+      "rule": "*-spaces",
+      "severity": "off",
+      "fixable": true
+    },
+    {
+      "rule": "*-order",
+      "severity": "off",
+      "fixable": true
+    },
+    {
+      "rule": "*-dangle",
+      "severity": "off",
+      "fixable": true
+    },
+    {
+      "rule": "*-newline",
+      "severity": "off",
+      "fixable": true
+    },
+    {
+      "rule": "*quotes",
+      "severity": "off",
+      "fixable": true
+    },
+    {
+      "rule": "*semi",
+      "severity": "off",
+      "fixable": true
+    }
+  ],
+  // Enable eslint for all supported languages
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "html",
+    "markdown",
+    "json",
+    "jsonc",
+    "yaml",
+    "toml",
+    "xml",
+    "gql",
+    "graphql",
+    "astro",
+    "svelte",
+    "css",
+    "less",
+    "scss",
+    "pcss",
+    "postcss"
+  ],
+  "cSpell.words": [
+    "autobg",
+    "autoborder",
+    "BDADR",
+    "CALIB",
+    "colorborder",
+    "dualsense",
+    "EFUSE",
+    "geometrychange",
+    "HWVERSION",
+    "inputreport",
+    "intlify",
+    "lightbar",
+    "MANU",
+    "metafile",
+    "mstile",
+    "nodrag",
+    "oninputreport",
+    "pcba",
+    "PCBAID",
+    "pixi",
+    "RSSI",
+    "SWITCHOFF",
+    "TRACABILITY",
+    "twotone",
+    "TXPOWER",
+    "VCOM",
+    "VERISION",
+    "WAVEOUT",
+    "XTAL",
+    "Русский"
+  ],
+  "arrayIndexInlay.enabled": true
 }
