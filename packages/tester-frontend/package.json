@@ -13,27 +13,28 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@unocss/reset": "^0.64.1",
-    "@vueuse/core": "^12.0.0",
+    "@unocss/reset": "^65.4.2",
+    "@vueuse/core": "^12.4.0",
     "dualsense.js": "workspace:*",
     "lodash-es": "^4.17.21",
-    "pinia": "^2.2.7",
+    "pinia": "^2.3.0",
+    "pixi.js": "^8.6.6",
     "vue": "^3.5.13",
-    "vue-i18n": "^10.0.4"
+    "vue-i18n": "^11.0.1"
   },
   "devDependencies": {
-    "@iconify-json/icon-park-twotone": "^1.1.10",
-    "@iconify-json/mingcute": "^1.1.10",
-    "@intlify/unplugin-vue-i18n": "^6.0.0",
-    "@unocss/inspector": "^0.64.1",
+    "@iconify-json/icon-park-twotone": "^1.2.2",
+    "@iconify-json/mingcute": "^1.2.3",
+    "@intlify/unplugin-vue-i18n": "^6.0.3",
+    "@unocss/inspector": "^65.4.2",
     "@vitejs/plugin-vue": "^5.2.1",
-    "npm-run-all2": "^7.0.1",
+    "npm-run-all2": "^7.0.2",
     "rollup-plugin-webbundle": "^0.2.0",
-    "sass-embedded": "^1.81.0",
-    "typescript": "5.6.2",
-    "unocss": "^0.64.1",
-    "vite-plugin-pwa": "^0.21.0",
-    "vue-tsc": "2.0.29",
+    "sass-embedded": "^1.83.4",
+    "typescript": "5.7.3",
+    "unocss": "^65.4.2",
+    "vite-plugin-pwa": "^0.21.1",
+    "vue-tsc": "2.2.0",
     "wbn-sign": "^0.2.1"
   }
 }
