@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import type { InputInfo } from '@/dualsense/types';
+import type { InnerModelProps } from '../shared';
 
-defineProps<{
-    inputVisualInfo: InputInfo['visualResult'];
-}>()
+defineProps<InnerModelProps>()
 </script>
 
 <template>

@@ -140,7 +140,7 @@ function formatStickValue(value: number) {
             }">
                 <circle r="19" class="ds-filled-icon" :cx="0" :cy="0" />
                 <text x="0" y="40" font-size="25" class="ds-text" text-anchor="middle">{{
-                    numberToXHex(inputVisualInfo.touchpadID1) }}</text>
+                    numberToXHex(inputVisualInfo.touchpadID1, 2) }}</text>
                 <text x="0" y="-25" font-size="25" class="ds-text" text-anchor="middle">{{
                     inputVisualInfo.touchpadX1 }},{{
                     inputVisualInfo.touchpadY1 }}</text>
@@ -150,7 +150,7 @@ function formatStickValue(value: number) {
             }">
                 <circle r="19" class="ds-filled-icon" :cx="0" :cy="0" />
                 <text x="0" y="40" font-size="25" class="ds-text" text-anchor="middle">{{
-                    numberToXHex(inputVisualInfo.touchpadID2) }}</text>
+                    numberToXHex(inputVisualInfo.touchpadID2, 2) }}</text>
                 <text x="0" y="-25" font-size="25" class="ds-text" text-anchor="middle">{{
                     inputVisualInfo.touchpadX2 }},{{
                     inputVisualInfo.touchpadY2 }}</text>
