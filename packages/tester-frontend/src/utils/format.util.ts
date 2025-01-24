@@ -27,13 +27,13 @@ export function numberToMacAddress(value: bigint) {
   return value.toString(16).padStart(12, '0').toUpperCase().replace(/(.{2})/g, '$1:').slice(0, -1)
 }
 
-export function pairedValue(left: string | undefined, right: string | undefined) {
+export function pairedValue(left: string | undefined, right: string | undefined, formatter?: (value: string | undefined) => string) {
   let finalString = ''
   if (left) {
-    finalString += `${left} (L)\n`
+    finalString += `${formatter?.(left) ?? left} (L)\n`
   }
   if (right) {
-    finalString += `${right} (R)\n`
+    finalString += `${formatter?.(right) ?? right} (R)\n`
   }
   return finalString.trim()
 }

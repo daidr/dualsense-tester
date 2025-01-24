@@ -53,7 +53,44 @@
       "level9": "90-99%",
       "level10": "100%",
       "unknown": "未知"
+    },
+    "factory_info": {
+      "build_time": "构建时间",
+      "hw_info": "硬件信息",
+      "device_info": "设备信息",
+      "fw_type": "固件类型",
+      "sw_series": "软件类型",
+      "update_version": "更新版本",
+      "sbl_fw_version": "SBL 固件版本",
+      "main_fw_version": "主固件版本",
+      "dsp_fw_version": "DSP 固件版本",
+      "mcu_dsp_fw_version": "MCU DSP 固件版本",
+      "bt_patch_version": "BT 补丁版本",
+      "pcba_id": "PCBA ID",
+      "serial_number": "序列号",
+      "assemble_parts_info": "组装部件信息",
+      "battery_barcode": "电池条码",
+      "vcm_barcode": "震动电机条码",
+      "unique_id": "唯一 ID",
+      "bd_mac_address": "蓝牙 MAC 地址",
+      "at_serial_number": "AT 序列号",
+      "at_motor_info": "AT 电机信息",
+      "individual_data_verify": "数据校验",
+      "individual_data": {
+        "not_supported": "不支持",
+        "no_data": "无数据",
+        "start_error": "启动错误",
+        "get_error": "获取错误",
+        "successful": "成功",
+        "retry_timeout": "重试超时",
+        "fail": "失败"
+      }
     }
+  },
+  "profile_panel": {
+    "title": "配置文件",
+    "default": "默认配置",
+    "unassigned": "未配置"
   },
   "info_panel": {
     "tips": "请先连接你的 DualSense 手柄",

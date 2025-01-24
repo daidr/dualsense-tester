@@ -24,7 +24,7 @@ export default defineConfig({
     'dou-sc-capsule':
       'px-2 lh-1.1em flex-shrink-0 text-primary/80 dou-sc-colorborder rounded-full whitespace-nowrap',
     'dou-sc-btn':
-      'transition bg-transparent dou-sc-colorborder text-primary px-4 py-1 rounded-full transform-gpu flex items-center gap-1 hover:(bg-primary text-white) active:(scale-90)',
+      'transition bg-transparent dou-sc-colorborder text-primary px-4 py-1 rounded-full transform-gpu flex items-center gap-1 hover:(bg-primary text-white) active:(scale-90) disabled:(filter-grayscale bg-transparent! scale-100! text-primary! cursor-not-allowed)',
     'dou-sc-container': 'dou-sc-autoborder rounded-32px px-3 py-3',
     'dou-sc-autoborder': 'border-1 border-gray-3 dark-border-gray-6',
     'dou-sc-colorborder': 'border-1.5 border-primary/20 dark-border-primary/50',

@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import type { ModelProps } from '@/device-based-router/shared';
-import DSEBack from './ModelPanel/DSBack.vue';
-import DSEBody from './ModelPanel/DSBody.vue';
-import DSCover from './ModelPanel/DSCover.vue';
-// import DSECover from './DSECover.vue';
-// import DSETop from './DSETop.vue';
+import DSEBack from './_ModelPanel/DSBack.vue';
+import DSEBody from './_ModelPanel/DSBody.vue';
+import DSCover from './_ModelPanel/DSCover.vue';
 
-const props = defineProps<ModelProps>()
+defineProps<ModelProps>()
 </script>
 
 <template>

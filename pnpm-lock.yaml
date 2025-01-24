@@ -68,6 +68,9 @@ importers:
       '@vueuse/core':
         specifier: ^12.4.0
         version: 12.4.0(typescript@5.7.3)
+      consola:
+        specifier: ^3.4.0
+        version: 3.4.0
       dualsense.js:
         specifier: workspace:*
         version: link:../dualsense.js
@@ -2204,10 +2207,6 @@ packages:
 
   confbox@0.1.8:
     resolution: {integrity: sha512-RMtmw0iFkeR4YV+fUOSucriAQNb9g8zFR52MWCtl+cCZOFRNL6zeB395vPzFhEjjn4fMxXudmELnl/KF/WrK6w==}
-
-  consola@3.2.3:
-    resolution: {integrity: sha512-I5qxpzLv+sJhTVEoLYNcTW+bThDCPsit0vLNKShZx6rLtpilNpmmeTPaeqJb9ZE9dV3DGaeby6Vuhrw38WjeyQ==}
-    engines: {node: ^14.18.0 || >=16.10.0}
 
   consola@3.4.0:
     resolution: {integrity: sha512-EiPU8G6dQG0GFHNR8ljnZFki/8a+cQwEQ+7wpxdChl02Q8HXlwEZWD5lqAF8vC2sEC3Tehr8hy7vErz88LHyUA==}
@@ -6601,8 +6600,6 @@ snapshots:
 
   confbox@0.1.8: {}
 
-  consola@3.2.3: {}
-
   consola@3.4.0: {}
 
   convert-source-map@2.0.0: {}
@@ -8768,7 +8765,7 @@ snapshots:
       bundle-require: 5.0.0(esbuild@0.24.0)
       cac: 6.7.14
       chokidar: 4.0.1
-      consola: 3.2.3
+      consola: 3.4.0
       debug: 4.3.7
       esbuild: 0.24.0
       joycon: 3.1.1

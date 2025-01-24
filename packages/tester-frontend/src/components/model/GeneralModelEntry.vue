@@ -6,11 +6,10 @@ import { storeToRefs } from 'pinia';
 import { computed, defineAsyncComponent } from 'vue';
 
 const dualsenseStore = useDualSenseStore();
-const { currentDevice,inputVisualInfo } = storeToRefs(dualsenseStore);
+const { currentDevice, inputVisualInfo } = storeToRefs(dualsenseStore);
 
 const MODELS = {
-    // [DualSenseType.DualSense]: defineAsyncComponent(() => import('./DualSenseModel/index.vue')),
-    [DualSenseType.DualSense]: defineAsyncComponent(() => import('./DualSenseEdgeModel/index.vue')),
+    [DualSenseType.DualSense]: defineAsyncComponent(() => import('./DualSenseModel/index.vue')),
     [DualSenseType.DualSenseEdge]: defineAsyncComponent(() => import('./DualSenseEdgeModel/index.vue')),
 }
 
@@ -25,7 +24,7 @@ defineProps<{
 </script>
 
 <template>
-    <component :is="getCurrentModel(currentDevice)" :show-value="showValue" :input-visual-info="inputVisualInfo" />
+    <component v-if="inputVisualInfo" :is="getCurrentModel(currentDevice)" :show-value="showValue" :input-visual-info="inputVisualInfo" />
 </template>
 
 <style scoped>

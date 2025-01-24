@@ -2,7 +2,7 @@ import { shiftJISDecoder, utf8Decoder } from '@/utils/decoder.util'
 import { decodeShiftJIS, mapDataViewToU8Hex, notAllFalsy, numberToHex, numberToMacAddress, numberToXHex, pairedValue } from '@/utils/format.util'
 import { PRODUCT_ID_DUALSENSE, PRODUCT_ID_DUALSENSE_EDGE, USAGE_ID_GD_GAME_PAD, USAGE_PAGE_GENERIC_DESKTOP, VENDOR_ID_SONY } from './constants'
 import { crc32, DPadDirection, fillFeatureReportChecksum } from './crc32'
-import { type DeviceItem, DualSenseConnectionType, type DualSenseDeviceInfo, type DualSenseFirmwareInfo, type DualSenseInitialFirmwareInfo, DualSenseTestActionId, DualSenseTestDeviceId, DualSenseType, type DualSenseVisualResult, type InputReportOffset, type LabeledValueItem, TestResult, TestStatus } from './types'
+import { type DeviceItem, type DSEProfileItem, DualSenseConnectionType, type DualSenseDeviceInfo, type DualSenseFirmwareInfo, type DualSenseInitialFirmwareInfo, DualSenseTestActionId, DualSenseTestDeviceId, DualSenseType, type DualSenseVisualResult, type InputReportOffset, type LabeledValueItem, TestResult, TestStatus } from './types'
 
 export function isDualSenseEdge(device: HIDDevice) {
   return (
@@ -679,6 +679,9 @@ export function createInputReportOffset(usb: boolean): InputReportOffset {
     atStatus1: 42 + num,
     hostTimestamp: 43 + num,
     atStatus2: 47 + num,
+    /** DSE Only */
+    activeProfile: 48 + num,
+    /** DS Only */
     deviceTimestamp: 48 + num,
     triggerLevel: 49 + num,
     status0: 52 + num,
@@ -747,6 +750,10 @@ export function batteryLevelToString(batteryLevel: number) {
 // Normalize an 8-bit thumbStick axis to the range [-1, +1].
 export function normalizeThumbStickAxis(value: number) {
   return (2 * value) / 0xFF - 1.0
+}
+
+export function getInputOffset(connectionType: DualSenseConnectionType) {
+  return connectionType === DualSenseConnectionType.USB ? inputReportOffsetUSB : inputReportOffsetBluetooth
 }
 
 export function parseDualSenseInputReport(reportId: number, data: DataView, connectionType: DualSenseConnectionType): {

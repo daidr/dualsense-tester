@@ -13,12 +13,6 @@ export enum DualSenseType {
   Unknown = 'Unknown',
 }
 
-export interface DeviceItem {
-  device: HIDDevice
-  connectionType: DualSenseConnectionType
-  type: DualSenseType
-}
-
 export interface DualSenseDeviceInfo {
   deviceName: string
   vendorId: number
@@ -390,4 +384,15 @@ export interface DSEProfileItem {
   default?: boolean
   assigned: boolean
   name?: string
+}
+
+export enum DPadDirection {
+  U,
+  UR,
+  R,
+  RD,
+  D,
+  LD,
+  L,
+  UL,
 }

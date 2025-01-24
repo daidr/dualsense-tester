@@ -1,69 +1,72 @@
-import type { DeviceItem, DualSenseConnectionType, InputInfo } from '@/dualsense/types'
 import type { DualSense } from 'dualsense.js'
+import { RouterManager } from '@/device-based-router'
+import { DualSenseRouter } from '@/device-based-router/DualSense'
+import { DualSenseEdgeRouter } from '@/device-based-router/DualSenseEdge'
+import { DeviceConnectionType, type DeviceItemWithRouter } from '@/device-based-router/shared'
+import { type DeviceItem, type DSEProfileItem, type DualSenseConnectionType, DualSenseType, type InputInfo } from '@/dualsense/types'
 import { checkConnectionType, getDeviceInfo, getDualSenseType, parseDualSenseInputReport, requestControllerDevice as requestDevice } from '@/dualsense/utils'
 import { isObjectShallowEqual } from '@/utils/common.util'
+import { requestHIDDevice } from '@/utils/hid.util'
+import { hidLogger } from '@/utils/logger.util'
 import { computedAsync } from '@vueuse/core'
 import { defineStore } from 'pinia'
-import { computed, onMounted, onUnmounted, onWatcherCleanup, reactive, readonly, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, onWatcherCleanup, reactive, readonly, ref, shallowRef, watch } from 'vue'
 
 export const useDualSenseStore = defineStore('dualsense', () => {
-  const rawDeviceList = ref<HIDDevice[]>([])
+  const routerManager = new RouterManager()
+  routerManager.register(new DualSenseRouter())
+  routerManager.register(new DualSenseEdgeRouter())
 
-  const deviceList = computed<DeviceItem[]>(() => {
-    return rawDeviceList.value.map(device => ({
-      device,
-      productName: device.productName,
-      connectionType: checkConnectionType(device),
-      type: getDualSenseType(device),
-    }))
-  })
+  const deviceList = shallowRef<DeviceItemWithRouter[]>([])
+  const updatingDeviceList = ref(false)
 
   const _currentDeviceIndex = ref(0)
 
   const currentDeviceIndex = computed(() => Math.min(_currentDeviceIndex.value, deviceList.value.length - 1))
 
   // 赋值给 currentDevice 的设备一定是已经打开的
-  const currentDevice = ref<DeviceItem | undefined>(undefined)
+  const currentDevice = shallowRef<DeviceItemWithRouter | undefined>(undefined)
 
   const setCurrentDeviceIndex = (index: number) => {
     _currentDeviceIndex.value = index
   }
 
-  const inputReport = ref<DataView | undefined>()
-  const inputLabelInfo = ref<InputInfo['labelResult']>()
-  const inputVisualInfo = ref<InputInfo['visualResult']>()
+  const inputReport = shallowRef<DataView | undefined>()
+  const inputLabelInfo = shallowRef<InputInfo['labelResult']>()
+  const inputVisualInfo = shallowRef<InputInfo['visualResult']>()
   const inputSeqNum = ref(0)
+
+  const isDeviceReady = computed(() => {
+    return currentDevice.value !== undefined && inputReport.value !== undefined
+  })
 
   let currentAnimationFrame: number | undefined
 
-  function inputReportHandlerFactory(deviceItem: DeviceItem) {
-    const { connectionType } = deviceItem
+  function inputReportHandlerFactory(deviceItem: DeviceItemWithRouter) {
     return (event: HIDInputReportEvent) => {
       if (currentAnimationFrame) {
         cancelAnimationFrame(currentAnimationFrame)
       }
       currentAnimationFrame = requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          inputReport.value = event.data
-          const result = parseDualSenseInputReport(event.reportId, event.data, connectionType)
-          if (result && deviceItem.device === currentDevice.value?.device) {
-            inputSeqNum.value = result.seqNum
-            inputLabelInfo.value = result.labelResult
-            inputVisualInfo.value = result.visualResult
-          }
-        })
+        inputReport.value = event.data
+        // const result = parseDualSenseInputReport(event.reportId, event.data, connectionType)
+        // if (result && deviceItem.device === currentDevice.value?.device) {
+        //   inputSeqNum.value = result.seqNum
+        //   inputLabelInfo.value = result.labelResult
+        //   inputVisualInfo.value = result.visualResult
+        // }
       })
     }
   }
 
-  const deviceInfo = computedAsync(async () => {
-    if (!currentDevice.value) {
-      return ([])
-    }
+  // const deviceInfo = computedAsync(async () => {
+  //   if (!currentDevice.value) {
+  //     return ([])
+  //   }
 
-    const deviceInfo = await getDeviceInfo(currentDevice.value)
-    return deviceInfo
-  })
+  //   const deviceInfo = await getDeviceInfo(currentDevice.value)
+  //   return deviceInfo
+  // })
 
   watch(() => deviceList.value[currentDeviceIndex.value], (item) => {
     if (!item) {
@@ -93,19 +96,44 @@ export const useDualSenseStore = defineStore('dualsense', () => {
     })
   })
 
-  function updateDeviceList() {
-    navigator.hid.getDevices().then((devices) => {
-      rawDeviceList.value = devices
-    })
+  async function updateDeviceList() {
+    updatingDeviceList.value = true
+    const devices = await navigator.hid.getDevices()
+    deviceList.value = (await Promise.all(devices.map(async (device) => {
+      // 尝试使用缓存
+      const cachedDeviceItem = deviceList.value.find(item => item.device === device)
+      if (cachedDeviceItem) {
+        return cachedDeviceItem
+      }
+      const router = await routerManager.match(device)
+      if (!router) {
+        hidLogger.warn('No router matched, this device will be ignored', device)
+        return undefined
+      }
+
+      const deviceItem = await router.getDeviceItem(device)
+
+      if (deviceItem.connectionType === DeviceConnectionType.Unknown) {
+        hidLogger.warn('Unknown connection type, this device will be ignored', device)
+        return undefined
+      }
+
+      return {
+        ...deviceItem,
+        router,
+      }
+    })))
+      .filter(item => item !== undefined)
+    updatingDeviceList.value = false
   }
 
   function deviceConnectedHandler(event: HIDConnectionEvent) {
-    console.log('device connected', event)
+    hidLogger.debug('device connected', event)
     updateDeviceList()
   }
 
   function deviceDisconnectedHandler(event: HIDConnectionEvent) {
-    console.log('device disconnected', event)
+    hidLogger.debug('device disconnected', event)
     updateDeviceList()
   }
 
@@ -121,23 +149,30 @@ export const useDualSenseStore = defineStore('dualsense', () => {
   })
 
   async function requestControllerDevice() {
-    const result = await requestDevice()
+    const result = await requestHIDDevice(routerManager.filters)
     if (result) {
       updateDeviceList()
     }
   }
 
+  const views = computed(() => {
+    return routerManager.views(currentDevice.value)
+  })
+
   return {
+    updatingDeviceList,
     deviceList,
     requestControllerDevice,
     currentDeviceIndex,
     setCurrentDeviceIndex,
     currentDevice,
-    deviceInfo,
-    inputLabelInfo,
-    inputVisualInfo,
-    inputSeqNum,
+    // deviceInfo,
+    // inputLabelInfo,
+    // inputVisualInfo,
+    // inputSeqNum,
     inputReport,
+    views,
+    isDeviceReady,
     // old
     // dualsense: {} as DualSense,
     // isConnected: ref(false),

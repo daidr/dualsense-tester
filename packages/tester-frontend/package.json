@@ -15,6 +15,7 @@
   "dependencies": {
     "@unocss/reset": "^65.4.2",
     "@vueuse/core": "^12.4.0",
+    "consola": "^3.4.0",
     "dualsense.js": "workspace:*",
     "lodash-es": "^4.17.21",
     "pinia": "^2.3.0",
