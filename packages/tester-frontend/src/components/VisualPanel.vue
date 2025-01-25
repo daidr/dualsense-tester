@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useDualSenseStore } from '@/store/dualsense';
-import AccelValueBar from './GryoValueBar.vue';
+import AccelValueBar from './GyroValueBar.vue';
 import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -39,7 +39,8 @@ const showValueSets = computed(() => {
     </div>
     <template v-if="views.visualizerPanels">
       <div class="flex flex-col gap-2 w-full max-w-600px">
-        <VisualizerPanelShell v-for="item, index of views.visualizerPanels" :key="index" :item="item" />
+        <VisualizerPanelShell v-for="item, index of views.visualizerPanels" :key="index" :item="item"
+          :show-value="Boolean(showValue)" />
       </div>
     </template>
     <!-- <GeneralModelEntry :showValue="Boolean(showValue)" />

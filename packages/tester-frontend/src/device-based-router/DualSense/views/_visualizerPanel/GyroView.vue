@@ -1,11 +1,13 @@
 <script setup lang="ts">
-
 import { useConnectionType, useInputReport } from '@/composables/useInjectValues';
-import { DeviceConnectionType } from '@/device-based-router/shared';
+import { DeviceConnectionType, type ModelProps } from '@/device-based-router/shared';
 import { computed } from 'vue';
 import { inputReportOffsetBluetooth, inputReportOffsetUSB } from '../../utils/offset.util';
 import { computedAsync } from '@vueuse/core';
-import AccelValueBar from '@/components/GryoValueBar.vue';
+import GyroValueBar from '@/components/GyroValueBar.vue';
+import ThreeAxisGraph from '@/components/common/ThreeAxisGraph.vue';
+
+defineProps<ModelProps>()
 
 const inputReport = useInputReport()
 const connectionType = useConnectionType()
@@ -19,9 +21,9 @@ const gyroInfo = computedAsync(async () => {
   const gyroRoll = inputReport.value.getInt16(offset.value.gyroRoll, true)
 
   return {
-    gyroPitch,
-    gyroYaw,
-    gyroRoll,
+    x: gyroPitch,
+    y: gyroYaw,
+    z: gyroRoll
   }
 })
 
@@ -29,9 +31,12 @@ const gyroInfo = computedAsync(async () => {
 
 <template>
   <template v-if="gyroInfo">
-    <AccelValueBar :title="$t('info_panel.pitch')" :value="gyroInfo.gyroPitch" />
-    <AccelValueBar :title="$t('info_panel.yaw')" :value="gyroInfo.gyroYaw" />
-    <AccelValueBar :title="$t('info_panel.roll')" :value="gyroInfo.gyroRoll" />
+    <div>
+      <GyroValueBar :title="$t('info_panel.pitch')" :value="gyroInfo.x" />
+      <GyroValueBar class="text-[#f14c4c]!" :title="$t('info_panel.yaw')" :value="gyroInfo.y" />
+      <GyroValueBar class="text-[#f9aa53]!" :title="$t('info_panel.roll')" :value="gyroInfo.z" />
+    </div>
+    <ThreeAxisGraph v-if="showValue" class="w-full h-150px" :value="gyroInfo" />
   </template>
 </template>
 

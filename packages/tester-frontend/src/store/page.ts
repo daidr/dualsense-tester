@@ -1,3 +1,4 @@
+import { hole } from '@/utils/func.util'
 import { useColorMode } from '@vueuse/core'
 import { defineStore } from 'pinia'
 import { computed, onMounted, ref, watch } from 'vue'

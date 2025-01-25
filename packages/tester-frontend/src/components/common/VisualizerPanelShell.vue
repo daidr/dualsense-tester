@@ -4,6 +4,7 @@ import TextTag from './TextTag.vue';
 
 defineProps<{
   item: CustomPanelItem
+  showValue: boolean
 }>()
 </script>
 
@@ -15,7 +16,7 @@ defineProps<{
 				{{ typeof item.tag === 'string' ? item.tag : $t(item.tag.key) }}
 			</TextTag>
 		</h1>
-		<component :is="item.component" />
+		<component :is="item.component" :show-value="showValue" />
 	</div>
 </template>
 

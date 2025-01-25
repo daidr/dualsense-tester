@@ -1,10 +1,13 @@
 <script setup lang="ts">
 
 import { useConnectionType, useInputReport } from '@/composables/useInjectValues';
-import { DeviceConnectionType } from '@/device-based-router/shared';
+import { DeviceConnectionType, type ModelProps } from '@/device-based-router/shared';
 import { computed } from 'vue';
 import { inputReportOffsetBluetooth, inputReportOffsetUSB } from '../../utils/offset.util';
 import { computedAsync } from '@vueuse/core';
+import ThreeAxisGraph from '@/components/common/ThreeAxisGraph.vue';
+
+defineProps<ModelProps>()
 
 const inputReport = useInputReport()
 const connectionType = useConnectionType()
@@ -18,9 +21,9 @@ const accelInfo = computedAsync(async () => {
   const accelZ = inputReport.value.getInt16(offset.value.accelZ, true)
 
   return {
-    accelX,
-    accelY,
-    accelZ
+    x: accelX,
+    y: accelY,
+    z: accelZ
   }
 })
 
@@ -30,16 +33,17 @@ const accelInfo = computedAsync(async () => {
   <template v-if="accelInfo">
     <div class="flex justify-between w-full text-primary font-sans">
       <p class="font-bold">X</p>
-      <p class="w-1/2 text-right">{{ accelInfo.accelX }}</p>
+      <p class="w-1/2 text-right">{{ accelInfo.x }}</p>
     </div>
-    <div class="flex justify-between w-full text-primary font-sans">
+    <div class="flex justify-between w-full text-[#f14c4c] font-sans">
       <p class="font-bold">Y</p>
-      <p class="w-1/2 text-right">{{ accelInfo.accelY }}</p>
+      <p class="w-1/2 text-right">{{ accelInfo.y }}</p>
     </div>
-    <div class="flex justify-between w-full text-primary font-sans">
+    <div class="flex justify-between w-full text-[#f9aa53] font-sans">
       <p class="font-bold">Z</p>
-      <p class="w-1/2 text-right">{{ accelInfo.accelZ }}</p>
+      <p class="w-1/2 text-right">{{ accelInfo.z }}</p>
     </div>
+    <ThreeAxisGraph v-if="showValue" class="w-full h-150px" :value="accelInfo" />
   </template>
 </template>
 
