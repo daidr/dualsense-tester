@@ -2,12 +2,10 @@
   "name": "dualsense-tester",
   "private": true,
   "scripts": {
-    "build:fe": "pnpm -C packages/tester-frontend build",
-    "build:fe:iwa": "pnpm -C packages/tester-frontend build --config vite.config.iwa.ts",
-    "dev:fe": "pnpm -C packages/tester-frontend dev",
-    "dev:fe:iwa": "pnpm -C packages/tester-frontend dev --config vite.config.iwa.ts",
-    "build:lib": "pnpm -C packages/dualsense.js build",
-    "dev:lib": "pnpm -C packages/dualsense.js dev"
+    "build:fe": "bun run --bun -F tester-frontend build",
+    "build:fe:iwa": "bun run --bun -F tester-frontend build --config vite.config.iwa.ts",
+    "dev:fe": "bun run --bun -F tester-frontend dev",
+    "dev:fe:iwa": "bun run --bun -F tester-frontend dev --config vite.config.iwa.ts"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^3.14.0",
@@ -22,5 +20,14 @@
     "eslint": "^9.18.0",
     "typescript": "5.7.3",
     "vite": "^6.0.7"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "trustedDependencies": [
+    "@swc/core"
+  ],
+  "overrides": {
+    "unconfig": "0.3.10"
   }
 }

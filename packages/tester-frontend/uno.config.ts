@@ -1,6 +1,7 @@
 import { defineConfig, presetIcons, presetUno, transformerDirectives, transformerVariantGroup } from 'unocss'
 
 export default defineConfig({
+  details: true,
   presets: [
     presetUno({
       dark: 'class',

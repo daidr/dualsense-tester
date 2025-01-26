@@ -1,16 +1,12 @@
-import type { DualSense } from 'dualsense.js'
+import type { InputInfo } from '@/dualsense/types'
 import { RouterManager } from '@/device-based-router'
 import { DualSenseRouter } from '@/device-based-router/DualSense'
 import { DualSenseEdgeRouter } from '@/device-based-router/DualSenseEdge'
 import { DeviceConnectionType, type DeviceItemWithRouter } from '@/device-based-router/shared'
-import { type DeviceItem, type DSEProfileItem, type DualSenseConnectionType, DualSenseType, type InputInfo } from '@/dualsense/types'
-import { checkConnectionType, getDeviceInfo, getDualSenseType, parseDualSenseInputReport, requestControllerDevice as requestDevice } from '@/dualsense/utils'
-import { isObjectShallowEqual } from '@/utils/common.util'
 import { requestHIDDevice } from '@/utils/hid.util'
 import { hidLogger } from '@/utils/logger.util'
-import { computedAsync } from '@vueuse/core'
 import { defineStore } from 'pinia'
-import { computed, onMounted, onUnmounted, onWatcherCleanup, reactive, readonly, ref, shallowRef, watch } from 'vue'
+import { computed, onMounted, onUnmounted, onWatcherCleanup, ref, shallowRef, watch } from 'vue'
 
 export const useDualSenseStore = defineStore('dualsense', () => {
   const routerManager = new RouterManager()

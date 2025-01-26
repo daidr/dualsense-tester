@@ -7,7 +7,7 @@ import { createI18n } from 'vue-i18n'
 import App from './App.vue'
 
 import './assets/main.scss'
-import 'virtual:uno.css'
+// import 'virtual:uno.css'
 import '@unocss/reset/tailwind.css'
 
 const app = createApp(App)

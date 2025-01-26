@@ -2,10 +2,7 @@
 import ConnectPanel from './components/ConnectPanel.vue';
 import VisualPanel from './components/VisualPanel.vue';
 import { useDualSenseStore } from './store/dualsense';
-import OutputPanel from './components/OutputPanel.vue';
 import DebugPanel from './components/DebugPanel.vue';
-import ProfilePanel from './components/panels/ProfilePanel/ProfilePanel.vue';
-import { DualSenseType } from './dualsense/types';
 import WidgetShell from './components/common/WidgetShell.vue';
 import { provide, readonly } from 'vue';
 import { storeToRefs } from 'pinia';
