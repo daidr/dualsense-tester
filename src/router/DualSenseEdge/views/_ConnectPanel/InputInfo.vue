@@ -75,14 +75,14 @@ const detectHeadphone = computed(() => {
   return status1.value & 1 ? 'connected' : 'not_connected'
 })
 
-const batteryLevel = computed(() => {
-  const num1 = status0.value >> 0x04 & 0x0F
-  return batteryLevelToString(num1)
+const chargeStatus = computed(() => {
+  const num1 = (status0.value & 0xF0) >> 0x04
+  return chargeStatusToString(num1)
 })
 
-const chargeStatus = computed(() => {
+const batteryLevel = computed(() => {
   const num2 = status0.value & 0x0F
-  return chargeStatusToString(num2)
+  return batteryLevelToString(num2)
 })
 
 const seqNum = computed(() => inputReport.value.getUint8(offset.value.sequenceNum))

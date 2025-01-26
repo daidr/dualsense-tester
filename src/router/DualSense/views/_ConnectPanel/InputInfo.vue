@@ -75,14 +75,17 @@ const detectHeadphone = computed(() => {
   return status1.value & 1 ? 'connected' : 'not_connected'
 })
 
-const batteryLevel = computed(() => {
-  const num1 = status0.value >> 4 & 15
-  return batteryLevelToString(num1)
+const chargeStatus = computed(() => {
+  const num1 = (status0.value & 0xF0) >> 0x04
+  return chargeStatusToString(num1)
 })
 
-const chargeStatus = computed(() => {
-  const num2 = status0.value & 15
-  return chargeStatusToString(num2)
+const batteryLevel = computed(() => {
+  let num2 = status0.value & 0x0F
+  if (chargeStatus.value === 'charging_complete') {
+    num2 = 10
+  }
+  return batteryLevelToString(num2)
 })
 
 const seqNum = computed(() => inputReport.value.getUint8(offset.value.sequenceNum))
@@ -92,22 +95,14 @@ const seqNum = computed(() => inputReport.value.getUint8(offset.value.sequenceNu
   <div class="rounded-2xl p-1 text-primary dou-sc-colorborder">
     <div class="flex flex-col">
       <LocaleLabeledValue :value="seqNum.toString()" label="connect_panel.seq_num" />
-      <LocaleLabeledValue
-        :value="chargeStatus" value-locale-prefix="connect_panel.charge_status"
-        label="connect_panel.charge_status_label"
-      />
-      <LocaleLabeledValue
-        :value="batteryLevel" value-locale-prefix="connect_panel.battery_level"
-        label="connect_panel.battery_level_label"
-      />
-      <LocaleLabeledValue
-        :value="detectMic" value-locale-prefix="connect_panel"
-        label="connect_panel.microphone_status_label"
-      />
-      <LocaleLabeledValue
-        :value="detectHeadphone" value-locale-prefix="connect_panel"
-        label="connect_panel.headphone_status_label"
-      />
+      <LocaleLabeledValue :value="chargeStatus" value-locale-prefix="connect_panel.charge_status"
+        label="connect_panel.charge_status_label" />
+      <LocaleLabeledValue :value="batteryLevel" value-locale-prefix="connect_panel.battery_level"
+        label="connect_panel.battery_level_label" />
+      <LocaleLabeledValue :value="detectMic" value-locale-prefix="connect_panel"
+        label="connect_panel.microphone_status_label" />
+      <LocaleLabeledValue :value="detectHeadphone" value-locale-prefix="connect_panel"
+        label="connect_panel.headphone_status_label" />
     </div>
   </div>
 </template>
