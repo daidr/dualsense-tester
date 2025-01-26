@@ -1,6 +1,6 @@
 {
   "i18n-ally.localesPaths": [
-    "./packages/tester-frontend/src/locales"
+    "src/locales"
   ],
   // Disable the default formatter, use eslint instead
   "prettier.enable": false,

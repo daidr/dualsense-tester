@@ -5,22 +5,22 @@
     "baseUrl": ".",
     "paths": {
       "@/*": [
-        "./packages/tester-frontend/src/*"
+        "src/*"
       ]
     },
     "typeRoots": [
-      "packages/tester-frontend/src/@types"
+      "src/@types"
     ],
     "verbatimModuleSyntax": true
   },
   "include": [
     "env.d.ts",
-    "packages/tester-frontend/src/**/*",
-    "packages/tester-frontend/src/**/*.ts",
-    "packages/tester-frontend/src/**/*.json",
-    "packages/tester-frontend/src/**/*.vue"
+    "src/**/*",
+    "src/**/*.ts",
+    "src/**/*.json",
+    "src/**/*.vue"
   ],
   "exclude": [
-    "packages/tester-frontend/src/**/__tests__/*"
+    "src/**/__tests__/*"
   ]
 }
