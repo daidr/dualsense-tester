@@ -1,6 +1,6 @@
 import { type Component, defineAsyncComponent } from 'vue'
+import { checkConnectionType, PRODUCT_ID_DUALSENSE, USAGE_ID_GD_GAME_PAD, USAGE_PAGE_GENERIC_DESKTOP, VENDOR_ID_SONY } from '../_utils/ds.util'
 import { BaseDeviceRouter, type CustomPanelItem, type DeviceItem } from '../shared'
-import { checkConnectionType, PRODUCT_ID_DUALSENSE, USAGE_ID_GD_GAME_PAD, USAGE_PAGE_GENERIC_DESKTOP, VENDOR_ID_SONY } from '../utils/ds.util'
 
 export class DualSenseRouter extends BaseDeviceRouter {
   name = 'dualsense'

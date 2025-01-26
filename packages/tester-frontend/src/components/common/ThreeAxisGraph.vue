@@ -58,8 +58,8 @@ onMounted(async () => {
     preference: 'webgpu',
     canvas: CanvasRef.value,
     resizeTo: CanvasRef.value,
-    antialias: true,
     backgroundAlpha: 0,
+    antialias: true,
     resolution: window.devicePixelRatio,
   });
   if (isDisposed) {
@@ -72,21 +72,24 @@ onMounted(async () => {
   lineX.setStrokeStyle({
     color: X_COLOR,
     width: 1,
+    alpha: 0.9
   });
   lineY.setStrokeStyle({
     color: Y_COLOR,
     width: 1,
+    alpha: 0.9
   });
   lineZ.setStrokeStyle({
     color: Z_COLOR,
     width: 1,
+    alpha: 0.9
   });
 
   app.stage.addChild(lineX, lineY, lineZ);
 
   app.ticker.add(() => {
     const { width, height } = app.screen;
-    const _values = [...valueList]
+    const _values = valueList.slice();
     const xStep = width / MAX_COUNT;
     const initialY = height / 2;
     const yStep = height / (currentMaxValue.value - currentMinValue.value);
@@ -95,7 +98,8 @@ onMounted(async () => {
     lineX.clear();
     lineY.clear();
     lineZ.clear();
-    for (let i = 0; i < _values.length; i++) {
+
+    for (let i = 0; i < _values.length; ++i) {
       const item = _values[i];
       const x = (rest + i) * xStep;
       const yX = initialY - item.x * yStep;

@@ -31,7 +31,7 @@ const showFactoryInfo = ref(false)
 
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .factory-toggle {
     --color: theme('colors.primary/0.8');
 

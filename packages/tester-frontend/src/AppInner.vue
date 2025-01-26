@@ -9,6 +9,7 @@ import { DualSenseType } from './dualsense/types';
 import WidgetShell from './components/common/WidgetShell.vue';
 import { provide, readonly } from 'vue';
 import { storeToRefs } from 'pinia';
+import GeneralContainer from './components/common/GeneralContainer.vue';
 const dsStore = useDualSenseStore()
 const { inputReport, currentDevice } = storeToRefs(dsStore)
 
@@ -22,8 +23,10 @@ provide('deviceItem', readonly(currentDevice))
   <div class="flex flex-col lg:grid lg:grid-cols-[400px_1fr] gap-3 flex-grow">
     <div class="flex flex-col gap-3 items-start">
       <ConnectPanel />
-      <component v-if="dsStore.isDeviceReady" :is="dsStore.views.outputPanel" />
-      <template v-if="dsStore.isDeviceReady && dsStore.views.widgetPanels">
+      <GeneralContainer v-if="dsStore.isDeviceReady && dsStore.views.outputPanel" :title="$t('output_panel.title')">
+        <component :is="dsStore.views.outputPanel" />
+      </GeneralContainer>
+      <template v-if="dsStore.isDeviceReady && dsStore.views.widgetPanels?.length">
         <WidgetShell :item="widget" v-for="widget, index of dsStore.views.widgetPanels" :key="index" />
       </template>
       <!-- <ProfilePanel v-if="dualsenseStore.currentDevice?.type === DualSenseType.DualSenseEdge" /> -->

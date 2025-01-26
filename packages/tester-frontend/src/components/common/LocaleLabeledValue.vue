@@ -16,11 +16,6 @@ const finalLabel = computed(() => {
   return i18n.t(props.label)
 })
 
-function test(str: string) {
-  console.log('test')
-  return i18n.t(str)
-}
-
 const loading = ref(false)
 
 const resolvedValue = computedAsync(async () => {

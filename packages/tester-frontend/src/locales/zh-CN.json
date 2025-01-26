@@ -106,7 +106,11 @@
     }
   },
   "output_panel": {
+    "title": "输出",
     "mic_mute_led": "麦克风指示灯",
+    "mic_mute_led_off": "关",
+    "mic_mute_led_on": "开",
+    "mic_mute_led_blink": "闪烁",
     "lightbar_color": "灯带颜色",
     "player_led": "玩家指示灯",
     "player_led_brightness": "玩家指示灯亮度",

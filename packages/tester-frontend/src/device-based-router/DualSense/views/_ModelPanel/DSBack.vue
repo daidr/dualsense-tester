@@ -3,7 +3,7 @@ import { useConnectionType, useInputReport } from '@/composables/useInjectValues
 import { DeviceConnectionType, type ModelProps } from '@/device-based-router/shared';
 import { computed } from 'vue';
 import { inputReportOffsetBluetooth, inputReportOffsetUSB } from '../../utils/offset.util';
-import { DPadDirection } from '@/device-based-router/utils/ds.type';
+import { DPadDirection } from '@/device-based-router/_utils/ds.type';
 
 defineProps<ModelProps>()
 

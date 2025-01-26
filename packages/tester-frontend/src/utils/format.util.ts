@@ -41,3 +41,7 @@ export function pairedValue(left: string | undefined, right: string | undefined,
 export function notAllFalsy(...args: unknown[]) {
   return args.some(arg => !!arg)
 }
+
+export function bitShiftByte(value: number, shift: number) {
+  return (value << shift) & 0xFF
+}

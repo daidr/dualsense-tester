@@ -4,11 +4,12 @@ import LocaleLabeledValue from '@/components/common/LocaleLabeledValue.vue';
 import { useConnectionType, useDevice } from '@/composables/useInjectValues';
 import { utf8Decoder } from '@/utils/decoder.util';
 import { computedAsync } from '@vueuse/core';
-import { computed, ref } from 'vue';
+import { computed, onUnmounted, ref } from 'vue';
 import { decodeShiftJIS, mapDataViewToU8Hex, notAllFalsy, numberToMacAddress, numberToXHex, pairedValue } from '@/utils/format.util';
-import { formatDspVersion, formatThreePartVersion, formatUpdateVersion, getAssemblePartsInfo, getBatteryBarcode, getBdMacAddress, getBtPatchInfo, getIndividualDataVerifyStatus, getPcbaId, getPcbaIdFull, getPcbaIdFullString, getSerialNumber, getUniqueId, getVcmBarcode, type2TracabilityInfoRead } from '@/device-based-router/utils/ds.util';
+import { formatDspVersion, formatThreePartVersion, formatUpdateVersion, getAssemblePartsInfo, getBatteryBarcode, getBdMacAddress, getBtPatchInfo, getIndividualDataVerifyStatus, getPcbaId, getPcbaIdFull, getPcbaIdFullString, getSerialNumber, getUniqueId, getVcmBarcode, type2TracabilityInfoRead } from '@/device-based-router/_utils/ds.util';
 import { DeviceConnectionType, type DeviceItem } from '@/device-based-router/shared';
 import { createLabeledValueItem, type LabeledValueItem } from '@/utils/labeled-value.util';
+import { hidLogger } from '@/utils/logger.util';
 
 const showFactoryInfo = ref(false)
 const deviceItem = useDevice()
@@ -16,7 +17,7 @@ const connectionType = useConnectionType()
 
 const getFirmwareInfo = async (device: HIDDevice) => {
   const data = await device.receiveFeatureReport(0x20)
-  console.log('firmware data', data.buffer)
+  hidLogger.debug('firmware data', data.buffer)
 
   const buildDate = utf8Decoder.decode(new DataView(data.buffer, 1, 11))
   const buildTime = utf8Decoder.decode(new DataView(data.buffer, 12, 8))
@@ -166,7 +167,7 @@ const hardwareInfo = computedAsync(async () => {
   </template>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .factory-items {
   :deep(span) {
     @apply font-mono;

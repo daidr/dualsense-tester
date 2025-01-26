@@ -160,7 +160,7 @@ export class DualSense extends TypedEventTarget<AllSupportControllerEvents> {
       await this.#checkGrantedController()
     }
     catch (error) {
-      console.error(error)
+      hidLogger.error(error)
       return false
     }
     return true

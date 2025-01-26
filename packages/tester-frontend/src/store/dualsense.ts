@@ -68,7 +68,7 @@ export const useDualSenseStore = defineStore('dualsense', () => {
   //   return deviceInfo
   // })
 
-  watch(() => deviceList.value[currentDeviceIndex.value], (item) => {
+  watch(() => deviceList.value[currentDeviceIndex.value], (item, prevItem) => {
     if (!item) {
       return
     }
@@ -100,11 +100,11 @@ export const useDualSenseStore = defineStore('dualsense', () => {
     updatingDeviceList.value = true
     const devices = await navigator.hid.getDevices()
     deviceList.value = (await Promise.all(devices.map(async (device) => {
-      // 尝试使用缓存
-      const cachedDeviceItem = deviceList.value.find(item => item.device === device)
-      if (cachedDeviceItem) {
-        return cachedDeviceItem
-      }
+      // // 尝试使用缓存
+      // const cachedDeviceItem = deviceList.value.find(item => item.device === device)
+      // if (cachedDeviceItem) {
+      //   return cachedDeviceItem
+      // }
       const router = await routerManager.match(device)
       if (!router) {
         hidLogger.warn('No router matched, this device will be ignored', device)

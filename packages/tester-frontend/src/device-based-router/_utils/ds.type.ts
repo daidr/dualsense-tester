@@ -396,3 +396,24 @@ export enum DPadDirection {
   L,
   UL,
 }
+
+export enum MuteButtonLedControl {
+  MIC_THRU,
+  MIC_MUTED,
+  ALL_MUTED,
+}
+
+export enum PlayerLedControl {
+  OFF = 0x00,
+  PLAYER_1 = 0x04,
+  PLAYER_2 = 0x0A,
+  PLAYER_3 = 0x15,
+  PLAYER_4 = 0x1B,
+  ALL = 0x1F,
+}
+
+export enum PlayerLedBrightness {
+  HIGH,
+  MEDIUM,
+  LOW,
+}

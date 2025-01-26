@@ -26,8 +26,12 @@ const onButtonClick = (value: T) => {
 button {
     @apply transition-colors;
     @apply flex items-center justify-center;
-    @apply min-w-2.5em px-1 py-1px text-12px rounded-full;
+    @apply min-w-2.5em px-2 py-1px text-12px rounded-full;
     @apply text-primary;
+
+    &:not(:first-child) {
+        @apply -ml-2;
+    }
 
     &.active {
         @apply bg-primary text-white;

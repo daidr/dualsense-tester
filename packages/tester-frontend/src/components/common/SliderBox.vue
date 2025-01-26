@@ -38,11 +38,12 @@ const onPointerDown = (e: PointerEvent) => {
   } else {
     start = e.clientX
   }
-  window.addEventListener('pointermove', onPointerMove)
-  window.addEventListener('pointerup', onPointerUp)
 }
 
 const onPointerMove = (e: PointerEvent) => {
+  if (!isIndicatorShown.value) {
+    return
+  }
   if (props.vertical) {
     const currentY = e.clientY
     const deltaY = (start - currentY) / factor.value
@@ -71,10 +72,11 @@ const onPointerMove = (e: PointerEvent) => {
 }
 
 const onPointerUp = (e: PointerEvent) => {
+  if (!isIndicatorShown.value) {
+    return
+  }
   isIndicatorShown.value = false;
   (e.target as HTMLDivElement).releasePointerCapture(e.pointerId)
-  window.removeEventListener('pointermove', onPointerMove)
-  window.removeEventListener('pointerup', onPointerUp)
 }
 </script>
 
@@ -89,7 +91,8 @@ const onPointerUp = (e: PointerEvent) => {
       '--current-x': ((modelValue - props.min) / (props.max - props.min)) * width + 'px'
     }">
     <div class="track"></div>
-    <div class="thumb" @pointerdown="onPointerDown"></div>
+    <div class="thumb" @pointerdown.passive="onPointerDown" @pointermove.passive="onPointerMove"
+      @pointerup.passive="onPointerUp"></div>
     <Transition name="fade">
       <div v-if="isIndicatorShown" class="indicator">
         {{ modelValue.toFixed(digits) }}
@@ -100,8 +103,12 @@ const onPointerUp = (e: PointerEvent) => {
 
 <style scoped lang="scss">
 .thumb {
+  @apply touch-none;
   @apply cursor-grab;
   @apply w-4 h-4 rounded-full bg-primary absolute top-1/2 -left-2 transform-gpu translate-x-[var(--current-x)] -translate-y-1/2;
+  &:active {
+    @apply cursor-grabbing;
+  }
 }
 
 .track {

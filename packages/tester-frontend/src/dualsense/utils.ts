@@ -1,5 +1,6 @@
 import { shiftJISDecoder, utf8Decoder } from '@/utils/decoder.util'
 import { decodeShiftJIS, mapDataViewToU8Hex, notAllFalsy, numberToHex, numberToMacAddress, numberToXHex, pairedValue } from '@/utils/format.util'
+import { hidLogger } from '@/utils/logger.util'
 import { PRODUCT_ID_DUALSENSE, PRODUCT_ID_DUALSENSE_EDGE, USAGE_ID_GD_GAME_PAD, USAGE_PAGE_GENERIC_DESKTOP, VENDOR_ID_SONY } from './constants'
 import { crc32, DPadDirection, fillFeatureReportChecksum } from './crc32'
 import { type DeviceItem, type DSEProfileItem, DualSenseConnectionType, type DualSenseDeviceInfo, type DualSenseFirmwareInfo, type DualSenseInitialFirmwareInfo, DualSenseTestActionId, DualSenseTestDeviceId, DualSenseType, type DualSenseVisualResult, type InputReportOffset, type LabeledValueItem, TestResult, TestStatus } from './types'
@@ -50,7 +51,7 @@ export async function requestControllerDevice() {
     })
   }
   catch (error) {
-    console.error(error)
+    hidLogger.error(error)
     return false
   }
   return true
@@ -137,7 +138,7 @@ export async function sendFeatureReportWithError(item: DeviceItem, reportId: num
     await sendFeatureReport(item, reportId, data)
   }
   catch (error) {
-    console.error(error)
+    hidLogger.error(error)
     return false
   }
 
@@ -156,7 +157,7 @@ export async function receiveFeatureReportWithError(item: DeviceItem, reportId: 
     return await receiveFeatureReport(item, reportId)
   }
   catch (error) {
-    console.error(error)
+    hidLogger.error(error)
     return false
   }
 }

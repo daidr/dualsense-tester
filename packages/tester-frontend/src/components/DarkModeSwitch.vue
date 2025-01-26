@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { nextTick, ref } from 'vue';
 import { usePageStore } from '@/store/page'
+import { uiLogger } from '@/utils/logger.util';
 
 const pageStore = usePageStore()
 
@@ -64,7 +65,7 @@ const tryViewTransition = async (func: () => boolean) => {
                 { duration: 500, easing: 'ease-out', pseudoElement: '::view-transition-new(root)', }
             )
         } catch (e) {
-            console.log(e)
+            uiLogger.error(e)
         }
     }
 

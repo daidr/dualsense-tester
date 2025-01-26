@@ -3,7 +3,7 @@ import { decodeShiftJIS, numberToHex } from '@/utils/format.util'
 import { hidLogger } from '@/utils/logger.util'
 import { sleep } from '@/utils/time.util'
 import { DeviceConnectionType, type DeviceItem } from '../shared'
-import { fillFeatureReportChecksum } from './crc32.util'
+import { fillFeatureReportChecksum, fillOutputReportChecksum } from './crc32.util'
 import { DualSenseTestActionId, DualSenseTestDeviceId, TestResult, TestStatus } from './ds.type'
 
 export const VENDOR_ID_SONY = 0x054C
@@ -39,6 +39,30 @@ export function checkConnectionType(device: HIDDevice) {
     }
   }
   return DeviceConnectionType.Unknown
+}
+
+export function sendOutputReportFactory(item: DeviceItem) {
+  const { device, connectionType } = item
+
+  if (connectionType === DeviceConnectionType.USB) {
+    return async function sendOutputReport(data: ArrayBuffer) {
+      hidLogger.debug('sendOutputReport', 'USB', data)
+      await device.sendReport(0x02, new Uint8Array(data))
+    }
+  }
+  let outputSeq = 0
+  return async function sendOutputReport(data: ArrayBuffer) {
+    hidLogger.debug('sendOutputReport', 'Bluetooth', data)
+    const newData = new Uint8Array(77)
+    newData.set([outputSeq], 0)
+    if (++outputSeq === 256) {
+      outputSeq = 0
+    }
+    newData.set([0x10], 1)
+    newData.set(new Uint8Array(data), 2)
+    fillOutputReportChecksum(0x31, newData)
+    await device.sendReport(0x31, newData)
+  }
 }
 
 export async function sendFeatureReport(item: DeviceItem, reportId: number, data: ArrayBuffer) {
@@ -132,7 +156,7 @@ export async function getTestResult(
     }
   }
   catch (error) {
-    console.error(error)
+    hidLogger.error(error)
   }
   return {
     result: TestResult.TEST_RESULT_FAIL,
@@ -159,7 +183,7 @@ export async function sendTestCommand(
     await sendFeatureReport(item, 0x80, data)
   }
   catch (error) {
-    console.error(error)
+    hidLogger.error(error)
     return {
       result: TestResult.TEST_RESULT_SET_FAIL,
       report: null,
@@ -214,7 +238,7 @@ export async function sendTestCommandWithParams(
     await sendFeatureReport(item, 0x80, data)
   }
   catch (error) {
-    console.error(error)
+    hidLogger.error(error)
     return {
       result: TestResult.TEST_RESULT_SET_FAIL,
       report: null,

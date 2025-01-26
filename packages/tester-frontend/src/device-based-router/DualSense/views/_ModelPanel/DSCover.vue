@@ -4,7 +4,7 @@ import { DeviceConnectionType, type ModelProps } from '@/device-based-router/sha
 import { numberToXHex } from '@/utils/format.util';
 import { computed } from 'vue';
 import { inputReportOffsetBluetooth, inputReportOffsetUSB } from '../../utils/offset.util';
-import { normalizeThumbStickAxis } from '@/device-based-router/utils/ds.util';
+import { normalizeThumbStickAxis } from '@/device-based-router/_utils/ds.util';
 
 const props = defineProps<ModelProps>()
 

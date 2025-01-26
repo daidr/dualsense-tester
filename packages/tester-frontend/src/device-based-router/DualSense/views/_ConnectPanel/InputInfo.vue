@@ -104,7 +104,7 @@ const seqNum = computed(() => inputReport.value.getUint8(offset.value.sequenceNu
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .factory-toggle {
   --color: theme('colors.primary/0.8');
 
