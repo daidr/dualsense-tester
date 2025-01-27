@@ -311,8 +311,6 @@ export async function getPcbaIdFull(item: DeviceItem) {
   return report
 }
 export async function getSerialNumber(item: DeviceItem) {
-  window.sendTestCommandPure = sendTestCommandPure
-  window.item = item
   const report = await sendTestCommandPure(item, DualSenseTestDeviceId.SYSTEM, DualSenseTestActionId.READ_SERIAL_NUMBER, 32)
   hidLogger.debug('GetSerialNumber', report)
   return report
