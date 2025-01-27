@@ -120,5 +120,6 @@
     "XTAL",
     "Русский"
   ],
-  "arrayIndexInlay.enabled": true
+  "arrayIndexInlay.enabled": true,
+  "i18n-ally.keystyle": "nested"
 }

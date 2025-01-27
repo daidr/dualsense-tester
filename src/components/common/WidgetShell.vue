@@ -1,21 +1,32 @@
 <script setup lang="ts">
-import type { CustomPanelItem } from '@/device-based-router/shared';
-import TextTag from './TextTag.vue';
+import type { CustomPanelItem } from '@/device-based-router/shared'
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import GeneralContainer from './GeneralContainer.vue'
 
-defineProps<{
-	item: CustomPanelItem
+const props = defineProps<{
+  item: CustomPanelItem
 }>()
+
+const { t } = useI18n()
+
+const finalTitle = computed(() => {
+  if (!props.item.title)
+    return ''
+  return typeof props.item.title === 'string' ? props.item.title : t(props.item.title.key)
+})
+
+const finalTag = computed(() => {
+  if (!props.item.tag)
+    return ''
+  return typeof props.item.tag === 'string' ? props.item.tag : t(props.item.tag.key)
+})
 </script>
 
 <template>
-	<div class="dou-sc-container flex flex-col gap-y-1 self-start w-full">
-		<div v-if="item.title" class="dou-sc-title mb-3 mt-2 ml-2">{{ typeof item.title === 'string' ? item.title : $t(item.title.key) }}
-			<TextTag v-if="item.tag" class="text-xs align-middle">
-				{{ typeof item.tag === 'string' ? item.tag : $t(item.tag.key) }}
-			</TextTag>
-		</div>
-		<component :is="item.component" />
-	</div>
+  <GeneralContainer :title="finalTitle" :tag="finalTag">
+    <component :is="item.component" />
+  </GeneralContainer>
 </template>
 
 <style scoped></style>

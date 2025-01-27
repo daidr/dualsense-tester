@@ -1,11 +1,10 @@
-import type { InputInfo } from '@/dualsense_remove/types'
 import { RouterManager } from '@/device-based-router'
 import { registerRouters } from '@/device-based-router/register-entry'
 import { DeviceConnectionType, type DeviceItemWithRouter } from '@/device-based-router/shared'
 import { requestHIDDevice } from '@/utils/hid.util'
 import { hidLogger } from '@/utils/logger.util'
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import { computed, onMounted, onUnmounted, onWatcherCleanup, ref, shallowRef, watch } from 'vue'
+import { computed, onMounted, onUnmounted, ref, shallowRef, watch } from 'vue'
 
 export const useDualSenseStore = defineStore('dualsense', () => {
   const routerManager = new RouterManager()
@@ -26,9 +25,6 @@ export const useDualSenseStore = defineStore('dualsense', () => {
   }
 
   const inputReport = shallowRef<DataView | undefined>()
-  const inputLabelInfo = shallowRef<InputInfo['labelResult']>()
-  const inputVisualInfo = shallowRef<InputInfo['visualResult']>()
-  const inputSeqNum = ref(0)
 
   const isDeviceReady = computed(() => {
     return currentDevice.value !== undefined && inputReport.value !== undefined
@@ -56,7 +52,7 @@ export const useDualSenseStore = defineStore('dualsense', () => {
   //   return deviceInfo
   // })
 
-  watch(() => deviceList.value[currentDeviceIndex.value], (item) => {
+  watch(() => deviceList.value[currentDeviceIndex.value], (item, _, onWatcherCleanup) => {
     if (!item) {
       return
     }
@@ -73,14 +69,11 @@ export const useDualSenseStore = defineStore('dualsense', () => {
 
     onWatcherCleanup(() => {
       cleanedUp = true
+      item.device.close()
       currentDevice.value = undefined
-      inputLabelInfo.value = undefined
-      inputVisualInfo.value = undefined
       inputReport.value = undefined
-      inputSeqNum.value = 0
-      item?.device?.removeEventListener('inputreport', inputReportHandler)
+      item.device.removeEventListener('inputreport', inputReportHandler)
       // item.device.oninputreport = null
-      item?.device?.close()
     })
   })
 
@@ -112,7 +105,7 @@ export const useDualSenseStore = defineStore('dualsense', () => {
       }
     })))
       .filter(item => item !== undefined)
-    console.log('deviceList', deviceList.value)
+    hidLogger.debug('deviceList', deviceList.value)
     updatingDeviceList.value = false
   }
 

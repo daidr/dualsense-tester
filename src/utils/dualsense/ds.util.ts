@@ -54,7 +54,7 @@ export function sendOutputReportFactory(item: DeviceItem) {
   return async function sendOutputReport(data: ArrayBuffer) {
     hidLogger.debug('sendOutputReport', 'Bluetooth', data)
     const newData = new Uint8Array(77)
-    newData.set([outputSeq], 0)
+    newData.set([outputSeq << 4], 0)
     if (++outputSeq === 256) {
       outputSeq = 0
     }
@@ -310,8 +310,9 @@ export async function getPcbaIdFull(item: DeviceItem) {
   hidLogger.debug('GetPcbaIdFull', report)
   return report
 }
-
 export async function getSerialNumber(item: DeviceItem) {
+  window.sendTestCommandPure = sendTestCommandPure
+  window.item = item
   const report = await sendTestCommandPure(item, DualSenseTestDeviceId.SYSTEM, DualSenseTestActionId.READ_SERIAL_NUMBER, 32)
   hidLogger.debug('GetSerialNumber', report)
   return report

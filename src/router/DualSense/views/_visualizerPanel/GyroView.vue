@@ -2,7 +2,7 @@
 import { useConnectionType, useInputReport } from '@/composables/useInjectValues';
 import { DeviceConnectionType, type ModelProps } from '@/device-based-router/shared';
 import { computed } from 'vue';
-import { inputReportOffsetBluetooth, inputReportOffsetUSB } from '../../utils/offset.util';
+import { inputReportOffsetBluetooth, inputReportOffsetUSB } from '../../_utils/offset.util';
 import { computedAsync } from '@vueuse/core';
 import GyroValueBar from '@/components/GyroValueBar.vue';
 import ThreeAxisGraph from '@/components/common/ThreeAxisGraph.vue';

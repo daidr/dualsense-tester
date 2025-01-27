@@ -3,7 +3,7 @@ import LocaleLabeledValue from '@/components/common/LocaleLabeledValue.vue'
 import { useConnectionType, useInputReport } from '@/composables/useInjectValues'
 import { DeviceConnectionType } from '@/device-based-router/shared'
 import { computed } from 'vue'
-import { inputReportOffsetBluetooth, inputReportOffsetUSB } from '../../utils/offset.util'
+import { inputReportOffsetBluetooth, inputReportOffsetUSB } from '../../_utils/offset.util'
 
 const inputReport = useInputReport()
 const connectionType = useConnectionType()

@@ -94,6 +94,7 @@
   },
   "info_panel": {
     "tips": "请先连接你的 DualSense 手柄",
+    "stick_module_not_found": "未找到摇杆模块",
     "title_buttons": "基础按钮",
     "title_accelerometer": "加速度计",
     "title_gyroscope": "陀螺仪",

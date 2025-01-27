@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { ModelProps } from '@/device-based-router/shared';
-import DSEBack from './_ModelPanel/DSBack.vue';
-import DSEBody from './_ModelPanel/DSBody.vue';
-import DSCover from './_ModelPanel/DSCover.vue';
+import type { ModelProps } from '@/device-based-router/shared'
+import DSEBack from './_ModelPanel/DSBack.vue'
+import DSEBody from './_ModelPanel/DSBody.vue'
+import DSCover from './_ModelPanel/DSCover.vue'
 
 defineProps<ModelProps>()
 </script>
@@ -10,6 +10,7 @@ defineProps<ModelProps>()
 <template>
   <div class="relative w-full">
     <svg viewBox="0 0 1117 892">
+      <!-- placeholder -->
     </svg>
     <svg class="model" viewBox="0 0 1117 892">
       <DSEBack :show-value="showValue" />

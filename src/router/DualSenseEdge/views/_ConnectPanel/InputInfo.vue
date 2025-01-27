@@ -3,7 +3,7 @@ import LocaleLabeledValue from '@/components/common/LocaleLabeledValue.vue'
 import { useConnectionType, useInputReport } from '@/composables/useInjectValues'
 import { DeviceConnectionType } from '@/device-based-router/shared'
 import { computed } from 'vue'
-import { inputReportOffsetBluetooth, inputReportOffsetUSB } from '../../utils/offset.util'
+import { inputReportOffsetBluetooth, inputReportOffsetUSB } from '../../_utils/offset.util'
 
 const inputReport = useInputReport()
 const connectionType = useConnectionType()
@@ -81,7 +81,10 @@ const chargeStatus = computed(() => {
 })
 
 const batteryLevel = computed(() => {
-  const num2 = status0.value & 0x0F
+  let num2 = status0.value & 0x0F
+  if (chargeStatus.value === 'charging_complete') {
+    num2 = 10
+  }
   return batteryLevelToString(num2)
 })
 
