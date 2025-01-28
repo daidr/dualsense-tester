@@ -40,8 +40,6 @@ function parseProfile(profileClips: DataView[]): DSEProfileItem | undefined {
   const id = profileClips[0].getUint8(0)
   const unassigned = profileClips[0].getUint8(1) === 16
 
-  console.log('profileClips', profileClips, profileClips.map(i => i.byteLength))
-
   if (unassigned) {
     return {
       id,

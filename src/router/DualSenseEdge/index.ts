@@ -6,6 +6,8 @@ const connectPanel = defineAsyncComponent(() => import('./views/ConnectPanel.vue
 const outputPanel = defineAsyncComponent(() => import('./views/OutputPanel.vue'))
 const modelPanel = defineAsyncComponent(() => import('./views/ModelPanel.vue'))
 const profileWidget = defineAsyncComponent(() => import('./views/ProfileWidget.vue'))
+const GyroView = defineAsyncComponent(() => import('./views/_visualizerPanel/GyroView.vue'))
+const AccelView = defineAsyncComponent(() => import('./views/_visualizerPanel/AccelView.vue'))
 
 export default class DualSenseEdgeRouter extends BaseDeviceRouter {
   name = 'dualsense-edge'
@@ -51,6 +53,23 @@ export default class DualSenseEdgeRouter extends BaseDeviceRouter {
         title: { key: 'profile_panel.title' },
         tag: 'WIP',
         component: profileWidget,
+      },
+    ]
+  }
+
+  visualizerPanels(deviceItem: DeviceItem): CustomPanelItem[] {
+    return [
+      {
+        title: {
+          key: 'info_panel.title_gyroscope',
+        },
+        component: GyroView,
+      },
+      {
+        title: {
+          key: 'info_panel.title_accelerometer',
+        },
+        component: AccelView,
       },
     ]
   }

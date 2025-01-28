@@ -9,7 +9,7 @@
         © {{ new Date().getFullYear() }} Coded by <a
           href="http://im.daidr.me" target="_blank"
           class="dou-sc-link"
-        >daidr</a>.
+        >daidr</a> with ❤.
       </div>
       <div class="right" />
     </div>

@@ -37,7 +37,7 @@ export default defineConfig({
         '/pwa/safari-pinned-tab.svg',
       ],
       manifest: {
-        start_url: 'https://ds.daidr.me',
+        start_url: '/',
         display: 'standalone',
         name: 'DualSense Tester',
         short_name: 'DualSense Tester',
@@ -55,6 +55,7 @@ export default defineConfig({
         ],
         theme_color: '#ffffff',
         background_color: '#ffffff',
+        display_override: ['window-controls-overlay'],
       },
     }),
   ],

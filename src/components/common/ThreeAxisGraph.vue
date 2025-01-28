@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { fastGetRef } from '@/utils/reactive.util'
 import { Application, Graphics } from 'pixi.js'
-import { computed, onBeforeUnmount, onMounted, ref, toRaw, useTemplateRef, watch, watchEffect } from 'vue'
+import { onBeforeUnmount, onMounted, ref, toRaw, useTemplateRef, watch, watchEffect } from 'vue'
 import SliderBox from './SliderBox.vue'
 
 const { maxValue = 0x7FFF, value } = defineProps<{
