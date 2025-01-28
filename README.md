@@ -13,8 +13,8 @@ Test your DualSense controller in the browser.
 * Test the lights
 * Test the adaptive triggers
 * DualSense Edge Basic Support
-* **TODO**: DualSense Edge Full Support (2024Q4)
-* **TODO**: Multiple Controllers Support (2024Q4)
+* **TODO**: DualSense Edge Full Support (2025Q2)
+* **TODO**: Multiple Controllers Support (2025Q2)
 * **TODO**: DualSense Edge Profile Customization (2025Q1)
 
 ## Project Setup
