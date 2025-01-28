@@ -13,38 +13,38 @@ Test your DualSense controller in the browser.
 * Test the lights
 * Test the adaptive triggers
 * DualSense Edge Basic Support
-* **TODO**: DualSense Edge Full Support (2025Q1)
-* **TODO**: Multiple Controllers Support (2025Q1)
+* **TODO**: DualSense Edge Full Support (2025Q2)
+* **TODO**: Multiple Controllers Support (2025Q2)
 * **TODO**: DualSense Edge Profile Customization (2025Q2)
 
 ## Project Setup
 
 ```sh
-pnpm install
-```
-
-### 1. Compile dualsense.js first
-
-```sh
-pnpm build:lib
-```
-
-### 1. (Optional) Compile and Watch dualsense.js for Development
-
-```sh
-pnpm dev:lib
+bun install
 ```
 
 ### Compile and Hot-Reload for Development
 
 ```sh
-pnpm dev:fe
+bun dev:fe
 ```
 
 ### Type-Check, Compile and Minify for Production
 
 ```sh
-pnpm build:fe
+bun build:fe
+```
+
+### (Optional) Compile and Hot-Reload for Isolated Web App Development
+
+```sh
+bun build:fe:iwa
+```
+
+### (Optional) Compile and Minify for Isolated Web App
+
+```sh
+bun build:fe:iwa
 ```
 
 ## Credits
