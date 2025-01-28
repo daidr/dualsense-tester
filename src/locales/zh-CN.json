@@ -21,8 +21,6 @@
     "disconnect": "断开连接",
     "not_connected": "未连接",
     "connected": "已连接",
-    "report_time": "Report 时间戳",
-    "firmware_version": "固件版本",
     "seq_num": "报文序号",
     "charge_status_label": "充电状态",
     "battery_level_label": "电池电量",
@@ -123,7 +121,7 @@
     "rumble_heavy": "震动（重）",
     "rumble_soft": "震动（轻）",
     "left_trigger_mode": "自适应扳机（左）",
-    "right_trigger_mode": "右自适应扳机（右）",
+    "right_trigger_mode": "自适应扳机（右）",
     "trigger_mode": {
       "off": "关",
       "resistance": "阻尼",
