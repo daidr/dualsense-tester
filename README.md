@@ -15,7 +15,7 @@ Test your DualSense controller in the browser.
 * DualSense Edge Basic Support
 * **TODO**: DualSense Edge Full Support (2025Q2)
 * **TODO**: Multiple Controllers Support (2025Q2)
-* **TODO**: DualSense Edge Profile Customization (2025Q1)
+* **TODO**: DualSense Edge Profile Customization (2025Q2)
 
 ## Project Setup
 
