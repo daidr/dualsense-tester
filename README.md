@@ -20,32 +20,36 @@ Test your DualSense controller in the browser.
 ## Project Setup
 
 ```sh
-bun install
+bun i
 ```
 
 ### Compile and Hot-Reload for Development
 
 ```sh
-bun dev:fe
+bun run --bun dev
 ```
 
 ### Type-Check, Compile and Minify for Production
 
 ```sh
-bun build:fe
+bun run --bun build
 ```
 
 ### (Optional) Compile and Hot-Reload for Isolated Web App Development
 
 ```sh
-bun build:fe:iwa
+bun run --bun dev:iwa
 ```
 
 ### (Optional) Compile and Minify for Isolated Web App
 
 ```sh
-bun build:fe:iwa
+bun run --bun build:iwa
 ```
+
+## Translations
+
+If you want to add a new language support or improve an existing one, please visit issue #14 for more details.
 
 ## Credits
 
