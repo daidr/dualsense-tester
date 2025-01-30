@@ -169,7 +169,7 @@ function formatStickValue(value: number) {
     @apply fill-white/40 dark-fill-black/40 stroke-black dark-stroke-white stroke-2;
 
     &.ds-stick-active {
-        @apply fill-primary stroke-primary;
+        @apply fill-primary/50;
     }
 }
 
