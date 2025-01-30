@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import AppInner from './AppInner.vue'
+import PWAPrompt from './components/common/PWAPrompt.vue'
 import Debug from './components/Debug.vue'
 import MainFooter from './components/MainFooter.vue'
 import MainHeader from './components/MainHeader.vue'
@@ -9,7 +10,6 @@ import { ModalContainer } from './composables/useModal'
 import { useOverlayHeader } from './composables/useOverlayHeader'
 import { ToastContainer } from './composables/useToast'
 import { usePageStore } from './store/page'
-import PWAPrompt from './components/common/PWAPrompt.vue'
 
 const pageStore = usePageStore()
 const { isWebHIDSupported } = storeToRefs(pageStore)

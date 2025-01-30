@@ -3,7 +3,7 @@ import { useModal } from '@/composables/useModal'
 import { useToast } from '@/composables/useToast'
 import { gitDefine } from '@/utils/env.util'
 import { useRegisterSW } from 'virtual:pwa-register/vue'
-import { onUnmounted, watch } from 'vue'
+import { onMounted, onUnmounted, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const intervalMS = 60 * 60 * 1000
@@ -80,6 +80,14 @@ watch(() => needRefresh.value, (value) => {
 
 onUnmounted(() => {
   closeFn()
+})
+
+onMounted(() => {
+  umami?.track(props => ({
+    ...props,
+    version: gitDefine.shortCommitHash,
+    versionTimestamp: gitDefine.commitTimestamp,
+  }))
 })
 </script>
 
