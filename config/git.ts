@@ -12,7 +12,6 @@ function pickUpObject(obj: Record<string, any>, prefix: string) {
 }
 
 export async function gitDefine() {
-  console.log('vercel ENVs:', pickUpObject(process.env, 'VERCEL_'))
   const git = simpleGit()
   const owner = process.env.VERCEL_GIT_REPO_OWNER || 'daidr'
   const repo = process.env.VERCEL_GIT_REPO_SLUG || 'dualsense-tester'

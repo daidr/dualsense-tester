@@ -9,6 +9,8 @@ import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 import { gitDefine } from './config/git'
 
+const isVercelProduction = process.env.VERCEL_ENV === 'production'
+
 // import vueDevTools from 'vite-plugin-vue-devtools'
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
@@ -25,7 +27,7 @@ export default defineConfig(async () => ({
       include: [path.resolve(__dirname, './src/locales/**.json')],
       strictMessage: false,
     }),
-    VitePWA({
+    isVercelProduction ? VitePWA({
       registerType: 'prompt',
       includeAssets: [
         '/pwa/android-chrome-192x192.png',
@@ -61,7 +63,7 @@ export default defineConfig(async () => ({
         background_color: '#ffffff',
         display_override: ['window-controls-overlay'],
       },
-    }),
+    }) : undefined,
   ],
   resolve: {
     alias: {
