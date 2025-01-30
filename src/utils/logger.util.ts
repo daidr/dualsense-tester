@@ -1,6 +1,5 @@
 import { createConsola, LogLevels } from 'consola'
-
-const isDev = import.meta.env.DEV
+import { isDev } from './env.util'
 
 export const consola = createConsola({
   level: isDev ? LogLevels.verbose : LogLevels.info,

@@ -3,7 +3,10 @@
     "name": "DualSense Tester"
   },
   "shared": {
-    "unknown": "Unknown"
+    "unknown": "Unknown",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "close": "Close"
   },
   "locales": {
     "zh-CN": "简体中文",
@@ -134,5 +137,17 @@
       "frequency": "Frequency",
       "force": "Force"
     }
+  },
+  "pwa": {
+    "title": "New version detected",
+    "dismiss": "Dismiss",
+    "upgrade": "Upgrade",
+    "update_available": "A new version of DualSense Tester is ready! \nRefresh to complete the upgrade.",
+    "offline_ready": "This app is now cached for offline use."
+  },
+  "git_version": {
+    "title": "Commit Info",
+    "warn_pr": "This is a preview version from PR. Please use with caution as there may be issues.",
+    "warn_dev": "This is a preview version from the development branch. Please use with caution as there may be issues."
   }
 }

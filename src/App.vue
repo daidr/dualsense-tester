@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import AppInner from './AppInner.vue'
+import Debug from './components/Debug.vue'
 import MainFooter from './components/MainFooter.vue'
 import MainHeader from './components/MainHeader.vue'
 import OverlayHeader from './components/OverlayHeader.vue'
+import { ModalContainer } from './composables/useModal'
 import { useOverlayHeader } from './composables/useOverlayHeader'
+import { ToastContainer } from './composables/useToast'
 import { usePageStore } from './store/page'
 
 const pageStore = usePageStore()
@@ -15,7 +18,9 @@ const showOverlayHeader = useOverlayHeader()
 <template>
   <OverlayHeader v-if="showOverlayHeader" />
   <MainHeader v-else />
-
+  <ModalContainer />
+  <ToastContainer />
+  <Debug />
   <main>
     <template v-if="isWebHIDSupported">
       <AppInner />

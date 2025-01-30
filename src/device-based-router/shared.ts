@@ -1,9 +1,20 @@
-import { type Component, defineAsyncComponent } from 'vue'
+import type { Component } from 'vue'
 
 export enum DeviceConnectionType {
   USB = 'usb',
   Bluetooth = 'bluetooth',
   Unknown = 'unknown',
+}
+
+export function connectionTypeToString(type: DeviceConnectionType): string {
+  switch (type) {
+    case DeviceConnectionType.USB:
+      return 'USB'
+    case DeviceConnectionType.Bluetooth:
+      return 'Bluetooth'
+    case DeviceConnectionType.Unknown:
+      return 'Unknown'
+  }
 }
 
 export interface DeviceItem {

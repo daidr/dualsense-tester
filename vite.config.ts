@@ -3,14 +3,20 @@ import { fileURLToPath, URL } from 'node:url'
 
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 import UnoCSS from 'unocss/vite'
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
+import { gitDefine } from './config/git'
+
+const isVercelProduction = process.env.VERCEL_ENV === 'production'
+
 // import vueDevTools from 'vite-plugin-vue-devtools'
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(async () => ({
   plugins: [
     // vueDevTools(),
+    vueJsx(),
     vue({
       script: {
         defineModel: true,
@@ -21,8 +27,8 @@ export default defineConfig({
       include: [path.resolve(__dirname, './src/locales/**.json')],
       strictMessage: false,
     }),
-    VitePWA({
-      registerType: 'autoUpdate',
+    isVercelProduction ? VitePWA({
+      registerType: 'prompt',
       includeAssets: [
         '/pwa/android-chrome-192x192.png',
         '/pwa/android-chrome-512x512.png',
@@ -57,11 +63,14 @@ export default defineConfig({
         background_color: '#ffffff',
         display_override: ['window-controls-overlay'],
       },
-    }),
+    }) : undefined,
   ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
-})
+  define: {
+    ...await gitDefine(),
+  },
+}))

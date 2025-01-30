@@ -1,78 +1,86 @@
 <script setup lang="ts" generic="T extends string | number | symbol, U">
-import { useElementBounding, useWindowSize } from '@vueuse/core';
-import { computed, ref, watch } from 'vue';
-
-const modelValue = defineModel<T>({ required: true })
+import { useElementBounding, useWindowSize } from '@vueuse/core'
+import { computed, ref, watch } from 'vue'
 
 defineProps<{
-    options: {
-        value: T
-        label: string
-        extra?: U
-    }[]
+  options: {
+    value: T
+    label: string
+    extra?: U
+  }[]
 }>()
 
 defineSlots<{
-    default(props: { index: number, value: T, label: string, extra?: U }): any
+  default: (props: { index: number, value: T, label: string, extra?: U }) => any
 }>()
 
+const modelValue = defineModel<T>({ required: true })
+const open = ref(false)
 
-const updateValue = (value: T) => {
-    modelValue.value = value
-    open.value = false
+function updateValue(value: T) {
+  modelValue.value = value
+  open.value = false
 }
 
-const open = ref(false)
 const SelectBoxRef = ref<HTMLElement | null>(null)
 const PopupRef = ref<HTMLElement | null>(null)
 const { x, y, height, update } = useElementBounding(SelectBoxRef)
 const { width } = useElementBounding(PopupRef)
 const { width: wWidth } = useWindowSize()
 const safeX = computed(() => {
-    if (x.value + width.value + 20 < wWidth.value) {
-        return x.value;
-    } else {
-        return wWidth.value - width.value - 20;
-    }
+  if (x.value + width.value + 20 < wWidth.value) {
+    return x.value
+  }
+  else {
+    return wWidth.value - width.value - 20
+  }
 })
 
 watch(open, () => {
-    update()
+  update()
 })
 </script>
 
 <template>
-    <div ref="SelectBoxRef" class="select-wrapper" @click="open = !open">
-        <div class="label">
-            <template v-for="option,index of options" :key="option.value">
-                <template v-if="modelValue === option.value">
-                    <template v-if="!$slots.default">{{ option.label }}</template>
-                    <slot v-else :value="option.value" :label="option.label" :extra="option.extra" :index="index" />
-                </template>
-            </template>
-        </div>
-        <div class="icon i-mingcute-down-line"></div>
-        <Teleport to="body">
-            <div v-if="open" class="mask" @click="open = false"></div>
-            <Transition name="blur-fade">
-                <div ref="PopupRef" v-if="open" class="popup-wrapper" :style="{
-                    '--x': safeX + 'px',
-                    '--y': y + height + 5 + 'px',
-                }">
-                    <div class="popup-content">
-                        <template v-for="option, index of options" :key="option.value">
-                            <div @click="updateValue(option.value)" class="popup-label" :class="{
-                                active: modelValue === option.value
-                            }">
-                                <template v-if="!$slots.default">{{ option.label }}</template>
-                                <slot v-else :value="option.value" :label="option.label" :extra="option.extra" :index="index" />
-                            </div>
-                        </template>
-                    </div>
-                </div>
-            </Transition>
-        </Teleport>
+  <div ref="SelectBoxRef" class="select-wrapper" @click="open = !open">
+    <div class="label">
+      <template v-for="option, index of options" :key="option.value">
+        <template v-if="modelValue === option.value">
+          <template v-if="!$slots.default">
+            {{ option.label }}
+          </template>
+          <slot v-else :value="option.value" :label="option.label" :extra="option.extra" :index="index" />
+        </template>
+      </template>
     </div>
+    <div class="icon i-mingcute-down-line" />
+    <Teleport to="#teleport-container">
+      <div v-if="open" class="mask" @click="open = false" />
+      <Transition name="blur-fade">
+        <div
+          v-if="open" ref="PopupRef" class="popup-wrapper" :style="{
+            '--x': `${safeX}px`,
+            '--y': `${y + height + 5}px`,
+          }"
+        >
+          <div class="popup-content">
+            <template v-for="option, index of options" :key="option.value">
+              <div
+                class="popup-label" :class="{
+                  active: modelValue === option.value,
+                }" @click="updateValue(option.value)"
+              >
+                <template v-if="!$slots.default">
+                  {{ option.label }}
+                </template>
+                <slot v-else :value="option.value" :label="option.label" :extra="option.extra" :index="index" />
+              </div>
+            </template>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
+  </div>
 </template>
 
 <style scoped lang="scss">

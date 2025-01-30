@@ -3,7 +3,10 @@
     "name": "DualSense 在线测试"
   },
   "shared": {
-    "unknown": "未知"
+    "unknown": "未知",
+    "confirm": "确认",
+    "cancel": "取消",
+    "close": "关闭"
   },
   "locales": {
     "zh-CN": "简体中文",
@@ -134,5 +137,17 @@
       "frequency": "频率",
       "force": "强度"
     }
+  },
+  "pwa": {
+    "title": "检测到新版本",
+    "upgrade": "升级",
+    "dismiss": "忽略",
+    "update_available": "DualSense Tester 新版本已准备好！\n刷新即可完成升级。",
+    "offline_ready": "已经准备好离线使用"
+  },
+  "git_version": {
+    "title": "Commit 信息",
+    "warn_pr": "这是一个来自PR的预览版本，可能存在问题，请谨慎使用",
+    "warn_dev": "这是一个来自开发分支的版本，可能存在问题，请谨慎使用"
   }
 }
