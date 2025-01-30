@@ -28,7 +28,7 @@ export default defineConfig(async () => ({
       strictMessage: false,
     }),
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: 'prompt',
       includeAssets: [
         '/pwa/android-chrome-192x192.png',
         '/pwa/android-chrome-512x512.png',
@@ -64,9 +64,6 @@ export default defineConfig(async () => ({
         display_override: ['window-controls-overlay'],
       },
       disable: !isVercelProduction,
-      workbox: {
-        cleanupOutdatedCaches: true,
-      }
     }),
   ],
   resolve: {
