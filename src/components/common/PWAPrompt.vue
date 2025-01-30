@@ -57,19 +57,19 @@ watch(() => needRefresh.value, (value) => {
     title: t('pwa.title'),
     confirmText: t('pwa.upgrade'),
     cancelText: t('pwa.dismiss'),
-    icon: 'i-mingcute/arrow-up-circle-line',
+    icon: 'i-mingcute-arrow-up-circle-line',
     content: t('pwa.update_available'),
     onConfirm: () => {
       updateServiceWorker(true)
       umami?.track('pwa_upgrade_modal', {
         action: 'confirm',
-        version: gitDefine.shortCommitHash
+        version: gitDefine.shortCommitHash,
       })
     },
     onCancel() {
       umami?.track('pwa_upgrade_modal', {
         action: 'cancel',
-        version: gitDefine.shortCommitHash
+        version: gitDefine.shortCommitHash,
       })
     },
   })
