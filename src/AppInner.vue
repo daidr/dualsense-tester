@@ -7,11 +7,10 @@ import ConnectPanel from './components/ConnectPanel.vue'
 import DebugPanel from './components/DebugPanel.vue'
 import VisualPanel from './components/VisualPanel.vue'
 import { useDualSenseStore } from './store/dualsense'
+import { isDev } from './utils/env.util'
 
 const dsStore = useDualSenseStore()
 const { inputReport, currentDevice } = storeToRefs(dsStore)
-
-const isDev = import.meta.env.DEV
 
 provide('inputReport', readonly(inputReport))
 provide('deviceItem', readonly(currentDevice))

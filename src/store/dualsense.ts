@@ -1,6 +1,6 @@
 import { RouterManager } from '@/device-based-router'
 import { registerRouters } from '@/device-based-router/register-entry'
-import { DeviceConnectionType, type DeviceItemWithRouter } from '@/device-based-router/shared'
+import { connectionTypeToString, DeviceConnectionType, type DeviceItemWithRouter } from '@/device-based-router/shared'
 import { requestHIDDevice } from '@/utils/hid.util'
 import { hidLogger } from '@/utils/logger.util'
 import { acceptHMRUpdate, defineStore } from 'pinia'
@@ -51,6 +51,17 @@ export const useDualSenseStore = defineStore('dualsense', () => {
   //   const deviceInfo = await getDeviceInfo(currentDevice.value)
   //   return deviceInfo
   // })
+
+  watch(() => currentDevice.value, (value) => {
+    if (value) {
+      umami?.track('device_changed', {
+        productName: value.device.productName,
+        connectionType: connectionTypeToString(value.connectionType),
+        productId: value.device.productId,
+        vendorId: value.device.vendorId,
+      })
+    }
+  })
 
   watch(() => deviceList.value[currentDeviceIndex.value], (item, _, onWatcherCleanup) => {
     if (!item) {
@@ -107,6 +118,9 @@ export const useDualSenseStore = defineStore('dualsense', () => {
       .filter(item => item !== undefined)
     hidLogger.debug('deviceList', deviceList.value)
     updatingDeviceList.value = false
+    umami?.track('device_list_updated', {
+      count: deviceList.value.length,
+    })
   }
 
   function deviceConnectedHandler(event: HIDConnectionEvent) {

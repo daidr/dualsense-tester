@@ -9,8 +9,8 @@ import SelectBox from './common/SelectBox.vue'
 const dsStore = useDualSenseStore()
 
 function onConnectBtnClick() {
-  // dualsenseStore.dualsense.requestDevice()
   dsStore.requestControllerDevice()
+  umami?.track('connect_button_click')
 }
 
 const deviceList = computed(() => {
