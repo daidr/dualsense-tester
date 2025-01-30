@@ -1,6 +1,7 @@
 import { RouterManager } from '@/device-based-router'
 import { registerRouters } from '@/device-based-router/register-entry'
 import { connectionTypeToString, DeviceConnectionType, type DeviceItemWithRouter } from '@/device-based-router/shared'
+import { gitDefine } from '@/utils/env.util'
 import { requestHIDDevice } from '@/utils/hid.util'
 import { hidLogger } from '@/utils/logger.util'
 import { acceptHMRUpdate, defineStore } from 'pinia'
@@ -59,6 +60,7 @@ export const useDualSenseStore = defineStore('dualsense', () => {
         connectionType: connectionTypeToString(value.connectionType),
         productId: value.device.productId,
         vendorId: value.device.vendorId,
+        version: gitDefine.shortCommitHash
       })
     }
   })
@@ -120,6 +122,7 @@ export const useDualSenseStore = defineStore('dualsense', () => {
     updatingDeviceList.value = false
     umami?.track('device_list_updated', {
       count: deviceList.value.length,
+      version: gitDefine.shortCommitHash
     })
   }
 

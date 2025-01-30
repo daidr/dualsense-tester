@@ -27,8 +27,8 @@ export default defineConfig(async () => ({
       include: [path.resolve(__dirname, './src/locales/**.json')],
       strictMessage: false,
     }),
-    isVercelProduction ? VitePWA({
-      registerType: 'autoUpdate',
+    VitePWA({
+      registerType: 'prompt',
       includeAssets: [
         '/pwa/android-chrome-192x192.png',
         '/pwa/android-chrome-512x512.png',
@@ -63,7 +63,8 @@ export default defineConfig(async () => ({
         background_color: '#ffffff',
         display_override: ['window-controls-overlay'],
       },
-    }) : undefined,
+      disable: !isVercelProduction,
+    }),
   ],
   resolve: {
     alias: {

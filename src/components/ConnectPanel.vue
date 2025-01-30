@@ -5,12 +5,15 @@ import { useDualSenseStore } from '@/store/dualsense'
 import { computed } from 'vue'
 
 import SelectBox from './common/SelectBox.vue'
+import { gitDefine } from '@/utils/env.util'
 
 const dsStore = useDualSenseStore()
 
 function onConnectBtnClick() {
   dsStore.requestControllerDevice()
-  umami?.track('connect_button_click')
+  umami?.track('connect_button_click', {
+    version: gitDefine.shortCommitHash
+  })
 }
 
 const deviceList = computed(() => {
@@ -30,10 +33,8 @@ const deviceList = computed(() => {
     <ContentTips v-if="!deviceList.length">
       <p v-html="$t('connect_panel.tips')" />
     </ContentTips>
-    <SelectBox
-      v-if="deviceList.length" :options="deviceList" :model-value="dsStore.currentDeviceIndex"
-      @update:model-value="dsStore.setCurrentDeviceIndex"
-    >
+    <SelectBox v-if="deviceList.length" :options="deviceList" :model-value="dsStore.currentDeviceIndex"
+      @update:model-value="dsStore.setCurrentDeviceIndex">
       <template #default="{ index, extra }">
         <div class="min-w-0 flex items-center gap-1 py-0.5 text-base">
           <div class="rounded bg-black/10 px-1 text-xs text-black/70 font-mono dark-bg-white/20 dark-text-white/70">

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useModal } from '@/composables/useModal'
 import { useToast } from '@/composables/useToast'
+import { gitDefine } from '@/utils/env.util'
 import { useRegisterSW } from 'virtual:pwa-register/vue'
 import { onUnmounted, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -47,7 +48,7 @@ const {
 
 let closeFn = () => { }
 
-watch(() => needRefresh, (value) => {
+watch(() => needRefresh.value, (value) => {
   if (!value) {
     closeFn()
     return
@@ -62,11 +63,13 @@ watch(() => needRefresh, (value) => {
       updateServiceWorker(true)
       umami?.track('pwa_upgrade_modal', {
         action: 'confirm',
+        version: gitDefine.shortCommitHash
       })
     },
     onCancel() {
       umami?.track('pwa_upgrade_modal', {
         action: 'cancel',
+        version: gitDefine.shortCommitHash
       })
     },
   })

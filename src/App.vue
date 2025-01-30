@@ -9,6 +9,7 @@ import { ModalContainer } from './composables/useModal'
 import { useOverlayHeader } from './composables/useOverlayHeader'
 import { ToastContainer } from './composables/useToast'
 import { usePageStore } from './store/page'
+import PWAPrompt from './components/common/PWAPrompt.vue'
 
 const pageStore = usePageStore()
 const { isWebHIDSupported } = storeToRefs(pageStore)
@@ -20,6 +21,7 @@ const showOverlayHeader = useOverlayHeader()
   <MainHeader v-else />
   <ModalContainer />
   <ToastContainer />
+  <PWAPrompt />
   <Debug />
   <main>
     <template v-if="isWebHIDSupported">
