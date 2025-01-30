@@ -39,7 +39,7 @@
       "abnormal_voltage": "Abnormal voltage",
       "abnormal_temperature": "Abnormal temperature",
       "charging_error": "Charging error",
-      "unknown": "Unknown"
+      "unknown": "Неизвестно"
     },
     "battery_level": {
       "level0": "0-9%",
@@ -53,7 +53,7 @@
       "level8": "80-89%",
       "level9": "90-99%",
       "level10": "100%",
-      "unknown": "Unknown"
+      "unknown": "Неизвестно"
     },
     "factory_info": {
       "build_time": "Build Time",
