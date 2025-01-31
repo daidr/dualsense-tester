@@ -1,1 +1,1 @@
-export const useRoute = undefined
+export const useRoute = () => undefined
