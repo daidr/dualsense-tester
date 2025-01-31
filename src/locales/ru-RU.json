@@ -85,7 +85,8 @@
         "successful": "Successful",
         "retry_timeout": "Retry timeout",
         "fail": "Fail"
-      }
+      },
+      "board_version": "Board Version"
     }
   },
   "profile_panel": {
