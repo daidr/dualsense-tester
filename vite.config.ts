@@ -69,7 +69,7 @@ export default defineConfig(async () => ({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-      'vue-router': fileURLToPath(new URL('./src/mock-vue-router.ts', import.meta.url)),
+      // 'vue-router': fileURLToPath(new URL('./src/mock-vue-router.ts', import.meta.url)),
     },
   },
   define: {
