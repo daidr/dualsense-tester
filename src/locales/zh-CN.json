@@ -85,7 +85,8 @@
         "successful": "成功",
         "retry_timeout": "重试超时",
         "fail": "失败"
-      }
+      },
+      "board_version": "Board Version"
     }
   },
   "profile_panel": {
