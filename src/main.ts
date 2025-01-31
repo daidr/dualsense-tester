@@ -4,16 +4,35 @@ import { createPinia } from 'pinia'
 
 import { createApp } from 'vue'
 import { createI18n } from 'vue-i18n'
-import App from './App.vue'
+import { createRouter, createWebHistory } from 'vue-router'
 
+import App from './App.vue'
+import AppInner from './AppInner.vue'
 import './assets/main.scss'
 import 'virtual:uno.css'
 import '@unocss/reset/tailwind.css'
 
 const app = createApp(App)
 
+// #region Vue Router
+const routes = [
+  { path: '/', component: AppInner },
+]
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+})
+
+app.use(router)
+// #endregion
+
+// #region Pinia
 const pinia = createPinia()
 app.use(pinia)
+// #endregion
+
+// #region I18n
 const lang = getPreferredLanguage(navigator.languages || [navigator.language])
 
 export const i18n = createI18n({
@@ -26,5 +45,6 @@ export const i18n = createI18n({
 })
 
 app.use(i18n)
+// #endregion
 
 app.mount('#app')
