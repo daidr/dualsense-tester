@@ -4,28 +4,13 @@ import { createPinia } from 'pinia'
 
 import { createApp } from 'vue'
 import { createI18n } from 'vue-i18n'
-import { createRouter, createWebHistory } from 'vue-router'
 
 import App from './App.vue'
-import AppInner from './AppInner.vue'
 import './assets/main.scss'
 import 'virtual:uno.css'
 import '@unocss/reset/tailwind.css'
 
 const app = createApp(App)
-
-// #region Vue Router
-const routes = [
-  { path: '/', component: AppInner },
-]
-
-const router = createRouter({
-  history: createWebHistory(),
-  routes,
-})
-
-app.use(router)
-// #endregion
 
 // #region Pinia
 const pinia = createPinia()

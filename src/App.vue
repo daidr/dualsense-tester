@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { SpeedInsights } from '@vercel/speed-insights/vue'
 import { storeToRefs } from 'pinia'
-import { RouterView } from 'vue-router'
 import AppInner from './AppInner.vue'
 import PWAPrompt from './components/common/PWAPrompt.vue'
 import Debug from './components/Debug.vue'
@@ -28,7 +27,7 @@ const showOverlayHeader = useOverlayHeader()
   <Debug />
   <main>
     <template v-if="isWebHIDSupported">
-      <RouterView />
+      <AppInner />
     </template>
     <template v-else>
       <div class="h-[var(--min-height)] flex flex-col items-center justify-center">
