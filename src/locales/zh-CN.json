@@ -85,7 +85,8 @@
         "successful": "成功",
         "retry_timeout": "重试超时",
         "fail": "失败"
-      }
+      },
+      "board_version": "主板型号"
     }
   },
   "profile_panel": {
@@ -121,8 +122,8 @@
     "player_led_brightness_low": "暗",
     "player_led_off": "关",
     "player_led_all": "全部",
-    "rumble_heavy": "震动（重）",
-    "rumble_soft": "震动（轻）",
+    "rumble_heavy": "震动 (重)",
+    "rumble_soft": "震动 (轻)",
     "left_trigger_mode": "自适应扳机（左）",
     "right_trigger_mode": "自适应扳机（右）",
     "trigger_mode": {
@@ -140,8 +141,8 @@
   },
   "pwa": {
     "title": "检测到新版本",
-    "upgrade": "升级",
     "dismiss": "忽略",
+    "upgrade": "升级",
     "update_available": "DualSense Tester 新版本已准备好！\n刷新即可完成升级。",
     "offline_ready": "已经准备好离线使用"
   },
