@@ -86,7 +86,7 @@
         "retry_timeout": "重试超时",
         "fail": "失败"
       },
-      "board_version": "Board Version"
+      "board_version": "主板型号"
     }
   },
   "profile_panel": {
