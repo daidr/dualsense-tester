@@ -8,7 +8,7 @@ import { decodeShiftJIS, mapDataViewToU8Hex, notAllFalsy, numberToMacAddress, nu
 import { createLabeledValueItem, type LabeledValueItem } from '@/utils/labeled-value.util'
 import { hidLogger } from '@/utils/logger.util'
 import { computedAsync } from '@vueuse/core'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 const showFactoryInfo = ref(false)
 const deviceItem = useDevice()
@@ -63,6 +63,17 @@ const hardwareInfo = computedAsync(async () => {
       pcbaIdFull && result.push(createLabeledValueItem('pcba_id', getPcbaIdFullString(pcbaIdFull, firmwareInfo.hwInfo)))
       const serialNumber = await getSerialNumber(deviceItem.value)
       serialNumber && result.push(createLabeledValueItem('serial_number', decodeShiftJIS(serialNumber)))
+      if (serialNumber) {
+        // https://www.ifixit.com/Wiki/How_to_Identify_PS5_DualSense_Controller_Version
+        const serialNumberStr = decodeShiftJIS(serialNumber)
+        const boardVersionNumber = serialNumberStr.slice(1, 2)
+        if (['1', '2', '3', '4', '5'].includes(boardVersionNumber)) {
+          result.push(createLabeledValueItem('board_version', `BDM-0${boardVersionNumber}0`))
+        }
+        else {
+          result.push(createLabeledValueItem('board_version', 'unknown', 'shared'))
+        }
+      }
       const assemblePartsInfo = await getAssemblePartsInfo(deviceItem.value)
       assemblePartsInfo && result.push(createLabeledValueItem('assemble_parts_info', `0x${mapDataViewToU8Hex(assemblePartsInfo, true)}`))
       const batteryBarcode = await getBatteryBarcode(deviceItem.value)
