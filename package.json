@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@unocss/reset": "^65.4.3",
+    "@vercel/speed-insights": "^1.1.0",
     "@vueuse/core": "^12.5.0",
     "consola": "^3.4.0",
     "lodash-es": "^4.17.21",

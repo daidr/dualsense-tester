@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { SpeedInsights } from '@vercel/speed-insights/vue'
 import { storeToRefs } from 'pinia'
 import AppInner from './AppInner.vue'
 import PWAPrompt from './components/common/PWAPrompt.vue'
@@ -22,6 +23,7 @@ const showOverlayHeader = useOverlayHeader()
   <ModalContainer />
   <ToastContainer />
   <PWAPrompt />
+  <SpeedInsights />
   <Debug />
   <main>
     <template v-if="isWebHIDSupported">
