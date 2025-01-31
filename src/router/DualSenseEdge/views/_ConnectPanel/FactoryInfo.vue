@@ -86,13 +86,13 @@ const hardwareInfo = computedAsync(async () => {
       notAllFalsy(leftTracabilityInfo, rightTracabilityInfo) && result.push(createLabeledValueItem('at_motor_info', pairedValue(leftTracabilityInfo?.motorInfo, rightTracabilityInfo?.motorInfo)))
     }
 
-    if (connectionType.value === DeviceConnectionType.USB) {
-      const individualDataVerifyStatus = await getIndividualDataVerifyStatus(deviceItem.value)
-      result.push(createLabeledValueItem('individual_data_verify', individualDataVerifyStatus, 'connect_panel.factory_info.individual_data'))
-    }
-    else {
-      result.push(createLabeledValueItem('individual_data_verify', 'not_supported', 'connect_panel.factory_info.individual_data'))
-    }
+    // if (connectionType.value === DeviceConnectionType.USB) {
+    //   const individualDataVerifyStatus = await getIndividualDataVerifyStatus(deviceItem.value)
+    //   result.push(createLabeledValueItem('individual_data_verify', individualDataVerifyStatus, 'connect_panel.factory_info.individual_data'))
+    // }
+    // else {
+    //   result.push(createLabeledValueItem('individual_data_verify', 'not_supported', 'connect_panel.factory_info.individual_data'))
+    // }
   }
   return result
 })
