@@ -60,7 +60,7 @@ onMounted(async () => {
     })
   })
   await app.init({
-    preference: 'webgpu',
+    preference: 'webgl',
     canvas: CanvasRef.value,
     resizeTo: CanvasRef.value,
     backgroundAlpha: 0,
