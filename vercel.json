@@ -1,5 +1,5 @@
 {
   "framework": "vite",
   "installCommand": "bun install --frozen-lockfile",
-  "buildCommand": "bun run --bun build-only"
+  "buildCommand": "bun run build-only"
 }
