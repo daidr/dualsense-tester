@@ -29,8 +29,7 @@
     "battery_level_label": "电池电量",
     "headphone_status_label": "耳机状态",
     "microphone_status_label": "麦克风状态",
-    "show_factory_info": "展开硬件信息",
-    "hide_factory_info": "隐藏硬件信息",
+    "factory_info_title": "硬件信息",
     "add_device": "添加设备",
     "charge_status": {
       "discharging": "未充电",
