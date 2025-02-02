@@ -20,9 +20,6 @@ provide('deviceItem', readonly(currentDevice))
   <div class="flex flex-grow flex-col gap-3 lg:grid lg:grid-cols-[400px_1fr]">
     <div class="flex flex-col items-start gap-3">
       <ConnectPanel />
-      <GeneralContainer v-if="dsStore.isDeviceReady && dsStore.views.outputPanel" :title="$t('output_panel.title')">
-        <component :is="dsStore.views.outputPanel" />
-      </GeneralContainer>
       <template v-if="dsStore.isDeviceReady && dsStore.views.widgetPanels?.length">
         <WidgetShell v-for="widget, index of dsStore.views.widgetPanels" :key="index" :item="widget" />
       </template>

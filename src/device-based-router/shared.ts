@@ -1,4 +1,4 @@
-import type { Component } from 'vue'
+import type { Component, ComponentCustomProps } from 'vue'
 
 export enum DeviceConnectionType {
   USB = 'usb',
@@ -58,8 +58,7 @@ export abstract class BaseDeviceRouter {
    * Get device information
    */
   abstract getDeviceItem(device: HIDDevice): Promise<DeviceItem> | DeviceItem
-  abstract connectPanel(deviceItem: DeviceItem): Component
-  abstract outputPanel(deviceItem: DeviceItem): Component
+  abstract connectPanel(deviceItem: DeviceItem): ComponentCustomProps
   abstract modelPanel(deviceItem: DeviceItem): Component<ModelProps>
   visualizerPanels?(deviceItem: DeviceItem): CustomPanelItem[] | undefined
   widgetPanels?(deviceItem: DeviceItem): CustomPanelItem[] | undefined

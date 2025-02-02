@@ -38,12 +38,19 @@ export default class DualSenseRouter extends BaseDeviceRouter {
     return ConnectPanel
   }
 
-  outputPanel(deviceItem: DeviceItem): Component {
-    return OutputPanel
-  }
-
   modelPanel(deviceItem: DeviceItem): Component {
     return ModelPanel
+  }
+
+  widgetPanels(deviceItem: DeviceItem): CustomPanelItem[] | undefined {
+    return [
+      {
+        title: {
+          key: 'output_panel.title',
+        },
+        component: OutputPanel,
+      },
+    ]
   }
 
   visualizerPanels(deviceItem: DeviceItem): CustomPanelItem[] {

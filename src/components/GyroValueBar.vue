@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useElementBounding } from '@vueuse/core';
-import { ref } from 'vue';
+import { useElementBounding } from '@vueuse/core'
+import { ref } from 'vue'
 
 defineProps<{
-    title: string
-    value: number
+  title: string
+  value: number
 }>()
 
 const MAX_RANGE = 1000
@@ -12,24 +12,29 @@ const MAX_RANGE = 1000
 const BarRef = ref<HTMLElement | null>(null)
 const { width } = useElementBounding(BarRef)
 
-const getCenterPointPos = (value: number) => {
-    return value / MAX_RANGE * width.value
+function getCenterPointPos(value: number) {
+  return value / MAX_RANGE * width.value
 }
 </script>
 
 <template>
-  <div class="flex w-full text-primary">
-    <div class="text-current font-bold text-lg w-24">{{ title }}</div>
-    <div class="flex-1 relative">
-      <div ref="BarRef" class="h-1 rounded-full absolute top-1/2 left-0 w-full transform-gpu -translate-y-1/2">
-        <div class="w-2px bg-gray h-1 absolute left-1/2 transform-gpu -translate-x-1/2"></div>
-        <div class="w-full h-full bg-current opacity-20"></div>
+  <div class="w-full flex text-primary">
+    <div class="w-24 text-lg text-current font-bold">
+      {{ title }}
+    </div>
+    <div class="relative flex-1">
+      <div ref="BarRef" class="absolute left-0 top-1/2 h-1 w-full transform-gpu rounded-full -translate-y-1/2">
+        <div class="absolute left-1/2 h-1 w-2px transform-gpu bg-gray -translate-x-1/2" />
+        <div class="h-full w-full bg-current opacity-20" />
         <div
-          class="w-10px bg-current h-10px absolute left-[calc(50%-5px)] top-1/2 transform-gpu -translate-y-1/2 rounded-full point"
-          :style="{ '--un-translate-x': getCenterPointPos(value) + '%' }"></div>
+          class="point absolute left-[calc(50%-5px)] top-1/2 h-10px w-10px transform-gpu rounded-full bg-current -translate-y-1/2"
+          :style="{ '--un-translate-x': `${getCenterPointPos(value)}%` }"
+        />
       </div>
     </div>
-    <div class="text-current text-lg font-sans w-24 text-right">{{ (value / 10).toFixed(1) }}°/S</div>
+    <div class="w-24 text-right text-lg text-current font-sans">
+      {{ (value / 10).toFixed(1) }}°/S
+    </div>
   </div>
 </template>
 
