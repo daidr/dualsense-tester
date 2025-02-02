@@ -5,6 +5,8 @@ import { useDualSenseStore } from '@/store/dualsense'
 import { gitDefine } from '@/utils/env.util'
 
 import { computed } from 'vue'
+import ConnectWidgetShell from './common/ConnectWidgetShell.vue'
+// import LoadingView from './common/LoadingView.vue'
 import SelectBox from './common/SelectBox.vue'
 
 const dsStore = useDualSenseStore()
@@ -52,7 +54,20 @@ const deviceList = computed(() => {
         </div>
       </template>
     </SelectBox>
-    <component :is="dsStore.views.connectPanel" v-if="dsStore.isDeviceReady" />
+    <template v-if="dsStore.views.connectWidgetPanels?.length">
+      <div class="flex flex-col gap-y-2">
+        <template v-if="dsStore.isDeviceReady">
+          <ConnectWidgetShell v-for="widget, index of dsStore.views.connectWidgetPanels" :key="index" :item="widget" />
+        </template>
+        <!-- <template v-else>
+          <LoadingView
+            v-for="widget, index of dsStore.views.connectWidgetPanels" :key="index"
+            :h="widget.title && widget.fold ? undefined : 150"
+            class="rounded-2xl p-1 text-primary dou-sc-colorborder"
+          />
+        </template> -->
+      </div>
+    </template>
 
     <div class="flex items-center justify-end">
       <button class="dou-sc-btn" :disabled="dsStore.updatingDeviceList" @click="onConnectBtnClick">

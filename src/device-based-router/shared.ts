@@ -29,6 +29,12 @@ export interface CustomPanelItem {
   component: Component
 }
 
+export interface CustomConnectWidgetPanelItem {
+  title?: string | { key: string }
+  fold?: boolean
+  component: Component
+}
+
 export interface DeviceItemWithRouter extends DeviceItem {
   router: BaseDeviceRouter
 }
@@ -58,7 +64,7 @@ export abstract class BaseDeviceRouter {
    * Get device information
    */
   abstract getDeviceItem(device: HIDDevice): Promise<DeviceItem> | DeviceItem
-  abstract connectPanel(deviceItem: DeviceItem): ComponentCustomProps
+  abstract connectWidgetPanels?(deviceItem: DeviceItem): CustomConnectWidgetPanelItem[] | undefined
   abstract modelPanel(deviceItem: DeviceItem): Component<ModelProps>
   visualizerPanels?(deviceItem: DeviceItem): CustomPanelItem[] | undefined
   widgetPanels?(deviceItem: DeviceItem): CustomPanelItem[] | undefined

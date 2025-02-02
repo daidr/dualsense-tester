@@ -27,7 +27,7 @@ export class RouterManager {
   reactiveViews(deviceItemRef: ShallowRef<DeviceItemWithRouter | undefined>) {
     return shallowReactiveComputed(() => {
       return {
-        connectPanel: deviceItemRef.value?.router.connectPanel(deviceItemRef.value),
+        connectWidgetPanels: deviceItemRef.value?.router.connectWidgetPanels?.(deviceItemRef.value),
         modelPanel: deviceItemRef.value?.router.modelPanel(deviceItemRef.value),
         visualizerPanels: deviceItemRef.value?.router.visualizerPanels?.(deviceItemRef.value),
         widgetPanels: deviceItemRef.value?.router.widgetPanels?.(deviceItemRef.value),

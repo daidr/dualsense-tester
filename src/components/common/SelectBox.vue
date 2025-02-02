@@ -42,7 +42,11 @@ watch(open, () => {
 </script>
 
 <template>
-  <div ref="SelectBoxRef" class="select-wrapper" @click="open = !open">
+  <div
+    ref="SelectBoxRef" class="select-wrapper" :class="{
+      active: open,
+    }" @click="open = !open"
+  >
     <div class="label">
       <template v-for="option, index of options" :key="option.value">
         <template v-if="modelValue === option.value">
@@ -56,7 +60,7 @@ watch(open, () => {
     <div class="icon i-mingcute-down-line" />
     <Teleport to="#teleport-container">
       <div v-if="open" class="mask" @click="open = false" />
-      <Transition name="blur-fade">
+      <Transition name="trans-fade">
         <div
           v-if="open" ref="PopupRef" class="popup-wrapper" :style="{
             '--x': `${safeX}px`,
@@ -84,56 +88,70 @@ watch(open, () => {
 </template>
 
 <style scoped lang="scss">
+.trans-fade-enter-active,
+.trans-fade-leave-active {
+  transition: opacity 0.1s ease-in-out, transform 0.1s ease-in-out;
+}
+
+.trans-fade-enter-from,
+.trans-fade-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
 .popup-wrapper {
-    @apply fixed z-10 select-none max-w-90vw;
-    @apply dou-sc-colorborder bg-white dark-bg-black rounded-2xl;
-    @apply overflow-hidden;
-    @apply shadow-2xl shadow-black/20 dark-shadow-white/30;
+  @apply fixed z-10 select-none max-w-90vw;
+  @apply dou-sc-colorborder bg-white dark-bg-black rounded-2xl;
+  @apply overflow-hidden;
+  @apply shadow-2xl shadow-black/20 dark-shadow-white/30;
 
-    --x: 0;
-    --y: 0;
+  --x: 0;
+  --y: 0;
 
-    top: var(--y);
-    left: var(--x);
+  top: var(--y);
+  left: var(--x);
 
-    .popup-content {
-        @apply max-h-200px overflow-y-auto text-primary;
+  .popup-content {
+    @apply max-h-200px overflow-y-auto text-primary;
 
-        @apply text-sm;
+    @apply text-sm;
 
-        .popup-label {
-            @apply m-1 py-1 pl-2 pr-3 min-w-30 min-w-0;
-            @apply rounded-xl;
-            @apply transition-colors;
-            @apply cursor-pointer;
+    .popup-label {
+      @apply m-1 py-1 pl-2 pr-3 min-w-30 min-w-0;
+      @apply rounded-xl;
+      @apply transition-colors;
+      @apply cursor-pointer;
 
-            &:hover,&.active {
-                @apply bg-primary/10 dark-bg-primary/40;
-            }
-        }
+      &:hover,
+      &.active {
+        @apply bg-primary/10 dark-bg-primary/40;
+      }
     }
+  }
 }
 
 .mask {
-    @apply fixed z-9 inset-0;
+  @apply fixed z-9 inset-0;
 }
 
 .select-wrapper {
-    @apply flex items-center gap-1 text-sm cursor-pointer select-none;
-    @apply pl-2 pr-1 py-0.5;
-    @apply rounded-full text-primary dou-sc-colorborder;
-    @apply transition;
+  @apply flex items-center gap-1 text-sm cursor-pointer select-none;
+  @apply pl-2 pr-1 py-0.5;
+  @apply rounded-full text-primary dou-sc-colorborder;
+  @apply transition duration-100;
 
-    &:active {
-        @apply bg-primary text-white;
+  .label {
+    @apply flex-grow min-w-0 whitespace-nowrap;
+  }
 
-        .label {
-            @apply text-white;
-        }
-    }
+  &:active,
+  &.active {
+    @apply bg-primary text-white;
 
     .label {
-        @apply flex-grow min-w-0 whitespace-nowrap;
+      @apply text-white;
     }
+  }
+
 }
 </style>

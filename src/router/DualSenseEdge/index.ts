@@ -2,7 +2,8 @@ import { type Component, defineAsyncComponent } from 'vue'
 import { BaseDeviceRouter, type CustomPanelItem, type DeviceItem } from '../../device-based-router/shared'
 import { checkConnectionType, PRODUCT_ID_DUALSENSE_EDGE, USAGE_ID_GD_GAME_PAD, USAGE_PAGE_GENERIC_DESKTOP, VENDOR_ID_SONY } from '../../utils/dualsense/ds.util'
 
-const ConnectPanel = defineAsyncComponent(() => import('./views/ConnectPanel.vue'))
+const InputInfoWidget = defineAsyncComponent(() => import('./views/_ConnectPanel/InputInfo.vue'))
+const FactoryInfoWidget = defineAsyncComponent(() => import('./views/_ConnectPanel/FactoryInfo.vue'))
 const OutputPanel = defineAsyncComponent(() => import('./views/OutputPanel.vue'))
 const ModelPanel = defineAsyncComponent(() => import('./views/ModelPanel.vue'))
 const ProfileWidget = defineAsyncComponent(() => import('./views/ProfileWidget.vue'))
@@ -35,8 +36,19 @@ export default class DualSenseEdgeRouter extends BaseDeviceRouter {
     }
   }
 
-  connectPanel(deviceItem: DeviceItem): Component {
-    return ConnectPanel
+  connectWidgetPanels(deviceItem: DeviceItem) {
+    return [
+      {
+        component: InputInfoWidget,
+      },
+      {
+        title: {
+          key: 'connect_panel.factory_info_title',
+        },
+        fold: true,
+        component: FactoryInfoWidget,
+      },
+    ]
   }
 
   modelPanel(deviceItem: DeviceItem): Component {

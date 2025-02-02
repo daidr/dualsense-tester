@@ -8,9 +8,8 @@ import { decodeShiftJIS, mapDataViewToU8Hex, notAllFalsy, numberToMacAddress, nu
 import { createLabeledValueItem, type LabeledValueItem } from '@/utils/labeled-value.util'
 import { hidLogger } from '@/utils/logger.util'
 import { computedAsync } from '@vueuse/core'
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 
-const showFactoryInfo = ref(false)
 const deviceItem = useDevice()
 const connectionType = useConnectionType()
 
@@ -111,53 +110,17 @@ const hardwareInfo = computedAsync(async () => {
 </script>
 
 <template>
-  <template v-if="hardwareInfo">
-    <div class="factory-toggle" @click="showFactoryInfo = !showFactoryInfo">
-      <div class="line" />
-      {{ showFactoryInfo ? $t('connect_panel.hide_factory_info') : $t('connect_panel.show_factory_info') }}
-      <div class="line" />
-      <div
-        class="i-mingcute-down-fill transform-gpu text-lg transition-transform" :class="{
-          'rotate-180': showFactoryInfo,
-        }"
-      />
-    </div>
-    <div v-if="showFactoryInfo" class="factory-items rounded-2xl p-1 text-primary dou-sc-colorborder">
-      <div class="flex flex-col">
-        <LocaleLabeledValue
-          v-for="item of hardwareInfo" :key="item.label"
-          :label="`connect_panel.factory_info.${item.label}`" :value="item.value"
-          :value-locale-prefix="item.valueLocalePrefix"
-        />
-      </div>
-    </div>
-  </template>
+  <div v-if="hardwareInfo" class="flex flex-col">
+    <LocaleLabeledValue
+      v-for="item of hardwareInfo" :key="item.label"
+      :label="`connect_panel.factory_info.${item.label}`" :value="item.value"
+      :value-locale-prefix="item.valueLocalePrefix"
+    />
+  </div>
 </template>
 
 <style scoped lang="scss">
-.factory-items {
-  :deep(span) {
-    @apply font-mono;
-  }
-}
-
-.factory-toggle {
-  --color: theme('colors.primary/0.8');
-
-  &:hover {
-    --color: theme('colors.primary');
-  }
-
-  @apply w-full flex items-center justify-center gap-2 px-1 rounded-xl;
-  @apply text-[var(--color)] cursor-pointer text-sm font-bold;
-  @apply transition-colors select-none;
-
-  .line {
-    @apply content-empty flex-grow;
-    @apply h-2px bg-[var(--color)] rounded-full;
-    @apply transition-colors;
-  }
-
-  @apply bg-transparent hover-bg-primary/10;
+:deep(span) {
+  @apply font-mono;
 }
 </style>
