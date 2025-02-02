@@ -29,8 +29,7 @@
     "battery_level_label": "Battery Level",
     "headphone_status_label": "Headphone",
     "microphone_status_label": "Microphone",
-    "show_factory_info": "Show Factory Info",
-    "hide_factory_info": "Hide Factory Info",
+    "factory_info_title": "Factory Info",
     "add_device": "Add Device",
     "charge_status": {
       "discharging": "Not charging",
