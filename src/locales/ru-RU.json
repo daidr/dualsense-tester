@@ -27,13 +27,13 @@
     "connected": "Подключено",
     "seq_num": "Sequence No.",
     "charge_status_label": "Charge Status",
-    "battery_level_label": "Battery Level",
-    "headphone_status_label": "Headphone",
+    "battery_level_label": "Уровень заряда",
+    "headphone_status_label": "Наушники",
     "microphone_status_label": "Microphone",
-    "factory_info_title": "Factory Info",
-    "add_device": "Add Device",
+    "factory_info_title": "Заводские данные",
+    "add_device": "Добавить устройство",
     "charge_status": {
-      "discharging": "Not charging",
+      "discharging": "Не заряжается",
       "charging": "Charging",
       "charging_complete": "Charging complete",
       "abnormal_voltage": "Abnormal voltage",
@@ -56,7 +56,7 @@
       "unknown": "Неизвестно"
     },
     "factory_info": {
-      "build_time": "Build Time",
+      "build_time": "Дата и время сборки",
       "hw_info": "HW Info",
       "device_info": "Device Info",
       "fw_type": "FW Type",
