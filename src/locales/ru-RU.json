@@ -4,9 +4,9 @@
   },
   "shared": {
     "unknown": "Неизвестно",
-    "confirm": "Confirm",
-    "cancel": "Cancel",
-    "close": "Close"
+    "confirm": "Подтвердить",
+    "cancel": "Отмена",
+    "close": "Закрыть"
   },
   "locales": {
     "zh-CN": "简体中文",
@@ -20,25 +20,25 @@
     "not_support_content": "Попробуйте использовать последнюю версию Google Chrome или Microsoft Edge"
   },
   "connect_panel": {
-    "tips": "Подключите контроллер DualSense к вашему компьютеру, используя <b>кабель USB</b> или <b>протокол Bluetooth</b>, затем нажмите на кнопку \"Подключить\", расположенную снизу.",
+    "tips": "Подключите контроллер DualSense к вашему компьютеру, используя <b>кабель USB</b> или <b>протокол Bluetooth</b>, затем нажмите на кнопку \"Добавить устройство\", расположенную снизу.",
     "connect": "Подключить",
     "disconnect": "Отключить",
     "not_connected": "Не подключено",
     "connected": "Подключено",
     "seq_num": "Sequence No.",
-    "charge_status_label": "Charge Status",
+    "charge_status_label": "Состояние зарядки",
     "battery_level_label": "Уровень заряда",
     "headphone_status_label": "Наушники",
-    "microphone_status_label": "Microphone",
+    "microphone_status_label": "Микрофон",
     "factory_info_title": "Заводские данные",
     "add_device": "Добавить устройство",
     "charge_status": {
       "discharging": "Не заряжается",
-      "charging": "Charging",
-      "charging_complete": "Charging complete",
-      "abnormal_voltage": "Abnormal voltage",
-      "abnormal_temperature": "Abnormal temperature",
-      "charging_error": "Charging error",
+      "charging": "Идёт зарядка",
+      "charging_complete": "Зарядка завершена",
+      "abnormal_voltage": "Аномальное напряжение",
+      "abnormal_temperature": "Аномальная температура",
+      "charging_error": "Ошибка зарядки",
       "unknown": "Неизвестно"
     },
     "battery_level": {
@@ -61,37 +61,37 @@
       "device_info": "Device Info",
       "fw_type": "FW Type",
       "sw_series": "SW Series",
-      "update_version": "Update Version",
-      "sbl_fw_version": "SBL FW Version",
-      "main_fw_version": "Main FW Version",
-      "dsp_fw_version": "DSP FW Version",
-      "mcu_dsp_fw_version": "MCU DSP FW Version",
+      "update_version": "Версия обновления",
+      "sbl_fw_version": "Версия SBL FW",
+      "main_fw_version": "Версия Main FW",
+      "dsp_fw_version": "Версия DSP FW",
+      "mcu_dsp_fw_version": "Версия MCU DSP FW",
       "bt_patch_version": "BT Patch Version",
-      "pcba_id": "PCBA ID",
-      "serial_number": "Serial Number",
+      "pcba_id": "ID печатной платы",
+      "serial_number": "Серийный номер",
       "assemble_parts_info": "Assemble Parts Info",
-      "battery_barcode": "Battery Barcode",
-      "vcm_barcode": "VCM Barcode",
-      "unique_id": "Unique ID",
-      "bd_mac_address": "BD MAC Address",
-      "at_serial_number": "AT Serial Number",
-      "at_motor_info": "AT Motor Info",
+      "battery_barcode": "Штрихкод (Аккумулятор)",
+      "vcm_barcode": "Штрихкод (Вибромоторы)",
+      "unique_id": "Уникальный ID",
+      "bd_mac_address": "MAC-Адрес Bluetooth",
+      "at_serial_number": "Адаптивные курки (серийный номер)",
+      "at_motor_info": "Адаптивные курки (информация)",
       "individual_data_verify": "Individual Data Verify",
       "individual_data": {
         "not_supported": "Not supported",
-        "no_data": "No data",
+        "no_data": "Данные отсутствуют",
         "start_error": "Start error",
         "get_error": "Get error",
         "successful": "Successful",
         "retry_timeout": "Retry timeout",
         "fail": "Fail"
       },
-      "board_version": "Board Version"
+      "board_version": "Версия платы"
     }
   },
   "profile_panel": {
     "title": "Profile",
-    "default": "Default",
+    "default": "По умолчанию",
     "unassigned": "Unassigned"
   },
   "info_panel": {
@@ -109,11 +109,11 @@
     }
   },
   "output_panel": {
-    "title": "Output",
+    "title": "Вывод",
     "mic_mute_led": "Огонёк состояния микрофона",
-    "mic_mute_led_off": "Off",
-    "mic_mute_led_on": "On",
-    "mic_mute_led_blink": "Blink",
+    "mic_mute_led_off": "Выкл",
+    "mic_mute_led_on": "Вкл",
+    "mic_mute_led_blink": "Мигание",
     "lightbar_color": "Цвет индикатора",
     "player_led": "Огонёк номера игрока",
     "player_led_brightness": "Яркость",
@@ -140,15 +140,15 @@
     }
   },
   "pwa": {
-    "title": "New version detected",
+    "title": "Обнаружена новая версия",
     "dismiss": "Dismiss",
     "upgrade": "Upgrade",
-    "update_available": "A new version of DualSense Tester is ready! \nRefresh to complete the upgrade.",
-    "offline_ready": "This app is now cached for offline use."
+    "update_available": "Доступна новая версия Тестера контроллера DualSense!\nОбновите страницу, чтобы перейти на новую версию.",
+    "offline_ready": "Данное приложение теперь кэшировано для использования в автономном режиме."
   },
   "git_version": {
     "title": "Commit Info",
-    "warn_pr": "This is a preview version from PR. Please use with caution as there may be issues.",
+    "warn_pr": "Это предварительная версия из PR. Пожалуйста, используйте с осторожностью, так как могут возникнуть проблемы.",
     "warn_dev": "This is a preview version from the development branch. Please use with caution as there may be issues."
   }
 }
