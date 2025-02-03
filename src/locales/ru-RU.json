@@ -11,7 +11,8 @@
   "locales": {
     "zh-CN": "简体中文",
     "en-US": "English (US)",
-    "ru-RU": "Русский"
+    "ru-RU": "Русский",
+    "fa-IR": "فارسی"
   },
   "common": {
     "tips": "Подсказки",
