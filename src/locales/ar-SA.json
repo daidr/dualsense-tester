@@ -1,6 +1,10 @@
 {
   "application": {
-    "name": "أداة اختبار DualSense"
+    "name": "أداة اختبار DualSense",
+    "footer": {
+      "coded_by": "مبرمج بواسطة",
+      "with_love": "بكل ❤"
+    }
   },
   "shared": {
     "unknown": "غير معروف",
