@@ -1,9 +1,13 @@
 <script setup lang="tsx">
+import { usePageStore } from '@/store/page'
+import { storeToRefs } from 'pinia'
 import { joinURL } from 'ufo'
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import LabeledValue from './LabeledValue.vue'
 
 const { t } = useI18n()
+const { locale } = storeToRefs(usePageStore())
 
 const {
   owner,
@@ -22,7 +26,9 @@ const commitUrl = joinURL(repoUrl, `commit`, commitHash)
 const prUrl = pr ? joinURL(repoUrl, `pull`, pr) : null
 const date = new Date(commitTimestamp)
 
-const timeString = date.toLocaleString()
+const timeString = computed(() => {
+  return date.toLocaleString(locale.value)
+})
 </script>
 
 <template>
