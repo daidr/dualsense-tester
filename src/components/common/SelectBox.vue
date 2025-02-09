@@ -32,15 +32,21 @@ const { width: popoverWidth } = useElementBounding(PopupRef)
 const { width: winWidth } = useElementSize(document.body)
 const safeX = computed(() => {
   if (!isRTL.value) {
-    if (x.value + popoverWidth.value + 20 < winWidth.value) {
+    if (x.value + popoverWidth.value + 5 < winWidth.value) {
       return x.value
     }
     else {
-      return winWidth.value - popoverWidth.value - 20
+      return winWidth.value - popoverWidth.value - 5
     }
   }
   else {
-    return winWidth.value - x.value - boxWidth.value
+    const original = winWidth.value - x.value - boxWidth.value
+    if (original + popoverWidth.value + 5 < winWidth.value) {
+      return original
+    }
+    else {
+      return winWidth.value - popoverWidth.value - 5
+    }
   }
 })
 

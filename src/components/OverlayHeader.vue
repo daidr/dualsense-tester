@@ -22,34 +22,35 @@ import LangSwitcher from './LangSwitcher.vue'
 
 <style scoped lang="scss">
 header {
-    @apply select-none;
-    @apply w-full;
-    @apply h-[env(titlebar-area-height)] fixed top-0 start-0;
-    @apply bg-white dark-bg-black z-999;
-    app-region: drag;
-    -webkit-app-region: drag;
+  @apply select-none relative;
+  @apply w-full;
+  @apply h-[env(titlebar-area-height)] fixed top-0 start-0;
+  @apply bg-white dark-bg-black z-999;
+  app-region: drag;
+  -webkit-app-region: drag;
 
-    .header {
-        @apply w-[env(titlebar-area-width)] text-lg;
-        @apply flex justify-between items-center;
-        @apply ps-1 pe-1 h-full me-[env(titlebar-area-left)] rtl-me-[env(titlebar-area-right)];
+  .header {
+    @apply w-[env(titlebar-area-width)] text-lg;
+    @apply flex justify-between items-center;
+    @apply ps-1 pe-1 h-full;
+    @apply absolute left-[env(titlebar-area-x)];
+  }
+
+  .logo-wrapper {
+    @apply flex items-center gap-2 text-primary font-bold;
+
+    h1 {
+      @apply hidden;
     }
+  }
 
-    .logo-wrapper {
-        @apply flex items-center gap-2 text-primary font-bold;
+  .tools-wrapper {
+    @apply flex items-center gap-4;
+  }
 
-        h1 {
-            @apply hidden;
-        }
-    }
-
-    .tools-wrapper {
-        @apply flex items-center gap-4;
-    }
-
-    .no-drag {
-        app-region: no-drag;
-        -webkit-app-region: no-drag;
-    }
+  .no-drag {
+    app-region: no-drag;
+    -webkit-app-region: no-drag;
+  }
 }
 </style>

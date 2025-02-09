@@ -35,7 +35,7 @@ const deviceList = computed(() => {
     <div class="flex items-stretch gap-2">
       <SelectBox
         v-if="deviceList.length"
-        class="min-w-0 flex-shrink-1"
+        class="min-w-0 flex-1"
         :options="deviceList" :model-value="dsStore.currentDeviceIndex"
         @update:model-value="dsStore.setCurrentDeviceIndex"
       >

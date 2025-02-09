@@ -8,8 +8,8 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import UnoCSS from 'unocss/vite'
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
-import { gitDefine } from './config/git'
 import { crowdinDefine } from './config/crowdin'
+import { gitDefine } from './config/git'
 
 const isVercelProduction = process.env.VERCEL_ENV === 'production'
 
