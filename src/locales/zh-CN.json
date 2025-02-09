@@ -6,13 +6,13 @@
     "unknown": "未知",
     "confirm": "确认",
     "cancel": "取消",
-    "close": "关闭"
+    "close": "关闭",
+    "hold": "Hold"
   },
   "locales": {
     "zh-CN": "简体中文",
     "en-US": "English (US)",
-    "ru-RU": "Русский",
-    "fa-IR": "فارسی"
+    "ru-RU": "Русский"
   },
   "common": {
     "tips": "提示",
@@ -20,7 +20,7 @@
     "not_support_content": "请尝试使用最新版本的 Google Chrome 或 Microsoft Edge"
   },
   "connect_panel": {
-    "tips": "使用 <b>USB 线缆</b> 或 <b>蓝牙</b> 将 DualSense 连接到你的电脑，然后点击下面的 “添加设备” 按钮。",
+    "tips": "Connect the DualSense to your computer using either a <b>USB cable</b> or <b>Bluetooth</b>, then click the \"Connect\" button below.",
     "connect": "连接",
     "disconnect": "断开连接",
     "not_connected": "未连接",
@@ -137,7 +137,15 @@
       "end_pos": "结束位置",
       "frequency": "频率",
       "force": "强度"
-    }
+    },
+    "headphone_volume": "Headphone volume",
+    "speaker_volume": "Speaker volume",
+    "haptic_volume": "Haptic volume"
+  },
+  "audio_panel": {
+    "title": "Audio",
+    "headphone_1khz_sine_wave_test": "Headphone 1kHz sine wave",
+    "speaker_1khz_sine_wave_test": "Speaker 1kHz sine wave"
   },
   "pwa": {
     "title": "检测到新版本",
