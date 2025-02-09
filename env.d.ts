@@ -13,4 +13,10 @@ declare interface GitInfo {
   commitTimestamp: string
 }
 
+declare const __CROWDIN_PROGRESS__: Record<string, {
+  locale: string
+  translationProgress: number
+  approvalProgress: number
+}>
+
 declare const __GIT_DEFINE__: GitInfo
