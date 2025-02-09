@@ -92,47 +92,26 @@ const seqNum = computed(() => inputReport.value.getUint8(offset.value.sequenceNu
 </script>
 
 <template>
-  <div class="rounded-2xl p-1 text-primary dou-sc-colorborder">
-    <div class="flex flex-col">
-      <LocaleLabeledValue :value="seqNum.toString()" label="connect_panel.seq_num" />
-      <LocaleLabeledValue
-        :value="chargeStatus" value-locale-prefix="connect_panel.charge_status"
-        label="connect_panel.charge_status_label"
-      />
-      <LocaleLabeledValue
-        :value="batteryLevel" value-locale-prefix="connect_panel.battery_level"
-        label="connect_panel.battery_level_label"
-      />
-      <LocaleLabeledValue
-        :value="detectMic" value-locale-prefix="connect_panel"
-        label="connect_panel.microphone_status_label"
-      />
-      <LocaleLabeledValue
-        :value="detectHeadphone" value-locale-prefix="connect_panel"
-        label="connect_panel.headphone_status_label"
-      />
-    </div>
+  <div class="flex flex-col">
+    <LocaleLabeledValue :value="seqNum.toString()" label="connect_panel.seq_num" />
+    <LocaleLabeledValue
+      :value="chargeStatus" value-locale-prefix="connect_panel.charge_status"
+      label="connect_panel.charge_status_label"
+    />
+    <LocaleLabeledValue
+      :value="batteryLevel" value-locale-prefix="connect_panel.battery_level"
+      label="connect_panel.battery_level_label"
+    />
+    <LocaleLabeledValue
+      :value="detectMic" value-locale-prefix="connect_panel"
+      label="connect_panel.microphone_status_label"
+    />
+    <LocaleLabeledValue
+      :value="detectHeadphone" value-locale-prefix="connect_panel"
+      label="connect_panel.headphone_status_label"
+    />
   </div>
 </template>
 
 <style scoped lang="scss">
-.factory-toggle {
-  --color: theme('colors.primary/0.8');
-
-  &:hover {
-    --color: theme('colors.primary');
-  }
-
-  @apply w-full flex items-center justify-center gap-2 px-1 rounded-xl;
-  @apply text-[var(--color)] cursor-pointer text-sm font-bold;
-  @apply transition-colors select-none;
-
-  .line {
-    @apply content-empty flex-grow;
-    @apply h-2px bg-[var(--color)] rounded-full;
-    @apply transition-colors;
-  }
-
-  @apply bg-transparent hover-bg-primary/10;
-}
 </style>
