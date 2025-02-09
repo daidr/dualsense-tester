@@ -58,14 +58,14 @@
       "unknown": "غير معروف"
     },
     "factory_info": {
-      "build_time": "وقت البناء",
+      "build_time": "تاريخ الإصدار",
       "hw_info": "معلومات المكونات",
       "device_info": "معلومات الجهاز",
       "fw_type": "نوع البرنامج",
       "sw_series": "سلسلة البرمجيات",
       "update_version": "إصدار التحديث",
-      "sbl_fw_version": "SBL FW Version",
-      "main_fw_version": "Main FW Version",
+      "sbl_fw_version": "إصدار برنامج SBL",
+      "main_fw_version": "إصدار البرنامج الرئيسي",
       "dsp_fw_version": "DSP FW Version",
       "mcu_dsp_fw_version": "MCU DSP FW Version",
       "bt_patch_version": "BT Patch Version",
@@ -125,7 +125,7 @@
     "player_led_off": "Off",
     "player_led_all": "All",
     "rumble_heavy": "Rumble (heavy)",
-    "rumble_soft": "Rumble (soft)",
+    "rumble_soft": "اهتزاز (خفيف)",
     "left_trigger_mode": "Left trigger",
     "right_trigger_mode": "Right trigger",
     "trigger_mode": {
