@@ -78,9 +78,9 @@
       "bd_mac_address": "BD MAC Address",
       "at_serial_number": "AT Serial Number",
       "at_motor_info": "AT Motor Info",
-      "individual_data_verify": "Individual Data Verify",
+      "individual_data_verify": "التحقق من البيانات الفردية",
       "individual_data": {
-        "not_supported": "Not supported",
+        "not_supported": "غير مدعوم",
         "no_data": "No data",
         "start_error": "Start error",
         "get_error": "Get error",
