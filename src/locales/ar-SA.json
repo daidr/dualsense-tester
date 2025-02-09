@@ -6,7 +6,7 @@
     "unknown": "غير معروف",
     "confirm": "تأكيد",
     "cancel": "إلغاء",
-    "close": "إغلاق",
+    "close": "أغلق",
     "hold": "استمر بالضغط"
   },
   "locales": {
@@ -18,12 +18,12 @@
     "ar-SA": "العربية (السعودية)"
   },
   "common": {
-    "tips": "نصائح",
+    "tips": "تلميحات",
     "not_support_title": "المتصفح الخاص بك لا يدعم WebHID",
     "not_support_content": "استخدم أحدث إصدار من Google Chrome أو Microsoft Edge"
   },
   "connect_panel": {
-    "tips": "قم بتوصيل DualSense إلى جهاز الكمبيوتر الخاص بك إما باستخدام كابل <b>USB</b> أو <b>Bluetooth</b>، ثم انقر فوق زر \"اتصال\" أدناه.",
+    "tips": "قم بتوصيل DualSense إلى جهاز الكمبيوتر الخاص بك إما باستخدام كابل <b>USB</b> أو <b>Bluetooth</b>، ثم انقر فوق زر \"اتصال\".",
     "connect": "اتصال",
     "disconnect": "قطع الاتصال",
     "not_connected": "غير متصل",
@@ -62,22 +62,22 @@
       "build_time": "تاريخ الإصدار",
       "hw_info": "معلومات المكونات",
       "device_info": "معلومات الجهاز",
-      "fw_type": "نوع البرنامج",
+      "fw_type": "نوع البرنامَج",
       "sw_series": "سلسلة البرمجيات",
       "update_version": "إصدار التحديث",
       "sbl_fw_version": "إصدار SBL",
-      "main_fw_version": "إصدار البرنامج الرئيسي",
-      "dsp_fw_version": "إصدار البرنامج الثابت لمعالج الإشارات",
-      "mcu_dsp_fw_version": "إصدار برنامج وحدة تحكم معالج الإشارات",
+      "main_fw_version": "إصدار البرنامَج الرئيس",
+      "dsp_fw_version": "إصدار برنامج معالج الإشارات",
+      "mcu_dsp_fw_version": "إصدار برنامَج وحدة تحكم معالج الإشارات",
       "bt_patch_version": "إصدار تصحيح البلوتوث",
       "pcba_id": "معرف PCBA",
-      "serial_number": "الرقم التسلسلي",
+      "serial_number": "الرَّقْم التسلسلي",
       "assemble_parts_info": "معلومات أجزاء التجميع",
-      "battery_barcode": "باركود البطارية",
-      "vcm_barcode": "باركود VCM",
+      "battery_barcode": "الكود الشريطي للبطارية",
+      "vcm_barcode": "الكود الشريطي VCM",
       "unique_id": "المعرف الفريد",
       "bd_mac_address": "عنوان MAC لجهاز البلوتوث",
-      "at_serial_number": "رقم السيريال AT",
+      "at_serial_number": "رَقْم تسلسلي AT",
       "at_motor_info": "معلومات المحرك AT",
       "individual_data_verify": "التحقق من البيانات الفردية",
       "individual_data": {
@@ -93,7 +93,7 @@
     }
   },
   "profile_panel": {
-    "title": "ملف تعريف",
+    "title": "مِلَفّ تعريف",
     "default": "افتراضي",
     "unassigned": "غير معيّن"
   },
@@ -148,7 +148,7 @@
   "audio_panel": {
     "title": "الصوت",
     "headphone_1khz_sine_wave_test": "موجة بتردد 1 كيلو هرتز لسماعات الرأس",
-    "speaker_1khz_sine_wave_test": "موجة بتردد 1 كيلو هرتز للسماعة"
+    "speaker_1khz_sine_wave_test": "موجة بتردد 1 كيلو هرتز لسماعات الرأس"
   },
   "pwa": {
     "title": "يوجد إصدار جديد",
