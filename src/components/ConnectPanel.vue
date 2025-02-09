@@ -32,28 +32,37 @@ const deviceList = computed(() => {
 
 <template>
   <div class="w-full self-start space-y-2 dou-sc-container">
-    <ContentTips v-if="!deviceList.length">
-      <p v-html="$t('connect_panel.tips')" />
-    </ContentTips>
-    <SelectBox
-      v-if="deviceList.length" :options="deviceList" :model-value="dsStore.currentDeviceIndex"
-      @update:model-value="dsStore.setCurrentDeviceIndex"
-    >
-      <template #default="{ index, extra }">
-        <div class="min-w-0 flex items-center gap-1 py-0.5 text-base">
-          <div class="rounded bg-black/10 px-1 text-xs text-black/70 font-mono dark-bg-white/20 dark-text-white/70">
-            #{{
-              index + 1 }}/{{ deviceList.length }}
+    <div class="flex items-stretch gap-2">
+      <SelectBox
+        v-if="deviceList.length"
+        class="min-w-0 flex-shrink-1"
+        :options="deviceList" :model-value="dsStore.currentDeviceIndex"
+        @update:model-value="dsStore.setCurrentDeviceIndex"
+      >
+        <template #default="{ index, extra }">
+          <div class="min-w-0 flex items-center gap-1 py-0.5 text-base">
+            <div class="rounded bg-black/10 px-1 text-xs text-black/70 font-mono dark-bg-white/20 dark-text-white/70">
+              #{{
+                index + 1 }}/{{ deviceList.length }}
+            </div>
+            <div class="ml-1 min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap" :title="extra!.deviceName">
+              {{
+                extra!.deviceName }}
+            </div>
+            <div v-if="extra!.connectionType === DeviceConnectionType.Bluetooth" class="i-mingcute-bluetooth-line" />
+            <div v-else class="i-mingcute-usb-line" />
           </div>
-          <div class="ml-1 min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap" :title="extra!.deviceName">
-            {{
-              extra!.deviceName }}
-          </div>
-          <div v-if="extra!.connectionType === DeviceConnectionType.Bluetooth" class="i-mingcute-bluetooth-line" />
-          <div v-else class="i-mingcute-usb-line" />
-        </div>
-      </template>
-    </SelectBox>
+        </template>
+      </SelectBox>
+      <div v-else class="flex-grow rounded-full bg-gray-100/50 p-1 py-0.5 dark:bg-gray-500/30" />
+      <button class="flex-shrink-0 dou-sc-btn" :disabled="dsStore.updatingDeviceList" @click="onConnectBtnClick">
+        <div v-if="dsStore.updatingDeviceList" class="i-mingcute-loading-fill animate-spin" />
+        {{
+          $t('connect_panel.add_device')
+        }}
+      </button>
+    </div>
+
     <template v-if="dsStore.views.connectWidgetPanels?.length">
       <div class="flex flex-col gap-y-2">
         <template v-if="dsStore.isDeviceReady">
@@ -68,15 +77,9 @@ const deviceList = computed(() => {
         </template> -->
       </div>
     </template>
-
-    <div class="flex items-center justify-end">
-      <button class="dou-sc-btn" :disabled="dsStore.updatingDeviceList" @click="onConnectBtnClick">
-        <div v-if="dsStore.updatingDeviceList" class="i-mingcute-loading-fill animate-spin" />
-        {{
-          $t('connect_panel.add_device')
-        }}
-      </button>
-    </div>
+    <ContentTips v-if="!deviceList.length">
+      <p v-html="$t('connect_panel.tips')" />
+    </ContentTips>
   </div>
 </template>
 
