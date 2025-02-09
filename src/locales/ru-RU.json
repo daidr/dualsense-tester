@@ -6,13 +6,13 @@
     "unknown": "Неизвестно",
     "confirm": "Подтвердить",
     "cancel": "Отмена",
-    "close": "Закрыть"
+    "close": "Закрыть",
+    "hold": "Hold"
   },
   "locales": {
     "zh-CN": "简体中文",
     "en-US": "English (US)",
-    "ru-RU": "Русский",
-    "fa-IR": "فارسی"
+    "ru-RU": "Русский"
   },
   "common": {
     "tips": "Подсказки",
@@ -20,7 +20,7 @@
     "not_support_content": "Попробуйте использовать последнюю версию Google Chrome или Microsoft Edge"
   },
   "connect_panel": {
-    "tips": "Подключите контроллер DualSense к вашему компьютеру, используя <b>кабель USB</b> или <b>протокол Bluetooth</b>, затем нажмите на кнопку \"Добавить устройство\", расположенную снизу.",
+    "tips": "Connect the DualSense to your computer using either a <b>USB cable</b> or <b>Bluetooth</b>, then click the \"Connect\" button below.",
     "connect": "Подключить",
     "disconnect": "Отключить",
     "not_connected": "Не подключено",
@@ -137,7 +137,15 @@
       "end_pos": "Конец",
       "frequency": "Частота",
       "force": "Сила"
-    }
+    },
+    "headphone_volume": "Headphone volume",
+    "speaker_volume": "Speaker volume",
+    "haptic_volume": "Haptic volume"
+  },
+  "audio_panel": {
+    "title": "Audio",
+    "headphone_1khz_sine_wave_test": "Headphone 1kHz sine wave",
+    "speaker_1khz_sine_wave_test": "Speaker 1kHz sine wave"
   },
   "pwa": {
     "title": "Обнаружена новая версия",
