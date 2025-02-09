@@ -92,7 +92,7 @@ table {
   }
 
   .value {
-    @apply opacity-70 text-right;
+    @apply opacity-70 text-end;
   }
 }
 </style>

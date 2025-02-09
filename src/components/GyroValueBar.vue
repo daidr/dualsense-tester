@@ -32,7 +32,7 @@ function getCenterPointPos(value: number) {
         />
       </div>
     </div>
-    <div class="w-24 text-right text-lg text-current font-sans">
+    <div class="w-24 text-end text-lg text-current font-sans">
       {{ (value / 10).toFixed(1) }}°/S
     </div>
   </div>

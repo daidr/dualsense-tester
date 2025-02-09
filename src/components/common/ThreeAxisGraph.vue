@@ -141,7 +141,7 @@ defineExpose({
     <div class="relative h-full w-[calc(100%-30px)] overflow-hidden rounded-xl dou-sc-colorborder">
       <canvas ref="CanvasRef" class="absolute top-0 h-full w-full" w="1" h="1" />
     </div>
-    <div class="absolute bottom-2 right-2 top-2">
+    <div class="absolute end-2 bottom-2 top-2">
       <SliderBox v-model="factor" :min="0.01" :max="1" :digits="3" :vertical="true" />
     </div>
   </div>

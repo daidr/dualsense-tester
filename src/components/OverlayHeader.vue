@@ -34,7 +34,7 @@ header {
     .header {
         @apply w-[env(titlebar-area-width)] text-lg;
         @apply flex justify-between items-center;
-        @apply pl-1 pr-1 mr-[env(titlebar-area-left)] h-full;
+        @apply ps-1 pe-1 mr-[env(titlebar-area-left)] h-full;
     }
 
     .logo-wrapper {

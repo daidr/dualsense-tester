@@ -117,7 +117,7 @@ watch(open, () => {
     @apply text-sm;
 
     .popup-label {
-      @apply m-1 py-1 pl-2 pr-3 min-w-30 min-w-0;
+      @apply m-1 py-1 ps-2 pe-3 min-w-30 min-w-0;
       @apply rounded-xl;
       @apply transition-colors;
       @apply cursor-pointer;
@@ -136,7 +136,7 @@ watch(open, () => {
 
 .select-wrapper {
   @apply flex items-center gap-1 text-sm cursor-pointer select-none;
-  @apply pl-2 pr-1 py-0.5;
+  @apply ps-2 pe-1 py-0.5;
   @apply rounded-full text-primary dou-sc-colorborder;
   @apply transition duration-100;
 

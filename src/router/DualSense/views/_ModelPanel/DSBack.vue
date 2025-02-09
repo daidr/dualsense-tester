@@ -51,7 +51,7 @@ const triggerR = computed(() => inputReport.value.getUint8(offset.value.analogTr
       d="M866.471,116.785l114.214,0c12.312,0 -1.248,-110.916 -78.919,-110.916c-37.32,-0 -51.81,110.916 -35.295,110.916Z"
       class="ds-active" :opacity="triggerR / 0xFF"
     />
-    <text v-if="showValue" x="970" y="30" font-size="25" class="ds-text">
+    <text v-if="showValue" x="990" y="30" font-size="25" class="ds-text" text-anchor="middle">
       {{
         triggerR
       }}
@@ -63,7 +63,7 @@ const triggerR = computed(() => inputReport.value.getUint8(offset.value.analogTr
       d="M252.212,116.785l-114.214,0c-12.312,0 1.248,-110.916 78.919,-110.916c37.32,-0 51.81,110.916 35.295,110.916Z"
       class="ds-active" :opacity="triggerL / 0xFF"
     />
-    <text v-if="showValue" x="150" y="30" font-size="25" class="ds-text" text-anchor="end">
+    <text v-if="showValue" x="130" y="30" font-size="25" class="ds-text" text-anchor="middle">
       {{
         triggerL
       }}

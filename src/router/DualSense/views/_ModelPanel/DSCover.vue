@@ -108,7 +108,7 @@ const leftStickStyle = computed(() => {
 
 function formatStickValue(value: number) {
   const result = value.toPrecision(9).slice(0, 9)
-  return value < 0 ? result : `\u00A0${result}`
+  return value < 0 ? result : `${result}`
 }
 </script>
 
@@ -142,13 +142,13 @@ function formatStickValue(value: number) {
       <circle v-if="showValue" cx="763.456" cy="528.548" r="2" class="ds-fill-red" />
     </g>
 
-    <text v-if="showValue" x="850" y="700" font-size="25" class="ds-text" text-anchor="end">
-      {{
-        formatStickValue(stickR.x) }} X
+    <text v-if="showValue" x="750" y="700" font-size="25" class="ds-text" text-anchor="middle">
+      X {{
+        formatStickValue(stickR.x) }}
     </text>
-    <text v-if="showValue" x="850" y="730" font-size="25" class="ds-text" text-anchor="end">
-      {{
-        formatStickValue(stickR.y) }} Y
+    <text v-if="showValue" x="750" y="730" font-size="25" class="ds-text" text-anchor="middle">
+      Y {{
+        formatStickValue(stickR.y) }}
     </text>
     <!-- cross line -->
     <line v-if="showValue" x2="763.456" y2="441.355" x1="763.456" y1="615.741" class="ds-stroke-dashed" />
@@ -164,11 +164,11 @@ function formatStickValue(value: number) {
       <circle v-if="showValue" cx="351.764" cy="528.548" r="2" class="ds-fill-red" />
     </g>
 
-    <text v-if="showValue" x="270" y="700" font-size="25" class="ds-text">
+    <text v-if="showValue" x="370" y="700" font-size="25" class="ds-text" text-anchor="middle">
       X {{
         formatStickValue(stickL.x) }}
     </text>
-    <text v-if="showValue" x="270" y="730" font-size="25" class="ds-text">
+    <text v-if="showValue" x="370" y="730" font-size="25" class="ds-text" text-anchor="middle">
       Y {{
         formatStickValue(stickL.y) }}
     </text>

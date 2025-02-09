@@ -26,9 +26,11 @@ const timeString = date.toLocaleString()
 </script>
 
 <template>
-  <div v-if="pr || branch !== 'main'"
-    class="px-2 py-1 rounded-24px text-sm bg-orange/20 ring-orange/50 ring-1 text-orange text-left mb-2">
-    <div class="i-mingcute-warning-line inline-block align-middle mr-1"> </div>
+  <div
+    v-if="pr || branch !== 'main'"
+    class="mb-2 rounded-24px bg-orange/20 px-2 py-1 text-start text-sm text-orange ring-1 ring-orange/50"
+  >
+    <div class="i-mingcute-warning-line mr-1 inline-block align-middle" />
     <template v-if="pr">
       {{ t('git_version.warn_pr') }}
     </template>
@@ -43,15 +45,15 @@ const timeString = date.toLocaleString()
     <a :href="branchUrl" target="_blank">{{ branch }}</a>
   </LabeledValue>
   <LabeledValue label="commit">
-    <a :href="commitUrl" target="_blank" v-if="commitHash" :title="commitHash">{{ shortCommitHash }}</a>
+    <a v-if="commitHash" :href="commitUrl" target="_blank" :title="commitHash">{{ shortCommitHash }}</a>
   </LabeledValue>
   <LabeledValue label="timestamp">
     {{ timeString }}
   </LabeledValue>
   <LabeledValue v-if="prUrl" label="PR">
-    <a :href="prUrl" target="_blank" v-if="pr">{{ `#${pr}` }}</a>
+    <a v-if="pr" :href="prUrl" target="_blank">{{ `#${pr}` }}</a>
   </LabeledValue>
-  <div class="text-left dou-sc-autoborder rounded-2xl font-light mt-2 text-sm font-mono py-2 px-3">
+  <div class="mt-2 rounded-2xl px-3 py-2 text-start text-sm font-light font-mono dou-sc-autoborder">
     {{ commitMessage }}
   </div>
 </template>

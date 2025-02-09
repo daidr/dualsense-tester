@@ -33,7 +33,7 @@ const accelInfo = computedAsync(async () => {
       <p class="font-bold">
         X
       </p>
-      <p class="w-1/2 text-right">
+      <p class="w-1/2 text-end">
         {{ accelInfo.x }}
       </p>
     </div>
@@ -41,7 +41,7 @@ const accelInfo = computedAsync(async () => {
       <p class="font-bold">
         Y
       </p>
-      <p class="w-1/2 text-right">
+      <p class="w-1/2 text-end">
         {{ accelInfo.y }}
       </p>
     </div>
@@ -49,7 +49,7 @@ const accelInfo = computedAsync(async () => {
       <p class="font-bold">
         Z
       </p>
-      <p class="w-1/2 text-right">
+      <p class="w-1/2 text-end">
         {{ accelInfo.z }}
       </p>
     </div>

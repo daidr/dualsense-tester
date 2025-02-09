@@ -454,7 +454,7 @@ table {
 
 .value,
 :deep(.value) {
-  @apply max-w-50% pl-2;
+  @apply max-w-50% ps-2;
 
   &>div {
     @apply flex items-center justify-end;

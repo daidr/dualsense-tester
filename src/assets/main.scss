@@ -23,6 +23,8 @@
 
 html {
   background: rgb(var(--bg-color));
+  overflow-y: scroll;
+  scrollbar-width: thin;
 }
 
 html.light {

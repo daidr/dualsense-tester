@@ -19,7 +19,7 @@ defineProps<{
 
 <style scoped>
 .dou-sc-title {
-  @apply pl-2 relative select-none;
+  @apply ps-2 relative select-none;
 
   &::before {
     @apply text-current content-empty;

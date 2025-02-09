@@ -11,7 +11,7 @@ defineSlots<{
 <template>
     <div class="flex justify-between gap-2 text-sm labeled-value px-1 rounded-lg">
         <div class="font-bold select-none flex-shrink-0">{{ label }}</div>
-        <div class="opacity-80 font-mono break-all whitespace-pre-wrap flex-grow text-right">
+        <div class="opacity-80 font-mono break-all whitespace-pre-wrap flex-grow text-end">
             <slot />
         </div>
     </div>

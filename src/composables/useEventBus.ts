@@ -5,9 +5,9 @@ const __EVENT_BUS_PROVIDE__ = Symbol('__EVENT_BUS_PROVIDE__')
 type EventMap = Map<string | number | symbol, Set<any>>
 
 export function useEventBusProvider() {
-    const events: EventMap = new Map()
+  const events: EventMap = new Map()
 
-    provide(__EVENT_BUS_PROVIDE__, events)
+  provide(__EVENT_BUS_PROVIDE__, events)
 }
 
 /**
@@ -25,28 +25,26 @@ export function useEventBusProvider() {
  */
 
 export function useEventBus<EventDefs extends Record<string | number | symbol, any[]>>() {
-    const useEventBusRegister = <EventName extends keyof EventDefs>(eventName: EventName, callback: (...args: EventDefs[EventName]) => void) => {
-        const eventBus = inject<EventMap>(__EVENT_BUS_PROVIDE__)!
-        console.log('eventBus', eventBus)
-        if (!eventBus.has(eventName)) {
-            eventBus.set(eventName, new Set())
-        }
-        eventBus.get(eventName)?.add(callback)
-
-        onScopeDispose(() => {
-            eventBus.get(eventName)?.delete(callback)
-        })
+  const useEventBusRegister = <EventName extends keyof EventDefs>(eventName: EventName, callback: (...args: EventDefs[EventName]) => void) => {
+    const eventBus = inject<EventMap>(__EVENT_BUS_PROVIDE__)!
+    if (!eventBus.has(eventName)) {
+      eventBus.set(eventName, new Set())
     }
+    eventBus.get(eventName)?.add(callback)
 
-    const useEventBusEmit = () => {
-        const eventBus = inject<EventMap>(__EVENT_BUS_PROVIDE__)!
-        return <EventName extends keyof EventDefs>(eventName: EventName, ...args: EventDefs[EventName]) => {
-            console.log('eventBus', eventBus)
-            eventBus.get(eventName)?.forEach((callback) => {
-                callback(...args)
-            })
-        }
+    onScopeDispose(() => {
+      eventBus.get(eventName)?.delete(callback)
+    })
+  }
+
+  const useEventBusEmit = () => {
+    const eventBus = inject<EventMap>(__EVENT_BUS_PROVIDE__)!
+    return <EventName extends keyof EventDefs>(eventName: EventName, ...args: EventDefs[EventName]) => {
+      eventBus.get(eventName)?.forEach((callback) => {
+        callback(...args)
+      })
     }
+  }
 
-    return [useEventBusRegister, useEventBusEmit] as const
+  return [useEventBusRegister, useEventBusEmit] as const
 }
