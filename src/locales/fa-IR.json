@@ -6,13 +6,13 @@
     "unknown": "Unknown",
     "confirm": "Confirm",
     "cancel": "Cancel",
-    "close": "Close"
+    "close": "Close",
+    "hold": "Hold"
   },
   "locales": {
     "zh-CN": "简体中文",
     "en-US": "English (US)",
-    "ru-RU": "Русский",
-    "fa-IR": "فارسی"
+    "ru-RU": "Русский"
   },
   "common": {
     "tips": "Tips",
@@ -20,7 +20,7 @@
     "not_support_content": "Try to use the latest version of Google Chrome or Microsoft Edge"
   },
   "connect_panel": {
-    "tips": "Connect the DualSense to your computer using either a <b>USB cable</b> or <b>Bluetooth</b>, then click the \"Add Device\" button below.",
+    "tips": "Connect the DualSense to your computer using either a <b>USB cable</b> or <b>Bluetooth</b>, then click the \"Connect\" button below.",
     "connect": "Connect",
     "disconnect": "Disconnect",
     "not_connected": "Not connected",
@@ -137,7 +137,15 @@
       "end_pos": "End",
       "frequency": "Frequency",
       "force": "Force"
-    }
+    },
+    "headphone_volume": "Headphone volume",
+    "speaker_volume": "Speaker volume",
+    "haptic_volume": "Haptic volume"
+  },
+  "audio_panel": {
+    "title": "Audio",
+    "headphone_1khz_sine_wave_test": "Headphone 1kHz sine wave",
+    "speaker_1khz_sine_wave_test": "Speaker 1kHz sine wave"
   },
   "pwa": {
     "title": "New version detected",
