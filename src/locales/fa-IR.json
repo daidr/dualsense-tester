@@ -1,0 +1,162 @@
+{
+  "application": {
+    "name": "DualSense Tester"
+  },
+  "shared": {
+    "unknown": "Unknown",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "close": "Close",
+    "hold": "Hold"
+  },
+  "locales": {
+    "zh-CN": "简体中文",
+    "en-US": "English (US)",
+    "ru-RU": "Русский"
+  },
+  "common": {
+    "tips": "Tips",
+    "not_support_title": "Your browser does not support WebHID",
+    "not_support_content": "Try to use the latest version of Google Chrome or Microsoft Edge"
+  },
+  "connect_panel": {
+    "tips": "Connect the DualSense to your computer using either a <b>USB cable</b> or <b>Bluetooth</b>, then click the \"Connect\" button below.",
+    "connect": "Connect",
+    "disconnect": "Disconnect",
+    "not_connected": "Not connected",
+    "connected": "Connected",
+    "seq_num": "Sequence No.",
+    "charge_status_label": "Charge Status",
+    "battery_level_label": "Battery Level",
+    "headphone_status_label": "Headphone",
+    "microphone_status_label": "Microphone",
+    "factory_info_title": "Factory Info",
+    "add_device": "Add Device",
+    "charge_status": {
+      "discharging": "Not charging",
+      "charging": "Charging",
+      "charging_complete": "Charging complete",
+      "abnormal_voltage": "Abnormal voltage",
+      "abnormal_temperature": "Abnormal temperature",
+      "charging_error": "Charging error",
+      "unknown": "Unknown"
+    },
+    "battery_level": {
+      "level0": "0-9%",
+      "level1": "10-19%",
+      "level2": "20-29%",
+      "level3": "30-39%",
+      "level4": "40-49%",
+      "level5": "50-59%",
+      "level6": "60-69%",
+      "level7": "70-79%",
+      "level8": "80-89%",
+      "level9": "90-99%",
+      "level10": "100%",
+      "unknown": "Unknown"
+    },
+    "factory_info": {
+      "build_time": "Build Time",
+      "hw_info": "HW Info",
+      "device_info": "Device Info",
+      "fw_type": "FW Type",
+      "sw_series": "SW Series",
+      "update_version": "Update Version",
+      "sbl_fw_version": "SBL FW Version",
+      "main_fw_version": "Main FW Version",
+      "dsp_fw_version": "DSP FW Version",
+      "mcu_dsp_fw_version": "MCU DSP FW Version",
+      "bt_patch_version": "BT Patch Version",
+      "pcba_id": "PCBA ID",
+      "serial_number": "Serial Number",
+      "assemble_parts_info": "Assemble Parts Info",
+      "battery_barcode": "Battery Barcode",
+      "vcm_barcode": "VCM Barcode",
+      "unique_id": "Unique ID",
+      "bd_mac_address": "BD MAC Address",
+      "at_serial_number": "AT Serial Number",
+      "at_motor_info": "AT Motor Info",
+      "individual_data_verify": "Individual Data Verify",
+      "individual_data": {
+        "not_supported": "Not supported",
+        "no_data": "No data",
+        "start_error": "Start error",
+        "get_error": "Get error",
+        "successful": "Successful",
+        "retry_timeout": "Retry timeout",
+        "fail": "Fail"
+      },
+      "board_version": "Board Version"
+    }
+  },
+  "profile_panel": {
+    "title": "Profile",
+    "default": "Default",
+    "unassigned": "Unassigned"
+  },
+  "info_panel": {
+    "tips": "Please connect your DualSense first",
+    "stick_module_not_found": "Stick module lost",
+    "title_buttons": "Basic Buttons",
+    "title_accelerometer": "Accelerometer",
+    "title_gyroscope": "Gyroscope",
+    "pitch": "Pitch",
+    "yaw": "Yaw",
+    "roll": "Roll",
+    "model_value": {
+      "on": "Value display on",
+      "off": "Value display off"
+    }
+  },
+  "output_panel": {
+    "title": "Output",
+    "mic_mute_led": "Mic status light",
+    "mic_mute_led_off": "Off",
+    "mic_mute_led_on": "On",
+    "mic_mute_led_blink": "Blink",
+    "lightbar_color": "Lightbar color",
+    "player_led": "Player light",
+    "player_led_brightness": "Brightness",
+    "player_led_brightness_high": "High",
+    "player_led_brightness_medium": "Medium",
+    "player_led_brightness_low": "Low",
+    "player_led_off": "Off",
+    "player_led_all": "All",
+    "rumble_heavy": "Rumble (heavy)",
+    "rumble_soft": "Rumble (soft)",
+    "left_trigger_mode": "Left trigger",
+    "right_trigger_mode": "Right trigger",
+    "trigger_mode": {
+      "off": "Off",
+      "resistance": "resistance",
+      "trigger": "Trigger",
+      "auto_trigger": "Automatic Trigger"
+    },
+    "trigger_values": {
+      "start_pos": "Start",
+      "end_pos": "End",
+      "frequency": "Frequency",
+      "force": "Force"
+    },
+    "headphone_volume": "Headphone volume",
+    "speaker_volume": "Speaker volume",
+    "haptic_volume": "Haptic volume"
+  },
+  "audio_panel": {
+    "title": "Audio",
+    "headphone_1khz_sine_wave_test": "Headphone 1kHz sine wave",
+    "speaker_1khz_sine_wave_test": "Speaker 1kHz sine wave"
+  },
+  "pwa": {
+    "title": "New version detected",
+    "dismiss": "Dismiss",
+    "upgrade": "Upgrade",
+    "update_available": "A new version of DualSense Tester is ready! \nRefresh to complete the upgrade.",
+    "offline_ready": "This app is now cached for offline use."
+  },
+  "git_version": {
+    "title": "Commit Info",
+    "warn_pr": "This is a preview version from PR. Please use with caution as there may be issues.",
+    "warn_dev": "This is a preview version from the development branch. Please use with caution as there may be issues."
+  }
+}
