@@ -11,10 +11,12 @@ import { ModalContainer } from './composables/useModal'
 import { useOverlayHeader } from './composables/useOverlayHeader'
 import { ToastContainer } from './composables/useToast'
 import { usePageStore } from './store/page'
+import { useEventBusProvider } from './composables/useEventBus'
 
 const pageStore = usePageStore()
 const { isWebHIDSupported } = storeToRefs(pageStore)
 const showOverlayHeader = useOverlayHeader()
+useEventBusProvider()
 </script>
 
 <template>

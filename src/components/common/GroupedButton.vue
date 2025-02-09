@@ -1,25 +1,27 @@
 <script setup lang="ts" generic="T extends string | number">
-const modelValue = defineModel<T>({ required: true })
-
 defineProps<{
-    sets: {
-        label: string
-        value: T
-    }[]
+  sets: {
+    label: string
+    value: T
+  }[]
 }>()
 
-const onButtonClick = (value: T) => {
-    modelValue.value = value
+const modelValue = defineModel<T>({ required: true })
+
+function onButtonClick(value: T) {
+  modelValue.value = value
 }
 </script>
 
 <template>
-    <div class="dou-sc-colorborder h-1.5rem p-2px rounded-full relative flex gap-1">
-        <button v-for="button of sets" :key="button.value" :class="{ active: button.value === modelValue }"
-            @click="onButtonClick(button.value)">
-            {{ button.label }}
-        </button>
-    </div>
+  <div class="relative h-1.5rem flex gap-1 rounded-full p-2px dou-sc-colorborder">
+    <button
+      v-for="button of sets" :key="button.value" :class="{ active: button.value === modelValue }"
+      @click="onButtonClick(button.value)"
+    >
+      {{ button.label }}
+    </button>
+  </div>
 </template>
 
 <style scoped lang="scss">

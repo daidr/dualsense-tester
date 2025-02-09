@@ -3,6 +3,7 @@ import { shiftJISDecoder } from '@/utils/decoder.util'
 import { decodeShiftJIS, numberToHex } from '@/utils/format.util'
 import { hidLogger } from '@/utils/logger.util'
 import { sleep } from '@/utils/time.util'
+import { createAsyncLock } from '../lock.util'
 import { fillFeatureReportChecksum, fillOutputReportChecksum } from './crc32.util'
 import { DualSenseTestActionId, DualSenseTestDeviceId, TestResult, TestStatus } from './ds.type'
 
@@ -164,6 +165,8 @@ export async function getTestResult(
   }
 }
 
+const testCommandLock = createAsyncLock()
+
 export async function sendTestCommand(
   item: DeviceItem,
   deviceId: DualSenseTestDeviceId,
@@ -176,44 +179,46 @@ export async function sendTestCommand(
   result: TestResult.TEST_RESULT_SET_FAIL | TestResult.TEST_RESULT_TIMEOUT
   report: null
 }> {
-  const data = new Uint8Array(2)
-  data[0] = deviceId
-  data[1] = actionId
-  try {
-    await sendFeatureReport(item, 0x80, data)
-  }
-  catch (error) {
-    hidLogger.error(error)
+  return await testCommandLock(async () => {
+    const data = new Uint8Array(2)
+    data[0] = deviceId
+    data[1] = actionId
+    try {
+      await sendFeatureReport(item, 0x80, data)
+    }
+    catch (error) {
+      hidLogger.error(error)
+      return {
+        result: TestResult.TEST_RESULT_SET_FAIL,
+        report: null,
+      }
+    }
+    let testResult: TestResult
+    let num = 0
+    const resultReport = new Uint8Array(resultLength)
+    do {
+      const resp = await getTestResult(item, deviceId, actionId)
+      testResult = resp.result
+      switch (resp.result) {
+        case TestResult.TEST_RESULT_COMPLETE:
+          resultReport.set(new Uint8Array(resp.report.buffer, 4, resultLength - 56 * num), 56 * num)
+          ++num
+          break
+        case TestResult.TEST_RESULT_COMPLETE_2:
+          resultReport.set(new Uint8Array(resp.report.buffer, 4, 56), 56 * num++)
+          break
+        case TestResult.TEST_RESULT_FAIL:
+          return {
+            result: TestResult.TEST_RESULT_SET_FAIL,
+            report: null,
+          }
+      }
+    } while (testResult !== TestResult.TEST_RESULT_COMPLETE)
     return {
-      result: TestResult.TEST_RESULT_SET_FAIL,
-      report: null,
+      result: testResult,
+      report: new DataView(resultReport.buffer),
     }
-  }
-  let testResult: TestResult
-  let num = 0
-  const resultReport = new Uint8Array(resultLength)
-  do {
-    const resp = await getTestResult(item, deviceId, actionId)
-    testResult = resp.result
-    switch (resp.result) {
-      case TestResult.TEST_RESULT_COMPLETE:
-        resultReport.set(new Uint8Array(resp.report.buffer, 4, resultLength - 56 * num), 56 * num)
-        ++num
-        break
-      case TestResult.TEST_RESULT_COMPLETE_2:
-        resultReport.set(new Uint8Array(resp.report.buffer, 4, 56), 56 * num++)
-        break
-      case TestResult.TEST_RESULT_FAIL:
-        return {
-          result: TestResult.TEST_RESULT_SET_FAIL,
-          report: null,
-        }
-    }
-  } while (testResult !== TestResult.TEST_RESULT_COMPLETE)
-  return {
-    result: testResult,
-    report: new DataView(resultReport.buffer),
-  }
+  })
 }
 
 export async function sendTestCommandWithParams(
@@ -230,49 +235,51 @@ export async function sendTestCommandWithParams(
   result: TestResult.TEST_RESULT_SET_FAIL | TestResult.TEST_RESULT_TIMEOUT
   report: null
 }> {
-  const data = new Uint8Array(2 + params.byteLength)
-  data[0] = deviceId
-  data[1] = actionId
-  data.set(new Uint8Array(params.buffer), 2)
-  try {
-    await sendFeatureReport(item, 0x80, data)
-  }
-  catch (error) {
-    hidLogger.error(error)
-    return {
-      result: TestResult.TEST_RESULT_SET_FAIL,
-      report: null,
+  return await testCommandLock(async () => {
+    const data = new Uint8Array(2 + params.byteLength)
+    data[0] = deviceId
+    data[1] = actionId
+    data.set(new Uint8Array(params.buffer), 2)
+    try {
+      await sendFeatureReport(item, 0x80, data)
     }
-  }
-  let testResult: TestResult
-  let num = 0
-  const paramsLength = params.byteLength
-  const resultReport = new Uint8Array(resultLength)
-  do {
-    const resp = await getTestResult(item, deviceId, actionId)
-    testResult = resp.result
-    switch (resp.result) {
-      case TestResult.TEST_RESULT_COMPLETE:
-        if (paramsLength - (56 - ignoreLength) * num > 56 - ignoreLength) {
+    catch (error) {
+      hidLogger.error(error)
+      return {
+        result: TestResult.TEST_RESULT_SET_FAIL,
+        report: null,
+      }
+    }
+    let testResult: TestResult
+    let num = 0
+    const paramsLength = params.byteLength
+    const resultReport = new Uint8Array(resultLength)
+    do {
+      const resp = await getTestResult(item, deviceId, actionId)
+      testResult = resp.result
+      switch (resp.result) {
+        case TestResult.TEST_RESULT_COMPLETE:
+          if (paramsLength - (56 - ignoreLength) * num > 56 - ignoreLength) {
+            resultReport.set(new Uint8Array(resp.report.buffer, 4 + ignoreLength, 56 - ignoreLength), (56 - ignoreLength) * num++)
+          }
+          resultReport.set(new Uint8Array(resp.report.buffer, 4 + ignoreLength, resultLength - (56 - ignoreLength) * num), (56 - ignoreLength) * num)
+          ++num
+          break
+        case TestResult.TEST_RESULT_COMPLETE_2:
           resultReport.set(new Uint8Array(resp.report.buffer, 4 + ignoreLength, 56 - ignoreLength), (56 - ignoreLength) * num++)
-        }
-        resultReport.set(new Uint8Array(resp.report.buffer, 4 + ignoreLength, resultLength - (56 - ignoreLength) * num), (56 - ignoreLength) * num)
-        ++num
-        break
-      case TestResult.TEST_RESULT_COMPLETE_2:
-        resultReport.set(new Uint8Array(resp.report.buffer, 4 + ignoreLength, 56 - ignoreLength), (56 - ignoreLength) * num++)
-        break
-      case TestResult.TEST_RESULT_FAIL:
-        return {
-          result: TestResult.TEST_RESULT_SET_FAIL,
-          report: null,
-        }
+          break
+        case TestResult.TEST_RESULT_FAIL:
+          return {
+            result: TestResult.TEST_RESULT_SET_FAIL,
+            report: null,
+          }
+      }
+    } while (testResult !== TestResult.TEST_RESULT_COMPLETE)
+    return {
+      result: testResult,
+      report: new DataView(resultReport.buffer),
     }
-  } while (testResult !== TestResult.TEST_RESULT_COMPLETE)
-  return {
-    result: testResult,
-    report: new DataView(resultReport.buffer),
-  }
+  })
 }
 
 export async function sendTestCommandPure(
@@ -286,6 +293,25 @@ export async function sendTestCommandPure(
     return undefined
   }
   return resp.report
+}
+
+export async function setTestCommandWithParams(item: DeviceItem, deviceId: DualSenseTestDeviceId, actionId: DualSenseTestActionId, params: DataView) {
+  return await testCommandLock(async () => {
+    const data = new Uint8Array(2 + params.byteLength)
+    data[0] = deviceId
+    data[1] = actionId
+    data.set(new Uint8Array(params.buffer), 2)
+    try {
+      await sendFeatureReport(item, 0x80, data)
+    }
+    catch (error) {
+      hidLogger.error(error)
+      return {
+        result: TestResult.TEST_RESULT_SET_FAIL,
+        report: null,
+      }
+    }
+  })
 }
 
 export async function getPcbaId(item: DeviceItem) {
@@ -514,4 +540,30 @@ export async function type2TracabilityInfoRead(item: DeviceItem, type: 'left' | 
 export async function demoTestCommand(item: DeviceItem) {
   const report = await sendTestCommandPure(item, DualSenseTestDeviceId.SYSTEM, DualSenseTestActionId.GET_OLYMPUS_CONFIG, 10)
   hidLogger.debug('demoTestCommand', report)
+}
+
+/**
+ * Control the wave output for the specified device.
+ * @param item HIDDevice
+ * @param enable Indicates whether to enable or disable the wave output.
+ * @param waveDevice Specifies the wave device to control.
+ */
+export async function controlWaveOut(item: DeviceItem, enable: boolean, waveDevice: 'headphone' | 'speaker') {
+  const controlParams = new Uint8Array(3)
+  controlParams[0] = 0
+  controlParams[1] = 1
+  controlParams[2] = 0
+  if (enable) {
+    controlParams[0] = 1
+    const params = new Uint8Array(20)
+    if (waveDevice === 'headphone') {
+      params[4] = 4
+      params[6] = 6
+    }
+    else {
+      params[2] = 8
+    }
+    await setTestCommandWithParams(item, DualSenseTestDeviceId.AUDIO, DualSenseTestActionId.BUILTIN_MIC_CALIB_DATA_VERIFY, new DataView(params.buffer))
+  }
+  await setTestCommandWithParams(item, DualSenseTestDeviceId.AUDIO, DualSenseTestActionId.WAVEOUT_CTRL, new DataView(controlParams.buffer))
 }

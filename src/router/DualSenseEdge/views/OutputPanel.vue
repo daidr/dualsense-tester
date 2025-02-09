@@ -12,6 +12,9 @@ import { computed, onMounted, type Ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { OutputStruct } from './_OutputPanel/outputStruct'
 import TriggerEffect from './_OutputPanel/TriggerEffect.vue'
+import { createAsyncLock } from '@/utils/lock.util'
+import { useEventBusRegister } from '../_utils/eventbus.util'
+import SliderBox from '@/components/common/SliderBox.vue'
 
 const { t } = useI18n()
 const device = useDevice()
@@ -233,19 +236,74 @@ function handleTriggerUpdate() {
 }
 // #endregion
 
+// #region Speaker Volume
+const speakerVolume = computed({
+  get() {
+    return struct.speakerVolume.value
+  },
+  async set(value) {
+    struct.speakerVolume.value = value
+    struct.audioControl.value = bitShiftByte(3, 4)
+    await sendOutputReport(
+      () => {
+        setValidFlag0(5)
+        setValidFlag0(7)
+        clearValidFlag0(0)
+        clearValidFlag0(1)
+      },
+      () => {
+        clearValidFlag0(5)
+        clearValidFlag0(7)
+      },
+    )
+  },
+})
+// #endregion
+
+// #region Headphone Volume
+const headphoneVolume = computed({
+  get() {
+    return struct.headphoneVolume.value
+  },
+  async set(value) {
+    struct.headphoneVolume.value = value
+    struct.audioControl.value = bitShiftByte(0, 4)
+    await sendOutputReport(
+      () => {
+        setValidFlag0(4)
+        setValidFlag0(7)
+        clearValidFlag0(0)
+        clearValidFlag0(1)
+      },
+      () => {
+        clearValidFlag0(4)
+        clearValidFlag0(7)
+      },
+    )
+  },
+})
+// #endregion
+
+
 const _sendOutputReport = computed(() => {
   return sendOutputReportFactory(device.value)
 })
 
-let rafId = 0
+const outputReportLock = createAsyncLock()
 async function sendOutputReport(before?: () => void, after?: () => void) {
-  cancelAnimationFrame(rafId)
-  rafId = requestAnimationFrame(async () => {
+  await outputReportLock(async () => {
     before?.()
     const outputReport = struct.reportData
     await _sendOutputReport.value(outputReport)
     after?.()
   })
+  // cancelAnimationFrame(rafId)
+  // rafId = requestAnimationFrame(async () => {
+  //   before?.()
+  //   const outputReport = struct.reportData
+  //   await _sendOutputReport.value(outputReport)
+  //   after?.()
+  // })
 }
 
 onMounted(() => {
@@ -269,6 +327,29 @@ onMounted(() => {
     clearValidFlag0(7)
     clearValidFlag2(1)
   })
+})
+
+useEventBusRegister('output:set-speaker-volume', (volume: number) => {
+  speakerVolume.value = volume
+})
+
+useEventBusRegister('output:set-headphone-volume', (volume: number) => {
+  headphoneVolume.value = volume
+})
+
+let lastSpeakerVolume = 0
+useEventBusRegister('output:store-speaker-volume', () => {
+  lastSpeakerVolume = speakerVolume.value
+})
+useEventBusRegister('output:retrieve-speaker-volume', () => {
+  speakerVolume.value = lastSpeakerVolume
+})
+let lastHeadphoneVolume = 0
+useEventBusRegister('output:store-headphone-volume', () => {
+  lastHeadphoneVolume = headphoneVolume.value
+})
+useEventBusRegister('output:retrieve-headphone-volume', () => {
+  headphoneVolume.value = lastHeadphoneVolume
 })
 </script>
 
@@ -337,6 +418,26 @@ onMounted(() => {
       </tr>
       <TriggerEffect is="left" :struct="struct" @effect-update="handleTriggerUpdate" />
       <TriggerEffect is="right" :struct="struct" @effect-update="handleTriggerUpdate" />
+      <tr>
+        <td class="label">
+          {{ $t('output_panel.speaker_volume') }}
+        </td>
+        <td class="value">
+          <div>
+            <SliderBox v-model="speakerVolume" class="w-full" :min="0" :max="255" />
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="label">
+          {{ $t('output_panel.headphone_volume') }}
+        </td>
+        <td class="value">
+          <div>
+            <SliderBox v-model="headphoneVolume" class="w-full" :min="0" :max="255" />
+          </div>
+        </td>
+      </tr>
     </tbody>
   </table>
 </template>

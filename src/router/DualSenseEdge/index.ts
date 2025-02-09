@@ -9,6 +9,7 @@ const ModelPanel = defineAsyncComponent(() => import('./views/ModelPanel.vue'))
 const ProfileWidget = defineAsyncComponent(() => import('./views/ProfileWidget.vue'))
 const GyroView = defineAsyncComponent(() => import('./views/_visualizerPanel/GyroView.vue'))
 const AccelView = defineAsyncComponent(() => import('./views/_visualizerPanel/AccelView.vue'))
+const AudioWidget = defineAsyncComponent(() => import('./views/AudioControlWidget.vue'))
 
 export default class DualSenseEdgeRouter extends BaseDeviceRouter {
   name = 'dualsense-edge'
@@ -62,6 +63,10 @@ export default class DualSenseEdgeRouter extends BaseDeviceRouter {
           key: 'output_panel.title',
         },
         component: OutputPanel,
+      },
+      {
+        title: { key: 'audio_panel.title' },
+        component: AudioWidget,
       },
       {
         title: { key: 'profile_panel.title' },

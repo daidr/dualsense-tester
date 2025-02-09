@@ -1,17 +1,14 @@
 <script setup lang="ts">
 import LocaleLabeledValue from '@/components/common/LocaleLabeledValue.vue'
-import { useConnectionType, useDevice } from '@/composables/useInjectValues'
-import { DeviceConnectionType } from '@/device-based-router/shared'
+import { useDevice } from '@/composables/useInjectValues'
 import { utf8Decoder } from '@/utils/decoder.util'
 import { formatDspVersion, formatThreePartVersion, formatUpdateVersion, getAssemblePartsInfo, getBatteryBarcode, getBdMacAddress, getBtPatchInfo, getIndividualDataVerifyStatus, getPcbaId, getPcbaIdFull, getPcbaIdFullString, getSerialNumber, getUniqueId, getVcmBarcode, type2TracabilityInfoRead } from '@/utils/dualsense/ds.util'
 import { decodeShiftJIS, mapDataViewToU8Hex, notAllFalsy, numberToMacAddress, numberToXHex, pairedValue } from '@/utils/format.util'
 import { createLabeledValueItem, type LabeledValueItem } from '@/utils/labeled-value.util'
 import { hidLogger } from '@/utils/logger.util'
 import { computedAsync } from '@vueuse/core'
-import { computed } from 'vue'
 
 const deviceItem = useDevice()
-const connectionType = useConnectionType()
 
 async function getFirmwareInfo(device: HIDDevice) {
   const data = await device.receiveFeatureReport(0x20)

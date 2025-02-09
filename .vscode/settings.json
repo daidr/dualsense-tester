@@ -95,6 +95,7 @@
     "colorborder",
     "dualsense",
     "EFUSE",
+    "eventbus",
     "geometrychange",
     "HWVERSION",
     "inputreport",
@@ -122,5 +123,6 @@
     "Русский"
   ],
   "arrayIndexInlay.enabled": true,
-  "i18n-ally.keystyle": "nested"
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.sourceLanguage": "en-US"
 }

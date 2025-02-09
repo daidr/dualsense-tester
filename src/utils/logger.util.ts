@@ -8,3 +8,4 @@ export const consola = createConsola({
 export const routerLogger = consola.withTag('ROUTER')
 export const hidLogger = consola.withTag('HID')
 export const uiLogger = consola.withTag('UI')
+export const lockLogger = consola.withTag('LOCK')
