@@ -9,6 +9,10 @@ import LabeledValue from './LabeledValue.vue'
 const { t } = useI18n()
 const { locale } = storeToRefs(usePageStore())
 
+function notMainBranch(branch: string) {
+  return branch !== 'main' && branch !== 'release'
+}
+
 const {
   owner,
   repo,
@@ -33,14 +37,14 @@ const timeString = computed(() => {
 
 <template>
   <div
-    v-if="pr || branch !== 'main'"
+    v-if="pr || notMainBranch(branch)"
     class="mb-2 rounded-24px bg-orange/20 px-2 py-1 text-start text-sm text-orange ring-1 ring-orange/50"
   >
     <div class="i-mingcute-warning-line me-1 inline-block align-middle" />
     <template v-if="pr">
       {{ t('git_version.warn_pr') }}
     </template>
-    <template v-else-if="branch !== 'main'">
+    <template v-else-if="notMainBranch(branch)">
       {{ t('git_version.warn_dev') }}
     </template>
   </div>
