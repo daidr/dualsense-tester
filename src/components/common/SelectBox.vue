@@ -1,5 +1,7 @@
 <script setup lang="ts" generic="T extends string | number | symbol, U">
-import { useElementBounding, useWindowSize } from '@vueuse/core'
+import { useIsRTL, usePageStore } from '@/store/page'
+import { useElementBounding, useElementSize, useWindowSize } from '@vueuse/core'
+import { storeToRefs } from 'pinia'
 import { computed, ref, watch } from 'vue'
 
 defineProps<{
@@ -16,6 +18,7 @@ defineSlots<{
 
 const modelValue = defineModel<T>({ required: true })
 const open = ref(false)
+const isRTL = useIsRTL()
 
 function updateValue(value: T) {
   modelValue.value = value
@@ -24,15 +27,20 @@ function updateValue(value: T) {
 
 const SelectBoxRef = ref<HTMLElement | null>(null)
 const PopupRef = ref<HTMLElement | null>(null)
-const { x, y, height, update } = useElementBounding(SelectBoxRef)
-const { width } = useElementBounding(PopupRef)
-const { width: wWidth } = useWindowSize()
+const { x, y, height, width: boxWidth, update } = useElementBounding(SelectBoxRef)
+const { width: popoverWidth } = useElementBounding(PopupRef)
+const { width: winWidth } = useElementSize(document.body)
 const safeX = computed(() => {
-  if (x.value + width.value + 20 < wWidth.value) {
-    return x.value
+  if (!isRTL.value) {
+    if (x.value + popoverWidth.value + 20 < winWidth.value) {
+      return x.value
+    }
+    else {
+      return winWidth.value - popoverWidth.value - 20
+    }
   }
   else {
-    return wWidth.value - width.value - 20
+    return winWidth.value - x.value - boxWidth.value
   }
 })
 
@@ -109,7 +117,7 @@ watch(open, () => {
   --y: 0;
 
   top: var(--y);
-  left: var(--x);
+  inset-inline-start: var(--x);
 
   .popup-content {
     @apply max-h-200px overflow-y-auto text-primary;

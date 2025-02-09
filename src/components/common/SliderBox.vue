@@ -1,23 +1,26 @@
 <script setup lang="ts">
-import { useElementBounding } from '@vueuse/core';
-import { computed, ref } from 'vue';
-
-const modelValue = defineModel<number>({ required: true })
+import { useIsRTL, usePageStore } from '@/store/page'
+import { useElementBounding } from '@vueuse/core'
+import { computed, ref } from 'vue'
 
 const props = withDefaults(defineProps<{
-  min: number,
-  max: number,
-  digits?: number,
+  min: number
+  max: number
+  digits?: number
   vertical?: boolean
 }>(), {
   digits: 0,
-  vertical: false
+  vertical: false,
 })
+
+const isRTL = useIsRTL()
+
+const modelValue = defineModel<number>({ required: true })
 
 const TrackRef = ref<HTMLDivElement | null>()
 
 const { width, height } = useElementBounding(TrackRef, {
-  windowScroll: false
+  windowScroll: false,
 })
 
 const factor = computed(() => {
@@ -30,17 +33,18 @@ const factor = computed(() => {
 const isIndicatorShown = ref(false)
 
 let start = 0
-const onPointerDown = (e: PointerEvent) => {
+function onPointerDown(e: PointerEvent) {
   isIndicatorShown.value = true;
   (e.target as HTMLDivElement).setPointerCapture(e.pointerId)
   if (props.vertical) {
     start = e.clientY
-  } else {
+  }
+  else {
     start = e.clientX
   }
 }
 
-const onPointerMove = (e: PointerEvent) => {
+function onPointerMove(e: PointerEvent) {
   if (!isIndicatorShown.value) {
     return
   }
@@ -50,28 +54,35 @@ const onPointerMove = (e: PointerEvent) => {
     const current = modelValue.value + deltaY
     if (current < props.min) {
       modelValue.value = props.min
-    } else if (current > props.max) {
+    }
+    else if (current > props.max) {
       modelValue.value = props.max
-    } else {
+    }
+    else {
       modelValue.value = current
     }
     start = currentY
     return
   }
   const currentX = e.clientX
-  const deltaX = (currentX - start) / factor.value
+  let deltaX = (currentX - start) / factor.value
+  if (isRTL.value) {
+    deltaX = -deltaX
+  }
   const current = modelValue.value + deltaX
   if (current < props.min) {
     modelValue.value = props.min
-  } else if (current > props.max) {
+  }
+  else if (current > props.max) {
     modelValue.value = props.max
-  } else {
+  }
+  else {
     modelValue.value = current
   }
   start = currentX
 }
 
-const onPointerUp = (e: PointerEvent) => {
+function onPointerUp(e: PointerEvent) {
   if (!isIndicatorShown.value) {
     return
   }
@@ -81,18 +92,26 @@ const onPointerUp = (e: PointerEvent) => {
 </script>
 
 <template>
-  <div ref="TrackRef" class="w-auto h-2px rounded-full relative dou-sc-autobg" :class="{
-    'vertical': vertical
-  }" :style="vertical ?
-    {
-      '--current-y': height - ((modelValue - props.min) / (props.max - props.min)) * height + 'px'
-    }
-    : {
-      '--current-x': ((modelValue - props.min) / (props.max - props.min)) * width + 'px'
-    }">
-    <div class="track"></div>
-    <div class="thumb" @pointerdown.passive="onPointerDown" @pointermove.passive="onPointerMove"
-      @pointerup.passive="onPointerUp"></div>
+  <div
+    class="relative h-2px w-auto" :class="{
+      vertical,
+      horizontal: !vertical,
+    }" :style="vertical
+      ? {
+        '--current-y': `${height - ((modelValue - props.min) / (props.max - props.min)) * height}px`,
+        '--current-percentage': `${((modelValue - props.min) / (props.max - props.min))}`,
+      }
+      : {
+        '--current-x': `${((modelValue - props.min) / (props.max - props.min)) * width}px`,
+        '--current-percentage': `${((modelValue - props.min) / (props.max - props.min))}`,
+      }"
+  >
+    <div ref="TrackRef" class="full-track" />
+    <div class="track" />
+    <div
+      class="thumb" @pointerdown.passive="onPointerDown" @pointermove.passive="onPointerMove"
+      @pointerup.passive="onPointerUp"
+    />
     <Transition name="fade">
       <div v-if="isIndicatorShown" class="indicator">
         {{ modelValue.toFixed(digits) }}
@@ -105,35 +124,63 @@ const onPointerUp = (e: PointerEvent) => {
 .thumb {
   @apply touch-none;
   @apply cursor-grab;
-  @apply w-4 h-4 rounded-full bg-primary absolute top-1/2 -left-2 transform-gpu translate-x-[var(--current-x)] -translate-y-1/2;
+  @apply w-4 h-4 rounded-full bg-primary absolute transform-gpu;
+
   &:active {
     @apply cursor-grabbing;
   }
 }
 
+.full-track {
+  @apply rounded-full dou-sc-autobg absolute;
+}
+
 .track {
-  @apply bg-primary/60 absolute top-0 left-0 bottom-0 w-[var(--current-x)];
+  @apply bg-primary/60 absolute transform-gpu;
 }
 
 .indicator {
   @apply pointer-events-none text-xs;
-  @apply absolute -top-8 left-0 px-2 rounded-full bg-white dark-bg-black dou-sc-capsule;
-  @apply transform-gpu translate-x-[calc(var(--current-x)-50%)];
+  @apply absolute rounded-full bg-white dark-bg-black dou-sc-capsule;
+  @apply transform-gpu;
+}
+
+.horizontal {
+  .thumb {
+    @apply top-1/2 start-0 -translate-y-1/2 translate-x-[var(--current-x)] rtl--translate-x-[var(--current-x)];
+  }
+
+  .full-track {
+    @apply h-2px start-2 end-2;
+  }
+
+  .track {
+    @apply top-0 start-2 end-2 bottom-0 scale-x-[var(--current-percentage)] transform-origin-left rtl-transform-origin-right;
+  }
+
+  .indicator {
+    @apply -top-8 start-2 px-2;
+    @apply translate-x-[calc(var(--current-x)-50%)] rtl--translate-x-[calc(var(--current-x)-50%)];
+  }
 }
 
 .vertical {
   @apply h-100% w-2px;
 
   .indicator {
-    @apply top-2 -left-10 -translate-x-1/2 translate-y-[calc(var(--current-y)-100%)];
+    @apply top-2 -start-10 translate-y-[calc(var(--current-y)-50%)] -translate-x-1/2 rtl-translate-x-1/2;
+  }
+
+  .full-track {
+    @apply w-2px top-2 bottom-2;
   }
 
   .track {
-    @apply w-unset absolute bottom-0 h-[calc(100% - var(--current-y))];
+    @apply bottom-2 top-2 w-2px scale-y-[var(--current-percentage)] transform-origin-bottom;
   }
 
   .thumb {
-    @apply top-2 left-1/2 translate-y-[calc(var(--current-y)-100%)] -translate-x-1/2;
+    @apply top-2 start-1/2 translate-y-[calc(var(--current-y)-50%)] -translate-x-1/2 rtl-translate-x-1/2;
   }
 }
 </style>

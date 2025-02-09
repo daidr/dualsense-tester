@@ -30,7 +30,7 @@ const timeString = date.toLocaleString()
     v-if="pr || branch !== 'main'"
     class="mb-2 rounded-24px bg-orange/20 px-2 py-1 text-start text-sm text-orange ring-1 ring-orange/50"
   >
-    <div class="i-mingcute-warning-line mr-1 inline-block align-middle" />
+    <div class="i-mingcute-warning-line me-1 inline-block align-middle" />
     <template v-if="pr">
       {{ t('git_version.warn_pr') }}
     </template>

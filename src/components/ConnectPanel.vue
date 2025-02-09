@@ -45,7 +45,7 @@ const deviceList = computed(() => {
               #{{
                 index + 1 }}/{{ deviceList.length }}
             </div>
-            <div class="ml-1 min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap" :title="extra!.deviceName">
+            <div class="ms-1 min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap" :title="extra!.deviceName">
               {{
                 extra!.deviceName }}
             </div>

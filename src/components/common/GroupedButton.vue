@@ -32,7 +32,7 @@ button {
     @apply text-primary;
 
     &:not(:first-child) {
-        @apply -ml-2;
+        @apply -ms-2;
     }
 
     &.active {

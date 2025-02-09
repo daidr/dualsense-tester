@@ -119,7 +119,7 @@ function getProfileKey(profile: DSEProfileItem) {
       <div v-if="currentActiveProfile === index" class="h-2 w-2 rounded-full bg-green-6" />
     </div>
     <div class="key-icon flex flex-shrink-0 items-center gap-1">
-      <div class="rounded bg-primary/30 px-1 text-xs font-bold font-mono ring-1.5 ring-current">
+      <div class="me-1.5px rounded bg-primary/30 px-1 text-xs font-bold font-mono ring-1.5 ring-current">
         Fn
       </div>
       <span class="font-bold">+</span>

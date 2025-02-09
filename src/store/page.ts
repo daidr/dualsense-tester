@@ -68,6 +68,10 @@ export const usePageStore = defineStore('page', () => {
   }
 })
 
+export function useIsRTL() {
+  return computed(() => usePageStore().direction === 'rtl')
+}
+
 if (import.meta.hot) {
   import.meta.hot.accept(acceptHMRUpdate(usePageStore, import.meta.hot))
 }
