@@ -14,12 +14,13 @@
     "en-US": "English (US)",
     "ru-RU": "Русский",
     "fa-IR": "فارسی",
-    "ar-EG": "العربية"
+    "ar-EG": "العربية (مصر)",
+    "ar-SA": "العربية (السعودية)"
   },
   "common": {
     "tips": "نصائح",
     "not_support_title": "المتصفح الخاص بك لا يدعم WebHID",
-    "not_support_content": "حاول استخدام أحدث إصدار من Google Chrome أو Microsoft Edge"
+    "not_support_content": "استخدم أحدث إصدار من Google Chrome أو Microsoft Edge"
   },
   "connect_panel": {
     "tips": "قم بتوصيل DualSense إلى جهاز الكمبيوتر الخاص بك إما باستخدام كابل <b>USB</b> أو <b>Bluetooth</b>، ثم انقر فوق زر \"اتصال\" أدناه.",
@@ -64,7 +65,7 @@
       "fw_type": "نوع البرنامج",
       "sw_series": "سلسلة البرمجيات",
       "update_version": "إصدار التحديث",
-      "sbl_fw_version": "إصدار برنامج SBL",
+      "sbl_fw_version": "إصدار SBL",
       "main_fw_version": "إصدار البرنامج الرئيسي",
       "dsp_fw_version": "إصدار البرنامج الثابت لمعالج الإشارات",
       "mcu_dsp_fw_version": "إصدار برنامج وحدة تحكم معالج الإشارات",
@@ -84,7 +85,7 @@
         "no_data": "لا توجد بيانات",
         "start_error": "خطأ في البدء",
         "get_error": "خطأ في الحصول",
-        "successful": "ناجح",
+        "successful": "تم بنجاح",
         "retry_timeout": "مهلة إعادة المحاولة",
         "fail": "فشل"
       },
@@ -141,7 +142,7 @@
       "force": "القوة"
     },
     "headphone_volume": "مستوى صوت سماعة الرأس",
-    "speaker_volume": "مستوى صوت السماعة",
+    "speaker_volume": "مستوى صوت السماعة الخارجية",
     "haptic_volume": "مستوى صوت اللمس"
   },
   "audio_panel": {
@@ -153,12 +154,12 @@
     "title": "يوجد إصدار جديد",
     "dismiss": "تجاهل",
     "upgrade": "تحديث",
-    "update_available": "A new version of DualSense Tester is ready! \nRefresh to complete the upgrade.",
-    "offline_ready": "This app is now cached for offline use."
+    "update_available": "نسخة أداة اختبار DualSense الجديدة جاهزة!\nقم بإعادة تحميل الصفحة لإكمال التحديث.",
+    "offline_ready": "تم تهيئة هذه التطبيق الآن لاستخدامه بدون اتصال بالإنترنت."
   },
   "git_version": {
-    "title": "Commit Info",
-    "warn_pr": "This is a preview version from PR. Please use with caution as there may be issues.",
-    "warn_dev": "This is a preview version from the development branch. Please use with caution as there may be issues."
+    "title": "معلومات التحديث",
+    "warn_pr": "هذه نسخة معاينة، يرجى استخدامها بحذر حيث قد توجد بعض المشاكل.",
+    "warn_dev": "هذه نسخة معاينة من فرع التطوير. يرجى استخدام بحذر حيث أنه قد تكون هناك مشاكل."
   }
 }
