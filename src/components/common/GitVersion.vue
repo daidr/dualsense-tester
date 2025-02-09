@@ -1,21 +1,25 @@
 <script setup lang="ts">
 import { useModal } from '@/composables/useModal'
-import { defineAsyncComponent, h } from 'vue'
+import { usePageStore } from '@/store/page'
+import { storeToRefs } from 'pinia'
+import { computed, defineAsyncComponent, h } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
+const { locale } = storeToRefs(usePageStore())
 
 const {
   shortCommitHash,
   commitTimestamp,
 } = __GIT_DEFINE__
 
-const date = new Date(commitTimestamp)
-
-const dateString = date.toLocaleString(undefined, {
-  year: 'numeric',
-  month: 'numeric',
-  day: 'numeric',
+const dateString = computed(() => {
+  const date = new Date(commitTimestamp)
+  return date.toLocaleString(locale.value, {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+  })
 })
 
 const modalContent = defineAsyncComponent(() => import('@/components/common/GitVersionModal.vue'))
