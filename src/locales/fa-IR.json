@@ -1,16 +1,16 @@
 {
   "application": {
-    "name": "DualSense Tester",
+    "name": "دوال سنس تستر",
     "footer": {
-      "copyright": "© {year} {'|'} Coded by {author} with ❤"
+      "copyright": "© {year} {'|'} کد نویسی شده توسط {author} با ❤"
     }
   },
   "shared": {
-    "unknown": "Unknown",
-    "confirm": "Confirm",
-    "cancel": "Cancel",
-    "close": "Close",
-    "hold": "Hold"
+    "unknown": "ناشناخته",
+    "confirm": "تایید",
+    "cancel": "لغو",
+    "close": "بستن",
+    "hold": "نگه دار"
   },
   "locales": {
     "zh-CN": "简体中文",
@@ -21,9 +21,9 @@
     "ar-SA": "العربية (السعودية)"
   },
   "common": {
-    "tips": "Tips",
-    "not_support_title": "Your browser does not support WebHID",
-    "not_support_content": "Try to use the latest version of Google Chrome or Microsoft Edge"
+    "tips": "راهنمایی",
+    "not_support_title": "مرورگر شما از WebHID پشتیبانی نمی کند",
+    "not_support_content": "از آخرین نسخه Google Chrome یا Microsoft Edge دسکتاپ استفاده کنید"
   },
   "connect_panel": {
     "tips": "Connect the DualSense to your computer using either a <b>USB cable</b> or <b>Bluetooth</b>, then click the \"Connect\" button below.",
