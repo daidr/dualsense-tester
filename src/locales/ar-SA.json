@@ -2,8 +2,7 @@
   "application": {
     "name": "أداة اختبار DualSense",
     "footer": {
-      "coded_by": "مبرمج بواسطة",
-      "with_love": "بكل ❤"
+      "copyright": "© 2025 {'|'} مبرمج بواسطة {author} ❤"
     }
   },
   "shared": {
