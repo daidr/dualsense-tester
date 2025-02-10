@@ -2,8 +2,7 @@
   "application": {
     "name": "DualSense Tester",
     "footer": {
-      "coded_by": "Coded by",
-      "with_love": "with ❤"
+      "copyright": "© {year} {'|'} Coded by {author} with ❤"
     }
   },
   "shared": {

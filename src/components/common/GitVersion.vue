@@ -36,7 +36,7 @@ function handleClick() {
 </script>
 
 <template>
-  <span class="commit-span" @click="handleClick">{{ shortCommitHash }}({{ dateString }})</span>
+  <span class="commit-span" @click="handleClick">{{ shortCommitHash }}<span class="hidden sm-inline">({{ dateString }})</span></span>
 </template>
 
 <style scoped lang="scss">

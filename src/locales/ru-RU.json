@@ -2,8 +2,7 @@
   "application": {
     "name": "Тестер контроллера DualSense",
     "footer": {
-      "coded_by": "Coded by",
-      "with_love": "with ❤"
+      "copyright": "© {year} {'|'} Coded by {author} with ❤"
     }
   },
   "shared": {
