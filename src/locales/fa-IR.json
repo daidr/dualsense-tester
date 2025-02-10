@@ -1,6 +1,6 @@
 {
   "application": {
-    "name": "دوال سنس تستر",
+    "name": "دوال‌سنس تستر",
     "footer": {
       "copyright": "© {year} {'|'} کد نویسی شده توسط {author} با ❤"
     }
@@ -26,26 +26,26 @@
     "not_support_content": "از آخرین نسخه Google Chrome یا Microsoft Edge دسکتاپ استفاده کنید"
   },
   "connect_panel": {
-    "tips": "Connect the DualSense to your computer using either a <b>USB cable</b> or <b>Bluetooth</b>, then click the \"Connect\" button below.",
-    "connect": "Connect",
-    "disconnect": "Disconnect",
-    "not_connected": "Not connected",
-    "connected": "Connected",
-    "seq_num": "Sequence No.",
-    "charge_status_label": "Charge Status",
-    "battery_level_label": "Battery Level",
-    "headphone_status_label": "Headphone",
-    "microphone_status_label": "Microphone",
-    "factory_info_title": "Factory Info",
-    "add_device": "Add Device",
+    "tips": "دوال‌سنس را با استفاده از <b>کابل</b> یا <b>بلوتوث</b> به کامپیوتر خود متصل کنید، سپس روی دکمه \"اتصال\" زیر کلیک کنید.",
+    "connect": "اتصال",
+    "disconnect": "قطع اتصال",
+    "not_connected": "متصل نیست",
+    "connected": "متصل شد",
+    "seq_num": "شماره ترتیبی",
+    "charge_status_label": "وضعیت شارژ",
+    "battery_level_label": "سطح باتری",
+    "headphone_status_label": "هدفون",
+    "microphone_status_label": "میکروفون",
+    "factory_info_title": "اطلاعات دسته",
+    "add_device": "افزودن دسته",
     "charge_status": {
-      "discharging": "Not charging",
-      "charging": "Charging",
-      "charging_complete": "Charging complete",
-      "abnormal_voltage": "Abnormal voltage",
-      "abnormal_temperature": "Abnormal temperature",
-      "charging_error": "Charging error",
-      "unknown": "Unknown"
+      "discharging": "شارژ نمی‌شود",
+      "charging": "در حال شارژ",
+      "charging_complete": "شارژ کامل است",
+      "abnormal_voltage": "ولتاژ غیر طبیعی",
+      "abnormal_temperature": "دمای غیر طبیعی",
+      "charging_error": "مشکل در شارژ",
+      "unknown": "ناشناس"
     },
     "battery_level": {
       "level0": "0-9%",
@@ -59,110 +59,110 @@
       "level8": "80-89%",
       "level9": "90-99%",
       "level10": "100%",
-      "unknown": "Unknown"
+      "unknown": "ناشناس"
     },
     "factory_info": {
-      "build_time": "Build Time",
-      "hw_info": "HW Info",
-      "device_info": "Device Info",
-      "fw_type": "FW Type",
-      "sw_series": "SW Series",
-      "update_version": "Update Version",
-      "sbl_fw_version": "SBL FW Version",
-      "main_fw_version": "Main FW Version",
-      "dsp_fw_version": "DSP FW Version",
-      "mcu_dsp_fw_version": "MCU DSP FW Version",
-      "bt_patch_version": "BT Patch Version",
-      "pcba_id": "PCBA ID",
-      "serial_number": "Serial Number",
-      "assemble_parts_info": "Assemble Parts Info",
-      "battery_barcode": "Battery Barcode",
-      "vcm_barcode": "VCM Barcode",
-      "unique_id": "Unique ID",
-      "bd_mac_address": "BD MAC Address",
-      "at_serial_number": "AT Serial Number",
-      "at_motor_info": "AT Motor Info",
-      "individual_data_verify": "Individual Data Verify",
+      "build_time": "زمان ساخت",
+      "hw_info": "اطلاعات سخت‌افزار",
+      "device_info": "اطلاعات دستگاه",
+      "fw_type": "نوع فریمور",
+      "sw_series": "سری نرم‌افزار",
+      "update_version": "بروز رسانی نرم‌افزار",
+      "sbl_fw_version": "نسخه فریمور بوت‌لودر ثانویه",
+      "main_fw_version": "نسخه فریمور اصلی",
+      "dsp_fw_version": "ورژن فریمور DSP",
+      "mcu_dsp_fw_version": "ورژن فریمور میکروکنترلر DSP",
+      "bt_patch_version": "ورژن پچ بلوتوث",
+      "pcba_id": "شناسه مونتاژ برد مدار چاپی",
+      "serial_number": "شماره سریال",
+      "assemble_parts_info": "اطلاعات قطعات مونتاژ",
+      "battery_barcode": "بارکد باطری",
+      "vcm_barcode": "بارکد VCM",
+      "unique_id": "شناسه منحصر به فرد",
+      "bd_mac_address": "مک آدرس بلوتوث",
+      "at_serial_number": "شماره سریال AT",
+      "at_motor_info": "اطلاعات موتور AT",
+      "individual_data_verify": "تایید داده‌های فردی",
       "individual_data": {
-        "not_supported": "Not supported",
-        "no_data": "No data",
-        "start_error": "Start error",
-        "get_error": "Get error",
-        "successful": "Successful",
-        "retry_timeout": "Retry timeout",
-        "fail": "Fail"
+        "not_supported": "پشتیبانی نمی شود",
+        "no_data": "داده ای وجود ندارد",
+        "start_error": "خطای راه‌اندازی",
+        "get_error": "خطای دریافت",
+        "successful": "موفق",
+        "retry_timeout": "زمان تایم‌اوت تلاش مجدد",
+        "fail": "شکست"
       },
-      "board_version": "Board Version"
+      "board_version": "ورژن برد"
     }
   },
   "profile_panel": {
-    "title": "Profile",
-    "default": "Default",
-    "unassigned": "Unassigned"
+    "title": "پروفایل",
+    "default": "پیش فرض",
+    "unassigned": "تعریف نشده"
   },
   "info_panel": {
-    "tips": "Please connect your DualSense first",
-    "stick_module_not_found": "Stick module lost",
-    "title_buttons": "Basic Buttons",
-    "title_accelerometer": "Accelerometer",
-    "title_gyroscope": "Gyroscope",
-    "pitch": "Pitch",
-    "yaw": "Yaw",
-    "roll": "Roll",
+    "tips": "لطفاً ابتدا دوال‌سنس خود را وصل کنید",
+    "stick_module_not_found": "ماژول استیک قطع شد",
+    "title_buttons": "دکمه‌های اصلی",
+    "title_accelerometer": "شتاب‌سنج",
+    "title_gyroscope": "ژیروسکوپ",
+    "pitch": "Pitch (چرخش به جلو و عقب)",
+    "yaw": "Yaw (چرخش حول محور عمودی)",
+    "roll": "Roll (چرخش حول محور افقی)",
     "model_value": {
-      "on": "Value display on",
-      "off": "Value display off"
+      "on": "نمایش مقدار: فعال",
+      "off": "نمایش مقدار: غیرفعال"
     }
   },
   "output_panel": {
-    "title": "Output",
-    "mic_mute_led": "Mic status light",
+    "title": "خروجی",
+    "mic_mute_led": "چراغ وضعیت میکروفن",
     "mic_mute_led_off": "Off",
     "mic_mute_led_on": "On",
     "mic_mute_led_blink": "Blink",
     "lightbar_color": "Lightbar color",
-    "player_led": "Player light",
-    "player_led_brightness": "Brightness",
-    "player_led_brightness_high": "High",
-    "player_led_brightness_medium": "Medium",
-    "player_led_brightness_low": "Low",
-    "player_led_off": "Off",
-    "player_led_all": "All",
-    "rumble_heavy": "Rumble (heavy)",
-    "rumble_soft": "Rumble (soft)",
-    "left_trigger_mode": "Left trigger",
-    "right_trigger_mode": "Right trigger",
+    "player_led": "چراغ بازیکن",
+    "player_led_brightness": "درخشش",
+    "player_led_brightness_high": "بالا",
+    "player_led_brightness_medium": "متوسط",
+    "player_led_brightness_low": "کم",
+    "player_led_off": "خاموش",
+    "player_led_all": "همه",
+    "rumble_heavy": "لرزش (قوی)",
+    "rumble_soft": "لرزش (ملایم)",
+    "left_trigger_mode": "تریگر چپ",
+    "right_trigger_mode": "تریگر راست",
     "trigger_mode": {
-      "off": "Off",
-      "resistance": "resistance",
-      "trigger": "Trigger",
-      "auto_trigger": "Automatic Trigger"
+      "off": "خاموش",
+      "resistance": "مقاومت",
+      "trigger": "تریگر",
+      "auto_trigger": "تریگر خودکار"
     },
     "trigger_values": {
-      "start_pos": "Start",
-      "end_pos": "End",
-      "frequency": "Frequency",
-      "force": "Force"
+      "start_pos": "نقطه شروع",
+      "end_pos": "نقطه پایان",
+      "frequency": "تعداد تکرار",
+      "force": "میزان شدت"
     },
-    "headphone_volume": "Headphone volume",
-    "speaker_volume": "Speaker volume",
-    "haptic_volume": "Haptic volume"
+    "headphone_volume": "حجم صدای هدفون",
+    "speaker_volume": "حجم صدای اسپیکر",
+    "haptic_volume": "حجم صدای هپتیک"
   },
   "audio_panel": {
-    "title": "Audio",
-    "headphone_1khz_sine_wave_test": "Headphone 1kHz sine wave",
-    "speaker_1khz_sine_wave_test": "Speaker 1kHz sine wave"
+    "title": "تست صدا",
+    "headphone_1khz_sine_wave_test": "موج سینوسی 1kHz هدفون",
+    "speaker_1khz_sine_wave_test": "موج سینوسی 1kHz اسپیکر"
   },
   "pwa": {
-    "title": "New version detected",
-    "dismiss": "Dismiss",
-    "upgrade": "Upgrade",
-    "update_available": "A new version of DualSense Tester is ready! \nRefresh to complete the upgrade.",
-    "offline_ready": "This app is now cached for offline use."
+    "title": "نسخه جدید شناسایی شد",
+    "dismiss": "بعدا",
+    "upgrade": "بروز رسانی",
+    "update_available": "نسخه جدید تستر دوال‌سنس آماده است!\nبرای تکمیل بروزرسانی، ریفرش کنید.",
+    "offline_ready": "این برنامه اکنون بصورت آفلاین قابل استفاده است."
   },
   "git_version": {
-    "title": "Commit Info",
-    "warn_pr": "This is a preview version from PR. Please use with caution as there may be issues.",
-    "warn_dev": "This is a preview version from the development branch. Please use with caution as there may be issues."
+    "title": "جزئیات تغییرات",
+    "warn_pr": "این نسخه پیش‌نمایشی از PR (Pull Request) است. لطفاً با احتیاط استفاده کنید، زیرا ممکن است مشکلاتی وجود داشته باشد.",
+    "warn_dev": "این نسخه پیش‌نمایشی از شاخه توسعه (development branch) است. لطفاً با احتیاط استفاده کنید، زیرا ممکن است مشکلاتی وجود داشته باشد."
   }
 }
