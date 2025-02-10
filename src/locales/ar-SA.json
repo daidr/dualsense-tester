@@ -151,7 +151,7 @@
   "audio_panel": {
     "title": "الصوت",
     "headphone_1khz_sine_wave_test": "موجة بتردد 1 كيلو هرتز لسماعات الرأس",
-    "speaker_1khz_sine_wave_test": "موجة بتردد 1 كيلو هرتز لسماعات الرأس"
+    "speaker_1khz_sine_wave_test": "موجة بتردد 1 كيلو هرتز للسماعة الخارجية"
   },
   "pwa": {
     "title": "يوجد إصدار جديد",
