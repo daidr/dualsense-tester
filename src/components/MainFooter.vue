@@ -6,10 +6,10 @@ import GitVersion from './common/GitVersion.vue'
   <footer>
     <div class="footer">
       <div class="left">
-        © {{ new Date().getFullYear() }} Coded by <a
+        © {{ new Date().getFullYear() }} | {{ $t('application.footer.coded_by') }} <a
           href="http://im.daidr.me" target="_blank"
           class="dou-sc-link"
-        >daidr</a> with ❤.
+        >daidr</a> {{ $t('application.footer.with_love') }}.
       </div>
       <div class="right">
         <GitVersion />

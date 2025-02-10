@@ -1,6 +1,10 @@
 {
   "application": {
-    "name": "DualSense Tester"
+    "name": "DualSense Tester",
+    "footer": {
+      "coded_by": "Coded by",
+      "with_love": "with ❤"
+    }
   },
   "shared": {
     "unknown": "Unknown",

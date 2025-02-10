@@ -1,6 +1,10 @@
 {
   "application": {
-    "name": "DualSense 在线测试"
+    "name": "DualSense 在线测试",
+    "footer": {
+      "coded_by": "Coded by",
+      "with_love": "with ❤"
+    }
   },
   "shared": {
     "unknown": "未知",
