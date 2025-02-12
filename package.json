@@ -50,7 +50,6 @@
     "vite": "^6.0.7",
     "vite-plugin-pwa": "^0.21.1",
     "vite-plugin-vue-devtools": "^7.7.1",
-    "vite-plugin-webfont-dl": "^3.10.4",
     "vue-tsc": "2.2.0",
     "wbn-sign": "^0.2.1"
   },
