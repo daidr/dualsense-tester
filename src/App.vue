@@ -7,16 +7,18 @@ import Debug from './components/Debug.vue'
 import MainFooter from './components/MainFooter.vue'
 import MainHeader from './components/MainHeader.vue'
 import OverlayHeader from './components/OverlayHeader.vue'
+import { useEventBusProvider } from './composables/useEventBus'
+import { useLangSpecFont } from './composables/useLangSpecFont'
 import { ModalContainer } from './composables/useModal'
 import { useOverlayHeader } from './composables/useOverlayHeader'
 import { ToastContainer } from './composables/useToast'
 import { usePageStore } from './store/page'
-import { useEventBusProvider } from './composables/useEventBus'
 
 const pageStore = usePageStore()
-const { isWebHIDSupported } = storeToRefs(pageStore)
+const { isWebHIDSupported, locale } = storeToRefs(pageStore)
 const showOverlayHeader = useOverlayHeader()
 useEventBusProvider()
+useLangSpecFont(locale)
 </script>
 
 <template>
