@@ -1,6 +1,6 @@
 @use 'base-components.scss';
 @use 'transitions.scss';
-@use './fonts/index.scss';
+@use './fonts.scss';
 
 * {
   font-family: var(--default-fonts);
