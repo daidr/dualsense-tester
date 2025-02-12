@@ -46,6 +46,7 @@ export default defineConfig(async ({ mode }) => {
           '/pwa/mstile-310x150.png',
           '/pwa/mstile-310x310.png',
           '/pwa/safari-pinned-tab.svg',
+          'fonts/*.woff2',
         ],
         manifest: {
           start_url: '/',
