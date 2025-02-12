@@ -8,6 +8,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import UnoCSS from 'unocss/vite'
 import { defineConfig, loadEnv } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
+import webfontDownload from 'vite-plugin-webfont-dl'
 import { crowdinDefine } from './config/crowdin'
 import { gitDefine } from './config/git'
 
@@ -20,6 +21,7 @@ export default defineConfig(async ({ mode }) => {
   return {
     plugins: [
       // vueDevTools(),
+      webfontDownload(),
       vueJsx(),
       vue({
         script: {
