@@ -23,7 +23,7 @@
   "common": {
     "tips": "Подсказки",
     "not_support_title": "Ваш браузер не поддерживает WebHID",
-    "not_support_content": "Попробуйте использовать последнюю версию Google Chrome или Microsoft Edge"
+    "not_support_content": "Для работы сервиса попробуйте воспользоваться Google Chrome или Microsoft Edge"
   },
   "connect_panel": {
     "tips": "Connect the DualSense to your computer using either a <b>USB cable</b> or <b>Bluetooth</b>, then click the \"Connect\" button below.",
@@ -155,8 +155,8 @@
   },
   "pwa": {
     "title": "Обнаружена новая версия",
-    "dismiss": "Dismiss",
-    "upgrade": "Upgrade",
+    "dismiss": "Убрать",
+    "upgrade": "Обновить",
     "update_available": "Доступна новая версия Тестера контроллера DualSense!\nОбновите страницу, чтобы перейти на новую версию.",
     "offline_ready": "Данное приложение теперь кэшировано для использования в автономном режиме."
   },
