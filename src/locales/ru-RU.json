@@ -2,7 +2,7 @@
   "application": {
     "name": "Тестер контроллера DualSense",
     "footer": {
-      "copyright": "© {year} {'|'} Coded by {author} with ❤"
+      "copyright": "© {year} {'|'} Написал {author} с любовью ❤ | Перевёл на русский язык HarGabt"
     }
   },
   "shared": {
@@ -10,7 +10,7 @@
     "confirm": "Подтвердить",
     "cancel": "Отмена",
     "close": "Закрыть",
-    "hold": "Hold"
+    "hold": "Удерживайте"
   },
   "locales": {
     "zh-CN": "简体中文",
@@ -26,15 +26,15 @@
     "not_support_content": "Для работы сервиса попробуйте воспользоваться Google Chrome или Microsoft Edge"
   },
   "connect_panel": {
-    "tips": "Connect the DualSense to your computer using either a <b>USB cable</b> or <b>Bluetooth</b>, then click the \"Connect\" button below.",
+    "tips": "Подключите контроллер DualSense к вашему компьютеру, используя <b>кабель USB</b> или <b>протокол Bluetooth</b>, затем нажмите на кнопку \"Подключить\", расположенную снизу.",
     "connect": "Подключить",
     "disconnect": "Отключить",
     "not_connected": "Не подключено",
     "connected": "Подключено",
-    "seq_num": "Sequence No.",
+    "seq_num": "Опрос устройства",
     "charge_status_label": "Состояние зарядки",
     "battery_level_label": "Уровень заряда",
-    "headphone_status_label": "Наушники",
+    "headphone_status_label": "Гарнитура",
     "microphone_status_label": "Микрофон",
     "factory_info_title": "Заводские данные",
     "add_device": "Добавить устройство",
@@ -76,8 +76,8 @@
       "pcba_id": "ID печатной платы",
       "serial_number": "Серийный номер",
       "assemble_parts_info": "Assemble Parts Info",
-      "battery_barcode": "Штрихкод (Аккумулятор)",
-      "vcm_barcode": "Штрихкод (Вибромоторы)",
+      "battery_barcode": "Штрихкод (аккумулятор)",
+      "vcm_barcode": "Штрихкод (вибромоторы)",
       "unique_id": "Уникальный ID",
       "bd_mac_address": "MAC-Адрес Bluetooth",
       "at_serial_number": "Адаптивные курки (серийный номер)",
@@ -96,13 +96,13 @@
     }
   },
   "profile_panel": {
-    "title": "Profile",
+    "title": "Профиль",
     "default": "По умолчанию",
-    "unassigned": "Unassigned"
+    "unassigned": "Без привязки"
   },
   "info_panel": {
     "tips": "Сначала подключите ваш DualSense",
-    "stick_module_not_found": "Stick module lost",
+    "stick_module_not_found": "Потеряно соединение с модулем джойстика",
     "title_buttons": "Основные кнопки",
     "title_accelerometer": "Акселерометр",
     "title_gyroscope": "Гироскоп",
@@ -144,14 +144,14 @@
       "frequency": "Частота",
       "force": "Сила"
     },
-    "headphone_volume": "Headphone volume",
-    "speaker_volume": "Speaker volume",
+    "headphone_volume": "Громкость гарнитуры",
+    "speaker_volume": "Громкость динамика",
     "haptic_volume": "Haptic volume"
   },
   "audio_panel": {
-    "title": "Audio",
-    "headphone_1khz_sine_wave_test": "Headphone 1kHz sine wave",
-    "speaker_1khz_sine_wave_test": "Speaker 1kHz sine wave"
+    "title": "Аудио",
+    "headphone_1khz_sine_wave_test": "Синус 1кГц (Гарнитура)",
+    "speaker_1khz_sine_wave_test": "Синус 1кГц (Динамик)"
   },
   "pwa": {
     "title": "Обнаружена новая версия",
@@ -162,7 +162,7 @@
   },
   "git_version": {
     "title": "Commit Info",
-    "warn_pr": "Это предварительная версия из PR. Пожалуйста, используйте с осторожностью, так как могут возникнуть проблемы.",
-    "warn_dev": "This is a preview version from the development branch. Please use with caution as there may be issues."
+    "warn_pr": "Это предварительная версия из Pull Request. Пожалуйста, используйте с осторожностью: при использовании могут возникать неполадки.",
+    "warn_dev": "Это предварительная версия из ветки разработки. Пожалуйста, используйте с осторожностью: при использовании могут возникать неполадки."
   }
 }
