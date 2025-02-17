@@ -77,7 +77,7 @@
       "serial_number": "Серийный номер",
       "assemble_parts_info": "Сборка: Инф.",
       "battery_barcode": "Штрихкод аккумулятор",
-      "vcm_barcode": "Штрихкод вибромоторы",
+      "vcm_barcode": "Штрихкод гиромоторы",
       "unique_id": "Уникальный ID",
       "bd_mac_address": "MAC-Адрес Bluetooth",
       "at_serial_number": "Адаптивные курки серийный номер",
@@ -126,7 +126,7 @@
     "player_led_brightness_high": "Высокая",
     "player_led_brightness_medium": "Средне",
     "player_led_brightness_low": "Низкая",
-    "player_led_off": "Выкл.",
+    "player_led_off": "Выкл",
     "player_led_all": "Все",
     "rumble_heavy": "Вибрация (сильная)",
     "rumble_soft": "Вибрация (лёгкая)",
@@ -134,7 +134,7 @@
     "right_trigger_mode": "Правый триггер",
     "trigger_mode": {
       "off": "Нет",
-      "resistance": "Сопротивление",
+      "resistance": "сопротивление",
       "trigger": "Курок",
       "auto_trigger": "Курок автомата"
     },
@@ -150,8 +150,8 @@
   },
   "audio_panel": {
     "title": "Аудио",
-    "headphone_1khz_sine_wave_test": "Синус 1кГц (Гарнитура)",
-    "speaker_1khz_sine_wave_test": "Синус 1кГц (Динамик)"
+    "headphone_1khz_sine_wave_test": "Синус 1кГц Гарнитура",
+    "speaker_1khz_sine_wave_test": "Синус 1кГц Динамик"
   },
   "pwa": {
     "title": "Обнаружена новая версия",
