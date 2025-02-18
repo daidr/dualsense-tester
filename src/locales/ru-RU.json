@@ -31,7 +31,7 @@
     "disconnect": "Отключить",
     "not_connected": "Не подключено",
     "connected": "Подключено",
-    "seq_num": "Опрос устройства",
+    "seq_num": "Порядковый номер.",
     "charge_status_label": "Состояние зарядки",
     "battery_level_label": "Уровень заряда",
     "headphone_status_label": "Гарнитура",
@@ -63,34 +63,34 @@
     },
     "factory_info": {
       "build_time": "Дата и время сборки",
-      "hw_info": "HW Info",
-      "device_info": "Device Info",
-      "fw_type": "FW Type",
-      "sw_series": "SW Series",
+      "hw_info": "HW Инфо",
+      "device_info": "Информация об устройстве",
+      "fw_type": "Тип ПО",
+      "sw_series": "Серия SW",
       "update_version": "Версия обновления",
       "sbl_fw_version": "Версия SBL FW",
       "main_fw_version": "Версия Main FW",
       "dsp_fw_version": "Версия DSP FW",
       "mcu_dsp_fw_version": "Версия MCU DSP FW",
-      "bt_patch_version": "BT Patch Version",
+      "bt_patch_version": "Вер. Патча Bluetooth",
       "pcba_id": "ID печатной платы",
       "serial_number": "Серийный номер",
-      "assemble_parts_info": "Assemble Parts Info",
-      "battery_barcode": "Штрихкод (аккумулятор)",
-      "vcm_barcode": "Штрихкод (вибромоторы)",
+      "assemble_parts_info": "Сборка: Инф.",
+      "battery_barcode": "Штрихкод аккумулятор",
+      "vcm_barcode": "Штрихкод гиромоторы",
       "unique_id": "Уникальный ID",
       "bd_mac_address": "MAC-Адрес Bluetooth",
-      "at_serial_number": "Адаптивные курки (серийный номер)",
-      "at_motor_info": "Адаптивные курки (информация)",
-      "individual_data_verify": "Individual Data Verify",
+      "at_serial_number": "Адаптивные курки серийный номер",
+      "at_motor_info": "Адаптивные курки информация",
+      "individual_data_verify": "Проверка индивидуальных данных",
       "individual_data": {
-        "not_supported": "Not supported",
+        "not_supported": "Не поддерживается",
         "no_data": "Данные отсутствуют",
-        "start_error": "Start error",
-        "get_error": "Get error",
-        "successful": "Successful",
-        "retry_timeout": "Retry timeout",
-        "fail": "Fail"
+        "start_error": "Ошибки при запуске",
+        "get_error": "Получить ошибки",
+        "successful": "Успешный",
+        "retry_timeout": "Тайм-аут повторной попытки",
+        "fail": "Ошибка"
       },
       "board_version": "Версия платы"
     }
@@ -126,7 +126,7 @@
     "player_led_brightness_high": "Высокая",
     "player_led_brightness_medium": "Средне",
     "player_led_brightness_low": "Низкая",
-    "player_led_off": "Выкл.",
+    "player_led_off": "Выкл",
     "player_led_all": "Все",
     "rumble_heavy": "Вибрация (сильная)",
     "rumble_soft": "Вибрация (лёгкая)",
@@ -134,7 +134,7 @@
     "right_trigger_mode": "Правый триггер",
     "trigger_mode": {
       "off": "Нет",
-      "resistance": "Сопротивление",
+      "resistance": "сопротивление",
       "trigger": "Курок",
       "auto_trigger": "Курок автомата"
     },
@@ -146,12 +146,12 @@
     },
     "headphone_volume": "Громкость гарнитуры",
     "speaker_volume": "Громкость динамика",
-    "haptic_volume": "Haptic volume"
+    "haptic_volume": "Тактильный громкость"
   },
   "audio_panel": {
     "title": "Аудио",
-    "headphone_1khz_sine_wave_test": "Синус 1кГц (Гарнитура)",
-    "speaker_1khz_sine_wave_test": "Синус 1кГц (Динамик)"
+    "headphone_1khz_sine_wave_test": "Синус 1кГц Гарнитура",
+    "speaker_1khz_sine_wave_test": "Синус 1кГц Динамик"
   },
   "pwa": {
     "title": "Обнаружена новая версия",
@@ -161,7 +161,7 @@
     "offline_ready": "Данное приложение теперь кэшировано для использования в автономном режиме."
   },
   "git_version": {
-    "title": "Commit Info",
+    "title": "Информация о комменте",
     "warn_pr": "Это предварительная версия из Pull Request. Пожалуйста, используйте с осторожностью: при использовании могут возникать неполадки.",
     "warn_dev": "Это предварительная версия из ветки разработки. Пожалуйста, используйте с осторожностью: при использовании могут возникать неполадки."
   }
