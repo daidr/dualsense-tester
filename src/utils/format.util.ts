@@ -45,3 +45,17 @@ export function notAllFalsy(...args: unknown[]) {
 export function bitShiftByte(value: number, shift: number) {
   return (value << shift) & 0xFF
 }
+
+export function formatAccel(value: number): number | string {
+  const ACCEL_RES_PER_G = 8192
+  const STANDARD_GRAVITY = 9.80665
+
+  const accel = (value / ACCEL_RES_PER_G) * STANDARD_GRAVITY
+
+  if (accel === 0) {
+    return accel
+  }
+  else {
+    return accel.toFixed(5)
+  }
+}
