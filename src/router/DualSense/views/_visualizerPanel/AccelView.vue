@@ -2,6 +2,7 @@
 import ThreeAxisGraph from '@/components/common/ThreeAxisGraph.vue'
 import { useConnectionType, useInputReport } from '@/composables/useInjectValues'
 import { DeviceConnectionType, type ModelProps } from '@/device-based-router/shared'
+import { formatAccel } from '@/utils/format.util'
 import { computedAsync } from '@vueuse/core'
 import { computed } from 'vue'
 import { inputReportOffsetBluetooth, inputReportOffsetUSB } from '../../_utils/offset.util'
@@ -20,9 +21,9 @@ const accelInfo = computedAsync(async () => {
   const accelZ = inputReport.value.getInt16(offset.value.accelZ, true)
 
   return {
-    x: accelX,
-    y: accelY,
-    z: accelZ,
+    x: formatAccel(accelX),
+    y: formatAccel(accelY),
+    z: formatAccel(accelZ),
   }
 })
 </script>
@@ -34,7 +35,7 @@ const accelInfo = computedAsync(async () => {
         X
       </p>
       <p class="w-1/2 text-end">
-        {{ accelInfo.x }}
+        {{ accelInfo.x }} m/s²
       </p>
     </div>
     <div class="w-full flex justify-between text-[#f14c4c] font-sans">
@@ -42,7 +43,7 @@ const accelInfo = computedAsync(async () => {
         Y
       </p>
       <p class="w-1/2 text-end">
-        {{ accelInfo.y }}
+        {{ accelInfo.y }} m/s²
       </p>
     </div>
     <div class="w-full flex justify-between text-[#f9aa53] font-sans">
@@ -50,7 +51,7 @@ const accelInfo = computedAsync(async () => {
         Z
       </p>
       <p class="w-1/2 text-end">
-        {{ accelInfo.z }}
+        {{ accelInfo.z }} m/s²
       </p>
     </div>
     <ThreeAxisGraph v-if="showValue" class="h-150px w-full" :value="accelInfo" />
