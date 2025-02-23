@@ -13,8 +13,8 @@ import LangSwitcher from './LangSwitcher.vue'
       <div class="tools-wrapper">
         <LangSwitcher />
         <DarkModeSwitch />
-        <a href="https://buymeacoffee.com/daidr" target="_blank" class="dou-icon-link" title="Buy me a coke">
-          <div class="i-mingcute-glass-cup-line" />
+        <a href="https://github.com/sponsors/daidr" target="_blank" class="dou-icon-link" title="Github Sponsors">
+          <div class="i-mingcute-hand-heart-line" />
         </a>
         <a href="https://github.com/daidr/dualsense-tester" target="_blank" class="dou-icon-link" title="GitHub">
           <div class="i-mingcute-github-line" />

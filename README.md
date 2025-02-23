@@ -49,7 +49,13 @@ bun run --bun build:iwa
 
 ## Translations
 
-If you want to add a new language support or improve an existing one, please visit issue #14 for more details.
+If you want to add a new language support or improve an existing one, please visit issue [#14](https://github.com/daidr/dualsense-tester/issues/14) for more details.
+
+## Sponsors
+
+<picture>
+  <img src="https://github.com/daidr/static/blob/main/sponsors.png?raw=true" alt="Sponsors" width="100%">
+</picture>
 
 ## Credits
 
