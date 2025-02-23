@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useIsRTL } from '@/store/page'
 import { Application, Graphics } from 'pixi.js'
 import { onBeforeUnmount, onMounted, ref, toRaw, useTemplateRef, watch, watchEffect } from 'vue'
 import SliderBox from './SliderBox.vue'
@@ -11,6 +12,13 @@ const { maxValue = 0x7FFF, value } = defineProps<{
     z: number
   }
 }>()
+
+const isRTL = useIsRTL()
+let isRTLwithoutTrack = isRTL.value
+
+watch(() => isRTL.value, (isRTL) => {
+  isRTLwithoutTrack = isRTL
+})
 
 const CanvasRef = useTemplateRef('CanvasRef')
 
@@ -98,7 +106,6 @@ onMounted(async () => {
     const xStep = width / MAX_COUNT
     const initialY = height / 2
     const yStep = height / currentYStepFactor
-    // 如果不满MAX_COUNT，从尾部绘制
     const rest = MAX_COUNT - _values.length
     lineX.clear()
     lineY.clear()
@@ -106,7 +113,7 @@ onMounted(async () => {
 
     for (let i = 0; i < _values.length; ++i) {
       const item = _values[i]
-      const x = (rest + i) * xStep
+      const x = isRTLwithoutTrack ? width - (rest + i) * xStep : (rest + i) * xStep
       const yX = initialY - item.x * yStep
       const yY = initialY - item.y * yStep
       const yZ = initialY - item.z * yStep
