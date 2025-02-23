@@ -21,9 +21,9 @@ const accelInfo = computedAsync(async () => {
   const accelZ = inputReport.value.getInt16(offset.value.accelZ, true)
 
   return {
-    x: formatAccel(accelX),
-    y: formatAccel(accelY),
-    z: formatAccel(accelZ),
+    x: accelX,
+    y: accelY,
+    z: accelZ,
   }
 })
 </script>
@@ -35,7 +35,7 @@ const accelInfo = computedAsync(async () => {
         X
       </p>
       <p class="w-1/2 text-end">
-        {{ accelInfo.x }} m/s²
+        <span class="font-mono">{{ formatAccel(accelInfo.x) }}</span> m/s²
       </p>
     </div>
     <div class="w-full flex justify-between text-[#f14c4c] font-sans">
@@ -43,7 +43,7 @@ const accelInfo = computedAsync(async () => {
         Y
       </p>
       <p class="w-1/2 text-end">
-        {{ accelInfo.y }} m/s²
+        <span class="font-mono">{{ formatAccel(accelInfo.y) }}</span> m/s²
       </p>
     </div>
     <div class="w-full flex justify-between text-[#f9aa53] font-sans">
@@ -51,7 +51,7 @@ const accelInfo = computedAsync(async () => {
         Z
       </p>
       <p class="w-1/2 text-end">
-        {{ accelInfo.z }} m/s²
+        <span class="font-mono">{{ formatAccel(accelInfo.z) }}</span> m/s²
       </p>
     </div>
     <ThreeAxisGraph v-if="showValue" class="h-150px w-full" :value="accelInfo" />
