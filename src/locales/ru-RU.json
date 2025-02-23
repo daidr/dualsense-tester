@@ -31,7 +31,7 @@
     "disconnect": "Отключить",
     "not_connected": "Не подключено",
     "connected": "Подключено",
-    "seq_num": "Порядковый номер.",
+    "seq_num": "Опрос устройства",
     "charge_status_label": "Состояние зарядки",
     "battery_level_label": "Уровень заряда",
     "headphone_status_label": "Гарнитура",
@@ -63,7 +63,7 @@
     },
     "factory_info": {
       "build_time": "Дата и время сборки",
-      "hw_info": "HW Инфо",
+      "hw_info": "HW Info",
       "device_info": "Информация об устройстве",
       "fw_type": "Тип ПО",
       "sw_series": "Серия SW",
@@ -76,8 +76,8 @@
       "pcba_id": "ID печатной платы",
       "serial_number": "Серийный номер",
       "assemble_parts_info": "Сборка: Инф.",
-      "battery_barcode": "Штрихкод аккумулятор",
-      "vcm_barcode": "Штрихкод гиромоторы",
+      "battery_barcode": "Штрихкод (аккумулятор)",
+      "vcm_barcode": "Штрихкод (виброприводы)",
       "unique_id": "Уникальный ID",
       "bd_mac_address": "MAC-Адрес Bluetooth",
       "at_serial_number": "Адаптивные курки серийный номер",
@@ -88,7 +88,7 @@
         "no_data": "Данные отсутствуют",
         "start_error": "Ошибки при запуске",
         "get_error": "Получить ошибки",
-        "successful": "Успешный",
+        "successful": "Успех",
         "retry_timeout": "Тайм-аут повторной попытки",
         "fail": "Ошибка"
       },
@@ -134,7 +134,7 @@
     "right_trigger_mode": "Правый триггер",
     "trigger_mode": {
       "off": "Нет",
-      "resistance": "сопротивление",
+      "resistance": "Сопротивление",
       "trigger": "Курок",
       "auto_trigger": "Курок автомата"
     },
@@ -146,12 +146,12 @@
     },
     "headphone_volume": "Громкость гарнитуры",
     "speaker_volume": "Громкость динамика",
-    "haptic_volume": "Тактильный громкость"
+    "haptic_volume": "Громкость виброприводов"
   },
   "audio_panel": {
     "title": "Аудио",
-    "headphone_1khz_sine_wave_test": "Синус 1кГц Гарнитура",
-    "speaker_1khz_sine_wave_test": "Синус 1кГц Динамик"
+    "headphone_1khz_sine_wave_test": "Синус 1кГц (Гарнитура)",
+    "speaker_1khz_sine_wave_test": "Синус 1кГц (Динамик)"
   },
   "pwa": {
     "title": "Обнаружена новая версия",
@@ -161,7 +161,7 @@
     "offline_ready": "Данное приложение теперь кэшировано для использования в автономном режиме."
   },
   "git_version": {
-    "title": "Информация о комменте",
+    "title": "Информация о коммите",
     "warn_pr": "Это предварительная версия из Pull Request. Пожалуйста, используйте с осторожностью: при использовании могут возникать неполадки.",
     "warn_dev": "Это предварительная версия из ветки разработки. Пожалуйста, используйте с осторожностью: при использовании могут возникать неполадки."
   }
