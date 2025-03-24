@@ -120,7 +120,7 @@
     "mic_mute_led_off": "Выкл",
     "mic_mute_led_on": "Вкл",
     "mic_mute_led_blink": "Мигание",
-    "lightbar_color": "Цвет индикатора",
+    "lightbar_color": "Цвет световой панели",
     "player_led": "Огонёк номера игрока",
     "player_led_brightness": "Яркость",
     "player_led_brightness_high": "Высокая",
