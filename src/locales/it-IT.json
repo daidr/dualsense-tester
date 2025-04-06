@@ -6,10 +6,10 @@
     }
   },
   "shared": {
-    "unknown": "Unknown",
-    "confirm": "Confirm",
-    "cancel": "Cancel",
-    "close": "Close",
+    "unknown": "Sconosciuto",
+    "confirm": "Conferma",
+    "cancel": "Annulla",
+    "close": "Chiudi",
     "hold": "Hold"
   },
   "locales": {
@@ -21,16 +21,16 @@
     "ar-SA": "العربية (السعودية)"
   },
   "common": {
-    "tips": "Tips",
-    "not_support_title": "Your browser does not support WebHID",
-    "not_support_content": "Try to use the latest version of Google Chrome or Microsoft Edge"
+    "tips": "Suggerimenti",
+    "not_support_title": "Il tuo browser non supporta WebHID",
+    "not_support_content": "Prova ad usare una versione più recente di Google Chrome o di Microsoft Edge"
   },
   "connect_panel": {
-    "tips": "Connect the DualSense to your computer using either a <b>USB cable</b> or <b>Bluetooth</b>, then click the \"Connect\" button below.",
-    "connect": "Connect",
-    "disconnect": "Disconnect",
-    "not_connected": "Not connected",
-    "connected": "Connected",
+    "tips": "Connetti il DualSense al computer usando un <b>cavo USB</b> o il <b>Bluetooth</b>, poi clicca su sul tasto \"Connetti\" in basso.",
+    "connect": "Connetti",
+    "disconnect": "Disconnetti",
+    "not_connected": "Non connesso",
+    "connected": "Connesso",
     "seq_num": "Sequence No.",
     "charge_status_label": "Charge Status",
     "battery_level_label": "Battery Level",
