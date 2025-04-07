@@ -21,8 +21,6 @@ jobs:
         run: |
           echo "Starting force push from main branch to release branch"
           
-          git fetch origin main:main
-          
           git push origin main:release --force
           
           echo "Push completed!"
