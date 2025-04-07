@@ -2,14 +2,14 @@
   "application": {
     "name": "DualSense Tester",
     "footer": {
-      "copyright": "© {year} {'|'} Coded by {author} with ❤"
+      "copyright": "© {year} {'|'} Programmato da {author} con ❤"
     }
   },
   "shared": {
-    "unknown": "Unknown",
-    "confirm": "Confirm",
-    "cancel": "Cancel",
-    "close": "Close",
+    "unknown": "Sconosciuto",
+    "confirm": "Conferma",
+    "cancel": "Annulla",
+    "close": "Chiudi",
     "hold": "Hold"
   },
   "locales": {
@@ -18,35 +18,34 @@
     "ru-RU": "Русский",
     "fa-IR": "فارسی",
     "ar-EG": "العربية (مصر)",
-    "ar-SA": "العربية (السعودية)",
-    "it-IT": "Italiano (Italia)"
+    "ar-SA": "العربية (السعودية)"
   },
   "common": {
-    "tips": "Tips",
-    "not_support_title": "Your browser does not support WebHID",
-    "not_support_content": "Try to use the latest version of Google Chrome or Microsoft Edge"
+    "tips": "Suggerimenti",
+    "not_support_title": "Il tuo browser non supporta WebHID",
+    "not_support_content": "Prova ad usare una versione più recente di Google Chrome o di Microsoft Edge"
   },
   "connect_panel": {
-    "tips": "Connect the DualSense to your computer using either a <b>USB cable</b> or <b>Bluetooth</b>, then click the \"Connect\" button below.",
-    "connect": "Connect",
-    "disconnect": "Disconnect",
-    "not_connected": "Not connected",
-    "connected": "Connected",
-    "seq_num": "Sequence No.",
-    "charge_status_label": "Charge Status",
-    "battery_level_label": "Battery Level",
-    "headphone_status_label": "Headphone",
-    "microphone_status_label": "Microphone",
-    "factory_info_title": "Factory Info",
-    "add_device": "Add Device",
+    "tips": "Connetti il DualSense al computer usando un <b>cavo USB</b> o il <b>Bluetooth</b>, poi clicca su sul tasto \"Connetti\" in basso.",
+    "connect": "Connetti",
+    "disconnect": "Disconnetti",
+    "not_connected": "Non connesso",
+    "connected": "Connesso",
+    "seq_num": "Sequenza No.",
+    "charge_status_label": "Stato Carica",
+    "battery_level_label": "Livello Batteria",
+    "headphone_status_label": "Cuffie",
+    "microphone_status_label": "Microfono",
+    "factory_info_title": "Informazioni Fabbricazione",
+    "add_device": "Aggiungi Dispositivo",
     "charge_status": {
-      "discharging": "Not charging",
-      "charging": "Charging",
-      "charging_complete": "Charging complete",
-      "abnormal_voltage": "Abnormal voltage",
-      "abnormal_temperature": "Abnormal temperature",
-      "charging_error": "Charging error",
-      "unknown": "Unknown"
+      "discharging": "Non in carica",
+      "charging": "In carica",
+      "charging_complete": "Carica completata",
+      "abnormal_voltage": "Tensione anomala",
+      "abnormal_temperature": "Temperatura anomala",
+      "charging_error": "Errore carica",
+      "unknown": "Sconosciuto"
     },
     "battery_level": {
       "level0": "0-9%",
@@ -60,106 +59,106 @@
       "level8": "80-89%",
       "level9": "90-99%",
       "level10": "100%",
-      "unknown": "Unknown"
+      "unknown": "Sconosciuto"
     },
     "factory_info": {
-      "build_time": "Build Time",
-      "hw_info": "HW Info",
-      "device_info": "Device Info",
-      "fw_type": "FW Type",
-      "sw_series": "SW Series",
-      "update_version": "Update Version",
+      "build_time": "Data Compilazione",
+      "hw_info": "Info HW",
+      "device_info": "Info Dispositivo",
+      "fw_type": "Tipo di FW",
+      "sw_series": "Serie SW",
+      "update_version": "Versione Aggiornamento",
       "sbl_fw_version": "SBL FW Version",
       "main_fw_version": "Main FW Version",
       "dsp_fw_version": "DSP FW Version",
       "mcu_dsp_fw_version": "MCU DSP FW Version",
       "bt_patch_version": "BT Patch Version",
       "pcba_id": "PCBA ID",
-      "serial_number": "Serial Number",
+      "serial_number": "Numero di Serie",
       "assemble_parts_info": "Assemble Parts Info",
-      "battery_barcode": "Battery Barcode",
-      "vcm_barcode": "VCM Barcode",
-      "unique_id": "Unique ID",
+      "battery_barcode": "Barcode Batteria",
+      "vcm_barcode": "Barcode VCM",
+      "unique_id": "ID Univoco",
       "bd_mac_address": "BD MAC Address",
       "at_serial_number": "AT Serial Number",
       "at_motor_info": "AT Motor Info",
       "individual_data_verify": "Individual Data Verify",
       "individual_data": {
         "not_supported": "Not supported",
-        "no_data": "No data",
+        "no_data": "Nessun dato",
         "start_error": "Start error",
         "get_error": "Get error",
-        "successful": "Successful",
+        "successful": "Successo",
         "retry_timeout": "Retry timeout",
         "fail": "Fail"
       },
-      "board_version": "Board Version"
+      "board_version": "Versione Scheda"
     }
   },
   "profile_panel": {
-    "title": "Profile",
-    "default": "Default",
-    "unassigned": "Unassigned"
+    "title": "Profilo",
+    "default": "Predefinito",
+    "unassigned": "Non assegnato"
   },
   "info_panel": {
-    "tips": "Please connect your DualSense first",
+    "tips": "Per favore collega il tuo DualSense",
     "stick_module_not_found": "Stick module lost",
-    "title_buttons": "Basic Buttons",
-    "title_accelerometer": "Accelerometer",
-    "title_gyroscope": "Gyroscope",
+    "title_buttons": "Tasti di base",
+    "title_accelerometer": "Accelerometro",
+    "title_gyroscope": "Giroscopio",
     "pitch": "Pitch",
     "yaw": "Yaw",
     "roll": "Roll",
     "model_value": {
-      "on": "Value display on",
-      "off": "Value display off"
+      "on": "Visualizzazione valori attivo",
+      "off": "Visualizzazione valori disattivato"
     }
   },
   "output_panel": {
     "title": "Output",
-    "mic_mute_led": "Mic status light",
-    "mic_mute_led_off": "Off",
-    "mic_mute_led_on": "On",
-    "mic_mute_led_blink": "Blink",
+    "mic_mute_led": "Luce stato microfono",
+    "mic_mute_led_off": "Spento",
+    "mic_mute_led_on": "Acceso",
+    "mic_mute_led_blink": "Lampeggiante",
     "lightbar_color": "Lightbar color",
-    "player_led": "Player light",
-    "player_led_brightness": "Brightness",
-    "player_led_brightness_high": "High",
-    "player_led_brightness_medium": "Medium",
-    "player_led_brightness_low": "Low",
-    "player_led_off": "Off",
-    "player_led_all": "All",
+    "player_led": "Colore giocatore",
+    "player_led_brightness": "Luminosità",
+    "player_led_brightness_high": "Alto",
+    "player_led_brightness_medium": "Medio",
+    "player_led_brightness_low": "Basso",
+    "player_led_off": "Spento",
+    "player_led_all": "Tutte",
     "rumble_heavy": "Rumble (heavy)",
     "rumble_soft": "Rumble (soft)",
-    "left_trigger_mode": "Left trigger",
-    "right_trigger_mode": "Right trigger",
+    "left_trigger_mode": "Levetta sinistra",
+    "right_trigger_mode": "Levetta destra",
     "trigger_mode": {
-      "off": "Off",
-      "resistance": "resistance",
+      "off": "Spento",
+      "resistance": "resistenza",
       "trigger": "Trigger",
       "auto_trigger": "Automatic Trigger"
     },
     "trigger_values": {
-      "start_pos": "Start",
-      "end_pos": "End",
-      "frequency": "Frequency",
-      "force": "Force"
+      "start_pos": "Inizio",
+      "end_pos": "Fine",
+      "frequency": "Frequenza",
+      "force": "Forza"
     },
-    "headphone_volume": "Headphone volume",
-    "speaker_volume": "Speaker volume",
+    "headphone_volume": "Volume cuffie",
+    "speaker_volume": "Volume altoparlante",
     "haptic_volume": "Haptic volume"
   },
   "audio_panel": {
     "title": "Audio",
-    "headphone_1khz_sine_wave_test": "Headphone 1kHz sine wave",
-    "speaker_1khz_sine_wave_test": "Speaker 1kHz sine wave"
+    "headphone_1khz_sine_wave_test": "Cuffie onda sinusoidale da 1kHz",
+    "speaker_1khz_sine_wave_test": "Altoparlante onda sinusoidale da 1kHz"
   },
   "pwa": {
-    "title": "New version detected",
-    "dismiss": "Dismiss",
-    "upgrade": "Upgrade",
-    "update_available": "A new version of DualSense Tester is ready! \nRefresh to complete the upgrade.",
-    "offline_ready": "This app is now cached for offline use."
+    "title": "Nuova versione rilevata",
+    "dismiss": "Ignora",
+    "upgrade": "Aggiorna",
+    "update_available": "Una nuova versione di DualSense Tester è disponibile!\nRicarica per completare l'aggiornamento.",
+    "offline_ready": "Quest'app ora può essere usata in modalità offline."
   },
   "git_version": {
     "title": "Commit Info",
