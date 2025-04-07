@@ -1,0 +1,33 @@
+name: Production Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  push-to-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+      - name: Push main to release
+        run: |
+          echo "Starting force push from master branch to release branch"
+          
+          git fetch origin master:master
+          
+          git push origin master:release --force
+          
+          echo "Push completed!"
+
+      - name: Push results
+        run: |
+          echo "✅ Master branch has been successfully force-pushed to release branch"
+          echo "Time: $(date)"
