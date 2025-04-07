@@ -19,11 +19,11 @@ jobs:
 
       - name: Push main to release
         run: |
-          echo "Starting force push from master branch to release branch"
+          echo "Starting force push from main branch to release branch"
           
-          git fetch origin master:master
+          git fetch origin main:main
           
-          git push origin master:release --force
+          git push origin main:release --force
           
           echo "Push completed!"
 
