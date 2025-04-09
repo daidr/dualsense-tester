@@ -126,7 +126,7 @@ watch(open, () => {
   inset-inline-start: var(--x);
 
   .popup-content {
-    @apply max-h-200px overflow-y-auto text-primary;
+    @apply max-h-90vh overflow-y-auto text-primary;
 
     @apply text-sm;
 
