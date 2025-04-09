@@ -12,15 +12,6 @@
     "close": "Закрыть",
     "hold": "Удерживайте"
   },
-  "locales": {
-    "zh-CN": "简体中文",
-    "en-US": "English (US)",
-    "ru-RU": "Русский",
-    "fa-IR": "فارسی",
-    "ar-EG": "العربية (مصر)",
-    "ar-SA": "العربية (السعودية)",
-    "it-IT": "Italiano (Italia)"
-  },
   "common": {
     "tips": "Подсказки",
     "not_support_title": "Ваш браузер не поддерживает WebHID",

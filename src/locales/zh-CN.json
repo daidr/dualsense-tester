@@ -12,15 +12,6 @@
     "close": "关闭",
     "hold": "按住"
   },
-  "locales": {
-    "zh-CN": "简体中文",
-    "en-US": "English (US)",
-    "ru-RU": "Русский",
-    "fa-IR": "فارسی",
-    "ar-EG": "العربية (مصر)",
-    "ar-SA": "العربية (السعودية)",
-    "it-IT": "Italiano (Italia)"
-  },
   "common": {
     "tips": "提示",
     "not_support_title": "你的浏览器不支持 WebHID",
