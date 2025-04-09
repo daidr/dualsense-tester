@@ -10,7 +10,7 @@
     "confirm": "Conferma",
     "cancel": "Annulla",
     "close": "Chiudi",
-    "hold": "Hold"
+    "hold": "Mantieni"
   },
   "common": {
     "tips": "Suggerimenti",
@@ -18,7 +18,7 @@
     "not_support_content": "Prova ad usare una versione più recente di Google Chrome o di Microsoft Edge"
   },
   "connect_panel": {
-    "tips": "Connetti il DualSense al computer usando un <b>cavo USB</b> o il <b>Bluetooth</b>, poi clicca su sul tasto \"Connetti\" in basso.",
+    "tips": "Connetti il DualSense al computer usando un <b>cavo USB</b> o il <b>Bluetooth</b>, poi clicca sul tasto \"Connetti\" in basso.",
     "connect": "Connetti",
     "disconnect": "Disconnetti",
     "not_connected": "Non connesso",
@@ -60,11 +60,11 @@
       "fw_type": "Tipo di FW",
       "sw_series": "Serie SW",
       "update_version": "Versione Aggiornamento",
-      "sbl_fw_version": "SBL FW Version",
-      "main_fw_version": "Main FW Version",
-      "dsp_fw_version": "DSP FW Version",
-      "mcu_dsp_fw_version": "MCU DSP FW Version",
-      "bt_patch_version": "BT Patch Version",
+      "sbl_fw_version": "Versione FW SBL",
+      "main_fw_version": "Versione FW Principale",
+      "dsp_fw_version": "Versione FW DSP",
+      "mcu_dsp_fw_version": "Versione FW MCU DSP",
+      "bt_patch_version": "Versione Patch BT",
       "pcba_id": "PCBA ID",
       "serial_number": "Numero di Serie",
       "assemble_parts_info": "Assemble Parts Info",
@@ -72,17 +72,17 @@
       "vcm_barcode": "Barcode VCM",
       "unique_id": "ID Univoco",
       "bd_mac_address": "BD MAC Address",
-      "at_serial_number": "AT Serial Number",
-      "at_motor_info": "AT Motor Info",
+      "at_serial_number": "Numero di Serie AT",
+      "at_motor_info": "Informazione Motore AT",
       "individual_data_verify": "Individual Data Verify",
       "individual_data": {
-        "not_supported": "Not supported",
+        "not_supported": "Non supportato",
         "no_data": "Nessun dato",
         "start_error": "Start error",
         "get_error": "Get error",
         "successful": "Successo",
         "retry_timeout": "Retry timeout",
-        "fail": "Fail"
+        "fail": "Fallito"
       },
       "board_version": "Versione Scheda"
     }
@@ -98,9 +98,9 @@
     "title_buttons": "Tasti di base",
     "title_accelerometer": "Accelerometro",
     "title_gyroscope": "Giroscopio",
-    "pitch": "Pitch",
-    "yaw": "Yaw",
-    "roll": "Roll",
+    "pitch": "Beccheggio",
+    "yaw": "Imbardata",
+    "roll": "Rollio",
     "model_value": {
       "on": "Visualizzazione valori attivo",
       "off": "Visualizzazione valori disattivato"
@@ -112,7 +112,7 @@
     "mic_mute_led_off": "Spento",
     "mic_mute_led_on": "Acceso",
     "mic_mute_led_blink": "Lampeggiante",
-    "lightbar_color": "Lightbar color",
+    "lightbar_color": "Colore barra luminosa",
     "player_led": "Colore giocatore",
     "player_led_brightness": "Luminosità",
     "player_led_brightness_high": "Alto",
@@ -120,15 +120,15 @@
     "player_led_brightness_low": "Basso",
     "player_led_off": "Spento",
     "player_led_all": "Tutte",
-    "rumble_heavy": "Rumble (heavy)",
-    "rumble_soft": "Rumble (soft)",
-    "left_trigger_mode": "Levetta sinistra",
-    "right_trigger_mode": "Levetta destra",
+    "rumble_heavy": "Vibrazione (Forte)",
+    "rumble_soft": "Vibrazione (Leggera)",
+    "left_trigger_mode": "Grilletto sinistro",
+    "right_trigger_mode": "Grilletto destro",
     "trigger_mode": {
       "off": "Spento",
       "resistance": "resistenza",
-      "trigger": "Trigger",
-      "auto_trigger": "Automatic Trigger"
+      "trigger": "Grilletto",
+      "auto_trigger": "Grilletto Automatico"
     },
     "trigger_values": {
       "start_pos": "Inizio",
@@ -153,8 +153,8 @@
     "offline_ready": "Quest'app ora può essere usata in modalità offline."
   },
   "git_version": {
-    "title": "Commit Info",
-    "warn_pr": "This is a preview version from PR. Please use with caution as there may be issues.",
-    "warn_dev": "This is a preview version from the development branch. Please use with caution as there may be issues."
+    "title": "Informazioni Commit",
+    "warn_pr": "Questa è una versione in anteprima da PR. Si consiglia di usarlo con cautela poiché potrebbero esserci problemi.",
+    "warn_dev": "Questa è una versione in anteprima dal ramo sviluppatore. Si consiglia di usarlo con cautela poiché potrebbero esserci problemi."
   }
 }
