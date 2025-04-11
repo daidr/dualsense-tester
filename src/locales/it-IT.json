@@ -78,10 +78,10 @@
       "individual_data": {
         "not_supported": "Non supportato",
         "no_data": "Nessun dato",
-        "start_error": "Start error",
-        "get_error": "Get error",
+        "start_error": "Errore avvio",
+        "get_error": "Errore acquisizione",
         "successful": "Successo",
-        "retry_timeout": "Retry timeout",
+        "retry_timeout": "Tentativo scaduto",
         "fail": "Fallito"
       },
       "board_version": "Versione Scheda"
