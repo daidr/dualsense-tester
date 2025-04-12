@@ -2,7 +2,7 @@
   "application": {
     "name": "DualSense Tester",
     "footer": {
-      "copyright": "© {year} {'|'} Код написаний {author} з ❤ | Переклав солов'їною: sladk0y"
+      "copyright": "© {year} {'|'} Код написаний {author} з ❤ {'|'} Переклав солов'їною: sladk0y"
     }
   },
   "shared": {
