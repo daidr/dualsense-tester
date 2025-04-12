@@ -1,0 +1,160 @@
+{
+  "application": {
+    "name": "DualSense Tester",
+    "footer": {
+      "copyright": "© {year} {'|'} Код написаний {author} з ❤ | Переклав солов'їною: sladk0y"
+    }
+  },
+  "shared": {
+    "unknown": "Невідомо",
+    "confirm": "Підтвердити",
+    "cancel": "Скасувати",
+    "close": "Закрити",
+    "hold": "Утримуйте"
+  },
+  "common": {
+    "tips": "Поради",
+    "not_support_title": "Ваш браузер не підтримує WebHID",
+    "not_support_content": "Спробуйте останню версію Google Chrome або Microsoft Edge"
+  },
+  "connect_panel": {
+    "tips": "Підключіть DualSense до комп’ютера за допомогою <b>USB-кабелю</b> або <b>Bluetooth</b>, потім натисніть кнопку «Підключити» нижче.",
+    "connect": "Підключити",
+    "disconnect": "Відключити",
+    "not_connected": "Не підключено",
+    "connected": "Підключено",
+    "seq_num": "Порядковий №",
+    "charge_status_label": "Стан заряджання",
+    "battery_level_label": "Рівень заряду",
+    "headphone_status_label": "Навушники",
+    "microphone_status_label": "Мікрофон",
+    "factory_info_title": "Інформація з виробництва",
+    "add_device": "Додати пристрій",
+    "charge_status": {
+      "discharging": "Не заряджається",
+      "charging": "Заряджається",
+      "charging_complete": "Заряджання завершено",
+      "abnormal_voltage": "Аномальна напруга",
+      "abnormal_temperature": "Аномальна температура",
+      "charging_error": "Помилка заряджання",
+      "unknown": "Невідомо"
+    },
+    "battery_level": {
+      "level0": "0-9%",
+      "level1": "10-19%",
+      "level2": "20-29%",
+      "level3": "30-39%",
+      "level4": "40-49%",
+      "level5": "50-59%",
+      "level6": "60-69%",
+      "level7": "70-79%",
+      "level8": "80-89%",
+      "level9": "90-99%",
+      "level10": "100%",
+      "unknown": "Невідомо"
+    },
+    "factory_info": {
+      "build_time": "Час складання",
+      "hw_info": "Інфо про апаратне забезпечення",
+      "device_info": "Інфо про пристрій",
+      "fw_type": "Тип прошивки",
+      "sw_series": "Серія ПЗ",
+      "update_version": "Версія оновлення",
+      "sbl_fw_version": "Версія SBL прошивки",
+      "main_fw_version": "Основна версія прошивки",
+      "dsp_fw_version": "Версія DSP прошивки",
+      "mcu_dsp_fw_version": "Версія MCU DSP прошивки",
+      "bt_patch_version": "Версія Bluetooth патчу",
+      "pcba_id": "Ідентифікатор PCBA",
+      "serial_number": "Серійний номер",
+      "assemble_parts_info": "Інфо про зібрані частини",
+      "battery_barcode": "Штрихкод акумулятора",
+      "vcm_barcode": "Штрихкод VCM",
+      "unique_id": "Унікальний ID",
+      "bd_mac_address": "BD MAC-адреса",
+      "at_serial_number": "AT серійний номер",
+      "at_motor_info": "Інфо про AT мотор",
+      "individual_data_verify": "Перевірка індивідуальних даних",
+      "individual_data": {
+        "not_supported": "Не підтримується",
+        "no_data": "Немає даних",
+        "start_error": "Помилка запуску",
+        "get_error": "Помилка отримання",
+        "successful": "Успішно",
+        "retry_timeout": "Тайм-аут повторної спроби",
+        "fail": "Помилка"
+      },
+      "board_version": "Версія плати"
+    }
+  },
+  "profile_panel": {
+    "title": "Профіль",
+    "default": "Типовий",
+    "unassigned": "Не призначено"
+  },
+  "info_panel": {
+    "tips": "Будь ласка, спочатку підключіть ваш DualSense",
+    "stick_module_not_found": "Модуль стіка не знайдено",
+    "title_buttons": "Основні кнопки",
+    "title_accelerometer": "Акселерометр",
+    "title_gyroscope": "Гіроскоп",
+    "pitch": "Крен",
+    "yaw": "Рискання",
+    "roll": "Ковзання",
+    "model_value": {
+      "on": "Показ значень увімкнено",
+      "off": "Показ значень вимкнено"
+    }
+  },
+  "output_panel": {
+    "title": "Вивід",
+    "mic_mute_led": "Індикатор мікрофона",
+    "mic_mute_led_off": "Вимкнено",
+    "mic_mute_led_on": "Увімкнено",
+    "mic_mute_led_blink": "Мигає",
+    "lightbar_color": "Колір панелі світла",
+    "player_led": "Гравець (індикатор)",
+    "player_led_brightness": "Яскравість",
+    "player_led_brightness_high": "Висока",
+    "player_led_brightness_medium": "Середня",
+    "player_led_brightness_low": "Низька",
+    "player_led_off": "Вимкнено",
+    "player_led_all": "Усі",
+    "rumble_heavy": "Вібрація (сильна)",
+    "rumble_soft": "Вібрація (мʼяка)",
+    "left_trigger_mode": "Лівий триґер",
+    "right_trigger_mode": "Правий триґер",
+    "trigger_mode": {
+      "off": "Вимкнено",
+      "resistance": "Опір",
+      "trigger": "Триґер",
+      "auto_trigger": "Авто триґер"
+    },
+    "trigger_values": {
+      "start_pos": "Початок",
+      "end_pos": "Кінець",
+      "frequency": "Частота",
+      "force": "Сила"
+    },
+    "headphone_volume": "Гучність навушників",
+    "speaker_volume": "Гучність динаміка",
+    "haptic_volume": "Гучність тактильних ефектів"
+  },
+  "audio_panel": {
+    "title": "Аудіо",
+    "headphone_1khz_sine_wave_test": "1 кГц синусоїда в навушниках",
+    "speaker_1khz_sine_wave_test": "1 кГц синусоїда у динаміку"
+  },
+  "pwa": {
+    "title": "Виявлено нову версію",
+    "dismiss": "Закрити",
+    "upgrade": "Оновити",
+    "update_available": "Нова версія DualSense Tester готова! \nОновіть сторінку для завершення оновлення.",
+    "offline_ready": "Цей застосунок тепер доступний офлайн."
+  },
+  "git_version": {
+    "title": "Інформація про коміт",
+    "warn_pr": "Це попередня версія з PR. Користуйтесь обережно — можуть бути проблеми.",
+    "warn_dev": "Це попередня версія з гілки розробки. Користуйтесь обережно — можуть бути проблеми."
+  }
+}
