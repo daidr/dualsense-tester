@@ -6,7 +6,7 @@ const LOCALES: Record<string, string> = {
   'ar-EG': 'العربية (مصر)',
   'ar-SA': 'العربية (السعودية)',
   'it-IT': 'Italiano (Italia)',
-  'ua-UA': 'Українська',
+  'uk-UA': 'Українська',
 }
 
 export function getLocaleLabel(locale: string): string {
