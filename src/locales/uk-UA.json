@@ -2,42 +2,42 @@
   "application": {
     "name": "DualSense Tester",
     "footer": {
-      "copyright": "© {year} {'|'} Coded by {author} with ❤"
+      "copyright": "© {year} {'|'} Код написаний {author} з ❤ {'|'} Переклав солов'їною: sladk0y"
     }
   },
   "shared": {
-    "unknown": "Unknown",
-    "confirm": "Confirm",
-    "cancel": "Cancel",
-    "close": "Close",
-    "hold": "Hold"
+    "unknown": "Невідомо",
+    "confirm": "Підтвердити",
+    "cancel": "Скасувати",
+    "close": "Закрити",
+    "hold": "Утримуйте"
   },
   "common": {
-    "tips": "Tips",
-    "not_support_title": "Your browser does not support WebHID",
-    "not_support_content": "Try to use the latest version of Google Chrome or Microsoft Edge"
+    "tips": "Поради",
+    "not_support_title": "Ваш браузер не підтримує WebHID",
+    "not_support_content": "Спробуйте останню версію Google Chrome або Microsoft Edge"
   },
   "connect_panel": {
-    "tips": "Connect the DualSense to your computer using either a <b>USB cable</b> or <b>Bluetooth</b>, then click the \"Connect\" button below.",
-    "connect": "Connect",
-    "disconnect": "Disconnect",
-    "not_connected": "Not connected",
-    "connected": "Connected",
-    "seq_num": "Sequence No.",
-    "charge_status_label": "Charge Status",
-    "battery_level_label": "Battery Level",
-    "headphone_status_label": "Headphone",
-    "microphone_status_label": "Microphone",
-    "factory_info_title": "Factory Info",
-    "add_device": "Add Device",
+    "tips": "Підключіть DualSense до комп’ютера за допомогою <b>USB-кабелю</b> або <b>Bluetooth</b>, потім натисніть кнопку «Підключити» нижче.",
+    "connect": "Підключити",
+    "disconnect": "Відключити",
+    "not_connected": "Не підключено",
+    "connected": "Підключено",
+    "seq_num": "Порядковий №",
+    "charge_status_label": "Стан заряджання",
+    "battery_level_label": "Рівень заряду",
+    "headphone_status_label": "Навушники",
+    "microphone_status_label": "Мікрофон",
+    "factory_info_title": "Інформація з виробництва",
+    "add_device": "Додати пристрій",
     "charge_status": {
-      "discharging": "Not charging",
-      "charging": "Charging",
-      "charging_complete": "Charging complete",
-      "abnormal_voltage": "Abnormal voltage",
-      "abnormal_temperature": "Abnormal temperature",
-      "charging_error": "Charging error",
-      "unknown": "Unknown"
+      "discharging": "Не заряджається",
+      "charging": "Заряджається",
+      "charging_complete": "Заряджання завершено",
+      "abnormal_voltage": "Аномальна напруга",
+      "abnormal_temperature": "Аномальна температура",
+      "charging_error": "Помилка заряджання",
+      "unknown": "Невідомо"
     },
     "battery_level": {
       "level0": "0-9%",
@@ -51,110 +51,110 @@
       "level8": "80-89%",
       "level9": "90-99%",
       "level10": "100%",
-      "unknown": "Unknown"
+      "unknown": "Невідомо"
     },
     "factory_info": {
-      "build_time": "Build Time",
-      "hw_info": "HW Info",
-      "device_info": "Device Info",
-      "fw_type": "FW Type",
-      "sw_series": "SW Series",
-      "update_version": "Update Version",
-      "sbl_fw_version": "SBL FW Version",
-      "main_fw_version": "Main FW Version",
-      "dsp_fw_version": "DSP FW Version",
-      "mcu_dsp_fw_version": "MCU DSP FW Version",
-      "bt_patch_version": "BT Patch Version",
-      "pcba_id": "PCBA ID",
-      "serial_number": "Serial Number",
-      "assemble_parts_info": "Assemble Parts Info",
-      "battery_barcode": "Battery Barcode",
-      "vcm_barcode": "VCM Barcode",
-      "unique_id": "Unique ID",
-      "bd_mac_address": "BD MAC Address",
-      "at_serial_number": "AT Serial Number",
-      "at_motor_info": "AT Motor Info",
-      "individual_data_verify": "Individual Data Verify",
+      "build_time": "Час складання",
+      "hw_info": "Інфо про апаратне забезпечення",
+      "device_info": "Інфо про пристрій",
+      "fw_type": "Тип прошивки",
+      "sw_series": "Серія ПЗ",
+      "update_version": "Версія оновлення",
+      "sbl_fw_version": "Версія SBL прошивки",
+      "main_fw_version": "Основна версія прошивки",
+      "dsp_fw_version": "Версія DSP прошивки",
+      "mcu_dsp_fw_version": "Версія MCU DSP прошивки",
+      "bt_patch_version": "Версія Bluetooth патчу",
+      "pcba_id": "Ідентифікатор PCBA",
+      "serial_number": "Серійний номер",
+      "assemble_parts_info": "Інфо про зібрані частини",
+      "battery_barcode": "Штрихкод акумулятора",
+      "vcm_barcode": "Штрихкод VCM",
+      "unique_id": "Унікальний ID",
+      "bd_mac_address": "BD MAC-адреса",
+      "at_serial_number": "AT серійний номер",
+      "at_motor_info": "Інфо про AT мотор",
+      "individual_data_verify": "Перевірка індивідуальних даних",
       "individual_data": {
-        "not_supported": "Not supported",
-        "no_data": "No data",
-        "start_error": "Start error",
-        "get_error": "Get error",
-        "successful": "Successful",
-        "retry_timeout": "Retry timeout",
-        "fail": "Fail"
+        "not_supported": "Не підтримується",
+        "no_data": "Немає даних",
+        "start_error": "Помилка запуску",
+        "get_error": "Помилка отримання",
+        "successful": "Успішно",
+        "retry_timeout": "Тайм-аут повторної спроби",
+        "fail": "Помилка"
       },
-      "board_version": "Board Version"
+      "board_version": "Версія плати"
     }
   },
   "profile_panel": {
-    "title": "Profile",
-    "default": "Default",
-    "unassigned": "Unassigned"
+    "title": "Профіль",
+    "default": "Типовий",
+    "unassigned": "Не призначено"
   },
   "info_panel": {
-    "tips": "Please connect your DualSense first",
-    "stick_module_not_found": "Stick module lost",
-    "title_buttons": "Basic Buttons",
-    "title_accelerometer": "Accelerometer",
-    "title_gyroscope": "Gyroscope",
-    "pitch": "Pitch",
-    "yaw": "Yaw",
-    "roll": "Roll",
+    "tips": "Будь ласка, спочатку підключіть ваш DualSense",
+    "stick_module_not_found": "Модуль стіка не знайдено",
+    "title_buttons": "Основні кнопки",
+    "title_accelerometer": "Акселерометр",
+    "title_gyroscope": "Гіроскоп",
+    "pitch": "Крен",
+    "yaw": "Рискання",
+    "roll": "Ковзання",
     "model_value": {
-      "on": "Value display on",
-      "off": "Value display off"
+      "on": "Показ значень увімкнено",
+      "off": "Показ значень вимкнено"
     }
   },
   "output_panel": {
-    "title": "Output",
-    "mic_mute_led": "Mic status light",
-    "mic_mute_led_off": "Off",
-    "mic_mute_led_on": "On",
-    "mic_mute_led_blink": "Blink",
-    "lightbar_color": "Lightbar color",
-    "player_led": "Player light",
-    "player_led_brightness": "Brightness",
-    "player_led_brightness_high": "High",
-    "player_led_brightness_medium": "Medium",
-    "player_led_brightness_low": "Low",
-    "player_led_off": "Off",
-    "player_led_all": "All",
-    "rumble_heavy": "Rumble (heavy)",
-    "rumble_soft": "Rumble (soft)",
-    "left_trigger_mode": "Left trigger",
-    "right_trigger_mode": "Right trigger",
+    "title": "Вивід",
+    "mic_mute_led": "Індикатор мікрофона",
+    "mic_mute_led_off": "Вимкнено",
+    "mic_mute_led_on": "Увімкнено",
+    "mic_mute_led_blink": "Мигає",
+    "lightbar_color": "Колір панелі світла",
+    "player_led": "Гравець (індикатор)",
+    "player_led_brightness": "Яскравість",
+    "player_led_brightness_high": "Висока",
+    "player_led_brightness_medium": "Середня",
+    "player_led_brightness_low": "Низька",
+    "player_led_off": "Вимкнено",
+    "player_led_all": "Усі",
+    "rumble_heavy": "Вібрація (сильна)",
+    "rumble_soft": "Вібрація (мʼяка)",
+    "left_trigger_mode": "Лівий триґер",
+    "right_trigger_mode": "Правий триґер",
     "trigger_mode": {
-      "off": "Off",
-      "resistance": "resistance",
-      "trigger": "Trigger",
-      "auto_trigger": "Automatic Trigger"
+      "off": "Вимкнено",
+      "resistance": "Опір",
+      "trigger": "Триґер",
+      "auto_trigger": "Авто триґер"
     },
     "trigger_values": {
-      "start_pos": "Start",
-      "end_pos": "End",
-      "frequency": "Frequency",
-      "force": "Force"
+      "start_pos": "Початок",
+      "end_pos": "Кінець",
+      "frequency": "Частота",
+      "force": "Сила"
     },
-    "headphone_volume": "Headphone volume",
-    "speaker_volume": "Speaker volume",
-    "haptic_volume": "Haptic volume"
+    "headphone_volume": "Гучність навушників",
+    "speaker_volume": "Гучність динаміка",
+    "haptic_volume": "Гучність тактильних ефектів"
   },
   "audio_panel": {
-    "title": "Audio",
-    "headphone_1khz_sine_wave_test": "Headphone 1kHz sine wave",
-    "speaker_1khz_sine_wave_test": "Speaker 1kHz sine wave"
+    "title": "Аудіо",
+    "headphone_1khz_sine_wave_test": "1 кГц синусоїда в навушниках",
+    "speaker_1khz_sine_wave_test": "1 кГц синусоїда у динаміку"
   },
   "pwa": {
-    "title": "New version detected",
-    "dismiss": "Dismiss",
-    "upgrade": "Upgrade",
-    "update_available": "A new version of DualSense Tester is ready! \nRefresh to complete the upgrade.",
-    "offline_ready": "This app is now cached for offline use."
+    "title": "Виявлено нову версію",
+    "dismiss": "Закрити",
+    "upgrade": "Оновити",
+    "update_available": "Нова версія DualSense Tester готова! \nОновіть сторінку для завершення оновлення.",
+    "offline_ready": "Цей застосунок тепер доступний офлайн."
   },
   "git_version": {
-    "title": "Commit Info",
-    "warn_pr": "This is a preview version from PR. Please use with caution as there may be issues.",
-    "warn_dev": "This is a preview version from the development branch. Please use with caution as there may be issues."
+    "title": "Інформація про коміт",
+    "warn_pr": "Це попередня версія з PR. Користуйтесь обережно — можуть бути проблеми.",
+    "warn_dev": "Це попередня версія з гілки розробки. Користуйтесь обережно — можуть бути проблеми."
   }
 }
