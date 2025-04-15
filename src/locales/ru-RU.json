@@ -2,7 +2,7 @@
   "application": {
     "name": "Тестер контроллера DualSense",
     "footer": {
-      "copyright": "© {year} {'|'} Написал {author} с любовью ❤ | Перевёл на русский язык HarGabt"
+      "copyright": "© {year} {'|'} Написал {author} с любовью ❤ {'|'} Перевёл на русский язык HarGabt"
     }
   },
   "shared": {
