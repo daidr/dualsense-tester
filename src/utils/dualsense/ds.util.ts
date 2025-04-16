@@ -8,6 +8,8 @@ import { fillFeatureReportChecksum, fillOutputReportChecksum } from './crc32.uti
 import { DualSenseTestActionId, DualSenseTestDeviceId, TestResult, TestStatus } from './ds.type'
 
 export const VENDOR_ID_SONY = 0x054C
+export const PRODUCT_ID_DUALSHOCK_V1 = 0x05C4
+export const PRODUCT_ID_DUALSHOCK_V2 = 0x09CC
 export const PRODUCT_ID_DUALSENSE = 0x0CE6
 export const PRODUCT_ID_DUALSENSE_EDGE = 0x0DF2
 export const USAGE_PAGE_GENERIC_DESKTOP = 0x0001
@@ -40,6 +42,27 @@ export function checkConnectionType(device: HIDDevice) {
     }
   }
   return DeviceConnectionType.Unknown
+}
+
+export function checkConnectionTypeDS4(device: HIDDevice) {
+  for (const c of device.collections) {
+    if (c.usagePage !== USAGE_PAGE_GENERIC_DESKTOP || c.usage !== USAGE_ID_GD_GAME_PAD) {
+      continue
+    }
+
+    const maxInputReportBytes = c.inputReports!.reduce((max, report) => {
+      return Math.max(
+        max,
+        report.items!.reduce((sum, item) => {
+          return sum + item.reportSize! * item.reportCount!
+        }, 0),
+      )
+    }, 0)
+    if (maxInputReportBytes === 504) {
+      return DeviceConnectionType.USB
+    }
+  }
+  return DeviceConnectionType.Bluetooth
 }
 
 export function sendOutputReportFactory(item: DeviceItem) {
