@@ -18,7 +18,7 @@
     "not_support_content": "Prova ad usare una versione più recente di Google Chrome o di Microsoft Edge"
   },
   "connect_panel": {
-    "tips": "Connetti il DualSense al computer usando un <b>cavo USB</b> o il <b>Bluetooth</b>, poi clicca sul tasto \"Connetti\" in basso.",
+    "tips": "Connect the DualSense to your computer using either a <b>USB cable</b> or <b>Bluetooth</b>, then click the \"Add Device\" button above.",
     "connect": "Connetti",
     "disconnect": "Disconnetti",
     "not_connected": "Non connesso",
