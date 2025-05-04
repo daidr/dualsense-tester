@@ -18,7 +18,7 @@
     "not_support_content": "از آخرین نسخه Google Chrome یا Microsoft Edge دسکتاپ استفاده کنید"
   },
   "connect_panel": {
-    "tips": "دوال‌سنس را با استفاده از <b>کابل</b> یا <b>بلوتوث</b> به کامپیوتر خود متصل کنید، سپس روی دکمه \"اتصال\" زیر کلیک کنید.",
+    "tips": "Connect the DualSense to your computer using either a <b>USB cable</b> or <b>Bluetooth</b>, then click the \"Add Device\" button above.",
     "connect": "اتصال",
     "disconnect": "قطع اتصال",
     "not_connected": "متصل نیست",
