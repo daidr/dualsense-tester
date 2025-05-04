@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useConnectionType, useInputReport } from '@/composables/useInjectValues'
+import { useConnectionType, useInputReport, useInputReportId } from '@/composables/useInjectValues'
 import { DeviceConnectionType, type ModelProps } from '@/device-based-router/shared'
 import { normalizeThumbStickAxis } from '@/utils/dualsense/ds.util'
 import { numberToXHex } from '@/utils/format.util'
@@ -9,10 +9,11 @@ import { inputReportOffsetBluetooth, inputReportOffsetUSB } from '../../_utils/o
 const props = defineProps<ModelProps>()
 
 const inputReport = useInputReport()
+const inputReportId = useInputReportId()
 const connectionType = useConnectionType()
 
 const offset = computed(() =>
-  connectionType.value === DeviceConnectionType.USB ? inputReportOffsetUSB : inputReportOffsetBluetooth,
+  connectionType.value === DeviceConnectionType.USB || inputReportId.value === 0x01 ? inputReportOffsetUSB : inputReportOffsetBluetooth,
 )
 const digitalKeys = computed(() => {
   const keys1 = inputReport.value.getInt8(offset.value.digitalKeys + 1)
@@ -32,17 +33,22 @@ const stickR = computed(() => ({
 }))
 
 const tpPoint1 = computed(() => {
-  const id = inputReport.value.getUint8(offset.value.touchData)
+  let id = inputReport.value.getUint8(offset.value.touchData)
   const x = ((inputReport.value.getUint8(offset.value.touchData + 2) & 15) << 8) | (inputReport.value.getUint8(offset.value.touchData + 1))
   const y = (inputReport.value.getUint8(offset.value.touchData + 3) << 4) | (inputReport.value.getUint8(offset.value.touchData + 2) >> 4)
-
+  if (connectionType.value === DeviceConnectionType.Bluetooth && inputReportId.value === 0x01) {
+    id = 255
+  }
   return { x, y, id }
 })
 
 const tpPoint2 = computed(() => {
-  const id = inputReport.value.getUint8(offset.value.touchData + 4)
+  let id = inputReport.value.getUint8(offset.value.touchData + 4)
   const x = ((inputReport.value.getUint8(offset.value.touchData + 6) & 15) << 8) | (inputReport.value.getUint8(offset.value.touchData + 5))
   const y = (inputReport.value.getUint8(offset.value.touchData + 7) << 4) | (inputReport.value.getUint8(offset.value.touchData + 6) >> 4)
+  if (connectionType.value === DeviceConnectionType.Bluetooth && inputReportId.value === 0x01) {
+    id = 255
+  }
 
   return { x, y, id }
 })
@@ -111,7 +117,10 @@ function formatStickValue(value: number) {
 </script>
 
 <template>
-  <rect v-if="showValue" :x="TOUCHPAD_LEFT" :y="TOUCHPAD_TOP" :width="TOUCHPAD_REAL_WIDTH" :height="TOUCHPAD_REAL_HEIGHT" class="ds-stroke-dashed" />
+  <rect
+    v-if="showValue" :x="TOUCHPAD_LEFT" :y="TOUCHPAD_TOP" :width="TOUCHPAD_REAL_WIDTH"
+    :height="TOUCHPAD_REAL_HEIGHT" class="ds-stroke-dashed"
+  />
   <g v-if="showTouchPoint(tpPoint1.id)" :style="tpPointStyle1">
     <circle r="19" class="ds-filled-icon" :cx="0" :cy="0" />
     <text x="0" y="40" font-size="25" class="ds-text" text-anchor="middle">
@@ -132,7 +141,10 @@ function formatStickValue(value: number) {
   </g>
   <g id="r3group">
     <g :style="rightStickStyle">
-      <circle id="Active_RS" :cx="STICK_RIGHT_X" :cy="STICK_RIGHT_Y" r="61.278" class="ds-stroke-normal" :class="{ 'ds-stick-active': digitalKeys.r3 }" />
+      <circle
+        id="Active_RS" :cx="STICK_RIGHT_X" :cy="STICK_RIGHT_Y" r="61.278" class="ds-stroke-normal"
+        :class="{ 'ds-stick-active': digitalKeys.r3 }"
+      />
 
       <!-- central point -->
       <circle v-if="showValue" :cx="STICK_RIGHT_X" :cy="STICK_RIGHT_Y" r="2" class="ds-fill-red" />
@@ -147,12 +159,21 @@ function formatStickValue(value: number) {
         formatStickValue(stickR.y) }}
     </text>
     <!-- cross line -->
-    <line v-if="showValue" :x2="STICK_RIGHT_X - STICK_REAL_RADIUS" :y2="STICK_RIGHT_Y" :x1="STICK_RIGHT_X + STICK_REAL_RADIUS" :y1="STICK_RIGHT_Y" class="ds-stroke-dashed" />
-    <line v-if="showValue" :x2="STICK_RIGHT_X" :y2="STICK_RIGHT_Y - STICK_REAL_RADIUS" :x1="STICK_RIGHT_X" :y1="STICK_RIGHT_Y + STICK_REAL_RADIUS" class="ds-stroke-dashed" />
+    <line
+      v-if="showValue" :x2="STICK_RIGHT_X - STICK_REAL_RADIUS" :y2="STICK_RIGHT_Y"
+      :x1="STICK_RIGHT_X + STICK_REAL_RADIUS" :y1="STICK_RIGHT_Y" class="ds-stroke-dashed"
+    />
+    <line
+      v-if="showValue" :x2="STICK_RIGHT_X" :y2="STICK_RIGHT_Y - STICK_REAL_RADIUS" :x1="STICK_RIGHT_X"
+      :y1="STICK_RIGHT_Y + STICK_REAL_RADIUS" class="ds-stroke-dashed"
+    />
   </g>
   <g id="l3group">
     <g :style="leftStickStyle">
-      <circle id="Active_LS" :cx="STICK_LEFT_X" :cy="STICK_LEFT_Y" r="61.278" class="ds-stroke-normal" :class="{ 'ds-stick-active': digitalKeys.l3 }" />
+      <circle
+        id="Active_LS" :cx="STICK_LEFT_X" :cy="STICK_LEFT_Y" r="61.278" class="ds-stroke-normal"
+        :class="{ 'ds-stick-active': digitalKeys.l3 }"
+      />
 
       <!-- central point -->
       <circle v-if="showValue" :cx="STICK_LEFT_X" :cy="STICK_LEFT_Y" r="2" class="ds-fill-red" />
@@ -167,8 +188,14 @@ function formatStickValue(value: number) {
         formatStickValue(stickL.y) }}
     </text>
     <!-- cross line -->
-    <line v-if="showValue" :x2="STICK_LEFT_X - STICK_REAL_RADIUS" :y2="STICK_LEFT_Y" :x1="STICK_LEFT_X + STICK_REAL_RADIUS" :y1="STICK_LEFT_Y" class="ds-stroke-dashed" />
-    <line v-if="showValue" :x2="STICK_LEFT_X" :y2="STICK_LEFT_Y - STICK_REAL_RADIUS" :x1="STICK_LEFT_X" :y1="STICK_LEFT_Y + STICK_REAL_RADIUS" class="ds-stroke-dashed" />
+    <line
+      v-if="showValue" :x2="STICK_LEFT_X - STICK_REAL_RADIUS" :y2="STICK_LEFT_Y"
+      :x1="STICK_LEFT_X + STICK_REAL_RADIUS" :y1="STICK_LEFT_Y" class="ds-stroke-dashed"
+    />
+    <line
+      v-if="showValue" :x2="STICK_LEFT_X" :y2="STICK_LEFT_Y - STICK_REAL_RADIUS" :x1="STICK_LEFT_X"
+      :y1="STICK_LEFT_Y + STICK_REAL_RADIUS" class="ds-stroke-dashed"
+    />
   </g>
 </template>
 

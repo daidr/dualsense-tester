@@ -10,9 +10,10 @@ import { useDualSenseStore } from './store/dualsense'
 import { isDev } from './utils/env.util'
 
 const dsStore = useDualSenseStore()
-const { inputReport, currentDevice } = storeToRefs(dsStore)
+const { inputReport, inputReportId, currentDevice } = storeToRefs(dsStore)
 
 provide('inputReport', readonly(inputReport))
+provide('inputReportId', readonly(inputReportId))
 provide('deviceItem', readonly(currentDevice))
 </script>
 

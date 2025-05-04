@@ -26,9 +26,10 @@ export const useDualSenseStore = defineStore('dualsense', () => {
   }
 
   const inputReport = shallowRef<DataView | undefined>()
+  const inputReportId = shallowRef<number | undefined>(undefined)
 
   const isDeviceReady = computed(() => {
-    return currentDevice.value !== undefined && inputReport.value !== undefined
+    return currentDevice.value !== undefined && inputReport.value !== undefined && inputReportId.value !== undefined
   })
 
   let currentAnimationFrame: number | undefined
@@ -40,6 +41,7 @@ export const useDualSenseStore = defineStore('dualsense', () => {
       }
       currentAnimationFrame = requestAnimationFrame(() => {
         inputReport.value = event.data
+        inputReportId.value = event.reportId
       })
     }
   }
@@ -60,7 +62,7 @@ export const useDualSenseStore = defineStore('dualsense', () => {
         connectionType: connectionTypeToString(value.connectionType),
         productId: value.device.productId,
         vendorId: value.device.vendorId,
-        version: gitDefine.shortCommitHash
+        version: gitDefine.shortCommitHash,
       })
     }
   })
@@ -85,6 +87,7 @@ export const useDualSenseStore = defineStore('dualsense', () => {
       item.device.close()
       currentDevice.value = undefined
       inputReport.value = undefined
+      inputReportId.value = undefined
       item.device.removeEventListener('inputreport', inputReportHandler)
       // item.device.oninputreport = null
     })
@@ -122,7 +125,7 @@ export const useDualSenseStore = defineStore('dualsense', () => {
     updatingDeviceList.value = false
     umami?.track('device_list_updated', {
       count: deviceList.value.length,
-      version: gitDefine.shortCommitHash
+      version: gitDefine.shortCommitHash,
     })
   }
 
@@ -164,6 +167,7 @@ export const useDualSenseStore = defineStore('dualsense', () => {
     setCurrentDeviceIndex,
     currentDevice,
     inputReport,
+    inputReportId,
     views: reactiveViews,
     isDeviceReady,
   }

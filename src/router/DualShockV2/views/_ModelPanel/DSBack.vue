@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useConnectionType, useInputReport } from '@/composables/useInjectValues'
+import { useConnectionType, useInputReport, useInputReportId } from '@/composables/useInjectValues'
 import { DeviceConnectionType, type ModelProps } from '@/device-based-router/shared'
 import { DPadDirection } from '@/utils/dualsense/ds.type'
 import { computed } from 'vue'
@@ -8,10 +8,11 @@ import { inputReportOffsetBluetooth, inputReportOffsetUSB } from '../../_utils/o
 defineProps<ModelProps>()
 
 const inputReport = useInputReport()
+const inputReportId = useInputReportId()
 const connectionType = useConnectionType()
 
 const offset = computed(() =>
-  connectionType.value === DeviceConnectionType.USB ? inputReportOffsetUSB : inputReportOffsetBluetooth,
+  connectionType.value === DeviceConnectionType.USB || inputReportId.value === 0x01 ? inputReportOffsetUSB : inputReportOffsetBluetooth,
 )
 const digitalKeys = computed(() => {
   const keys = inputReport.value.getInt8(offset.value.digitalKeys)

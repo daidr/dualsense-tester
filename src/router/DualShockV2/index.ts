@@ -2,12 +2,12 @@ import { type Component, defineAsyncComponent } from 'vue'
 import { BaseDeviceRouter, type CustomPanelItem, type DeviceItem } from '../../device-based-router/shared'
 import { checkConnectionTypeDS4, PRODUCT_ID_DUALSHOCK_V1, PRODUCT_ID_DUALSHOCK_V2, USAGE_ID_GD_GAME_PAD, USAGE_PAGE_GENERIC_DESKTOP, VENDOR_ID_SONY } from '../../utils/dualsense/ds.util'
 
-// const InputInfoWidget = defineAsyncComponent(() => import('./views/_ConnectPanel/InputInfo.vue'))
+const InputInfoWidget = defineAsyncComponent(() => import('./views/_ConnectPanel/InputInfo.vue'))
 // const FactoryInfoWidget = defineAsyncComponent(() => import('./views/_ConnectPanel/FactoryInfo.vue'))
-// const OutputPanel = defineAsyncComponent(() => import('./views/OutputPanel.vue'))
+const OutputPanel = defineAsyncComponent(() => import('./views/OutputPanel.vue'))
 const ModelPanel = defineAsyncComponent(() => import('./views/ModelPanel.vue'))
-// const GyroView = defineAsyncComponent(() => import('./views/_visualizerPanel/GyroView.vue'))
-// const AccelView = defineAsyncComponent(() => import('./views/_visualizerPanel/AccelView.vue'))
+const GyroView = defineAsyncComponent(() => import('./views/_visualizerPanel/GyroView.vue'))
+const AccelView = defineAsyncComponent(() => import('./views/_visualizerPanel/AccelView.vue'))
 // const AudioWidget = defineAsyncComponent(() => import('./views/AudioControlWidget.vue'))
 
 export default class DualSenseRouter extends BaseDeviceRouter {
@@ -44,9 +44,9 @@ export default class DualSenseRouter extends BaseDeviceRouter {
 
   connectWidgetPanels(deviceItem: DeviceItem) {
     return [
-      // {
-      //   component: InputInfoWidget,
-      // },
+      {
+        component: InputInfoWidget,
+      },
       // {
       //   title: {
       //     key: 'connect_panel.factory_info_title',
@@ -63,29 +63,31 @@ export default class DualSenseRouter extends BaseDeviceRouter {
 
   widgetPanels(deviceItem: DeviceItem): CustomPanelItem[] | undefined {
     return [
-      // {
-      //   title: {
-      //     key: 'output_panel.title',
-      //   },
-      //   component: OutputPanel,
-      // },
+      {
+        title: {
+          key: 'output_panel.title',
+        },
+        component: OutputPanel,
+      },
     ]
   }
 
   visualizerPanels(deviceItem: DeviceItem): CustomPanelItem[] {
     return [
-      // {
-      //   title: {
-      //     key: 'info_panel.title_gyroscope',
-      //   },
-      //   component: GyroView,
-      // },
-      // {
-      //   title: {
-      //     key: 'info_panel.title_accelerometer',
-      //   },
-      //   component: AccelView,
-      // },
+      {
+        title: {
+          key: 'info_panel.title_gyroscope',
+        },
+        component: GyroView,
+        btAllowedReportIds: [0x17],
+      },
+      {
+        title: {
+          key: 'info_panel.title_accelerometer',
+        },
+        component: AccelView,
+        btAllowedReportIds: [0x17],
+      },
     ]
   }
 }
