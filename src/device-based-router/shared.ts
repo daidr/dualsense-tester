@@ -26,6 +26,8 @@ export interface DeviceItem {
 export interface CustomPanelItem {
   title?: string | { key: string }
   tag?: string | { key: string }
+  cableAllowedReportIds?: number[]
+  btAllowedReportIds?: number[]
   component: Component
 }
 

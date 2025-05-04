@@ -6,6 +6,11 @@ export function useInputReport() {
   return inputReport
 }
 
+export function useInputReportId() {
+  const inputReportId = inject<ShallowRef<number>>('inputReportId')!
+  return inputReportId
+}
+
 export function useDevice() {
   const device = inject<ShallowRef<DeviceItemWithRouter>>('deviceItem')!
   return device

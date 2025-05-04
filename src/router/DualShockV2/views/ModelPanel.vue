@@ -9,16 +9,16 @@ defineProps<ModelProps>()
 
 <template>
   <div class="relative w-full">
-    <svg viewBox="0 0 1117 892">
+    <svg viewBox="0 0 1313 1037">
       <!-- placeholder -->
     </svg>
-    <svg class="model" viewBox="0 0 1117 892">
+    <svg class="model" viewBox="0 0 1313 1037">
       <DSBack :show-value="showValue" />
     </svg>
-    <svg v-once class="model" viewBox="0 0 1117 892">
+    <svg v-once class="model" viewBox="0 0 1313 1037">
       <DSBody />
     </svg>
-    <svg class="model" viewBox="0 0 1117 892">
+    <svg class="model" viewBox="0 0 1313 1037">
       <DSCover :show-value="showValue" />
     </svg>
   </div>

@@ -3,6 +3,7 @@ import { useDualSenseStore } from '@/store/dualsense'
 import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import ConditionShell from './common/ConditionShell.vue'
 import SelectBox from './common/SelectBox.vue'
 import VisualizerPanelShell from './common/VisualizerPanelShell.vue'
 
@@ -39,9 +40,9 @@ const showValueSets = computed(() => {
     </div>
     <template v-if="views.visualizerPanels?.length">
       <div class="max-w-600px w-full flex flex-col gap-2">
-        <VisualizerPanelShell
-          v-for="item, index of views.visualizerPanels" :key="index" :item="item"
-          :show-value="Boolean(showValue)"
+        <ConditionShell
+          :shell="VisualizerPanelShell" :widgets="views.visualizerPanels"
+          :shell-props="{ showValue: Boolean(showValue) }"
         />
       </div>
     </template>
