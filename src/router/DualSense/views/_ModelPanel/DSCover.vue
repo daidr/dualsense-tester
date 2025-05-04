@@ -69,6 +69,10 @@ function getTouchPointY(y: number) {
 }
 
 const STICK_REAL_RADIUS = 86
+const STICK_RIGHT_X = 763.456
+const STICK_RIGHT_Y = 528.548
+const STICK_LEFT_X = 351.764
+const STICK_LEFT_Y = 528.548
 
 function getStickPoint(x: number) {
   return STICK_REAL_RADIUS * x
@@ -113,7 +117,10 @@ function formatStickValue(value: number) {
 </script>
 
 <template>
-  <rect v-if="showValue" x="340" y="160" width="430" height="235" class="ds-stroke-dashed" />
+  <rect
+    v-if="showValue" :x="TOUCHPAD_LEFT" :y="TOUCHPAD_TOP" :width="TOUCHPAD_REAL_WIDTH"
+    :height="TOUCHPAD_REAL_HEIGHT" class="ds-stroke-dashed"
+  />
   <g v-if="showTouchPoint(tpPoint1.id)" :style="tpPointStyle1">
     <circle r="19" class="ds-filled-icon" :cx="0" :cy="0" />
     <text x="0" y="40" font-size="25" class="ds-text" text-anchor="middle">
@@ -135,46 +142,58 @@ function formatStickValue(value: number) {
   <g id="r3group">
     <g :style="rightStickStyle">
       <circle
-        id="r3" cx="763.456" cy="528.548" r="57.193" class="ds-stroke-normal"
+        id="r3" :cx="STICK_RIGHT_X" :cy="STICK_RIGHT_Y" r="57.193" class="ds-stroke-normal"
         :class="{ 'ds-stick-active': digitalKeys.r3 }"
       />
       <!-- central point -->
-      <circle v-if="showValue" cx="763.456" cy="528.548" r="2" class="ds-fill-red" />
+      <circle v-if="showValue" :cx="STICK_RIGHT_X" :cy="STICK_RIGHT_Y" r="2" class="ds-fill-red" />
     </g>
 
-    <text v-if="showValue" x="750" y="700" font-size="25" class="ds-text" text-anchor="middle">
+    <text v-if="showValue" :x="STICK_RIGHT_X" y="700" font-size="25" class="ds-text" text-anchor="middle">
       X {{
         formatStickValue(stickR.x) }}
     </text>
-    <text v-if="showValue" x="750" y="730" font-size="25" class="ds-text" text-anchor="middle">
+    <text v-if="showValue" :x="STICK_RIGHT_X" y="730" font-size="25" class="ds-text" text-anchor="middle">
       Y {{
         formatStickValue(stickR.y) }}
     </text>
     <!-- cross line -->
-    <line v-if="showValue" x2="763.456" y2="441.355" x1="763.456" y1="615.741" class="ds-stroke-dashed" />
-    <line v-if="showValue" x2="676.263" y2="528.548" x1="850.649" y1="528.548" class="ds-stroke-dashed" />
+    <line
+      v-if="showValue" :x2="STICK_RIGHT_X - STICK_REAL_RADIUS" :y2="STICK_RIGHT_Y"
+      :x1="STICK_RIGHT_X + STICK_REAL_RADIUS" :y1="STICK_RIGHT_Y" class="ds-stroke-dashed"
+    />
+    <line
+      v-if="showValue" :x2="STICK_RIGHT_X" :y2="STICK_RIGHT_Y - STICK_REAL_RADIUS" :x1="STICK_RIGHT_X"
+      :y1="STICK_RIGHT_Y + STICK_REAL_RADIUS" class="ds-stroke-dashed"
+    />
   </g>
   <g id="l3group">
     <g :style="leftStickStyle">
       <circle
-        id="l3" cx="351.764" cy="528.548" r="57.193" class="ds-stroke-normal"
+        id="l3" :cx="STICK_LEFT_X" :cy="STICK_LEFT_Y" r="57.193" class="ds-stroke-normal"
         :class="{ 'ds-stick-active': digitalKeys.l3 }"
       />
       <!-- central point -->
-      <circle v-if="showValue" cx="351.764" cy="528.548" r="2" class="ds-fill-red" />
+      <circle v-if="showValue" :cx="STICK_LEFT_X" :cy="STICK_LEFT_Y" r="2" class="ds-fill-red" />
     </g>
 
-    <text v-if="showValue" x="370" y="700" font-size="25" class="ds-text" text-anchor="middle">
+    <text v-if="showValue" :x="STICK_LEFT_X" y="700" font-size="25" class="ds-text" text-anchor="middle">
       X {{
         formatStickValue(stickL.x) }}
     </text>
-    <text v-if="showValue" x="370" y="730" font-size="25" class="ds-text" text-anchor="middle">
+    <text v-if="showValue" :x="STICK_LEFT_X" y="730" font-size="25" class="ds-text" text-anchor="middle">
       Y {{
         formatStickValue(stickL.y) }}
     </text>
     <!-- cross line -->
-    <line v-if="showValue" x2="351.764" y2="441.355" x1="351.764" y1="615.741" class="ds-stroke-dashed" />
-    <line v-if="showValue" x2="264.571" y2="528.548" x1="438.957" y1="528.548" class="ds-stroke-dashed" />
+    <line
+      v-if="showValue" :x2="STICK_LEFT_X - STICK_REAL_RADIUS" :y2="STICK_LEFT_Y"
+      :x1="STICK_LEFT_X + STICK_REAL_RADIUS" :y1="STICK_LEFT_Y" class="ds-stroke-dashed"
+    />
+    <line
+      v-if="showValue" :x2="STICK_LEFT_X" :y2="STICK_LEFT_Y - STICK_REAL_RADIUS" :x1="STICK_LEFT_X"
+      :y1="STICK_LEFT_Y + STICK_REAL_RADIUS" class="ds-stroke-dashed"
+    />
   </g>
   <path
     id="ps"

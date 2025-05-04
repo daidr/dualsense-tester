@@ -56,12 +56,10 @@ onMounted(() => {
     <tbody>
       <tr>
         <td class="label">
-          1
+          Working in progress...
         </td>
         <td class="value">
-          <div>
-            2
-          </div>
+          <div />
         </td>
       </tr>
     </tbody>
