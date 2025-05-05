@@ -18,7 +18,7 @@
     "not_support_content": "Prova ad usare una versione più recente di Google Chrome o di Microsoft Edge"
   },
   "connect_panel": {
-    "tips": "Connect the DualSense to your computer using either a <b>USB cable</b> or <b>Bluetooth</b>, then click the \"Add Device\" button above.",
+    "tips": "Connetti il DualSense al tuo computer usando un <b>cavo USB</b> o via <b>Bluetooth</b>, poi clicca su \"Aggiungi dispositivo\".",
     "connect": "Connetti",
     "disconnect": "Disconnetti",
     "not_connected": "Non connesso",
@@ -94,7 +94,7 @@
   },
   "info_panel": {
     "tips": "Per favore collega il tuo DualSense",
-    "stick_module_not_found": "Stick module lost",
+    "stick_module_not_found": "Modulo levetta mancante",
     "title_buttons": "Tasti di base",
     "title_accelerometer": "Accelerometro",
     "title_gyroscope": "Giroscopio",
@@ -107,7 +107,7 @@
     }
   },
   "output_panel": {
-    "title": "Output",
+    "title": "Interazione",
     "mic_mute_led": "Luce stato microfono",
     "mic_mute_led_off": "Spento",
     "mic_mute_led_on": "Acceso",
@@ -138,7 +138,7 @@
     },
     "headphone_volume": "Volume cuffie",
     "speaker_volume": "Volume altoparlante",
-    "haptic_volume": "Haptic volume"
+    "haptic_volume": "Forza aptica"
   },
   "audio_panel": {
     "title": "Audio",
