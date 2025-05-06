@@ -2,9 +2,9 @@
     item: CustomPanelItem
 }>"
 >
-import type { Component, ExtractPropTypes } from 'vue'
 import { useConnectionType, useInputReportId } from '@/composables/useInjectValues'
 import { type CustomPanelItem, DeviceConnectionType } from '@/device-based-router/shared'
+import { type Component, type ExtractPropTypes, watch } from 'vue'
 
 defineProps<{
   shell: Comp
@@ -34,7 +34,7 @@ function isVisible(item: CustomPanelItem) {
 
 <template>
   <template v-for="(item, index) of widgets" :key="index">
-    <shell v-if="isVisible(item)" :item="item" v-bind="shellProps" />
+    <component :is="shell" v-if="isVisible(item)" :item="item" v-bind="shellProps" />
   </template>
 </template>
 

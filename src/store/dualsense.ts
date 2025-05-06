@@ -26,7 +26,7 @@ export const useDualSenseStore = defineStore('dualsense', () => {
   }
 
   const inputReport = shallowRef<DataView | undefined>()
-  const inputReportId = shallowRef<number | undefined>(undefined)
+  const inputReportId = shallowRef<number | undefined>()
 
   const isDeviceReady = computed(() => {
     return currentDevice.value !== undefined && inputReport.value !== undefined && inputReportId.value !== undefined

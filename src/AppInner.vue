@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { provide, readonly } from 'vue'
-import GeneralContainer from './components/common/GeneralContainer.vue'
 import WidgetShell from './components/common/WidgetShell.vue'
 import ConnectPanel from './components/ConnectPanel.vue'
 import DebugPanel from './components/DebugPanel.vue'

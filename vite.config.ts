@@ -19,6 +19,9 @@ const isVercelProduction = process.env.VERCEL_ENV === 'production'
 export default defineConfig(async ({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   return {
+    experimental: {
+      enableNativePlugins: true,
+    },
     plugins: [
       // vueDevTools(),
       vueJsx(),
