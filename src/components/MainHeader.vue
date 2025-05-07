@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Tooltip } from 'floating-vue'
 import DarkModeSwitch from './DarkModeSwitch.vue'
 import LangSwitcher from './LangSwitcher.vue'
 </script>
@@ -13,12 +14,23 @@ import LangSwitcher from './LangSwitcher.vue'
       <div class="tools-wrapper">
         <LangSwitcher />
         <DarkModeSwitch />
-        <a href="https://github.com/sponsors/daidr" target="_blank" class="dou-icon-link" title="Github Sponsors">
-          <div class="i-mingcute-hand-heart-line" />
-        </a>
-        <a href="https://github.com/daidr/dualsense-tester" target="_blank" class="dou-icon-link" title="GitHub">
-          <div class="i-mingcute-github-line" />
-        </a>
+        <Tooltip>
+          <a href="https://github.com/sponsors/daidr" target="_blank" class="dou-icon-link" title="Github Sponsors">
+            <div class="i-mingcute-hand-heart-line" />
+          </a>
+          <template #popper>
+            Github Sponsors
+          </template>
+        </Tooltip>
+
+        <Tooltip>
+          <a href="https://github.com/daidr/dualsense-tester" target="_blank" class="dou-icon-link" title="GitHub">
+            <div class="i-mingcute-github-line" />
+          </a>
+          <template #popper>
+            GitHub
+          </template>
+        </Tooltip>
       </div>
     </div>
   </header>
@@ -45,24 +57,6 @@ header {
 
   .tools-wrapper {
     @apply flex items-center gap-4;
-  }
-
-  .dou-icon-link {
-    @apply relative;
-
-    &::after {
-      content: attr(title);
-      @apply absolute left-1/2 -bottom-2 text-xs whitespace-nowrap break-keep;
-      @apply transform-gpu -translate-x-1/2 translate-y-full scale-10 opacity-0 transform-origin-tc;
-      @apply bg-primary px-2 py-1 rounded-full;
-      @apply 'transition-transform,opacity delay-100 duration-200';
-    }
-
-    &:hover {
-      &::after {
-        @apply scale-100 opacity-100;
-      }
-    }
   }
 }
 </style>

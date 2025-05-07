@@ -2,6 +2,12 @@
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "compilerOptions": {
     "composite": true,
+    "lib": [
+      "ES2020",
+      "DOM",
+      "WebWorker",
+      "DOM.Iterable"
+    ],
     "baseUrl": ".",
     "paths": {
       "@/*": [

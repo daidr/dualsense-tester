@@ -36,7 +36,7 @@ function refToVNode(ref: MaybeRef<string> | VNode) {
           >
             <div v-if="typeof info.icon === 'string'" class="text-xl" :class="[info.icon]" />
             <component :is="info.icon" v-else-if="info.icon" class="text-xl" />
-            <span class="pe-1 font-extrabold">
+            <span class="pe-2 font-extrabold">
               <component :is="refToVNode(info.title)" />
             </span>
           </div>

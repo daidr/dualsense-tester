@@ -16,6 +16,7 @@
     "@vercel/speed-insights": "^1.2.0",
     "@vueuse/core": "^13.1.0",
     "consola": "^3.4.2",
+    "floating-vue": "^5.2.2",
     "lodash-es": "^4.17.21",
     "motion-v": "^1.0.2",
     "pinia": "^3.0.2",
@@ -51,7 +52,8 @@
     "vite-plugin-pwa": "^1.0.0",
     "vite-plugin-vue-devtools": "^7.7.6",
     "vue-tsc": "2.2.10",
-    "wbn-sign": "^0.2.1"
+    "wbn-sign": "^0.2.1",
+    "workbox-routing": "^7.3.0"
   },
   "trustedDependencies": [
     "@swc/core"

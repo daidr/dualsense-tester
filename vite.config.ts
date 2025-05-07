@@ -11,7 +11,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 import { crowdinDefine } from './config/crowdin'
 import { gitDefine } from './config/git'
 
-const isVercelProduction = process.env.VERCEL_ENV === 'production'
+const isVercelProduction = true
 
 // import vueDevTools from 'vite-plugin-vue-devtools'
 // https://vitejs.dev/config/
@@ -32,7 +32,10 @@ export default defineConfig(async ({ mode }) => {
         strictMessage: false,
       }),
       VitePWA({
+        strategies: 'injectManifest',
         registerType: 'prompt',
+        srcDir: 'src',
+        filename: 'sw.ts',
         includeAssets: [
           '/pwa/android-chrome-192x192.png',
           '/pwa/android-chrome-512x512.png',

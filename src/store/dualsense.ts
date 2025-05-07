@@ -1,6 +1,7 @@
+import type { DeviceItemWithRouter } from '@/device-based-router/shared'
 import { RouterManager } from '@/device-based-router'
 import { registerRouters } from '@/device-based-router/register-entry'
-import { connectionTypeToString, DeviceConnectionType, type DeviceItemWithRouter } from '@/device-based-router/shared'
+import { connectionTypeToString, DeviceConnectionType } from '@/device-based-router/shared'
 import { gitDefine } from '@/utils/env.util'
 import { requestHIDDevice } from '@/utils/hid.util'
 import { hidLogger } from '@/utils/logger.util'

@@ -150,11 +150,32 @@
     "dismiss": "忽略",
     "upgrade": "升级",
     "update_available": "DualSense Tester 新版本已准备好！\n刷新即可完成升级。",
+    "upgrading": "正在拉取新版本资源...",
     "offline_ready": "已经准备好离线使用"
   },
   "git_version": {
     "title": "Commit 信息",
     "warn_pr": "这是一个来自PR的预览版本，可能存在问题，请谨慎使用",
     "warn_dev": "这是一个来自开发分支的版本，可能存在问题，请谨慎使用"
+  },
+  "time_ago": {
+    "just_now": "刚刚",
+    "n_seconds": "{num} 秒",
+    "n_minutes": "{num} 分钟",
+    "n_hours": "{num} 小时",
+    "n_days": "{num} 天",
+    "n_weeks": "{num} 周",
+    "n_months": "{num} 个月",
+    "n_years": "{num} 年",
+    "ago": "{time_string}前",
+    "future": "{time_string}后",
+    "yesterday": "昨天",
+    "tomorrow": "明天",
+    "last_week": "上周",
+    "next_week": "下周",
+    "last_month": "上个月",
+    "next_month": "下个月",
+    "last_year": "去年",
+    "next_year": "明年"
   }
 }

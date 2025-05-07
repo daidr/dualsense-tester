@@ -1,5 +1,10 @@
 <script setup lang="ts">
+import { useUpgradeStore } from '@/store/upgrade'
+import { Tooltip } from 'floating-vue'
 import GitVersion from './common/GitVersion.vue'
+import NewVersionDiff from './NewVersionDiff.vue'
+
+const upgradeStore = useUpgradeStore()
 </script>
 
 <template>
@@ -16,6 +21,20 @@ import GitVersion from './common/GitVersion.vue'
         </i18n-t>
       </div>
       <div class="right">
+        <Tooltip
+          v-if="['upgrading', 'waiting'].includes(upgradeStore.upgradeState)" :triggers="['hover', 'focus']" :popper-triggers="['hover', 'focus']" :delay="{
+            show: 0,
+            hide: 100,
+          }"
+        >
+          <div tabindex="0">
+            <div v-if="upgradeStore.upgradeState === 'upgrading'" class="i-mingcute-loading-3-fill animate-spin" />
+            <div v-else class="i-mingcute-check-circle-fill" />
+          </div>
+          <template #popper>
+            <NewVersionDiff class="px-0 py-1.5 max-w-250px!" :show-upgrade-button="true" />
+          </template>
+        </Tooltip>
         <GitVersion />
       </div>
     </div>
@@ -31,6 +50,10 @@ footer {
     @apply max-w-[var(--max-width)] w-full;
     @apply flex justify-between items-center mx-auto my-2;
     @apply dou-sc-container;
+  }
+
+  .right {
+    @apply flex gap-2 flex-nowrap items-center;
   }
 }
 </style>
