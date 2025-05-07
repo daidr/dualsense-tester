@@ -18,7 +18,7 @@
     "not_support_content": "Для работы сервиса попробуйте воспользоваться Google Chrome или Microsoft Edge"
   },
   "connect_panel": {
-    "tips": "Connect the DualSense to your computer using either a <b>USB cable</b> or <b>Bluetooth</b>, then click the \"Add Device\" button above.",
+    "tips": "Подключите контроллер DualSense к вашему компьютеру, используя <b>кабель USB</b> или <b>протокол Bluetooth</b>, затем нажмите на кнопку \"Подключить\", расположенную снизу.",
     "connect": "Подключить",
     "disconnect": "Отключить",
     "not_connected": "Не подключено",
