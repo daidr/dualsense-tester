@@ -150,11 +150,32 @@
     "dismiss": "Dismiss",
     "upgrade": "Upgrade",
     "update_available": "A new version of DualSense Tester is ready! \nRefresh to complete the upgrade.",
+    "upgrading": "Pulling new version assets...",
     "offline_ready": "This app is now cached for offline use."
   },
   "git_version": {
     "title": "Commit Info",
     "warn_pr": "This is a preview version from PR. Please use with caution as there may be issues.",
     "warn_dev": "This is a preview version from the development branch. Please use with caution as there may be issues."
+  },
+  "time_ago": {
+    "just_now": "Just now",
+    "n_seconds": "1 second | {num} seconds",
+    "n_minutes": "1 minute | {num} minutes",
+    "n_hours": "1 hour | {num} hours",
+    "n_days": "1 day | {num} days",
+    "n_weeks": "1 week | {num} weeks",
+    "n_months": "1 month | {num} months",
+    "n_years": "1 year | {num} years",
+    "ago": "{time_string} ago",
+    "future": "in {time_string}",
+    "yesterday": "Yesterday",
+    "tomorrow": "Tomorrow",
+    "last_week": "Last week",
+    "next_week": "Next week",
+    "last_month": "Last month",
+    "next_month": "Next month",
+    "last_year": "Last year",
+    "next_year": "Next year"
   }
 }
