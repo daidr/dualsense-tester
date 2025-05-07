@@ -94,7 +94,7 @@
   },
   "info_panel": {
     "tips": "Per favore collega il tuo DualSense",
-    "stick_module_not_found": "Stick module lost",
+    "stick_module_not_found": "Modulo levetta mancante",
     "title_buttons": "Tasti di base",
     "title_accelerometer": "Accelerometro",
     "title_gyroscope": "Giroscopio",
@@ -107,7 +107,7 @@
     }
   },
   "output_panel": {
-    "title": "Output",
+    "title": "Interazione",
     "mic_mute_led": "Luce stato microfono",
     "mic_mute_led_off": "Spento",
     "mic_mute_led_on": "Acceso",
@@ -138,7 +138,7 @@
     },
     "headphone_volume": "Volume cuffie",
     "speaker_volume": "Volume altoparlante",
-    "haptic_volume": "Haptic volume"
+    "haptic_volume": "Forza aptica"
   },
   "audio_panel": {
     "title": "Audio",
@@ -150,11 +150,32 @@
     "dismiss": "Ignora",
     "upgrade": "Aggiorna",
     "update_available": "Una nuova versione di DualSense Tester è disponibile!\nRicarica per completare l'aggiornamento.",
+    "upgrading": "Pulling new version assets...",
     "offline_ready": "Quest'app ora può essere usata in modalità offline."
   },
   "git_version": {
     "title": "Informazioni Commit",
     "warn_pr": "Questa è una versione in anteprima da PR. Si consiglia di usarlo con cautela poiché potrebbero esserci problemi.",
     "warn_dev": "Questa è una versione in anteprima dal ramo sviluppatore. Si consiglia di usarlo con cautela poiché potrebbero esserci problemi."
+  },
+  "time_ago": {
+    "just_now": "Just now",
+    "n_seconds": "1 second | {num} seconds",
+    "n_minutes": "1 minute | {num} minutes",
+    "n_hours": "1 hour | {num} hours",
+    "n_days": "1 day | {num} days",
+    "n_weeks": "1 week | {num} weeks",
+    "n_months": "1 month | {num} months",
+    "n_years": "1 year | {num} years",
+    "ago": "{time_string} ago",
+    "future": "in {time_string}",
+    "yesterday": "Yesterday",
+    "tomorrow": "Tomorrow",
+    "last_week": "Last week",
+    "next_week": "Next week",
+    "last_month": "Last month",
+    "next_month": "Next month",
+    "last_year": "Last year",
+    "next_year": "Next year"
   }
 }
