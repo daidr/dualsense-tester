@@ -150,11 +150,32 @@
     "dismiss": "تجاهل",
     "upgrade": "تحديث",
     "update_available": "نسخة أداة اختبار DualSense الجديدة جاهزة!\nقم بإعادة تحميل الصفحة لإكمال التحديث.",
+    "upgrading": "Pulling new version assets...",
     "offline_ready": "تم تهيئة التطبيق الآن لاستخدامه دون اتصال بالإنترنت."
   },
   "git_version": {
     "title": "معلومات التحديث",
     "warn_pr": "هذه نسخة معاينة، يرجى استخدامها بحذر حيث قد توجد بعض المشاكل.",
     "warn_dev": "هذه نسخة معاينة من فرع التطوير. يرجى استخدام بحذر حيث أنه قد تكون هناك مشكلات."
+  },
+  "time_ago": {
+    "just_now": "Just now",
+    "n_seconds": "1 second | {num} seconds",
+    "n_minutes": "1 minute | {num} minutes",
+    "n_hours": "1 hour | {num} hours",
+    "n_days": "1 day | {num} days",
+    "n_weeks": "1 week | {num} weeks",
+    "n_months": "1 month | {num} months",
+    "n_years": "1 year | {num} years",
+    "ago": "{time_string} ago",
+    "future": "in {time_string}",
+    "yesterday": "Yesterday",
+    "tomorrow": "Tomorrow",
+    "last_week": "Last week",
+    "next_week": "Next week",
+    "last_month": "Last month",
+    "next_month": "Next month",
+    "last_year": "Last year",
+    "next_year": "Next year"
   }
 }
