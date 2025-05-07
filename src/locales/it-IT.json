@@ -150,11 +150,32 @@
     "dismiss": "Ignora",
     "upgrade": "Aggiorna",
     "update_available": "Una nuova versione di DualSense Tester è disponibile!\nRicarica per completare l'aggiornamento.",
+    "upgrading": "Pulling new version assets...",
     "offline_ready": "Quest'app ora può essere usata in modalità offline."
   },
   "git_version": {
     "title": "Informazioni Commit",
     "warn_pr": "Questa è una versione in anteprima da PR. Si consiglia di usarlo con cautela poiché potrebbero esserci problemi.",
     "warn_dev": "Questa è una versione in anteprima dal ramo sviluppatore. Si consiglia di usarlo con cautela poiché potrebbero esserci problemi."
+  },
+  "time_ago": {
+    "just_now": "Just now",
+    "n_seconds": "1 second | {num} seconds",
+    "n_minutes": "1 minute | {num} minutes",
+    "n_hours": "1 hour | {num} hours",
+    "n_days": "1 day | {num} days",
+    "n_weeks": "1 week | {num} weeks",
+    "n_months": "1 month | {num} months",
+    "n_years": "1 year | {num} years",
+    "ago": "{time_string} ago",
+    "future": "in {time_string}",
+    "yesterday": "Yesterday",
+    "tomorrow": "Tomorrow",
+    "last_week": "Last week",
+    "next_week": "Next week",
+    "last_month": "Last month",
+    "next_month": "Next month",
+    "last_year": "Last year",
+    "next_year": "Next year"
   }
 }
