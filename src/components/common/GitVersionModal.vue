@@ -63,7 +63,7 @@ const timeString = computed(() => {
   <LabeledValue v-if="prUrl" label="PR">
     <a v-if="pr" :href="prUrl" target="_blank">{{ `#${pr}` }}</a>
   </LabeledValue>
-  <div class="mt-2 rounded-2xl px-3 py-2 text-start text-sm font-light font-mono dou-sc-autoborder">
+  <div class="mt-2 rounded-2xl px-3 py-2 text-start text-sm font-light font-mono dou-sc-autoborder break-all">
     {{ commitMessage }}
   </div>
 </template>

@@ -137,7 +137,7 @@ button {
 }
 
 .changelog-wrapper {
-  @apply rounded-10px important-rounded-se-0 px-3 py-2 text-start text-sm font-light font-mono dou-sc-autoborder border-1.5;
+  @apply rounded-10px important-rounded-se-0 px-3 py-2 text-start text-sm font-light font-mono dou-sc-autoborder border-1.5 break-all;
 
   --gap: calc(50% + 0.5em);
 
