@@ -150,11 +150,32 @@
     "dismiss": "Закрити",
     "upgrade": "Оновити",
     "update_available": "Доступна нова версія! \nОновіть сторінку для завершення оновлення.",
+    "upgrading": "Pulling new version assets...",
     "offline_ready": "Цей застосунок тепер доступний офлайн."
   },
   "git_version": {
     "title": "Інформація про коміт",
     "warn_pr": "Це попередня версія з PR. Користуйтесь обережно — можуть бути проблеми.",
     "warn_dev": "Це попередня версія з гілки розробки. Користуйтесь обережно — можуть бути проблеми."
+  },
+  "time_ago": {
+    "just_now": "Just now",
+    "n_seconds": "1 second | {num} seconds",
+    "n_minutes": "1 minute | {num} minutes",
+    "n_hours": "1 hour | {num} hours",
+    "n_days": "1 day | {num} days",
+    "n_weeks": "1 week | {num} weeks",
+    "n_months": "1 month | {num} months",
+    "n_years": "1 year | {num} years",
+    "ago": "{time_string} ago",
+    "future": "in {time_string}",
+    "yesterday": "Yesterday",
+    "tomorrow": "Tomorrow",
+    "last_week": "Last week",
+    "next_week": "Next week",
+    "last_month": "Last month",
+    "next_month": "Next month",
+    "last_year": "Last year",
+    "next_year": "Next year"
   }
 }
