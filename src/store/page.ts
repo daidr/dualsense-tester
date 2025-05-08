@@ -28,6 +28,7 @@ export const usePageStore = defineStore('page', () => {
     },
     set(val: string) {
       i18n.locale.value = val
+      localStorage.setItem('lang', val)
     },
   })
 

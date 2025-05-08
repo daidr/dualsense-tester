@@ -1,4 +1,4 @@
-import { getPreferredLanguage } from '@/utils/lang.util'
+import { getAvailableLanguages, getPreferredLanguage } from '@/utils/lang.util'
 import messages from '@intlify/unplugin-vue-i18n/messages'
 import { createPinia } from 'pinia'
 
@@ -18,7 +18,11 @@ app.use(pinia)
 // #endregion
 
 // #region I18n
-const lang = getPreferredLanguage(navigator.languages || [navigator.language])
+let lang = localStorage.getItem('lang') || navigator.language
+if(!getAvailableLanguages().includes(lang)) {
+  lang = getPreferredLanguage(navigator.languages)
+  localStorage.setItem('lang', lang)
+}
 
 export const i18n = createI18n({
   locale: lang,
