@@ -1,27 +1,27 @@
 {
   "application": {
-    "name": "DualSense Tester",
+    "name": "Δοκιμαστής DualSense",
     "footer": {
-      "copyright": "© {year} {'|'} Coded by {author} with ❤"
+      "copyright": "©️ {year} {'|'} Κωδικοποιήθηκε από {author} με ❤️"
     }
   },
   "shared": {
-    "unknown": "Unknown",
-    "confirm": "Confirm",
-    "cancel": "Cancel",
-    "close": "Close",
-    "hold": "Hold"
+    "unknown": "Άγνωστο",
+    "confirm": "Επιβεβαίωση",
+    "cancel": "Ακύρωση",
+    "close": "Κλείσιμο",
+    "hold": "Κράτα"
   },
   "common": {
-    "tips": "Tips",
-    "not_support_title": "Your browser does not support WebHID",
-    "not_support_content": "Try to use the latest version of Google Chrome or Microsoft Edge"
+    "tips": "Συμβουλές",
+    "not_support_title": "Το πρόγραμμα περιήγησής σας δεν υποστηρίζει WebHID",
+    "not_support_content": "Προσπαθήστε να χρησιμοποιήσετε την τελευταία έκδοση του Google Chrome ή του Microsoft Edge"
   },
   "connect_panel": {
-    "tips": "Connect the DualSense to your computer using either a <b>USB cable</b> or <b>Bluetooth</b>, then click the \"Add Device\" button above.",
-    "connect": "Connect",
-    "disconnect": "Disconnect",
-    "not_connected": "Not connected",
+    "tips": "Συνδέστε το DualSense στον υπολογιστή σας χρησιμοποιώντας είτε ένα <b>καλώδιο USB</b> ή <b>Bluetooth</b>, στη συνέχεια κάντε κλικ στο κουμπί \"Προσθήκη συσκευής\" παραπάνω.",
+    "connect": "Συνδέστε",
+    "disconnect": "Αποσύνδεση",
+    "not_connected": "Μη συνδεδεμένο",
     "connected": "Connected",
     "seq_num": "Sequence No.",
     "charge_status_label": "Charge Status",
@@ -51,28 +51,28 @@
       "level8": "80-89%",
       "level9": "90-99%",
       "level10": "100%",
-      "unknown": "Unknown"
+      "unknown": "Άγνωστο"
     },
     "factory_info": {
-      "build_time": "Build Time",
-      "hw_info": "HW Info",
-      "device_info": "Device Info",
-      "fw_type": "FW Type",
-      "sw_series": "SW Series",
-      "update_version": "Update Version",
-      "sbl_fw_version": "SBL FW Version",
-      "main_fw_version": "Main FW Version",
-      "dsp_fw_version": "DSP FW Version",
-      "mcu_dsp_fw_version": "MCU DSP FW Version",
-      "bt_patch_version": "BT Patch Version",
+      "build_time": "Ώρα Κατασκευής",
+      "hw_info": "Πληροφορίες HW",
+      "device_info": "Πληροφορίες Συσκευής",
+      "fw_type": "Τύπος FW",
+      "sw_series": "Σειρά SW",
+      "update_version": "Έκδοση Ενημέρωσης",
+      "sbl_fw_version": "Έκδοση SBL FW",
+      "main_fw_version": "Έκδοση Κύριου FW",
+      "dsp_fw_version": "Έκδοση DSP FW",
+      "mcu_dsp_fw_version": "Έκδοση MCU DSP FW",
+      "bt_patch_version": "Έκδοση Διόρθωσης BT",
       "pcba_id": "PCBA ID",
-      "serial_number": "Serial Number",
-      "assemble_parts_info": "Assemble Parts Info",
+      "serial_number": "Σειριακός Αριθμός",
+      "assemble_parts_info": "Πληροφορίες Συναρμολόγησης Εξαρτημάτων",
       "battery_barcode": "Battery Barcode",
       "vcm_barcode": "VCM Barcode",
-      "unique_id": "Unique ID",
-      "bd_mac_address": "BD MAC Address",
-      "at_serial_number": "AT Serial Number",
+      "unique_id": "Μοναδικό ID",
+      "bd_mac_address": "Διεύθυνση BD MAC",
+      "at_serial_number": "Σειριακός Αριθμός AT",
       "at_motor_info": "AT Motor Info",
       "individual_data_verify": "Individual Data Verify",
       "individual_data": {
