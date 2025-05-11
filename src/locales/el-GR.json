@@ -22,22 +22,22 @@
     "connect": "Συνδέστε",
     "disconnect": "Αποσύνδεση",
     "not_connected": "Μη συνδεδεμένο",
-    "connected": "Connected",
-    "seq_num": "Sequence No.",
-    "charge_status_label": "Charge Status",
-    "battery_level_label": "Battery Level",
-    "headphone_status_label": "Headphone",
-    "microphone_status_label": "Microphone",
-    "factory_info_title": "Factory Info",
-    "add_device": "Add Device",
+    "connected": "Συνδεδεμένο",
+    "seq_num": "Ακολουθία Αριθ.",
+    "charge_status_label": "Κατάσταση Φόρτισης",
+    "battery_level_label": "Επίπεδο μπαταρίας",
+    "headphone_status_label": "Ακουστικό",
+    "microphone_status_label": "Μικρόφωνο",
+    "factory_info_title": "Πληροφορίες Εργοστασίου",
+    "add_device": "Προσθήκη Συσκευής",
     "charge_status": {
-      "discharging": "Not charging",
-      "charging": "Charging",
-      "charging_complete": "Charging complete",
-      "abnormal_voltage": "Abnormal voltage",
-      "abnormal_temperature": "Abnormal temperature",
-      "charging_error": "Charging error",
-      "unknown": "Unknown"
+      "discharging": "Δεν φορτίζει",
+      "charging": "Φορτίζει",
+      "charging_complete": "Η φόρτιση ολοκληρώθηκε",
+      "abnormal_voltage": "Μη φυσιολογική τάση",
+      "abnormal_temperature": "Μη φυσιολογική θερμοκρασία",
+      "charging_error": "Σφάλμα φόρτισης",
+      "unknown": "Άγνωστο"
     },
     "battery_level": {
       "level0": "0-9%",
@@ -68,47 +68,47 @@
       "pcba_id": "PCBA ID",
       "serial_number": "Σειριακός Αριθμός",
       "assemble_parts_info": "Πληροφορίες Συναρμολόγησης Εξαρτημάτων",
-      "battery_barcode": "Battery Barcode",
-      "vcm_barcode": "VCM Barcode",
+      "battery_barcode": "Barcode Μπαταρίας",
+      "vcm_barcode": "Barcode VCM",
       "unique_id": "Μοναδικό ID",
       "bd_mac_address": "Διεύθυνση BD MAC",
       "at_serial_number": "Σειριακός Αριθμός AT",
       "at_motor_info": "Πληροφορίες Μοτέρ AT",
-      "individual_data_verify": "Individual Data Verify",
+      "individual_data_verify": "Ατομική Επαλήθευση Δεδομένων",
       "individual_data": {
-        "not_supported": "Not supported",
+        "not_supported": "Δεν υποστηρίζεται",
         "no_data": "Δεν υπάρχουν δεδομένα",
-        "start_error": "Start error",
-        "get_error": "Get error",
-        "successful": "Successful",
-        "retry_timeout": "Retry timeout",
-        "fail": "Fail"
+        "start_error": "Σφάλμα εκκίνησης",
+        "get_error": "Λήψη σφάλματος",
+        "successful": "Επιτυχής",
+        "retry_timeout": "Επανάληψη χρονικού ορίου",
+        "fail": "Αποτυχία"
       },
-      "board_version": "Board Version"
+      "board_version": "Έκδοση Πλακέτας"
     }
   },
   "profile_panel": {
-    "title": "Profile",
-    "default": "Default",
-    "unassigned": "Unassigned"
+    "title": "Προφίλ",
+    "default": "Προεπιλεγμένο",
+    "unassigned": "Μη ανατεθειμένο"
   },
   "info_panel": {
-    "tips": "Please connect your DualSense first",
-    "stick_module_not_found": "Stick module lost",
-    "title_buttons": "Basic Buttons",
-    "title_accelerometer": "Accelerometer",
-    "title_gyroscope": "Gyroscope",
-    "pitch": "Pitch",
-    "yaw": "Yaw",
-    "roll": "Roll",
+    "tips": "Παρακαλούμε συνδέστε πρώτα το DualSense",
+    "stick_module_not_found": "Η μονάδα μοχλού χάθηκε",
+    "title_buttons": "Βασικά Κουμπιά",
+    "title_accelerometer": "Επιταχυνσιόμετρο",
+    "title_gyroscope": "Γυροσκόπιο",
+    "pitch": "Κλίση",
+    "yaw": "Περιστροφή",
+    "roll": "Κύλιση",
     "model_value": {
-      "on": "Value display on",
-      "off": "Value display off"
+      "on": "Τιμή οθόνης ενεργή",
+      "off": "Τιμή οθόνης ανενεργή"
     }
   },
   "output_panel": {
-    "title": "Output",
-    "mic_mute_led": "Mic status light",
+    "title": "Έξοδος",
+    "mic_mute_led": "Φωτάκι κατάστασης μικροφώνου",
     "mic_mute_led_off": "Κλειστό",
     "mic_mute_led_on": "Ανοιχτό",
     "mic_mute_led_blink": "Αναβόσβηση",
@@ -119,63 +119,63 @@
     "player_led_brightness_medium": "Μέτρια",
     "player_led_brightness_low": "Χαμηλή",
     "player_led_off": "Κλειστό",
-    "player_led_all": "All",
-    "rumble_heavy": "Rumble (heavy)",
-    "rumble_soft": "Rumble (soft)",
-    "left_trigger_mode": "Left trigger",
-    "right_trigger_mode": "Right trigger",
+    "player_led_all": "Όλα",
+    "rumble_heavy": "Ταρακούνημα (βαρύ)",
+    "rumble_soft": "Ταρακούνημα (ελαφρύ)",
+    "left_trigger_mode": "Αριστερή σκανδάλη",
+    "right_trigger_mode": "Δεξιά σκανδάλη",
     "trigger_mode": {
-      "off": "Off",
-      "resistance": "resistance",
-      "trigger": "Trigger",
-      "auto_trigger": "Automatic Trigger"
+      "off": "Κλειστό",
+      "resistance": "αντίσταση",
+      "trigger": "Σκανδάλη",
+      "auto_trigger": "Αυτόματη Σκανδάλη"
     },
     "trigger_values": {
-      "start_pos": "Start",
-      "end_pos": "End",
-      "frequency": "Frequency",
-      "force": "Force"
+      "start_pos": "Εκκίνηση",
+      "end_pos": "Τέλος",
+      "frequency": "Συχνότητα",
+      "force": "Δύναμη"
     },
-    "headphone_volume": "Headphone volume",
-    "speaker_volume": "Speaker volume",
-    "haptic_volume": "Haptic volume"
+    "headphone_volume": "Ένταση ήχου ακουστικών",
+    "speaker_volume": "Ένταση ήχου ηχείου",
+    "haptic_volume": "Απτική ένταση ήχου"
   },
   "audio_panel": {
-    "title": "Audio",
-    "headphone_1khz_sine_wave_test": "Headphone 1kHz sine wave",
-    "speaker_1khz_sine_wave_test": "Speaker 1kHz sine wave"
+    "title": "Ήχος",
+    "headphone_1khz_sine_wave_test": "Ημιτονοειδές κύμα ακουστικών 1kHz",
+    "speaker_1khz_sine_wave_test": "Ημιτονοειδές κύμα ηχείου 1kHz"
   },
   "pwa": {
-    "title": "New version detected",
-    "dismiss": "Dismiss",
-    "upgrade": "Upgrade",
-    "update_available": "A new version of DualSense Tester is ready! \nRefresh to complete the upgrade.",
-    "upgrading": "Pulling new version assets...",
-    "offline_ready": "This app is now cached for offline use."
+    "title": "Εντοπίστηκε νέα έκδοση",
+    "dismiss": "Απόρριψη",
+    "upgrade": "Αναβάθμιση",
+    "update_available": "Μια νέα έκδοση του δοκιμαστή DualSense είναι έτοιμη! \nΑνανεώστε για να ολοκληρώσετε την αναβάθμιση.",
+    "upgrading": "Άντληση στοιχείων νέας έκδοσης...",
+    "offline_ready": "Αυτή η εφαρμογή έχει αποθηκευτεί πλέον στην προσωρινή μνήμη για χρήση εκτός σύνδεσης."
   },
   "git_version": {
-    "title": "Commit Info",
-    "warn_pr": "This is a preview version from PR. Please use with caution as there may be issues.",
-    "warn_dev": "This is a preview version from the development branch. Please use with caution as there may be issues."
+    "title": "Πληροφορίες Υποβολής",
+    "warn_pr": "Αυτή είναι μια έκδοση προεπισκόπησης από το PR. Παρακαλούμε χρησιμοποιήστε με προσοχή καθώς ενδέχεται να υπάρχουν προβλήματα.",
+    "warn_dev": "Αυτή είναι μια έκδοση προεπισκόπησης από τον κλάδο ανάπτυξης. Παρακαλούμε χρησιμοποιήστε με προσοχή καθώς ενδέχεται να υπάρχουν προβλήματα."
   },
   "time_ago": {
     "just_now": "Μόλις τώρα",
-    "n_seconds": "1 second | {num} seconds",
-    "n_minutes": "1 minute | {num} minutes",
-    "n_hours": "1 hour | {num} hours",
-    "n_days": "1 day | {num} days",
-    "n_weeks": "1 week | {num} weeks",
-    "n_months": "1 month | {num} months",
-    "n_years": "1 year | {num} years",
-    "ago": "{time_string} ago",
-    "future": "in {time_string}",
-    "yesterday": "Yesterday",
-    "tomorrow": "Tomorrow",
-    "last_week": "Last week",
-    "next_week": "Next week",
-    "last_month": "Last month",
-    "next_month": "Next month",
-    "last_year": "Last year",
-    "next_year": "Next year"
+    "n_seconds": "1 δευτερόλεπτο | {num} δευτερόλεπτα",
+    "n_minutes": "1 λεπτό | {num} λεπτά",
+    "n_hours": "1 ώρα | {num} ώρες",
+    "n_days": "1 μέρα | {num} μέρες",
+    "n_weeks": "1 εβδομάδα | {num} εβδομάδες",
+    "n_months": "1 μήνα | {num} μήνες",
+    "n_years": "1 έτος | {num} χρόνια",
+    "ago": "{time_string} πριν",
+    "future": "σε {time_string}",
+    "yesterday": "Χθες",
+    "tomorrow": "Αύριο",
+    "last_week": "Προηγούμενη εβδομάδα",
+    "next_week": "Επόμενη εβδομάδα",
+    "last_month": "Προηγούμενος μήνας",
+    "next_month": "Επόμενος μήνας",
+    "last_year": "Πέρυσι",
+    "next_year": "Επόμενο έτος"
   }
 }
