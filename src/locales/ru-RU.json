@@ -150,7 +150,7 @@
     "dismiss": "Убрать",
     "upgrade": "Обновить",
     "update_available": "Доступна новая версия Тестера контроллера DualSense!\nОбновите страницу, чтобы перейти на новую версию.",
-    "upgrading": "Pulling new version assets...",
+    "upgrading": "Загружаем новую версию...",
     "offline_ready": "Данное приложение теперь кэшировано для использования в автономном режиме."
   },
   "git_version": {
@@ -159,23 +159,23 @@
     "warn_dev": "Это предварительная версия из ветки разработки. Пожалуйста, используйте с осторожностью: при использовании могут возникать неполадки."
   },
   "time_ago": {
-    "just_now": "Just now",
-    "n_seconds": "1 second | {num} seconds",
-    "n_minutes": "1 minute | {num} minutes",
-    "n_hours": "1 hour | {num} hours",
-    "n_days": "1 day | {num} days",
-    "n_weeks": "1 week | {num} weeks",
-    "n_months": "1 month | {num} months",
-    "n_years": "1 year | {num} years",
-    "ago": "{time_string} ago",
-    "future": "in {time_string}",
-    "yesterday": "Yesterday",
-    "tomorrow": "Tomorrow",
-    "last_week": "Last week",
-    "next_week": "Next week",
-    "last_month": "Last month",
-    "next_month": "Next month",
-    "last_year": "Last year",
-    "next_year": "Next year"
+    "just_now": "Сейчас",
+    "n_seconds": "секунду | {num} секунд(ы)",
+    "n_minutes": "1 минуту | {num} минут(ы)",
+    "n_hours": "1 час | {num} час(а)",
+    "n_days": "1 день | {num} дн.",
+    "n_weeks": "1 неделю | {num} нед.",
+    "n_months": "1 месяца | {num} мес.",
+    "n_years": "1 год | {num} года",
+    "ago": "{time_string} назад",
+    "future": "через {time_string}",
+    "yesterday": "Вчера",
+    "tomorrow": "Завтра",
+    "last_week": "Прошлую неделю",
+    "next_week": "Следующую неделю",
+    "last_month": "В прошлом месяце",
+    "next_month": "В следующем месяце",
+    "last_year": "В прошлом году",
+    "next_year": "В следующем году"
   }
 }
