@@ -11,7 +11,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 import { crowdinDefine } from './config/crowdin'
 import { gitDefine } from './config/git'
 
-const isVercelProduction = true
+const isVercelProduction = process.env.VERCEL_ENV === 'production'
 
 // import vueDevTools from 'vite-plugin-vue-devtools'
 // https://vitejs.dev/config/
