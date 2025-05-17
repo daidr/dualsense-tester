@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { DeviceItem } from '@/device-based-router/shared'
 import type { DSEProfileItem } from '../_utils/profile.util'
 import { useConnectionType, useDevice, useInputReport } from '@/composables/useInjectValues'
-import { DeviceConnectionType, type DeviceItem } from '@/device-based-router/shared'
+import { DeviceConnectionType } from '@/device-based-router/shared'
 import { utf16LEDecoder } from '@/utils/decoder.util'
 import { receiveFeatureReport } from '@/utils/dualsense/ds.util'
 import { computedAsync } from '@vueuse/core'
@@ -18,15 +19,9 @@ const offset = computed(() =>
 
 const { t } = useI18n()
 
-const reverseIndexMap: Record<number, number> = {
-  1: 0,
-  2: 3,
-  3: 2,
-  4: 1,
-}
-
 function mapInputToOutput(i: number) {
-  return reverseIndexMap[i]
+  // 1->0 2->3 3->2 4->1
+  return (5 - i) % 4
 }
 
 const currentActiveProfile = computed(() => {
