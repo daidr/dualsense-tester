@@ -4,7 +4,7 @@ import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
 import GeneralContainer from './common/GeneralContainer.vue'
 
-const { inputReport } = storeToRefs(useDualSenseStore())
+const { inputReport, inputReportId } = storeToRefs(useDualSenseStore())
 // inputReport is a ref of dataview
 const finalReport = computed(() => {
   if (!inputReport.value)
@@ -39,6 +39,7 @@ function handleClick(event: MouseEvent) {
 
 <template>
   <GeneralContainer title="Debug" tag="dev-only">
+    <span>ReportId: {{ inputReportId }} (0x{{ inputReportId?.toString(16).padStart(2, '0') }})</span>
     <pre
       class="block max-h-80vh w-full resize-none overflow-auto whitespace-pre-wrap rounded-2xl bg-transparent p-1 dou-sc-autoborder"
       @click="handleClick"
