@@ -15,6 +15,9 @@
 
 html {
   background: rgb(var(--bg-color));
+}
+
+body {
   overflow-y: scroll;
   scrollbar-width: thin;
 }
