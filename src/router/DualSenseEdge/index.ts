@@ -1,5 +1,7 @@
-import { type Component, defineAsyncComponent } from 'vue'
-import { BaseDeviceRouter, type CustomPanelItem, type DeviceItem } from '../../device-based-router/shared'
+import type { Component } from 'vue'
+import type { CustomPanelItem, DeviceItem } from '../../device-based-router/shared'
+import { defineAsyncComponent } from 'vue'
+import { BaseDeviceRouter } from '../../device-based-router/shared'
 import { checkConnectionType, PRODUCT_ID_DUALSENSE_EDGE, USAGE_ID_GD_GAME_PAD, USAGE_PAGE_GENERIC_DESKTOP, VENDOR_ID_SONY } from '../../utils/dualsense/ds.util'
 
 const InputInfoWidget = defineAsyncComponent(() => import('./views/_ConnectPanel/InputInfo.vue'))
@@ -10,6 +12,7 @@ const ProfileWidget = defineAsyncComponent(() => import('./views/ProfileWidget.v
 const GyroView = defineAsyncComponent(() => import('./views/_visualizerPanel/GyroView.vue'))
 const AccelView = defineAsyncComponent(() => import('./views/_visualizerPanel/AccelView.vue'))
 const AudioWidget = defineAsyncComponent(() => import('./views/AudioControlWidget.vue'))
+const HideInConfigModeLayout = defineAsyncComponent(() => import('./views/HideInConfigModeLayout.vue'))
 
 export default class DualSenseEdgeRouter extends BaseDeviceRouter {
   name = 'dualsense-edge'
@@ -63,10 +66,14 @@ export default class DualSenseEdgeRouter extends BaseDeviceRouter {
           key: 'output_panel.title',
         },
         component: OutputPanel,
+        layout: HideInConfigModeLayout,
+        hideInProfileMode: true,
       },
       {
         title: { key: 'audio_panel.title' },
         component: AudioWidget,
+        layout: HideInConfigModeLayout,
+        hideInProfileMode: true,
       },
       {
         title: { key: 'profile_panel.title' },
@@ -83,12 +90,16 @@ export default class DualSenseEdgeRouter extends BaseDeviceRouter {
           key: 'info_panel.title_gyroscope',
         },
         component: GyroView,
+        layout: HideInConfigModeLayout,
+        hideInProfileMode: true,
       },
       {
         title: {
           key: 'info_panel.title_accelerometer',
         },
         component: AccelView,
+        layout: HideInConfigModeLayout,
+        hideInProfileMode: true,
       },
     ]
   }

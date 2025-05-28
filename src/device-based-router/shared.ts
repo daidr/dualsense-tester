@@ -29,6 +29,8 @@ export interface CustomPanelItem {
   cableAllowedReportIds?: number[]
   btAllowedReportIds?: number[]
   component: Component
+  layout?: Component
+  hideInProfileMode?: boolean,
 }
 
 export interface CustomConnectWidgetPanelItem {

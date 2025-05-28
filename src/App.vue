@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { SpeedInsights } from '@vercel/speed-insights/vue'
 import { storeToRefs } from 'pinia'
+import { ConfigProvider } from 'reka-ui'
 import AppInner from './AppInner.vue'
 import PWAPrompt from './components/common/PWAPrompt.vue'
 import Debug from './components/Debug.vue'
@@ -15,37 +16,39 @@ import { ToastContainer } from './composables/useToast'
 import { usePageStore } from './store/page'
 
 const pageStore = usePageStore()
-const { isWebHIDSupported, locale } = storeToRefs(pageStore)
+const { isWebHIDSupported, locale, direction } = storeToRefs(pageStore)
 const showOverlayHeader = useOverlayHeader()
 useEventBusProvider()
 useLangSpecFont(locale)
 </script>
 
 <template>
-  <OverlayHeader v-if="showOverlayHeader" />
-  <MainHeader v-else />
-  <ModalContainer />
-  <ToastContainer />
-  <PWAPrompt />
-  <SpeedInsights />
-  <Debug />
-  <main>
-    <template v-if="isWebHIDSupported">
-      <AppInner />
-    </template>
-    <template v-else>
-      <div class="h-[var(--min-height)] flex flex-col items-center justify-center">
-        <div class="i-mingcute-confused-line text-5xl" />
-        <p class="text-xl">
-          {{ $t("common.not_support_title") }}
-        </p>
-        <p class="text-base">
-          {{ $t("common.not_support_content") }}
-        </p>
-      </div>
-    </template>
-  </main>
-  <MainFooter />
+  <ConfigProvider :dir="direction">
+    <OverlayHeader v-if="showOverlayHeader" />
+    <MainHeader v-else />
+    <ModalContainer />
+    <ToastContainer />
+    <PWAPrompt />
+    <SpeedInsights />
+    <Debug />
+    <main>
+      <template v-if="isWebHIDSupported">
+        <AppInner />
+      </template>
+      <template v-else>
+        <div class="h-[var(--min-height)] flex flex-col items-center justify-center">
+          <div class="i-mingcute-confused-line text-5xl" />
+          <p class="text-xl">
+            {{ $t("common.not_support_title") }}
+          </p>
+          <p class="text-base">
+            {{ $t("common.not_support_content") }}
+          </p>
+        </div>
+      </template>
+    </main>
+    <MainFooter />
+  </ConfigProvider>
 </template>
 
 <style scoped>

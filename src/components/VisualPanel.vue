@@ -4,8 +4,8 @@ import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import ConditionShell from './common/ConditionShell.vue'
-import SelectBox from './common/SelectBox.vue'
 import VisualizerPanelShell from './common/VisualizerPanelShell.vue'
+import DouSelect from './base/DouSelect.vue'
 
 const dualsenseStore = useDualSenseStore()
 const { isDeviceReady, views } = storeToRefs(dualsenseStore)
@@ -34,7 +34,7 @@ const showValueSets = computed(() => {
     <div class="w-full">
       <h1 class="dou-sc-subtitle flex flex-col items-center gap-2">
         {{ $t('info_panel.title_buttons') }}
-        <SelectBox v-model="showValue" :options="showValueSets" />
+        <DouSelect v-model="showValue" :options="showValueSets" />
       </h1>
       <component :is="views.modelPanel" :show-value="Boolean(showValue)" />
     </div>

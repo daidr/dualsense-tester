@@ -17,7 +17,10 @@ defineProps<{
         {{ typeof item.tag === 'string' ? item.tag : $t(item.tag.key) }}
       </TextTag>
     </h1>
-    <component :is="item.component" :show-value="showValue" />
+    <component :is="item.layout" v-if="item.layout">
+      <component :is="item.component" :show-value="showValue" />
+    </component>
+    <component :is="item.component" v-else :show-value="showValue" />
   </div>
 </template>
 

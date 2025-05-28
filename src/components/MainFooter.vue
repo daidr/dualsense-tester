@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useUpgradeStore } from '@/store/upgrade'
 import { Tooltip } from 'floating-vue'
+import { useUpgradeStore } from '@/store/upgrade'
 import GitVersion from './common/GitVersion.vue'
 import NewVersionDiff from './NewVersionDiff.vue'
 

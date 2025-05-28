@@ -90,7 +90,12 @@
   "profile_panel": {
     "title": "配置文件",
     "default": "默认配置",
-    "unassigned": "未配置"
+    "unassigned": "未配置",
+    "cannot_edit_default_profile_tips": "无法编辑默认配置文件",
+    "edit": "编辑",
+    "rename": "重命名",
+    "remove": "删除",
+    "create": "创建"
   },
   "info_panel": {
     "tips": "请先连接你的 DualSense 手柄",
@@ -177,5 +182,30 @@
     "next_month": "下个月",
     "last_year": "去年",
     "next_year": "明年"
+  },
+  "profile_mode": {
+    "abnormal_tips": "当前控制器可能正处于配置模式，本面板已被暂时禁用。",
+    "try_exit": "尝试退出",
+    "trigger_deadzone_label": "扳机死区",
+    "trigger_deadzone": {
+      "use_unified_tips": "为 {L2} 及 {R2} 应用相同的设定",
+      "input_range": "{key} 输入范围",
+      "range_from": "从",
+      "range_to": "至",
+      "limit_tip": "由于输入范围受限，{key} 的自适应扳机效果可能无法正常工作。",
+      "deadzone_preview": "死区预览"
+    },
+    "joystick_sensitivity_label": "摇杆灵敏度",
+    "custom_button_mapping_label":"按键映射",
+    "vibration_intensity_label": "震动强度",
+    "vibration_intensity_desc": "设定控制器震动的强度。",
+    "intensity_level": {
+      "off": "关",
+      "weak": "弱",
+      "medium": "中",
+      "strong": "强 (默认)"
+    },
+    "trigger_effect_intensity_label": "扳机效果强度",
+    "trigger_effect_intensity_desc": "设定在按下 {L2} 或 {R2} 时的力度。若调节过 {L2} 或 {R2} 的键程滑杆，扳机效果将被关闭。"
   }
 }

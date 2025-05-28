@@ -1,13 +1,13 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import ContentTips from '@/components/common/ContentTips.vue'
 import { DeviceConnectionType } from '@/device-based-router/shared'
 import { useDualSenseStore } from '@/store/dualsense'
-import { gitDefine } from '@/utils/env.util'
 
-import { computed } from 'vue'
+import { gitDefine } from '@/utils/env.util'
 import ConnectWidgetShell from './common/ConnectWidgetShell.vue'
 // import LoadingView from './common/LoadingView.vue'
-import SelectBox from './common/SelectBox.vue'
+import DouSelect from './base/DouSelect.vue'
 
 const dsStore = useDualSenseStore()
 
@@ -33,7 +33,7 @@ const deviceList = computed(() => {
 <template>
   <div class="w-full self-start space-y-2 dou-sc-container">
     <div class="flex items-stretch gap-2">
-      <SelectBox
+      <DouSelect
         v-if="deviceList.length"
         class="min-w-0 flex-1"
         :options="deviceList" :model-value="dsStore.currentDeviceIndex"
@@ -53,7 +53,7 @@ const deviceList = computed(() => {
             <div v-else class="i-mingcute-usb-line" />
           </div>
         </template>
-      </SelectBox>
+      </DouSelect>
       <div v-else class="flex-grow rounded-full bg-gray-100/50 p-1 py-0.5 dark:bg-gray-500/30" />
       <button class="flex-shrink-0 dou-sc-btn" :disabled="dsStore.updatingDeviceList" @click="onConnectBtnClick">
         <div v-if="dsStore.updatingDeviceList" class="i-mingcute-loading-fill animate-spin" />
@@ -63,7 +63,7 @@ const deviceList = computed(() => {
       </button>
     </div>
 
-    <template v-if="dsStore.views.connectWidgetPanels?.length">
+    <template v-if="dsStore.views.connectWidgetPanels?.length && !dsStore.profileMode">
       <div class="flex flex-col gap-y-2">
         <template v-if="dsStore.isDeviceReady">
           <ConnectWidgetShell v-for="widget, index of dsStore.views.connectWidgetPanels" :key="index" :item="widget" />
