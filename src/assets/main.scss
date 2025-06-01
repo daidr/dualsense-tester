@@ -15,11 +15,14 @@
 
 html {
   background: rgb(var(--bg-color));
+  overflow: hidden;
 }
 
 body {
-  overflow-y: scroll;
+  overflow-y: auto;
+  max-height: 100dvh;
   scrollbar-width: thin;
+  scrollbar-gutter: stable both-edges;
 }
 
 html.light {
