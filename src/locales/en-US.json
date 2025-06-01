@@ -218,6 +218,11 @@
       "dynamic": "Dynamic"
     },
     "left_joystick": "Left Joystick",
-    "right_joystick": "Right Joystick"
+    "right_joystick": "Right Joystick",
+    "joystick_curves_label": "Sensitivity curve",
+    "joystick_curves_adjust_label": "Curve adjustment",
+    "joystick_deadzone_adjust_label": "Deadzone adjustment",
+    "joystick_preview_raw_input": "Raw Input",
+    "joystick_preview_mapped_input": "Mapped Input"
   }
 }

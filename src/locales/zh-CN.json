@@ -221,6 +221,8 @@
     "right_joystick": "右摇杆",
     "joystick_curves_label": "灵敏度曲线",
     "joystick_curves_adjust_label": "曲线调整",
-    "joystick_deadzone_adjust_label": "死区调整"
+    "joystick_deadzone_adjust_label": "死区调整",
+    "joystick_preview_raw_input": "原始输入",
+    "joystick_preview_mapped_input": "映射输入"
   }
 }
