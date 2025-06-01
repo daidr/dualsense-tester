@@ -196,7 +196,7 @@
       "deadzone_preview": "死区预览"
     },
     "joystick_sensitivity_label": "摇杆灵敏度",
-    "custom_button_mapping_label":"按键映射",
+    "custom_button_mapping_label": "按键映射",
     "vibration_intensity_label": "震动强度",
     "vibration_intensity_desc": "设定控制器震动的强度。",
     "intensity_level": {
@@ -206,6 +206,21 @@
       "strong": "强 (默认)"
     },
     "trigger_effect_intensity_label": "扳机效果强度",
-    "trigger_effect_intensity_desc": "设定在按下 {L2} 或 {R2} 时的力度。若调节过 {L2} 或 {R2} 的键程滑杆，扳机效果将被关闭。"
+    "trigger_effect_intensity_desc": "设定在按下 {L2} 或 {R2} 时的力度。若调节过 {L2} 或 {R2} 的键程滑杆，扳机效果将被关闭。",
+    "reset": "重置",
+    "save": "保存",
+    "joystick_curves": {
+      "default": "默认",
+      "quick": "快速",
+      "precise": "精确",
+      "steady": "稳定",
+      "digital": "数字",
+      "dynamic": "动态"
+    },
+    "left_joystick": "左摇杆",
+    "right_joystick": "右摇杆",
+    "joystick_curves_label": "灵敏度曲线",
+    "joystick_curves_adjust_label": "曲线调整",
+    "joystick_deadzone_adjust_label": "死区调整"
   }
 }
