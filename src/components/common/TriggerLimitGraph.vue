@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import { useThrottleFn } from '@vueuse/core'
 import { Application, Graphics } from 'pixi.js'
-import { computed, onBeforeUnmount, onMounted, useTemplateRef, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, useTemplateRef, watch } from 'vue'
 import { usePageStore } from '@/store/page'
 
 const props = defineProps<{
@@ -13,6 +14,8 @@ const props = defineProps<{
 const CanvasRef = useTemplateRef('CanvasRef')
 
 const pageStore = usePageStore()
+
+const initialized = ref(false)
 
 const colorPalette = computed(() => {
   if (pageStore.colorModeState === 'dark') {
@@ -36,7 +39,7 @@ onMounted(async () => {
   onBeforeUnmount(() => {
     isDisposed = true
     app.destroy({
-      removeView: false,
+      removeView: true,
     })
   })
   await app.init({
@@ -116,17 +119,25 @@ onMounted(async () => {
     }
   }
 
+  const throttledDraw = useThrottleFn(draw, 16, true)
+
   app.renderer.on('resize', () => {
-    draw()
+    throttledDraw()
   })
 
   watch(
     () => [props.min, props.max, props.current, props.direction, pageStore.colorModeState],
     () => {
-      draw()
+      throttledDraw()
     },
     { immediate: true },
   )
+
+  app.ticker.addOnce(() => {
+    nextTick(() => {
+      initialized.value = true
+    })
+  })
 })
 </script>
 

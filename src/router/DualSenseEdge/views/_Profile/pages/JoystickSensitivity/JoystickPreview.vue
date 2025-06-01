@@ -3,11 +3,26 @@ import type { DSEJoystickProfile } from '../../profile'
 import { computed, ref, shallowRef, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import DouSelect from '@/components/base/DouSelect.vue'
+import JoystickCurveGraph from '@/components/common/JoystickCurveGraph.vue'
+import JoystickPreviewGraph from '@/components/common/JoystickPreviewGraph.vue'
 import SliderBox from '@/components/common/SliderBox.vue'
 import { DSEJoystickCurveMap, DSEJoystickProfilePreset } from '../../profile'
-import JoystickCurveGraph from '@/components/common/JoystickCurveGraph.vue'
+import { usePageStore } from '@/store/page'
+import { storeToRefs } from 'pinia'
+
+defineProps<{
+  current: number
+  x: number
+  y: number
+  finalX: number
+  finalY: number
+}>()
 
 const modelValue = defineModel<DSEJoystickProfile>({ required: true })
+
+const pageStore = usePageStore()
+
+const { colorPalette } = storeToRefs(pageStore)
 
 const { t } = useI18n()
 
@@ -79,18 +94,18 @@ watch(() => modelValue.value, (newValue) => {
   adjustment.value = preset.getAdjustment(newValue.curvePoints) || 0
 }, { immediate: true })
 
-watch(() =>[adjustment.value, deadzone.value, currentCurvePresetId.value], () => {
+watch(() => [adjustment.value, deadzone.value, currentCurvePresetId.value], () => {
   const preset = DSEJoystickCurveMap[currentCurvePresetId.value]
   currentCurve.value = preset.getCurve(deadzone.value / 100, adjustment.value)
   modelValue.value = {
     preset: currentCurvePresetId.value,
     curvePoints: currentCurve.value,
   }
-}, { immediate: true })
+})
 </script>
 
 <template>
-  <div class="wrapper">
+  <div class="wrapper flex-col md:flex-row">
     <div class="flex flex-col items-start gap-2">
       <div class="field">
         <label>{{ $t("profile_mode.joystick_curves_label") }}</label>
@@ -124,13 +139,42 @@ watch(() =>[adjustment.value, deadzone.value, currentCurvePresetId.value], () =>
       </div>
     </div>
 
-    <div class="preview">
-      <JoystickCurveGraph :default-curve="currentDefaultCurve" :current="0" :deadzone="deadzone / 100" :curve="currentCurve" />
+    <JoystickCurveGraph :default-curve="currentDefaultCurve" :current="current" :deadzone="deadzone / 100"
+      :curve="currentCurve" class="flex-shrink min-w-0 w-full max-w-400px h-auto" />
+    <div class="flex flex-grow min-w-0 flex-shrink w-full">
+      <JoystickPreviewGraph class="flex-shrink-0 flex-grow max-w-200px" :deadzone="deadzone / 100" :x="x" :y="y" :final-x="finalX"
+        :final-y="finalY" />
+      <div class="legend flex-shrink min-w-0 overflow-hidden">
+        <div class="legend-item">
+          <div class="color-box" :style="{ backgroundColor: colorPalette.primary }"></div>
+          <span :style="{ color: colorPalette.primary }">{{ $t('profile_mode.joystick_preview_raw_input') }}</span>
+        </div>
+        <div class="legend-item">
+          <div class="color-box" :style="{ backgroundColor: colorPalette.active }"></div>
+          <span :style="{ color: colorPalette.active }">{{ $t('profile_mode.joystick_preview_mapped_input') }}</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
+.legend {
+  @apply flex-shrink min-w-0 overflow-hidden;
+
+  .legend-item {
+    @apply min-w-0 flex items-center gap-1;
+  }
+
+  .color-box {
+    @apply w-3 h-3 rounded-md flex-shrink-0;
+  }
+
+  span {
+    @apply min-w-0 text-xs select-none text-ellipsis overflow-hidden whitespace-nowrap;
+  }
+}
+
 label {
   @apply text-sm text-primary select-none;
 }
@@ -144,10 +188,6 @@ label {
 }
 
 .wrapper {
-  @apply flex gap-2 w-full;
-}
-
-.preview {
-  @apply grid gap-2 flex-grow cols-2;
+  @apply flex gap-5 w-full justify-between;
 }
 </style>

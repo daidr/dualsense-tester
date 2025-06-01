@@ -65,7 +65,7 @@ class DSEJoystickCurvePos {
   getValue(deadzone = 0, adjustment = 0): number {
     if (!this.delta) {
       if (!this.affectedDeadzone) {
-        return this.value;
+        return this.value
       }
       return Math.round(255 * deadzone + (1 - deadzone) * this.value)
     }
@@ -130,7 +130,7 @@ export class DSEJoystickCurve {
   }
 
   getCurve(deadzone = 0, adjustment = 0) {
-    return this.flattenPoints.map((point) => point.getValue(deadzone, adjustment))
+    return this.flattenPoints.map(point => point.getValue(deadzone, adjustment))
   }
 
   getAdjustment(points: number[]) {
@@ -159,7 +159,8 @@ export class DSEJoystickCurve {
 
     if (affectedDeadzone) {
       adjustment = Math.round((currentPointValue - rawValue * (1 - deadzone) - 255 * deadzone) / rawDelta)
-    } else {
+    }
+    else {
       adjustment = Math.round((currentPointValue - rawValue) / rawDelta)
     }
 
@@ -182,19 +183,19 @@ export const DSEJoystickCurveMap: Record<DSEJoystickProfilePreset, DSEJoystickCu
     points: [
       [
         new DSEJoystickCurvePos(0),
-        new DSEJoystickCurvePos(0, { a: false })
+        new DSEJoystickCurvePos(0, { a: false }),
       ],
       [
         new DSEJoystickCurvePos(128),
-        new DSEJoystickCurvePos(128, { a: false })
+        new DSEJoystickCurvePos(128, { a: false }),
       ],
       [
         new DSEJoystickCurvePos(196),
-        new DSEJoystickCurvePos(196, { a: false })
+        new DSEJoystickCurvePos(196, { a: false }),
       ],
       [
         new DSEJoystickCurvePos(225),
-        new DSEJoystickCurvePos(225, { a: false })
+        new DSEJoystickCurvePos(225, { a: false }),
       ],
     ],
   }),
@@ -204,25 +205,26 @@ export const DSEJoystickCurveMap: Record<DSEJoystickProfilePreset, DSEJoystickCu
     points: [
       [
         new DSEJoystickCurvePos(0),
-        new DSEJoystickCurvePos(0, { a: false })
+        new DSEJoystickCurvePos(0, { a: false }),
       ],
       [
         new DSEJoystickCurvePos(38),
-        new DSEJoystickCurvePos(38, { a: false })
+        new DSEJoystickCurvePos(38, { a: false }),
       ],
       [
         new DSEJoystickCurvePos(107, {
-          d: -3
-        }), new DSEJoystickCurvePos(167, {
+          d: -3,
+        }),
+        new DSEJoystickCurvePos(167, {
           d: 5.5,
-          a: false
-        })
+          a: false,
+        }),
       ],
       [
         new DSEJoystickCurvePos(255),
         new DSEJoystickCurvePos(255, {
-          a: false
-        })
+          a: false,
+        }),
       ],
     ],
     reversePointIndex: 4,
@@ -233,19 +235,19 @@ export const DSEJoystickCurveMap: Record<DSEJoystickProfilePreset, DSEJoystickCu
     points: [
       [
         new DSEJoystickCurvePos(0),
-        new DSEJoystickCurvePos(0, { a: false })
+        new DSEJoystickCurvePos(0, { a: false }),
       ],
       [
         new DSEJoystickCurvePos(85, { d: 3 }),
-        new DSEJoystickCurvePos(40, { d: -3.5, a: false })
+        new DSEJoystickCurvePos(40, { d: -3.5, a: false }),
       ],
       [
         new DSEJoystickCurvePos(149, { d: 3 }),
-        new DSEJoystickCurvePos(83, { d: -6.5, a: false })
+        new DSEJoystickCurvePos(83, { d: -6.5, a: false }),
       ],
       [
         new DSEJoystickCurvePos(206, { d: 2 }),
-        new DSEJoystickCurvePos(140, { d: -7.5, a: false })
+        new DSEJoystickCurvePos(140, { d: -7.5, a: false }),
       ],
     ],
     reversePointIndex: 2,
@@ -256,19 +258,19 @@ export const DSEJoystickCurveMap: Record<DSEJoystickProfilePreset, DSEJoystickCu
     points: [
       [
         new DSEJoystickCurvePos(0),
-        new DSEJoystickCurvePos(0, { a: false })
+        new DSEJoystickCurvePos(0, { a: false }),
       ],
       [
         new DSEJoystickCurvePos(57, { d: -1 }),
-        new DSEJoystickCurvePos(57, { d: -1, a: false })
+        new DSEJoystickCurvePos(57, { d: -1, a: false }),
       ],
       [
         new DSEJoystickCurvePos(100, { d: -4 }),
-        new DSEJoystickCurvePos(127, { d: -0.5, a: false })
+        new DSEJoystickCurvePos(127, { d: -0.5, a: false }),
       ],
       [
         new DSEJoystickCurvePos(210, { d: 2.5 }),
-        new DSEJoystickCurvePos(152, { d: -5.5, a: false })
+        new DSEJoystickCurvePos(152, { d: -5.5, a: false }),
       ],
     ],
     reversePointIndex: 4,
@@ -279,19 +281,19 @@ export const DSEJoystickCurveMap: Record<DSEJoystickProfilePreset, DSEJoystickCu
     points: [
       [
         new DSEJoystickCurvePos(0),
-        new DSEJoystickCurvePos(0, { a: false })
+        new DSEJoystickCurvePos(0, { a: false }),
       ],
       [
         new DSEJoystickCurvePos(38),
-        new DSEJoystickCurvePos(38, { a: false })
+        new DSEJoystickCurvePos(38, { a: false }),
       ],
       [
         new DSEJoystickCurvePos(38),
-        new DSEJoystickCurvePos(165, { d: 18, a: false })
+        new DSEJoystickCurvePos(165, { d: 18, a: false }),
       ],
       [
         new DSEJoystickCurvePos(255),
-        new DSEJoystickCurvePos(255, { a: false })
+        new DSEJoystickCurvePos(255, { a: false }),
       ],
     ],
     reversePointIndex: 5,
@@ -302,19 +304,19 @@ export const DSEJoystickCurveMap: Record<DSEJoystickProfilePreset, DSEJoystickCu
     points: [
       [
         new DSEJoystickCurvePos(0),
-        new DSEJoystickCurvePos(0, { a: false })
+        new DSEJoystickCurvePos(0, { a: false }),
       ],
       [
         new DSEJoystickCurvePos(82, { d: 2.5 }),
-        new DSEJoystickCurvePos(40, { d: -3.5, a: false })
+        new DSEJoystickCurvePos(40, { d: -3.5, a: false }),
       ],
       [
         new DSEJoystickCurvePos(161, { d: -4.5 }),
-        new DSEJoystickCurvePos(213, { d: 3, a: false })
+        new DSEJoystickCurvePos(213, { d: 3, a: false }),
       ],
       [
         new DSEJoystickCurvePos(255),
-        new DSEJoystickCurvePos(255, { a: false })
+        new DSEJoystickCurvePos(255, { a: false }),
       ],
     ],
     reversePointIndex: 5,
@@ -570,7 +572,7 @@ export class DSEProfile {
     }
     // #endregion
 
-    //#region Joystick
+    // #region Joystick
     {
       const leftPreset = DSEJoystickCurveMap[this.leftJoystick.preset]
       const rightPreset = DSEJoystickCurveMap[this.rightJoystick.preset]
@@ -592,7 +594,7 @@ export class DSEProfile {
       buffer2[2] = this.rightJoystick.curvePoints[6]
       buffer2[3] = this.rightJoystick.curvePoints[7]
     }
-    //#endregion
+    // #endregion
 
     // // #region Test
     // {

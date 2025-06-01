@@ -75,17 +75,17 @@ watch(() => activeRouterIndex.value, () => {
     </div>
     <div class="sub-header">
       <div class="category-button-wrapper">
-        <div
-          v-for="route, index of router" :key="index" class="category-button" :class="{
-            active: activeRouterIndex === index,
-          }" @click="activeRouterIndex = index"
-        >
+        <div v-for="route, index of router" :key="index" class="category-button" :class="{
+          active: activeRouterIndex === index,
+        }" @click="activeRouterIndex = index">
           {{ route.label }}
         </div>
       </div>
     </div>
     <div class="main">
-      <component :is="router[activeRouterIndex].component" v-if="activeRouterIndex !== -1" :profile="innerProfile" />
+      <Transition name="fade" mode="out-in">
+        <component :is="router[activeRouterIndex].component" v-if="activeRouterIndex !== -1" :profile="innerProfile" />
+      </Transition>
     </div>
     <div class="sub-footer">
       <div>

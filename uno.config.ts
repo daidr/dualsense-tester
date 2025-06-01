@@ -1,9 +1,9 @@
-import { defineConfig, presetIcons, presetUno, transformerDirectives, transformerVariantGroup } from 'unocss'
+import { defineConfig, presetIcons, presetWind3, transformerDirectives, transformerVariantGroup } from 'unocss'
 
 export default defineConfig({
   details: true,
   presets: [
-    presetUno({
+    presetWind3({
       dark: 'class',
     }),
     presetIcons({
@@ -25,6 +25,9 @@ export default defineConfig({
     },
     fontFamily: {
       mono: ['Noto Sans Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace'],
+    },
+    containers: {
+      sm: '(min-width: 24rem)',
     },
   },
   shortcuts: {
