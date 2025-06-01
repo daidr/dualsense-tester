@@ -1,23 +1,41 @@
 <script setup lang="ts">
-import { useIsRTL, usePageStore } from '@/store/page'
 import { useElementBounding } from '@vueuse/core'
 import { computed, ref } from 'vue'
+import { useIsRTL } from '@/store/page'
 
 const props = withDefaults(defineProps<{
   min: number
   max: number
   digits?: number
   vertical?: boolean
+  startPoint?: number
+  disabled?: boolean
 }>(), {
   digits: 0,
   vertical: false,
 })
 
+defineSlots<{
+  default: (props: { value: number }) => any
+}>()
+
 const isRTL = useIsRTL()
 
 const modelValue = defineModel<number>({ required: true })
 
+const range = computed(() => props.max - props.min)
+
 const TrackRef = ref<HTMLDivElement | null>()
+
+const validStartPoint = computed(() => {
+  if (props.startPoint !== undefined) {
+    const inRange = props.startPoint >= props.min && props.startPoint <= props.max
+    if (inRange) {
+      return props.startPoint
+    }
+  }
+  return props.min
+})
 
 const { width, height } = useElementBounding(TrackRef, {
   windowScroll: false,
@@ -25,15 +43,20 @@ const { width, height } = useElementBounding(TrackRef, {
 
 const factor = computed(() => {
   if (props.vertical) {
-    return height.value / (props.max - props.min)
+    return height.value / range.value
   }
-  return width.value / (props.max - props.min)
+  return width.value / range.value
 })
 
 const isIndicatorShown = ref(false)
 
 let start = 0
+let startValue = 0
 function onPointerDown(e: PointerEvent) {
+  if (props.disabled) {
+    e.preventDefault()
+    return
+  }
   isIndicatorShown.value = true;
   (e.target as HTMLDivElement).setPointerCapture(e.pointerId)
   if (props.vertical) {
@@ -42,6 +65,12 @@ function onPointerDown(e: PointerEvent) {
   else {
     start = e.clientX
   }
+  startValue = modelValue.value
+}
+
+function roundToNearest(value: number, digits: number) {
+  const step = 10 ** digits
+  return Math.round(value * step) / step
 }
 
 function onPointerMove(e: PointerEvent) {
@@ -51,7 +80,7 @@ function onPointerMove(e: PointerEvent) {
   if (props.vertical) {
     const currentY = e.clientY
     const deltaY = (start - currentY) / factor.value
-    const current = modelValue.value + deltaY
+    const current = roundToNearest(startValue + deltaY, props.digits)
     if (current < props.min) {
       modelValue.value = props.min
     }
@@ -61,7 +90,6 @@ function onPointerMove(e: PointerEvent) {
     else {
       modelValue.value = current
     }
-    start = currentY
     return
   }
   const currentX = e.clientX
@@ -69,7 +97,7 @@ function onPointerMove(e: PointerEvent) {
   if (isRTL.value) {
     deltaX = -deltaX
   }
-  const current = modelValue.value + deltaX
+  const current = roundToNearest(startValue + deltaX, props.digits)
   if (current < props.min) {
     modelValue.value = props.min
   }
@@ -79,7 +107,6 @@ function onPointerMove(e: PointerEvent) {
   else {
     modelValue.value = current
   }
-  start = currentX
 }
 
 function onPointerUp(e: PointerEvent) {
@@ -89,6 +116,19 @@ function onPointerUp(e: PointerEvent) {
   isIndicatorShown.value = false;
   (e.target as HTMLDivElement).releasePointerCapture(e.pointerId)
 }
+
+function getTrackScalePercentage() {
+  const currentRange = modelValue.value - validStartPoint.value
+  if (modelValue.value > validStartPoint.value) {
+    const range = props.max - validStartPoint.value
+    return currentRange / range
+  }
+  else if (modelValue.value < validStartPoint.value) {
+    const range = validStartPoint.value - props.min
+    return currentRange / range
+  }
+  return 0
+}
 </script>
 
 <template>
@@ -96,25 +136,36 @@ function onPointerUp(e: PointerEvent) {
     class="relative h-2px w-auto" :class="{
       vertical,
       horizontal: !vertical,
+      disabled: props.disabled,
     }" :style="vertical
       ? {
-        '--current-y': `${height - ((modelValue - props.min) / (props.max - props.min)) * height}px`,
-        '--current-percentage': `${((modelValue - props.min) / (props.max - props.min))}`,
+        '--current-y': `${height - ((modelValue - props.min) / range) * height}px`,
+        '--current-percentage': `${((modelValue - props.min) / range)}`,
       }
       : {
-        '--current-x': `${((modelValue - props.min) / (props.max - props.min)) * width}px`,
-        '--current-percentage': `${((modelValue - props.min) / (props.max - props.min))}`,
+        '--current-x': `${((modelValue - props.min) / range) * width}px`,
+        '--current-percentage': `${((modelValue - props.min) / range)}`,
+        '--start-point-percentage': `${((validStartPoint - props.min) / range * 100)}%`,
+        '--track-scale-percentage': getTrackScalePercentage(),
       }"
   >
-    <div ref="TrackRef" class="full-track" />
-    <div class="track" />
+    <div ref="TrackRef" class="full-track">
+      <div class="track" />
+    </div>
+
     <div
-      class="thumb" @pointerdown.passive="onPointerDown" @pointermove.passive="onPointerMove"
-      @pointerup.passive="onPointerUp"
+      class="thumb" role="slider" :aria-valuenow="modelValue" :aria-valuemin="props.min" :aria-valuemax="props.max"
+      tabindex="0" @pointerdown="onPointerDown" @pointermove.passive="onPointerMove"
+      @pointerup="onPointerUp"
     />
     <Transition name="fade">
       <div v-if="isIndicatorShown" class="indicator">
-        {{ modelValue.toFixed(digits) }}
+        <template v-if="$slots.default">
+          <slot :value="modelValue" />
+        </template>
+        <template v-else>
+          {{ modelValue }}
+        </template>
       </div>
     </Transition>
   </div>
@@ -132,11 +183,11 @@ function onPointerUp(e: PointerEvent) {
 }
 
 .full-track {
-  @apply rounded-full dou-sc-autobg absolute;
+  @apply rounded-full dou-sc-autobg absolute overflow-hidden;
 }
 
 .track {
-  @apply bg-primary/60 absolute transform-gpu;
+  @apply rounded-full bg-primary/50 absolute transform-gpu;
 }
 
 .indicator {
@@ -155,7 +206,7 @@ function onPointerUp(e: PointerEvent) {
   }
 
   .track {
-    @apply top-0 start-2 end-2 bottom-0 scale-x-[var(--current-percentage)] transform-origin-left rtl-transform-origin-right;
+    @apply top-0 bottom-0 start-[var(--start-point-percentage)] end-0 scale-x-[var(--track-scale-percentage)] transform-origin-left rtl-transform-origin-right;
   }
 
   .indicator {
@@ -176,11 +227,28 @@ function onPointerUp(e: PointerEvent) {
   }
 
   .track {
-    @apply bottom-2 top-2 w-2px scale-y-[var(--current-percentage)] transform-origin-bottom;
+    @apply w-2px scale-y-[var(--current-percentage)] transform-origin-bottom bottom-0 top-0;
   }
 
   .thumb {
     @apply top-2 start-1/2 translate-y-[calc(var(--current-y)-50%)] -translate-x-1/2 rtl-translate-x-1/2;
   }
+}
+
+.disabled {
+  @apply cursor-not-allowed;
+
+  .thumb {
+    @apply cursor-not-allowed;
+    // @apply bg-gray-400 dark-bg-gray-700;
+  }
+
+  // .track {
+  //   @apply bg-gray-300 dark-bg-gray-600;
+  // }
+
+  // .full-track {
+  //   @apply bg-gray-200/50 dark-bg-gray-600/50;
+  // }
 }
 </style>

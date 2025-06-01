@@ -15,16 +15,16 @@ import LangSwitcher from './LangSwitcher.vue'
         <LangSwitcher />
         <DarkModeSwitch />
         <Tooltip>
-          <a href="https://github.com/sponsors/daidr" target="_blank" class="dou-icon-link" title="Github Sponsors">
+          <a href="https://github.com/sponsors/daidr" target="_blank" class="dou-icon-link" title="GitHub Sponsors" aria-label="GitHub Sponsors">
             <div class="i-mingcute-hand-heart-line" />
           </a>
           <template #popper>
-            Github Sponsors
+            GitHub Sponsors
           </template>
         </Tooltip>
 
         <Tooltip>
-          <a href="https://github.com/daidr/dualsense-tester" target="_blank" class="dou-icon-link" title="GitHub">
+          <a href="https://github.com/daidr/dualsense-tester" target="_blank" class="dou-icon-link" title="GitHub" aria-label="GitHub">
             <div class="i-mingcute-github-line" />
           </a>
           <template #popper>

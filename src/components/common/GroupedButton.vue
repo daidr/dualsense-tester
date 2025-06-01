@@ -14,10 +14,11 @@ function onButtonClick(value: T) {
 </script>
 
 <template>
-  <div class="relative h-1.5rem flex gap-1 rounded-full p-2px dou-sc-colorborder">
+  <div class="relative h-1.5rem flex gap-1 rounded-full p-2px dou-sc-colorborder" role="group">
     <button
       v-for="button of sets" :key="button.value" :class="{ active: button.value === modelValue }"
       @click="onButtonClick(button.value)"
+      :aria-pressed="button.value === modelValue"
     >
       {{ button.label }}
     </button>

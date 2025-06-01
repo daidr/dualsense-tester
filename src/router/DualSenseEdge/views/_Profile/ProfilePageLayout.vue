@@ -1,9 +1,14 @@
 <script setup lang="ts">
-import { useInnerProfile, type DSEProfile } from './profile'
+import type { DSEProfile } from './profile'
 import { computed, defineAsyncComponent, inject, ref, shallowRef, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
+import DouButton from '@/components/base/DouButton.vue'
+import HexPreview from '@/components/common/HexPreview.vue'
+import { useDevice } from '@/composables/useInjectValues'
+import { sendFeatureReport, sendOutputReportFactory } from '@/utils/dualsense/ds.util'
+import { createAsyncLock } from '@/utils/lock.util'
+import { useInnerProfile } from './profile'
 import ProfileSwitchButton from './ProfileSwitchButton.vue'
-import { useI18n } from 'vue-i18n';
-import HexPreview from '@/components/common/HexPreview.vue';
 
 const props = defineProps<{
   profile: DSEProfile
@@ -16,7 +21,7 @@ defineEmits<{
 
 const CustomButtonMapping = defineAsyncComponent(() => import('./pages/CustomButtonMapping.vue'))
 const TriggerDeadzone = defineAsyncComponent(() => import('./pages/TriggerDeadZone.vue'))
-const JoyStickSensitivity = defineAsyncComponent(() => import('./pages/JoyStickSensitivity.vue'))
+const JoystickSensitivity = defineAsyncComponent(() => import('./pages/JoystickSensitivity.vue'))
 const VibrationIntensity = defineAsyncComponent(() => import('./pages/VibrationIntensity.vue'))
 
 const { t } = useI18n()
@@ -28,7 +33,7 @@ const router = computed(() => ([
   },
   {
     label: t('profile_mode.joystick_sensitivity_label'),
-    component: JoyStickSensitivity,
+    component: JoystickSensitivity,
   },
   {
     label: t('profile_mode.custom_button_mapping_label'),
@@ -42,7 +47,7 @@ const router = computed(() => ([
 
 const activeRouterIndex = ref(-1)
 
-const { innerProfile, reset } = useInnerProfile(() => props.profile)
+const { innerProfile, reset, unsaved, save } = useInnerProfile(() => props.profile)
 
 watch(() => activeRouterIndex.value, () => {
   reset()
@@ -70,9 +75,11 @@ watch(() => activeRouterIndex.value, () => {
     </div>
     <div class="sub-header">
       <div class="category-button-wrapper">
-        <div v-for="route, index of router" :key="index" class="category-button" :class="{
-          active: activeRouterIndex === index,
-        }" @click="activeRouterIndex = index">
+        <div
+          v-for="route, index of router" :key="index" class="category-button" :class="{
+            active: activeRouterIndex === index,
+          }" @click="activeRouterIndex = index"
+        >
           {{ route.label }}
         </div>
       </div>
@@ -80,7 +87,7 @@ watch(() => activeRouterIndex.value, () => {
     <div class="main">
       <component :is="router[activeRouterIndex].component" v-if="activeRouterIndex !== -1" :profile="innerProfile" />
     </div>
-    <div class="footer">
+    <div class="sub-footer">
       <div>
         <div>{{ innerProfile }}</div>
       </div>
@@ -91,10 +98,22 @@ watch(() => activeRouterIndex.value, () => {
         <HexPreview v-for="item, index of innerProfile.bytes" :key="index" :data-view="item" :trigger="innerProfile" />
       </div>
     </div>
+    <div class="footer">
+      <DouButton @click="reset">
+        {{ $t('profile_mode.reset') }}
+      </DouButton>
+      <DouButton :disabled="!unsaved" @click="save">
+        {{ $t('profile_mode.save') }}
+      </DouButton>
+    </div>
   </div>
 </template>
 
 <style scoped lang="scss">
+.footer {
+  @apply flex justify-end gap-3 items-center;
+}
+
 .header {
   @apply flex justify-center items-center gap-2;
 

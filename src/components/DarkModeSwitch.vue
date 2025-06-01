@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { nextTick, ref } from 'vue'
+import { computed, nextTick, ref } from 'vue'
 import { usePageStore } from '@/store/page'
 import { uiLogger } from '@/utils/logger.util'
 
@@ -76,10 +76,35 @@ async function tryViewTransition(func: () => boolean) {
 
   await transition.updateCallbackDone
 }
+
+const ariaLabel = computed(() => {
+  if (pageStore.currentColorMode === 'light') {
+    return 'Switch to system color mode'
+  }
+  else if (pageStore.currentColorMode === 'dark') {
+    return 'Switch to light mode'
+  }
+  return 'Switch to dark mode'
+})
+
+const ariaChecked = computed(() => {
+  if (pageStore.currentColorMode === 'dark') {
+    return 'true'
+  }
+  else if (pageStore.currentColorMode === 'light') {
+    return 'false'
+  }
+  else {
+    return 'mixed'
+  }
+})
 </script>
 
 <template>
-  <button ref="switchRef" class="switch" tabindex="0" role="button" aria-label="Switch color mode" @click="wrappedSwitchMode">
+  <button
+    ref="switchRef" class="switch" tabindex="0" role="switch" :aria-label="ariaLabel" :aria-checked="ariaChecked"
+    @click="wrappedSwitchMode"
+  >
     <div class="switch-thumb" :class="[pageStore.currentColorMode]">
       <div v-if="pageStore.currentColorMode === 'light'" class="i-mingcute-sun-line" />
       <div v-if="pageStore.currentColorMode === 'auto'">
@@ -92,39 +117,39 @@ async function tryViewTransition(func: () => boolean) {
 
 <style scoped lang="scss">
 .switch {
-    @apply relative;
-    @apply w-9 h-4;
-    @apply rounded-full;
-    @apply select-none cursor-pointer;
-    @apply transition;
-    @apply dou-sc-colorborder;
+  @apply relative;
+  @apply w-9 h-4;
+  @apply rounded-full;
+  @apply select-none cursor-pointer;
+  @apply transition;
+  @apply dou-sc-colorborder;
 
-    &-thumb {
-        @apply absolute top-1/2 left-1/2 w-5 h-5;
-        @apply transform-gpu -translate-y-1/2 -translate-x-1/2;
-        @apply bg-primary rounded-full text-xs color-white font-light;
-        @apply transition-transform transform-gpu;
-        @apply flex justify-center items-center;
+  &-thumb {
+    @apply absolute top-1/2 left-1/2 w-5 h-5;
+    @apply transform-gpu -translate-y-1/2 -translate-x-1/2;
+    @apply bg-primary rounded-full text-xs color-white font-light;
+    @apply transition-transform transform-gpu;
+    @apply flex justify-center items-center;
 
-        &.dark {
-            @apply -translate-x-full;
-        }
-
-        &.light {
-            @apply translate-x-0;
-        }
+    &.dark {
+      @apply -translate-x-full;
     }
 
-    &:hover {
-        .switch-thumb {
-            @apply scale-130;
-        }
+    &.light {
+      @apply translate-x-0;
     }
+  }
 
-    &:active {
-        .switch-thumb {
-            @apply scale-110;
-        }
+  &:hover {
+    .switch-thumb {
+      @apply scale-130;
     }
+  }
+
+  &:active {
+    .switch-thumb {
+      @apply scale-110;
+    }
+  }
 }
 </style>

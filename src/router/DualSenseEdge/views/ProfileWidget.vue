@@ -4,15 +4,15 @@ import { computedAsync } from '@vueuse/core'
 import { computed, provide, reactive, ref, shallowReactive, shallowRef, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useConnectionType, useDevice, useInputReport } from '@/composables/useInjectValues'
+import { useMagicTeleport } from '@/composables/useMagicTeleport'
 import { DeviceConnectionType } from '@/device-based-router/shared'
 import { useDualSenseStore } from '@/store/dualsense'
 import { receiveFeatureReport } from '@/utils/dualsense/ds.util'
+import { isDev } from '@/utils/env.util'
 import { inputReportOffsetBluetooth, inputReportOffsetUSB } from '../_utils/offset.util'
 import { DSEProfile, DSEProfileSwitchButton } from './_Profile/profile'
 import ProfilePageLayout from './_Profile/ProfilePageLayout.vue'
 import ProfileSwitchButton from './_Profile/ProfileSwitchButton.vue'
-import { useMagicTeleport } from '@/composables/useMagicTeleport'
-import { isDev } from '@/utils/env.util'
 
 const device = useDevice()
 const connectionType = useConnectionType()
@@ -74,7 +74,6 @@ watch(device, (newDevice) => {
   }
 }, { immediate: true })
 
-
 function getProfileName(profile: DSEProfile) {
   if (!profile.assigned) {
     return t('profile_panel.unassigned')
@@ -107,7 +106,7 @@ function handleClose() {
   currentEditingProfile.value = null
 }
 
-const { MagicTeleport } = useMagicTeleport('profileLayout')
+// const { MagicTeleport } = useMagicTeleport('profileLayout')
 </script>
 
 <template>
@@ -120,33 +119,41 @@ const { MagicTeleport } = useMagicTeleport('profileLayout')
       <div v-if="currentActiveProfile === item.switchButton" class="h-2 w-2 rounded-full bg-green-6" />
     </div>
     <ProfileSwitchButton :button="item.switchButton" />
-    <div class="name flex-grow overflow-hidden text-ellipsis whitespace-nowrap" :title="getProfileName(item)">
+    <div class="name flex-grow overflow-hidden text-ellipsis whitespace-nowrap" :title="getProfileName(item)"
+      tabindex="0">
       {{ getProfileName(item) }}
     </div>
     <div class="flex flex-shrink-0">
       <template v-if="item.assigned && !item.default">
-        <button v-tooltip.top="$t('profile_panel.edit')" class="icon-button" @click="handleEdit(item)">
+        <button v-tooltip.top="$t('profile_panel.edit')" class="icon-button" :aria-label="$t('profile_panel.edit')"
+          @click="handleEdit(item)">
           <div class="i-mingcute-edit-line" />
         </button>
-        <button v-tooltip.top="$t('profile_panel.rename')" class="icon-button" @click="handleRename(item)">
+        <button v-tooltip.top="$t('profile_panel.rename')" class="icon-button" :aria-label="$t('profile_panel.rename')"
+          @click="handleRename(item)">
           <div class="i-mingcute-textbox-line" />
         </button>
-        <button v-tooltip.top="$t('profile_panel.remove')" class="icon-button" @click="handleRemove(item)">
+        <button v-tooltip.top="$t('profile_panel.remove')" class="icon-button" :aria-label="$t('profile_panel.remove')"
+          @click="handleRemove(item)">
           <div class="i-mingcute-delete-2-line" />
         </button>
       </template>
       <button v-else-if="!item.assigned" v-tooltip.top="$t('profile_panel.create')" class="icon-button"
-        @click="handleCreate(item)">
+        :aria-label="$t('profile_panel.create')" @click="handleCreate(item)">
         <div class="i-mingcute-add-line" />
       </button>
     </div>
   </div>
-  <button v-if="isDev" @click="refreshProfiles" class="dou-sc-btn">refresh (dev only)</button>
+  <button v-if="isDev" class="dou-sc-btn" @click="refreshProfiles">
+    refresh (dev only)
+  </button>
 
-  <MagicTeleport v-if="dsStore.profileMode && currentEditingProfile" :key="currentEditingProfile.id">
-    <ProfilePageLayout :profile="currentEditingProfile"
-      :active="currentActiveProfile === currentEditingProfile.switchButton" @close="handleClose" />
-  </MagicTeleport>
+  <Teleport to="#main-content" defer>
+    <template v-if="dsStore.profileMode && currentEditingProfile">
+      <ProfilePageLayout :key="currentEditingProfile.id" :profile="currentEditingProfile"
+        :active="currentActiveProfile === currentEditingProfile.switchButton" @close="handleClose" />
+    </template>
+  </Teleport>
 </template>
 
 <style scoped lang="scss">
@@ -156,7 +163,8 @@ const { MagicTeleport } = useMagicTeleport('profileLayout')
   @apply text-primary;
 
   &.unassigned {
-    @apply text-orange;
+    // @apply text-orange;
+    @apply opacity-60;
   }
 
   .icon-button {

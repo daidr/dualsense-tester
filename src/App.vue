@@ -32,20 +32,22 @@ useLangSpecFont(locale)
     <SpeedInsights />
     <Debug />
     <main>
-      <template v-if="isWebHIDSupported">
-        <AppInner />
-      </template>
-      <template v-else>
-        <div class="h-[var(--min-height)] flex flex-col items-center justify-center">
-          <div class="i-mingcute-confused-line text-5xl" />
-          <p class="text-xl">
-            {{ $t("common.not_support_title") }}
-          </p>
-          <p class="text-base">
-            {{ $t("common.not_support_content") }}
-          </p>
-        </div>
-      </template>
+      <div class="main-container">
+        <template v-if="isWebHIDSupported">
+          <AppInner />
+        </template>
+        <template v-else>
+          <div class="h-[var(--min-height)] flex flex-col items-center justify-center">
+            <div class="i-mingcute-confused-line text-5xl" />
+            <p class="text-xl">
+              {{ $t("common.not_support_title") }}
+            </p>
+            <p class="text-base">
+              {{ $t("common.not_support_content") }}
+            </p>
+          </div>
+        </template>
+      </div>
     </main>
     <MainFooter />
   </ConfigProvider>
@@ -53,7 +55,12 @@ useLangSpecFont(locale)
 
 <style scoped>
 main {
-  @apply w-full max-w-[--max-width] mx-auto px-2;
+  @apply w-full px-2;
+  @apply flex flex-col flex-grow;
+}
+
+.main-container {
+  @apply max-w-[--max-width] mx-auto w-full;
   @apply flex flex-col flex-grow;
 }
 </style>

@@ -1,8 +1,11 @@
 import type { MaybeRefOrGetter } from 'vue'
-import { reactive, shallowReactive, shallowRef, toValue, watch } from 'vue'
+import { nextTick, reactive, ref, shallowReactive, shallowRef, toValue, watch } from 'vue'
+import { useDevice } from '@/composables/useInjectValues'
 import { utf16LEDecoder } from '@/utils/decoder.util'
-import { isDev } from '@/utils/env.util'
+import { fillProfileArrayReportChecksum } from '@/utils/dualsense/crc32.util'
+import { receiveFeatureReport, sendFeatureReport } from '@/utils/dualsense/ds.util'
 import { utf16LEEncoder } from '@/utils/encoder.util'
+import { isDev } from '@/utils/env.util'
 import { leBufferToTimestamp, timestampToLEBuffer } from '@/utils/time.util'
 
 export enum DSEProfileSwitchButton {
@@ -13,7 +16,7 @@ export enum DSEProfileSwitchButton {
   Triangle = 0x63, // DEFAULT
 }
 
-export enum DSEJoystickProfileType {
+export enum DSEJoystickProfilePreset {
   // 默认
   DEFAULT = 0x00,
   // 快速
@@ -28,34 +31,299 @@ export enum DSEJoystickProfileType {
   DYNAMIC = 0x05,
 }
 
-export interface DSEJoyStickProfile {
-  type: DSEJoystickProfileType
-  // -5 ~ 5
-  adjustment: number
-  // 0 ~ 30
-  deadZone: number
+export interface DSEJoystickProfile {
+  preset: DSEJoystickProfilePreset
+  curvePoints: number[]
+}
+
+class DSEJoystickCurvePos {
+  private value: number
+  private delta?: number
+  private affectedDeadzone?: boolean
+
+  get rawValue() {
+    return this.value
+  }
+
+  get rawDelta() {
+    return this.delta ?? 0
+  }
+
+  get rawAffectedDeadzone() {
+    return this.affectedDeadzone ?? true
+  }
+
+  constructor(value: number, params: {
+    d?: number
+    a?: boolean
+  } = {}) {
+    this.value = value
+    this.delta = params.d ?? 0
+    this.affectedDeadzone = params.a ?? true
+  }
+
+  getValue(deadzone = 0, adjustment = 0): number {
+    if (!this.delta) {
+      if (!this.affectedDeadzone) {
+        return this.value;
+      }
+      return Math.round(255 * deadzone + (1 - deadzone) * this.value)
+    }
+
+    if (!this.affectedDeadzone) {
+      return Math.round(this.value + this.delta * adjustment)
+    }
+
+    const finalValue = Math.round(this.value * (1 - deadzone) + 255 * deadzone) + this.delta * adjustment
+    return Math.floor(finalValue)
+  }
+}
+
+export type DSEJoystickCurveParams = {
+  /**
+   * Whether curve adjustment is supported
+   */
+  adjustment: false
+  /**
+   * Number of curve points
+   */
+  pointCount: number
+  /**
+   * Curve points, each point is a tuple of [x, y] coordinates
+   */
+  points: [DSEJoystickCurvePos, DSEJoystickCurvePos][]
+} | {
+  /**
+   * Whether curve adjustment is supported
+   */
+  adjustment: true
+  /**
+   * Number of curve points
+   */
+  pointCount: number
+  /**
+   * Curve points, each point is a tuple of [x, y] coordinates
+   */
+  points: [DSEJoystickCurvePos, DSEJoystickCurvePos][]
+  /**
+   * Adjustment reverse function
+   */
+  reversePointIndex: number
+}
+
+export class DSEJoystickCurve {
+  readonly curveParams: DSEJoystickCurveParams
+
+  readonly flattenPoints: DSEJoystickCurvePos[]
+
+  readonly adjustmentCache: Map<string, number> = new Map()
+
+  getDeadzone(points: number[]) {
+    if (points[0] === 0) {
+      return 0
+    }
+    return Math.round(points[0] / 2.55) / 100
+  }
+
+  getDefaultCurve(deadzone = 0) {
+    return this.getCurve(deadzone)
+  }
+
+  getCurve(deadzone = 0, adjustment = 0) {
+    return this.flattenPoints.map((point) => point.getValue(deadzone, adjustment))
+  }
+
+  getAdjustment(points: number[]) {
+    if (!this.curveParams.adjustment) {
+      return Number.NaN
+    }
+
+    const deadzone = this.getDeadzone(points)
+
+    const currentPointValue = points[this.curveParams.reversePointIndex]
+
+    const key = `${deadzone}-${currentPointValue}`
+
+    // const cache = this.adjustmentCache.get(key)
+    // if (cache !== undefined) {
+    //   return cache
+    // }
+
+    const point = this.flattenPoints[this.curveParams.reversePointIndex]
+
+    const rawValue = point.rawValue
+    const rawDelta = point.rawDelta
+    const affectedDeadzone = point.rawAffectedDeadzone
+
+    let adjustment = 0
+
+    if (affectedDeadzone) {
+      adjustment = Math.round((currentPointValue - rawValue * (1 - deadzone) - 255 * deadzone) / rawDelta)
+    } else {
+      adjustment = Math.round((currentPointValue - rawValue) / rawDelta)
+    }
+
+    adjustment = Math.max(-5, Math.min(adjustment, 5))
+
+    // this.adjustmentCache.set(key, adjustment)
+    return adjustment
+  }
+
+  constructor(params: DSEJoystickCurveParams) {
+    this.curveParams = params
+    this.flattenPoints = this.curveParams.points.flat()
+  }
+}
+
+export const DSEJoystickCurveMap: Record<DSEJoystickProfilePreset, DSEJoystickCurve> = {
+  [DSEJoystickProfilePreset.DEFAULT]: new DSEJoystickCurve({
+    adjustment: false,
+    pointCount: 3,
+    points: [
+      [
+        new DSEJoystickCurvePos(0),
+        new DSEJoystickCurvePos(0, { a: false })
+      ],
+      [
+        new DSEJoystickCurvePos(128),
+        new DSEJoystickCurvePos(128, { a: false })
+      ],
+      [
+        new DSEJoystickCurvePos(196),
+        new DSEJoystickCurvePos(196, { a: false })
+      ],
+      [
+        new DSEJoystickCurvePos(225),
+        new DSEJoystickCurvePos(225, { a: false })
+      ],
+    ],
+  }),
+  [DSEJoystickProfilePreset.QUICK]: new DSEJoystickCurve({
+    adjustment: true,
+    pointCount: 3,
+    points: [
+      [
+        new DSEJoystickCurvePos(0),
+        new DSEJoystickCurvePos(0, { a: false })
+      ],
+      [
+        new DSEJoystickCurvePos(38),
+        new DSEJoystickCurvePos(38, { a: false })
+      ],
+      [
+        new DSEJoystickCurvePos(107, {
+          d: -3
+        }), new DSEJoystickCurvePos(167, {
+          d: 5.5,
+          a: false
+        })
+      ],
+      [
+        new DSEJoystickCurvePos(255),
+        new DSEJoystickCurvePos(255, {
+          a: false
+        })
+      ],
+    ],
+    reversePointIndex: 4,
+  }),
+  [DSEJoystickProfilePreset.PRECISE]: new DSEJoystickCurve({
+    adjustment: true,
+    pointCount: 4,
+    points: [
+      [
+        new DSEJoystickCurvePos(0),
+        new DSEJoystickCurvePos(0, { a: false })
+      ],
+      [
+        new DSEJoystickCurvePos(85, { d: 3 }),
+        new DSEJoystickCurvePos(40, { d: -3.5, a: false })
+      ],
+      [
+        new DSEJoystickCurvePos(149, { d: 3 }),
+        new DSEJoystickCurvePos(83, { d: -6.5, a: false })
+      ],
+      [
+        new DSEJoystickCurvePos(206, { d: 2 }),
+        new DSEJoystickCurvePos(140, { d: -7.5, a: false })
+      ],
+    ],
+    reversePointIndex: 2,
+  }),
+  [DSEJoystickProfilePreset.STEADY]: new DSEJoystickCurve({
+    adjustment: true,
+    pointCount: 4,
+    points: [
+      [
+        new DSEJoystickCurvePos(0),
+        new DSEJoystickCurvePos(0, { a: false })
+      ],
+      [
+        new DSEJoystickCurvePos(57, { d: -1 }),
+        new DSEJoystickCurvePos(57, { d: -1, a: false })
+      ],
+      [
+        new DSEJoystickCurvePos(100, { d: -4 }),
+        new DSEJoystickCurvePos(127, { d: -0.5, a: false })
+      ],
+      [
+        new DSEJoystickCurvePos(210, { d: 2.5 }),
+        new DSEJoystickCurvePos(152, { d: -5.5, a: false })
+      ],
+    ],
+    reversePointIndex: 4,
+  }),
+  [DSEJoystickProfilePreset.DIGITAL]: new DSEJoystickCurve({
+    adjustment: true,
+    pointCount: 3,
+    points: [
+      [
+        new DSEJoystickCurvePos(0),
+        new DSEJoystickCurvePos(0, { a: false })
+      ],
+      [
+        new DSEJoystickCurvePos(38),
+        new DSEJoystickCurvePos(38, { a: false })
+      ],
+      [
+        new DSEJoystickCurvePos(38),
+        new DSEJoystickCurvePos(165, { d: 18, a: false })
+      ],
+      [
+        new DSEJoystickCurvePos(255),
+        new DSEJoystickCurvePos(255, { a: false })
+      ],
+    ],
+    reversePointIndex: 5,
+  }),
+  [DSEJoystickProfilePreset.DYNAMIC]: new DSEJoystickCurve({
+    adjustment: true,
+    pointCount: 3,
+    points: [
+      [
+        new DSEJoystickCurvePos(0),
+        new DSEJoystickCurvePos(0, { a: false })
+      ],
+      [
+        new DSEJoystickCurvePos(82, { d: 2.5 }),
+        new DSEJoystickCurvePos(40, { d: -3.5, a: false })
+      ],
+      [
+        new DSEJoystickCurvePos(161, { d: -4.5 }),
+        new DSEJoystickCurvePos(213, { d: 3, a: false })
+      ],
+      [
+        new DSEJoystickCurvePos(255),
+        new DSEJoystickCurvePos(255, { a: false })
+      ],
+    ],
+    reversePointIndex: 5,
+  }),
 }
 
 export enum DSEProfileButton {
-  UP = 0x00,
-  LEFT = 0x01,
-  DOWN = 0x02,
-  RIGHT = 0x03,
-  CIRCLE = 0x04,
-  CROSS = 0x05,
-  SQUARE = 0x06,
-  TRIANGLE = 0x07,
-  R1 = 0x08,
-  R2 = 0x09,
-  R3 = 0x0A,
-  L1 = 0x0B,
-  L2 = 0x0C,
-  L3 = 0x0D,
-  Options = 0x10,
-  Touchpad = 0x11,
-}
-
-export enum DSEProfileButtonIndex {
+  LB,
+  RB,
   UP,
   LEFT,
   DOWN,
@@ -70,10 +338,53 @@ export enum DSEProfileButtonIndex {
   L1,
   L2,
   L3,
-  PADDLE_LEFT,
-  PADDLE_RIGHT,
+  Create,
   Options,
+  PS,
   Touchpad,
+  TouchpadButton,
+  LeftJoystick,
+  RightJoystick,
+  JOYSTICK_SWITCH,
+}
+
+export interface DSEProfileButtonDef {
+  buttonId: number
+  mappingIndex: number
+  disabledIndex: number
+  allowMapping: number
+}
+
+export const DSEProfileButtonDefMap = {
+  // TODO
+
+}
+
+export enum DSEProfileDisabledButtonBitMap {
+  LB = 16,
+  RB = 17,
+  UP = 7,
+  LEFT = 6,
+  DOWN = 5,
+  RIGHT = 4,
+  CIRCLE = 30,
+  CROSS = 31,
+  SQUARE = 1,
+  TRIANGLE = 0,
+  R1 = 23,
+  R2 = 19,
+  R3 = 21,
+  L1 = 20,
+  L2 = 22,
+  L3 = 18,
+  CREATE = 3,
+  OPTIONS = 2,
+  PS = 13,
+  TOUCHPAD = 9,
+  TOUCHPAD_BUTTON = 8,
+  LEFT_JOYSTICK = 15,
+  RIGHT_JOYSTICK = 14,
+  JOYSTICK_SWITCH = 24,
 }
 
 export const DSEProfileSwitchButtonMap: Record<number, DSEProfileSwitchButton> = {
@@ -103,17 +414,17 @@ export type DSETriggerProfile = {
 const profileUtils = {
   decodeTriggerLimit(value: number) {
     // 0x00 ~ 0xFF -> 0 ~ 100
-    return Math.floor((value / 255) * 100)
+    return Math.round((value / 255) * 100)
   },
 
   encodeTriggerLimit(value: number) {
     // 0 ~ 100 -> 0x00 ~ 0xFF
-    return Math.floor((value / 100) * 255)
+    return Math.round((value / 100) * 255)
   },
 
   getBit(value: number, index: number) {
     return (value >> index) & 1
-  }
+  },
 }
 
 export enum DSEProfileIntensity {
@@ -124,22 +435,22 @@ export enum DSEProfileIntensity {
 }
 
 const vibrationIntensityMap: Record<DSEProfileIntensity, number> & Record<number, DSEProfileIntensity> = {
-  [DSEProfileIntensity.Off]: 0xff,
+  [DSEProfileIntensity.Off]: 0xFF,
   [DSEProfileIntensity.Weak]: 0x03,
   [DSEProfileIntensity.Medium]: 0x02,
   [DSEProfileIntensity.Strong]: 0x00,
-  0xff: DSEProfileIntensity.Off,
+  0xFF: DSEProfileIntensity.Off,
   0x03: DSEProfileIntensity.Weak,
   0x02: DSEProfileIntensity.Medium,
   0x00: DSEProfileIntensity.Strong,
 }
 
 const triggerEffectIntensityMap: Record<DSEProfileIntensity, number> & Record<number, DSEProfileIntensity> = {
-  [DSEProfileIntensity.Off]: 0xff,
+  [DSEProfileIntensity.Off]: 0xFF,
   [DSEProfileIntensity.Weak]: 0x09,
   [DSEProfileIntensity.Medium]: 0x06,
   [DSEProfileIntensity.Strong]: 0x00,
-  0xff: DSEProfileIntensity.Off,
+  0xFF: DSEProfileIntensity.Off,
   0x09: DSEProfileIntensity.Weak,
   0x06: DSEProfileIntensity.Medium,
   0x00: DSEProfileIntensity.Strong,
@@ -167,7 +478,6 @@ function resetBit(value: number, index: number): number {
   return value & ~(1 << index)
 }
 
-
 export class DSEProfile {
   id: number = -1
   uniqueId: ArrayBuffer
@@ -183,8 +493,8 @@ export class DSEProfile {
 
   buttonMapping: DSEProfileButton[]
 
-  leftJoyStick: DSEJoyStickProfile
-  rightJoyStick: DSEJoyStickProfile
+  leftJoystick: DSEJoystickProfile
+  rightJoystick: DSEJoystickProfile
 
   vibrationIntensity: DSEProfileIntensity = DSEProfileIntensity.Strong
   triggerEffectIntensity: DSEProfileIntensity = DSEProfileIntensity.Strong
@@ -197,8 +507,13 @@ export class DSEProfile {
 
   rawData: DataView[] = []
 
+  updateTimestamp() {
+    const newUpdatedAt = Date.now()
+    this.updatedAt = newUpdatedAt
+  }
+
   get bytes() {
-    const buffers = new Array(3).fill(null).map(() => new Uint8Array(64))
+    const buffers = Array.from({ length: 3 }).fill(null).map(() => new Uint8Array(64))
     const buffer0 = buffers[0]
     const buffer1 = buffers[1]
     const buffer2 = buffers[2]
@@ -206,10 +521,10 @@ export class DSEProfile {
 
     // #region Header
     {
-      buffer0[0] = buffer1[0] = buffer2[0] = this.id
-      buffer0[2] = 0x01;
-      buffer1[1] = 0x01;
-      buffer2[1] = 0x02;
+      buffer0[0] = buffer1[0] = buffer2[0] = DSEProfileSwitchButtonMap[this.id]
+      buffer0[2] = 0x01
+      buffer1[1] = 0x01
+      buffer2[1] = 0x02
     }
     // #endregion
 
@@ -221,8 +536,6 @@ export class DSEProfile {
 
     // #region Update Timestamp
     {
-      const newUpdatedAt = Date.now()
-      this.updatedAt = newUpdatedAt
       const timestampBuffer = timestampToLEBuffer(this.updatedAt)
       buffer2.set(new Uint8Array(timestampBuffer), 34)
     }
@@ -257,6 +570,45 @@ export class DSEProfile {
     }
     // #endregion
 
+    //#region Joystick
+    {
+      const leftPreset = DSEJoystickCurveMap[this.leftJoystick.preset]
+      const rightPreset = DSEJoystickCurveMap[this.rightJoystick.preset]
+      buffer2[30] = this.leftJoystick.preset
+      buffer2[32] = this.rightJoystick.preset
+
+      buffer1[44] = leftPreset.curveParams.pointCount
+      buffer1[53] = rightPreset.curveParams.pointCount
+
+      const leftStart = 45
+      for (let i = 0; i < 8; i++) {
+        buffer1[leftStart + i] = this.leftJoystick.curvePoints[i]
+      }
+
+      const rightStart = 54
+      for (let i = 0; i < 6; i++) {
+        buffer1[rightStart + i] = this.rightJoystick.curvePoints[i]
+      }
+      buffer2[2] = this.rightJoystick.curvePoints[6]
+      buffer2[3] = this.rightJoystick.curvePoints[7]
+    }
+    //#endregion
+
+    // // #region Test
+    // {
+    //   console.log('this.rawData', this.rawData)
+    //   if (this.rawData[2]) {
+    //     // buffer1 直接复制 rawData[1][44:59]
+    //     buffer1.set(new Uint8Array(this.rawData[1].buffer.slice(44, 60)), 44)
+    //     // buffer2 rawData[2][2:3]
+    //     buffer2.set(new Uint8Array(this.rawData[2].buffer.slice(2, 4)), 2)
+    //     // buffer2 rawData[2][8:33]
+    //     buffer2.set(new Uint8Array(this.rawData[2].buffer.slice(8, 34)), 8)
+    //   }
+    // }
+    // // #endregion
+
+    fillProfileArrayReportChecksum(buffers)
 
     return buffers
   }
@@ -278,7 +630,7 @@ export class DSEProfile {
       {
         this.uniqueId = rawData[1].buffer.slice(28, 44)
       }
-      //#endregion
+      // #endregion
 
       if (this.assigned) {
         // #region Label
@@ -308,7 +660,8 @@ export class DSEProfile {
                 profileUtils.decodeTriggerLimit(rawData[2].getUint8(5)),
               ],
             }
-          } else {
+          }
+          else {
             this.triggerDeadzone = {
               unified: false,
               left: [
@@ -331,7 +684,38 @@ export class DSEProfile {
         }
         // #endregion
 
+        // #region Joystick
+        const leftJoystickCurvePreset = rawData[2].getUint8(30)
+        const rightJoystickCurvePreset = rawData[2].getUint8(32)
 
+        this.leftJoystick = {
+          preset: leftJoystickCurvePreset,
+          curvePoints: [
+            rawData[1].getUint8(45),
+            rawData[1].getUint8(46),
+            rawData[1].getUint8(47),
+            rawData[1].getUint8(48),
+            rawData[1].getUint8(49),
+            rawData[1].getUint8(50),
+            rawData[1].getUint8(51),
+            rawData[1].getUint8(52),
+          ],
+        }
+
+        this.rightJoystick = {
+          preset: rightJoystickCurvePreset,
+          curvePoints: [
+            rawData[1].getUint8(54),
+            rawData[1].getUint8(55),
+            rawData[1].getUint8(56),
+            rawData[1].getUint8(57),
+            rawData[1].getUint8(58),
+            rawData[1].getUint8(59),
+            rawData[2].getUint8(2),
+            rawData[2].getUint8(3),
+          ],
+        }
+        // #endregion
       }
     }
   }
@@ -344,12 +728,13 @@ export class DSEProfile {
       switchButton: this.switchButton,
       triggerDeadzone: this.triggerDeadzone,
       buttonMapping: this.buttonMapping,
-      leftJoyStick: this.leftJoyStick,
-      rightJoyStick: this.rightJoyStick,
+      leftJoystick: this.leftJoystick,
+      rightJoystick: this.rightJoystick,
       vibrationIntensity: this.vibrationIntensity,
       triggerEffectIntensity: this.triggerEffectIntensity,
       uniqueId: serializeArrayBuffer(this.uniqueId),
       updatedAt: this.updatedAt,
+      rawData: this.rawData.map(buffer => serializeArrayBuffer(buffer.buffer)),
     }
     return JSON.stringify(finalJSON)
   }
@@ -363,12 +748,13 @@ export class DSEProfile {
     profile.switchButton = parsedData.switchButton
     profile.triggerDeadzone = parsedData.triggerDeadzone
     profile.buttonMapping = parsedData.buttonMapping
-    profile.leftJoyStick = parsedData.leftJoyStick
-    profile.rightJoyStick = parsedData.rightJoyStick
+    profile.leftJoystick = parsedData.leftJoystick
+    profile.rightJoystick = parsedData.rightJoystick
     profile.vibrationIntensity = parsedData.vibrationIntensity
     profile.triggerEffectIntensity = parsedData.triggerEffectIntensity
     profile.uniqueId = deserializeArrayBuffer(parsedData.uniqueId)
     profile.updatedAt = parsedData.updatedAt
+    profile.rawData = parsedData.rawData.map((buffer: string) => new DataView(deserializeArrayBuffer(buffer)))
 
     return profile
   }
@@ -383,17 +769,43 @@ export class DSEProfile {
 
 export function useInnerProfile(profile: MaybeRefOrGetter<DSEProfile>) {
   const innerProfile = shallowRef(reactive(toValue(profile).clone()))
+  const unsaved = ref(false)
+  const device = useDevice()
 
   watch(() => toValue(profile), () => {
     reset()
   })
 
+  watch(innerProfile, () => {
+    unsaved.value = true
+  }, { deep: true })
+
   function reset() {
     innerProfile.value = reactive(toValue(profile).clone())
+    nextTick(() => {
+      unsaved.value = false
+    })
+  }
+
+  function save() {
+    innerProfile.value.updateTimestamp()
+    const bytes = innerProfile.value.bytes
+    const id = bytes[0][0]
+    sendFeatureReport(device.value, id, bytes[0].buffer.slice(1))
+    sendFeatureReport(device.value, id, bytes[1].buffer.slice(1))
+    sendFeatureReport(device.value, id, bytes[2].buffer.slice(1))
+    const idMap: Record<number, number> = {
+      0x60: 0x63,
+      0x62: 0x65,
+      0x61: 0x64,
+    }
+    receiveFeatureReport(device.value, idMap[id])
   }
 
   return {
     innerProfile,
     reset,
+    unsaved,
+    save,
   }
 }

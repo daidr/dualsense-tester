@@ -33,16 +33,25 @@ const finalTitle = computed(() => {
 
 <template>
   <div class="rounded-2xl p-1 text-primary space-y-2 dou-sc-colorborder">
-    <div v-if="finalTitle" class="widget-toggle" @click="showWidget = !showWidget">
+    <button
+      v-if="finalTitle"
+      role=""
+      class="widget-toggle"
+      :aria-expanded="showWidget"
+      :aria-label="`${finalTitle} widget`"
+      @click="showWidget = !showWidget"
+    >
       <div class="line" />
       {{ finalTitle }}
       <div class="line" />
       <div
-        class="i-mingcute-down-fill transform-gpu text-lg transition-transform" :class="{
+        class="i-mingcute-down-fill transform-gpu text-lg transition-transform"
+        :class="{
           'rotate-180': showWidget,
         }"
+        aria-hidden="true"
       />
-    </div>
+    </button>
     <div v-show="showWidget">
       <component :is="item.component" />
     </div>

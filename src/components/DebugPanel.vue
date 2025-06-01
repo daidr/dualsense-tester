@@ -13,7 +13,7 @@ const { inputReport, inputReportId } = storeToRefs(useDualSenseStore())
 <template>
   <GeneralContainer title="Debug" tag="dev-only">
     <span>ReportId: {{ inputReportId }} (0x{{ inputReportId?.toString(16).padStart(2, '0') }})</span>
-    <HexPreview v-if="inputReport" :dataView="inputReport" />
+    <HexPreview v-if="inputReport" :dataView="inputReport.buffer" />
   </GeneralContainer>
 </template>
 

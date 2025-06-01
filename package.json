@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
+    "build:icon": "bun run --filter 'fancy-controller' build",
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p ./tsconfig.app.json --composite false",
@@ -14,17 +15,18 @@
   "dependencies": {
     "@unocss/reset": "^66.1.2",
     "@vercel/speed-insights": "^1.2.0",
-    "@vueuse/core": "^13.2.0",
+    "@vueuse/core": "^13.3.0",
     "consola": "^3.4.2",
+    "fancy-controller": "workspace:*",
     "floating-vue": "^5.2.2",
     "lodash-es": "^4.17.21",
     "motion-v": "^1.1.1",
     "pinia": "^3.0.2",
     "pixi.js": "^8.9.2",
-    "reka-ui": "^2.2.1",
+    "reka-ui": "^2.3.0",
     "ufo": "^1.6.1",
-    "vue": "^3.5.14",
-    "vue-i18n": "^11.1.4"
+    "vue": "^3.5.15",
+    "vue-i18n": "^11.1.5"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.13.2",
@@ -33,7 +35,7 @@
     "@iconify-json/mingcute": "^1.2.3",
     "@intlify/unplugin-vue-i18n": "^6.0.8",
     "@tsconfig/node18": "^18.2.4",
-    "@types/bun": "^1.2.14",
+    "@types/bun": "^1.2.15",
     "@types/lodash-es": "^4.17.12",
     "@types/umami": "^2.10.0",
     "@types/w3c-web-hid": "^1.0.6",
@@ -61,5 +63,8 @@
   ],
   "overrides": {
     "unconfig": "0.3.10"
-  }
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }

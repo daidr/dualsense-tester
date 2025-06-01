@@ -8,6 +8,7 @@ import { gitDefine } from '@/utils/env.util'
 import ConnectWidgetShell from './common/ConnectWidgetShell.vue'
 // import LoadingView from './common/LoadingView.vue'
 import DouSelect from './base/DouSelect.vue'
+import DouButton from './base/DouButton.vue'
 
 const dsStore = useDualSenseStore()
 
@@ -33,15 +34,13 @@ const deviceList = computed(() => {
 <template>
   <div class="w-full self-start space-y-2 dou-sc-container">
     <div class="flex items-stretch gap-2">
-      <DouSelect
-        v-if="deviceList.length"
-        class="min-w-0 flex-1"
-        :options="deviceList" :model-value="dsStore.currentDeviceIndex"
-        @update:model-value="dsStore.setCurrentDeviceIndex"
-      >
+      <DouSelect v-if="deviceList.length" class="min-w-0 flex-1" :options="deviceList"
+        :model-value="dsStore.currentDeviceIndex" @update:model-value="dsStore.setCurrentDeviceIndex">
         <template #default="{ index, extra }">
           <div class="min-w-0 flex items-center gap-1 py-0.5 text-base">
-            <div class="rounded bg-black/10 px-1 text-xs text-black/70 font-mono dark-bg-white/20 dark-text-white/70">
+            <div class="rounded bg-black/10 px-1 text-xs text-black/70 font-mono dark-bg-white/20 dark-text-white/70"
+              :aria-label="`Device ${index + 1} of ${deviceList.length}`" :class="{
+              }">
               #{{
                 index + 1 }}/{{ deviceList.length }}
             </div>
@@ -49,18 +48,19 @@ const deviceList = computed(() => {
               {{
                 extra!.deviceName }}
             </div>
-            <div v-if="extra!.connectionType === DeviceConnectionType.Bluetooth" class="i-mingcute-bluetooth-line" />
-            <div v-else class="i-mingcute-usb-line" />
+            <div v-if="extra!.connectionType === DeviceConnectionType.Bluetooth" class="i-mingcute-bluetooth-line"
+              aria-label="Bluetooth Connection" />
+            <div v-else class="i-mingcute-usb-line" aria-label="USB Connection" />
           </div>
         </template>
       </DouSelect>
       <div v-else class="flex-grow rounded-full bg-gray-100/50 p-1 py-0.5 dark:bg-gray-500/30" />
-      <button class="flex-shrink-0 dou-sc-btn" :disabled="dsStore.updatingDeviceList" @click="onConnectBtnClick">
+      <DouButton class="flex-shrink-0" :disabled="dsStore.updatingDeviceList" @click="onConnectBtnClick">
         <div v-if="dsStore.updatingDeviceList" class="i-mingcute-loading-fill animate-spin" />
         {{
           $t('connect_panel.add_device')
         }}
-      </button>
+      </DouButton>
     </div>
 
     <template v-if="dsStore.views.connectWidgetPanels?.length && !dsStore.profileMode">

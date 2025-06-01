@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import ControllerTextButton from '@/components/common/ControllerTextButton.vue';
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import DouSwitch from '@/components/base/DouSwitch.vue'
+import ControllerTextButton from '@/components/common/ControllerTextButton.vue'
+import { onDocumentUnload } from '@/composables/onDocumentUnload'
+import { useDevice, useInputReport } from '@/composables/useInjectValues'
+import { sendOutputReportFactory } from '@/utils/dualsense/ds.util'
+import { createAsyncLock } from '@/utils/lock.util'
 import { DSEProfile } from '../profile'
-import DouSwitch from '@/components/base/DouSwitch.vue';
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import { useDevice, useInputReport } from '@/composables/useInjectValues';
-import { sendOutputReportFactory } from '@/utils/dualsense/ds.util';
-import { createAsyncLock } from '@/utils/lock.util';
-import TriggerDeadZonePreview from '../TriggerDeadZonePreview.vue';
-import { onDocumentUnload } from '@/composables/onDocumentUnload';
+import TriggerDeadZonePreview from './TriggerDeadZone/TriggerDeadZonePreview.vue'
 
 const props = defineProps<{
   profile: DSEProfile
@@ -19,7 +19,7 @@ enterOutputReport[38] = leaveOutputReport[38] = 0x80
 enterOutputReport[40] = 0x03
 
 function createNewEnterReport(left: number[], right: number[]) {
-  const newReport = enterOutputReport.slice();
+  const newReport = enterOutputReport.slice()
   newReport[49] = DSEProfile.utils.encodeTriggerLimit(left[0])
   newReport[50] = DSEProfile.utils.encodeTriggerLimit(left[1])
   newReport[51] = DSEProfile.utils.encodeTriggerLimit(right[0])
@@ -29,10 +29,15 @@ function createNewEnterReport(left: number[], right: number[]) {
 
 function setTriggerDeadZone(val: typeof props.profile.triggerDeadzone) {
   props.profile.triggerDeadzone = val
-  if (val.unified) {
-    sendOutputReport(createNewEnterReport(val.unified, val.unified))
-  } else {
-    sendOutputReport(createNewEnterReport(val.left, val.right))
+  sendEnterReport(val)
+}
+
+function sendEnterReport(deadzone: typeof props.profile.triggerDeadzone) {
+  if (deadzone.unified) {
+    sendOutputReport(createNewEnterReport(deadzone.unified, deadzone.unified))
+  }
+  else {
+    sendOutputReport(createNewEnterReport(deadzone.left, deadzone.right))
   }
 }
 
@@ -54,7 +59,8 @@ const limits = computed({
       setTriggerDeadZone({
         unified: value.left,
       })
-    } else {
+    }
+    else {
       setTriggerDeadZone({
         unified: false,
         left: value.left,
@@ -71,7 +77,8 @@ const unified = computed({
       setTriggerDeadZone({
         unified: limits.value.left,
       })
-    } else {
+    }
+    else {
       setTriggerDeadZone({
         unified: false,
         left: limits.value.left,
@@ -126,7 +133,7 @@ async function sendOutputReport(reportData: Uint8Array) {
 
 onMounted(() => {
   sendOutputReport(enterOutputReport)
-  limits.value = limits.value
+  sendEnterReport(props.profile.triggerDeadzone)
 
   function dispose() {
     sendOutputReport(leaveOutputReport)
@@ -140,8 +147,6 @@ onMounted(() => {
     dispose()
   })
 })
-
-
 
 const inputReport = useInputReport()
 
@@ -159,7 +164,8 @@ const currentSide = ref<'left' | 'right'>('left')
 watch(() => currentTriggerPreview.value, (value, oldValue) => {
   if (value.right !== oldValue.right) {
     currentSide.value = 'right'
-  } else if (value.left !== oldValue.left) {
+  }
+  else if (value.left !== oldValue.left) {
     currentSide.value = 'left'
   }
 })
@@ -176,13 +182,11 @@ const currentUnifiedTrigger = computed(() => {
     finalVal: currentTriggerPreview.value.finalRight,
   }
 })
-
 </script>
 
 <template>
-
   <div class="flex flex-col gap-10">
-    <div class="flex items-center gap-3 justify-center flex-wrap">
+    <div class="flex flex-wrap items-center justify-center gap-3">
       <i18n-t tag="div" keypath="profile_mode.trigger_deadzone.use_unified_tips" scope="global">
         <template #L2>
           <ControllerTextButton text="L2" small />
@@ -193,20 +197,25 @@ const currentUnifiedTrigger = computed(() => {
       </i18n-t>
       <DouSwitch v-model="unified" />
     </div>
-    <div class="grid sm:grid-cols-2 gap-5 px-2">
+    <div class="grid gap-5 px-2 sm:grid-cols-2">
       <template v-if="unified">
-        <TriggerDeadZonePreview :current="currentUnifiedTrigger.val" :real-current="currentUnifiedTrigger.finalVal"
-          v-model:min="leftMin" v-model:max="leftMax" side="unified" />
+        <TriggerDeadZonePreview
+          v-model:min="leftMin" v-model:max="leftMax"
+          :current="currentUnifiedTrigger.val" :real-current="currentUnifiedTrigger.finalVal" side="unified"
+        />
       </template>
       <template v-else>
-        <TriggerDeadZonePreview :current="currentTriggerPreview.left" :real-current="currentTriggerPreview.finalLeft"
-          v-model:min="leftMin" v-model:max="leftMax" side="left" />
-        <TriggerDeadZonePreview :current="currentTriggerPreview.right" :real-current="currentTriggerPreview.finalRight"
-          v-model:min="rightMin" v-model:max="rightMax" side="right" />
+        <TriggerDeadZonePreview
+          v-model:min="leftMin" v-model:max="leftMax"
+          :current="currentTriggerPreview.left" :real-current="currentTriggerPreview.finalLeft" side="left"
+        />
+        <TriggerDeadZonePreview
+          v-model:min="rightMin" v-model:max="rightMax"
+          :current="currentTriggerPreview.right" :real-current="currentTriggerPreview.finalRight" side="right"
+        />
       </template>
     </div>
   </div>
-
 </template>
 
 <style scoped></style>
