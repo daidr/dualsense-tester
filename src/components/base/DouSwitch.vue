@@ -34,11 +34,11 @@ const state = defineModel<boolean>()
 
 .switch-thumb {
   @apply w-3.5 h-3.5 my-auto bg-white text-xs flex items-center justify-center;
-  @apply will-change-transform transition-transform translate-x-0.5;
+  @apply will-change-transform transition-transform translate-x-0.5 -rtl-translate-x-0.5;
   @apply shadow-xl rounded-full;
 
   &[data-state=checked] {
-    @apply translate-x-full;
+    @apply translate-x-full -rtl-translate-x-full;
   }
 }
 </style>

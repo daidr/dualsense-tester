@@ -35,10 +35,12 @@ const open = ref(false)
 </script>
 
 <template>
-  <SelectRoot v-model="modelValue" :disabled="disabled" v-model:open="open">
-    <SelectTrigger v-bind="$attrs" class="select-wrapper" :class="{
-      active: open,
-    }" :aria-label="label">
+  <SelectRoot v-model="modelValue" v-model:open="open" :disabled="disabled">
+    <SelectTrigger
+      v-bind="$attrs" class="select-wrapper" :class="{
+        active: open,
+      }" :aria-label="label"
+    >
       <SelectValue :placeholder="placeholder" class="label">
         <template v-for="option, index of options" :key="option.value">
           <template v-if="modelValue === option.value">
@@ -53,7 +55,7 @@ const open = ref(false)
     </SelectTrigger>
     <SelectPortal to="#teleport-container">
       <Transition name="trans-fade">
-        <SelectContent :body-lock="true" class="popup-wrapper" :side-offset="5" v-if="open">
+        <SelectContent v-if="open" :body-lock="true" class="popup-wrapper" :side-offset="5">
           <SelectScrollUpButton class="scroll-button">
             <div class="i-mingcute-up-fill" />
           </SelectScrollUpButton>
@@ -118,7 +120,6 @@ const open = ref(false)
   @apply overflow-hidden;
   @apply shadow-2xl shadow-black/20 dark-shadow-white/30;
 
-
   .popup-label {
     @apply m-1 py-1 ps-2 pe-3 min-w-30 min-w-0;
     @apply rounded-xl;
@@ -135,7 +136,7 @@ const open = ref(false)
     }
 
     &.popup-label[data-state="checked"] {
-      @apply bg-primary text-white pointer-events-none;
+      @apply bg-primary text-white;
     }
   }
 
