@@ -58,6 +58,11 @@ If you want to add a new language support or improve an existing one, please vis
   <img src="https://github.com/daidr/static/blob/main/sponsors.png?raw=true" alt="Sponsors" width="100%">
 </picture>
 
+## Crowdin Contributors
+
+<!-- CROWDIN-CONTRIBUTORS-START -->
+<!-- CROWDIN-CONTRIBUTORS-END -->
+
 ## Credits
 
 * [Ohjurot/DualSense-Windows](https://github.com/Ohjurot/DualSense-Windows)
