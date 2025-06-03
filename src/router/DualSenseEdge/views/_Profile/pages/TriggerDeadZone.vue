@@ -3,11 +3,12 @@ import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import DouSwitch from '@/components/base/DouSwitch.vue'
 import ControllerTextButton from '@/components/common/ControllerTextButton.vue'
 import { onDocumentUnload } from '@/composables/onDocumentUnload'
-import { useDevice, useInputReport } from '@/composables/useInjectValues'
+import { useConnectionType, useDevice, useInputReport } from '@/composables/useInjectValues'
 import { sendOutputReportFactory } from '@/utils/dualsense/ds.util'
 import { createAsyncLock } from '@/utils/lock.util'
 import { DSEProfile } from '../profile'
 import TriggerDeadZonePreview from './TriggerDeadZone/TriggerDeadZonePreview.vue'
+import { DeviceConnectionType } from '@/device-based-router/shared'
 
 const props = defineProps<{
   profile: DSEProfile
@@ -155,13 +156,17 @@ onMounted(() => {
 })
 
 const inputReport = useInputReport()
+const connectionType = useConnectionType()
+const offset = computed(() =>
+  connectionType.value === DeviceConnectionType.USB ? 0 : 1,
+)
 
 const currentTriggerPreview = computed(() => {
   return {
-    left: DSEProfile.utils.decodeTriggerLimit(inputReport.value.getUint8(23)),
-    right: DSEProfile.utils.decodeTriggerLimit(inputReport.value.getUint8(24)),
-    finalLeft: DSEProfile.utils.decodeTriggerLimit(inputReport.value.getUint8(25)),
-    finalRight: DSEProfile.utils.decodeTriggerLimit(inputReport.value.getUint8(26)),
+    left: DSEProfile.utils.decodeTriggerLimit(inputReport.value.getUint8(23 + offset.value)),
+    right: DSEProfile.utils.decodeTriggerLimit(inputReport.value.getUint8(24 + offset.value)),
+    finalLeft: DSEProfile.utils.decodeTriggerLimit(inputReport.value.getUint8(25 + offset.value)),
+    finalRight: DSEProfile.utils.decodeTriggerLimit(inputReport.value.getUint8(26 + offset.value)),
   }
 })
 

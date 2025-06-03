@@ -2,11 +2,12 @@
 import type { DSEJoystickProfile, DSEJoystickProfilePreset, DSEProfile } from '../profile'
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { onDocumentUnload } from '@/composables/onDocumentUnload'
-import { useDevice, useInputReport } from '@/composables/useInjectValues'
+import { useConnectionType, useDevice, useInputReport } from '@/composables/useInjectValues'
 import { sendOutputReportFactory } from '@/utils/dualsense/ds.util'
 import { createAsyncLock } from '@/utils/lock.util'
 import { DSEJoystickCurveMap } from '../profile'
 import JoystickPreview from './JoystickSensitivity/JoystickPreview.vue'
+import { DeviceConnectionType } from '@/device-based-router/shared'
 
 const props = defineProps<{
   profile: DSEProfile
@@ -74,17 +75,21 @@ function normalizeThumbStickAxis(value: number) {
 }
 
 const inputReport = useInputReport()
+const connectionType = useConnectionType()
+const offset = computed(() =>
+  connectionType.value === DeviceConnectionType.USB ? 0 : 1,
+)
 
 const currentJoystickPreview = computed(() => {
   return {
-    leftX: normalizeThumbStickAxis(inputReport.value.getUint8(15)),
-    leftY: normalizeThumbStickAxis(inputReport.value.getUint8(16)),
-    rightX: normalizeThumbStickAxis(inputReport.value.getUint8(17)),
-    rightY: normalizeThumbStickAxis(inputReport.value.getUint8(18)),
-    finalLeftX: normalizeThumbStickAxis(inputReport.value.getUint8(19)),
-    finalLeftY: normalizeThumbStickAxis(inputReport.value.getUint8(20)),
-    finalRightX: normalizeThumbStickAxis(inputReport.value.getUint8(21)),
-    finalRightY: normalizeThumbStickAxis(inputReport.value.getUint8(22)),
+    leftX: normalizeThumbStickAxis(inputReport.value.getUint8(15 + offset.value)),
+    leftY: normalizeThumbStickAxis(inputReport.value.getUint8(16 + offset.value)),
+    rightX: normalizeThumbStickAxis(inputReport.value.getUint8(17 + offset.value)),
+    rightY: normalizeThumbStickAxis(inputReport.value.getUint8(18 + offset.value)),
+    finalLeftX: normalizeThumbStickAxis(inputReport.value.getUint8(19 + offset.value)),
+    finalLeftY: normalizeThumbStickAxis(inputReport.value.getUint8(20 + offset.value)),
+    finalRightX: normalizeThumbStickAxis(inputReport.value.getUint8(21 + offset.value)),
+    finalRightY: normalizeThumbStickAxis(inputReport.value.getUint8(22 + offset.value)),
   }
 })
 
