@@ -246,7 +246,7 @@ function handleRefreshButtonClick() {
     <template v-if="dsStore.profileMode && currentEditingProfile">
       <LayoutGroup>
         <ProfilePageLayout :key="currentEditingProfile.id" :profile="currentEditingProfile"
-          :active="currentActiveProfile === currentEditingProfile.switchButton" @close="handleClose" />
+          :active="currentActiveProfile === currentEditingProfile.switchButton" @close="handleClose" @refresh="refreshProfiles" />
       </LayoutGroup>
     </template>
   </Teleport>

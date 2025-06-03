@@ -17,6 +17,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (e: 'close'): void
+  (e: 'refresh'): void
 }>()
 
 const CustomButtonMapping = defineAsyncComponent(() => import('./pages/CustomButtonMapping.vue'))
@@ -89,9 +90,10 @@ function exitProfileMode() {
   })
 }
 
-function handleSaveClick() {
+async function handleSaveClick() {
   track('profile.save.click')
-  save()
+  await save()
+  emit('refresh')
 }
 </script>
 
