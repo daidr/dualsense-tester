@@ -875,7 +875,6 @@ export function useSaveProfile() {
 export function useInnerProfile(profile: MaybeRefOrGetter<DSEProfile>) {
   const innerProfile = shallowRef(reactive(toValue(profile).clone()))
   const unsaved = ref(false)
-  const device = useDevice()
   const { save: saveProfile } = useSaveProfile()
 
   watch(() => toValue(profile), () => {
@@ -893,8 +892,9 @@ export function useInnerProfile(profile: MaybeRefOrGetter<DSEProfile>) {
     })
   }
 
-  function save() {
-    saveProfile(innerProfile.value)
+  async function save() {
+    await saveProfile(innerProfile.value)
+    unsaved.value = false
   }
 
   return {
