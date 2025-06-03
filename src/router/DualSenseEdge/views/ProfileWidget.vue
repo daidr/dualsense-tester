@@ -86,7 +86,14 @@ function getProfileName(profile: DSEProfile) {
   return profile.label
 }
 
-const currentEditingProfile = ref<DSEProfile | null>(null)
+const currentEditingProfileId = ref<number | null>(null)
+const currentEditingProfile = computed(() => {
+  currentEditingProfileId.value, profiles.value;
+  if (currentEditingProfileId.value === null) {
+    return null
+  }
+  return profiles.value?.find(profile => profile.id === currentEditingProfileId.value) || null
+})
 
 const { open: openWarningModal } = useWarningModal()
 const { open: openModal } = useModal()
@@ -185,13 +192,13 @@ function handleRemove(profile: DSEProfile) {
 function handleEdit(profile: DSEProfile) {
   track('profile.edit.click')
   dsStore.profileMode = true
-  currentEditingProfile.value = profile
+  currentEditingProfileId.value = profile.id
 }
 
 function handleClose() {
   track('profile.edit.close')
   dsStore.profileMode = false
-  currentEditingProfile.value = null
+  currentEditingProfileId.value = null
 }
 
 function handleRefreshButtonClick() {
