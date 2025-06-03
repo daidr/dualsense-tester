@@ -15,7 +15,7 @@ function toPercentage(value: number | undefined) {
   if (value === undefined) {
     return ''
   }
-  return `${value * 100}%`
+  return `${Math.floor(value * 100)}%`
 }
 </script>
 
