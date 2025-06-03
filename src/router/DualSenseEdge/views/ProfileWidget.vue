@@ -14,6 +14,7 @@ import { DSEProfile, DSEProfileSwitchButton, DSEProfileSwitchButtonIndexMap, use
 import ProfilePageLayout from './_Profile/ProfilePageLayout.vue'
 import ProfileRenameInput from './_Profile/ProfileRenameInput.vue'
 import ProfileSwitchButton from './_Profile/ProfileSwitchButton.vue'
+import { track } from '@/utils/umami.util'
 
 const device = useDevice()
 const connectionType = useConnectionType()
@@ -92,6 +93,7 @@ const { open: openModal } = useModal()
 const { save: saveProfile } = useSaveProfile()
 
 function handleCreate(profile: DSEProfile) {
+  track('profile.create.click')
   const isConfirmHidden = ref(true)
   const innerLabel = ref(t('profile_panel.new_profile'))
   openModal({
@@ -108,6 +110,7 @@ function handleCreate(profile: DSEProfile) {
       },
     }),
     async onConfirm() {
+      track('profile.create.confirm')
       const { id, switchButton } = profile
       const newProfile = new DSEProfile({
         id,
@@ -119,10 +122,14 @@ function handleCreate(profile: DSEProfile) {
         refreshProfiles()
       })
     },
+    onCancel() {
+      track('profile.create.cancel')
+    }
   })
 }
 
 function handleRename(profile: DSEProfile) {
+  track('profile.rename.click')
   const isConfirmHidden = ref(true)
   const clonedProfile = profile.clone()
   const innerLabel = ref(clonedProfile.label)
@@ -140,14 +147,19 @@ function handleRename(profile: DSEProfile) {
       },
     }),
     async onConfirm() {
+      track('profile.rename.confirm')
       clonedProfile.label = innerLabel.value
       await saveProfile(clonedProfile)
       refreshProfiles()
     },
+    onCancel() {
+      track('profile.rename.cancel')
+    }
   })
 }
 
 function handleRemove(profile: DSEProfile) {
+  track('profile.remove.click')
   const profileIndex = DSEProfileSwitchButtonIndexMap[profile.switchButton]
   openWarningModal({
     content: (
@@ -159,21 +171,32 @@ function handleRemove(profile: DSEProfile) {
         </I18nT>
       </div>
     ),
-    onConfirm: async () => {
+    async onConfirm() {
+      track('profile.remove.confirm')
       await sendFeatureReport(device.value, 0x68, new Uint8Array([profileIndex]))
       refreshProfiles()
+    },
+    onCancel() {
+      track('profile.remove.cancel')
     },
   })
 }
 
 function handleEdit(profile: DSEProfile) {
+  track('profile.edit.click')
   dsStore.profileMode = true
   currentEditingProfile.value = profile
 }
 
 function handleClose() {
+  track('profile.edit.close')
   dsStore.profileMode = false
   currentEditingProfile.value = null
+}
+
+function handleRefreshButtonClick() {
+  track('profile.refresh.click')
+  refreshProfiles()
 }
 
 // const { MagicTeleport } = useMagicTeleport('profileLayout')
@@ -215,7 +238,7 @@ function handleClose() {
       </button>
     </div>
   </div>
-  <button v-if="!dsStore.profileMode" class="dou-sc-btn self-end" @click="refreshProfiles">
+  <button v-if="!dsStore.profileMode" class="dou-sc-btn self-end" @click="handleRefreshButtonClick">
     {{ $t("shared.refresh") }}
   </button>
 

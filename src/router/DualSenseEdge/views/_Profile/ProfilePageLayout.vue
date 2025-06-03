@@ -8,6 +8,7 @@ import HexPreview from '@/components/common/HexPreview.vue'
 import { useWarningModal } from '@/composables/useModal'
 import { useInnerProfile } from './profile'
 import ProfileSwitchButton from './ProfileSwitchButton.vue'
+import { track } from '@/utils/umami.util'
 
 const props = defineProps<{
   profile: DSEProfile
@@ -87,6 +88,11 @@ function exitProfileMode() {
     emit('close')
   })
 }
+
+function handleSaveClick() {
+  track('profile.save.click')
+  save()
+}
 </script>
 
 <template>
@@ -148,7 +154,7 @@ function exitProfileMode() {
         </template>
       </Tooltip>
 
-      <DouButton :disabled="!unsaved" @click="save">
+      <DouButton :disabled="!unsaved" @click="handleSaveClick">
         {{ $t('shared.save') }}
       </DouButton>
     </div>
