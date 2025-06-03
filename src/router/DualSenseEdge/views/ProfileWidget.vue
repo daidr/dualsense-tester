@@ -1,19 +1,19 @@
-<script setup lang="ts">
+<script setup lang="tsx">
 import type { DeviceItem } from '@/device-based-router/shared'
-import { computedAsync } from '@vueuse/core'
-import { computed, provide, reactive, ref, shallowReactive, shallowRef, watch } from 'vue'
-import { useI18n } from 'vue-i18n'
+
+import { LayoutGroup, m } from 'motion-v'
+import { computed, h, reactive, ref, shallowRef, watch } from 'vue'
+import { I18nT, useI18n } from 'vue-i18n'
 import { useConnectionType, useDevice, useInputReport } from '@/composables/useInjectValues'
-import { useMagicTeleport } from '@/composables/useMagicTeleport'
+import { useModal, useWarningModal } from '@/composables/useModal'
 import { DeviceConnectionType } from '@/device-based-router/shared'
 import { useDualSenseStore } from '@/store/dualsense'
-import { receiveFeatureReport } from '@/utils/dualsense/ds.util'
-import { isDev } from '@/utils/env.util'
+import { receiveFeatureReport, sendFeatureReport } from '@/utils/dualsense/ds.util'
 import { inputReportOffsetBluetooth, inputReportOffsetUSB } from '../_utils/offset.util'
-import { DSEProfile, DSEProfileSwitchButton } from './_Profile/profile'
+import { DSEProfile, DSEProfileSwitchButton, DSEProfileSwitchButtonIndexMap, useSaveProfile } from './_Profile/profile'
 import ProfilePageLayout from './_Profile/ProfilePageLayout.vue'
+import ProfileRenameInput from './_Profile/ProfileRenameInput.vue'
 import ProfileSwitchButton from './_Profile/ProfileSwitchButton.vue'
-import { LayoutGroup, m } from 'motion-v'
 
 const device = useDevice()
 const connectionType = useConnectionType()
@@ -87,19 +87,88 @@ function getProfileName(profile: DSEProfile) {
 
 const currentEditingProfile = ref<DSEProfile | null>(null)
 
-function handleRename(profile: DSEProfile) {
+const { open: openWarningModal } = useWarningModal()
+const { open: openModal } = useModal()
+const { save: saveProfile } = useSaveProfile()
 
+function handleCreate(profile: DSEProfile) {
+  const isConfirmHidden = ref(true)
+  const innerLabel = ref(t('profile_panel.new_profile'))
+  openModal({
+    icon: 'i-mingcute-textbox-fill',
+    title: t('profile_panel.create_profile'),
+    hideConfirm: isConfirmHidden,
+    content: () => h(ProfileRenameInput, {
+      'modelValue': innerLabel.value,
+      'onUpdate:modelValue': (value: string) => {
+        innerLabel.value = value
+      },
+      'onValidChanged': (valid: boolean) => {
+        isConfirmHidden.value = !valid
+      },
+    }),
+    async onConfirm() {
+      const { id, switchButton } = profile
+      const newProfile = new DSEProfile({
+        id,
+        switchButton,
+        uniqueId: new Uint8Array(16).map(() => Math.floor(Math.random() * 256)),
+        label: innerLabel.value,
+      })
+      saveProfile(newProfile).then(() => {
+        refreshProfiles()
+      })
+    },
+  })
+}
+
+function handleRename(profile: DSEProfile) {
+  const isConfirmHidden = ref(true)
+  const clonedProfile = profile.clone()
+  const innerLabel = ref(clonedProfile.label)
+  openModal({
+    icon: 'i-mingcute-textbox-fill',
+    title: t('shared.rename'),
+    hideConfirm: isConfirmHidden,
+    content: () => h(ProfileRenameInput, {
+      'modelValue': innerLabel.value,
+      'onUpdate:modelValue': (value: string) => {
+        innerLabel.value = value
+      },
+      'onValidChanged': (valid: boolean) => {
+        isConfirmHidden.value = !valid
+      },
+    }),
+    async onConfirm() {
+      clonedProfile.label = innerLabel.value
+      await saveProfile(clonedProfile)
+      refreshProfiles()
+    },
+  })
 }
 
 function handleRemove(profile: DSEProfile) {
+  const profileIndex = DSEProfileSwitchButtonIndexMap[profile.switchButton]
+  openWarningModal({
+    content: (
+      <div class="text-base font-normal">
+        <I18nT keypath="profile_panel.remove_confirm_tips" scope="global">
+          {{
+            name: () => <span class="rounded-lg bg-primary/10 px-2 py-0.5 text-sm text-primary">{profile.label}</span>,
+          }}
+        </I18nT>
+      </div>
+    ),
+    onConfirm: async () => {
+      await sendFeatureReport(device.value, 0x68, new Uint8Array([profileIndex]))
+      refreshProfiles()
+    },
+  })
 }
 
 function handleEdit(profile: DSEProfile) {
   dsStore.profileMode = true
   currentEditingProfile.value = profile
-}
-
-function handleCreate(profile: DSEProfile) {
 }
 
 function handleClose() {
@@ -117,36 +186,37 @@ function handleClose() {
       unassigned: !item.assigned,
     }">
     <div class="w-1em flex-shrink-0">
-      <m.div layout-id="profile-widget-indicator" v-if="currentActiveProfile === item.switchButton" class="h-2 w-2 rounded-full bg-green-6" />
+      <m.div v-if="currentActiveProfile === item.switchButton" layout="position" layout-id="profile-widget-indicator"
+        class="h-2 w-2 rounded-full bg-green-6" />
     </div>
     <ProfileSwitchButton :button="item.switchButton" />
     <div class="name flex-grow overflow-hidden text-ellipsis whitespace-nowrap" :title="getProfileName(item)"
       tabindex="0">
       {{ getProfileName(item) }}
     </div>
-    <div class="flex flex-shrink-0">
+    <div v-if="!dsStore.profileMode" class="flex flex-shrink-0">
       <template v-if="item.assigned && !item.default">
-        <button v-tooltip.top="$t('profile_panel.edit')" class="icon-button" :aria-label="$t('profile_panel.edit')"
+        <button v-tooltip.top="$t('shared.edit')" class="icon-button" :aria-label="$t('shared.edit')"
           @click="handleEdit(item)">
           <div class="i-mingcute-edit-line" />
         </button>
-        <button v-tooltip.top="$t('profile_panel.rename')" class="icon-button" :aria-label="$t('profile_panel.rename')"
+        <button v-tooltip.top="$t('shared.rename')" class="icon-button" :aria-label="$t('shared.rename')"
           @click="handleRename(item)">
           <div class="i-mingcute-textbox-line" />
         </button>
-        <button v-tooltip.top="$t('profile_panel.remove')" class="icon-button" :aria-label="$t('profile_panel.remove')"
+        <button v-tooltip.top="$t('shared.remove')" class="icon-button" :aria-label="$t('shared.remove')"
           @click="handleRemove(item)">
           <div class="i-mingcute-delete-2-line" />
         </button>
       </template>
-      <button v-else-if="!item.assigned" v-tooltip.top="$t('profile_panel.create')" class="icon-button"
-        :aria-label="$t('profile_panel.create')" @click="handleCreate(item)">
+      <button v-else-if="!item.assigned" v-tooltip.top="$t('shared.create')" class="icon-button"
+        :aria-label="$t('shared.create')" @click="handleCreate(item)">
         <div class="i-mingcute-add-line" />
       </button>
     </div>
   </div>
-  <button v-if="isDev" class="dou-sc-btn" @click="refreshProfiles">
-    refresh (dev only)
+  <button v-if="!dsStore.profileMode" class="dou-sc-btn self-end" @click="refreshProfiles">
+    {{ $t("shared.refresh") }}
   </button>
 
   <Teleport to="#main-content" defer>

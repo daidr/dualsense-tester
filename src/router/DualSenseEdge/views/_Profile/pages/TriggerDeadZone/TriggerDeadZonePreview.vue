@@ -26,8 +26,10 @@ const buttonText = computed(() => {
 
 <template>
   <div class="flex flex-shrink-0 gap-3">
-    <TriggerLimitGraph v-if="side === 'right'" :min="min" :max="max" :current="current" direction="right"
-      class="h-auto max-h-300px flex-grow <sm:hidden" />
+    <TriggerLimitGraph
+      v-if="side === 'right'" :min="min" :max="max" :current="current" direction="right"
+      class="h-auto max-h-300px flex-grow <sm:hidden"
+    />
     <div class="flex flex-col items-start gap-2">
       <div class="flex items-center gap-2">
         <div>
@@ -70,8 +72,10 @@ const buttonText = computed(() => {
         <span class="font-mono">{{ realCurrent }}</span>
       </div>
     </div>
-    <TriggerLimitGraph v-if="side === 'left' || side === 'unified'" :min="min" :max="max" :current="current"
-      direction="left" class="h-auto max-h-300px flex-grow <sm:hidden" />
+    <TriggerLimitGraph
+      v-if="side === 'left' || side === 'unified'" :min="min" :max="max" :current="current"
+      direction="left" class="h-auto max-h-300px flex-grow <sm:hidden"
+    />
   </div>
 </template>
 

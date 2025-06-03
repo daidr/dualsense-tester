@@ -16,6 +16,36 @@ export enum DSEProfileSwitchButton {
   Triangle = 0x63, // DEFAULT
 }
 
+/**
+ * Used in profile removing report
+ */
+export const DSEProfileSwitchButtonIndexMap = {
+  [DSEProfileSwitchButton.Unknown]: 0,
+  /**
+   * The default profile, I don't know what will happen after deletion
+   */
+  [DSEProfileSwitchButton.Triangle]: 1,
+  [DSEProfileSwitchButton.Square]: 2,
+  [DSEProfileSwitchButton.Cross]: 3,
+  [DSEProfileSwitchButton.Circle]: 4,
+}
+
+export const DSEProfileSwitchButtonMap: Record<number, DSEProfileSwitchButton> = {
+  0: DSEProfileSwitchButton.Unknown,
+  112: DSEProfileSwitchButton.Triangle,
+  115: DSEProfileSwitchButton.Square,
+  118: DSEProfileSwitchButton.Cross,
+  121: DSEProfileSwitchButton.Circle,
+}
+
+export const DSEProfileSwitchButtonReverseMap: Record<DSEProfileSwitchButton, number> = {
+  [DSEProfileSwitchButton.Unknown]: 0,
+  [DSEProfileSwitchButton.Triangle]: 112,
+  [DSEProfileSwitchButton.Square]: 115,
+  [DSEProfileSwitchButton.Cross]: 118,
+  [DSEProfileSwitchButton.Circle]: 121,
+}
+
 export enum DSEJoystickProfilePreset {
   // 默认
   DEFAULT = 0x00,
@@ -389,22 +419,6 @@ export enum DSEProfileDisabledButtonBitMap {
   JOYSTICK_SWITCH = 24,
 }
 
-export const DSEProfileSwitchButtonMap: Record<number, DSEProfileSwitchButton> = {
-  0: DSEProfileSwitchButton.Unknown,
-  112: DSEProfileSwitchButton.Triangle,
-  115: DSEProfileSwitchButton.Square,
-  118: DSEProfileSwitchButton.Cross,
-  121: DSEProfileSwitchButton.Circle,
-}
-
-export const DSEProfileSwitchButtonReverseMap: Record<DSEProfileSwitchButton, number> = {
-  [DSEProfileSwitchButton.Unknown]: 0,
-  [DSEProfileSwitchButton.Triangle]: 112,
-  [DSEProfileSwitchButton.Square]: 115,
-  [DSEProfileSwitchButton.Cross]: 118,
-  [DSEProfileSwitchButton.Circle]: 121,
-}
-
 export type DSETriggerProfile = {
   unified: false
   left: number[]
@@ -504,8 +518,8 @@ export class DSEProfile {
   }
 
   constructor(params?: {
-    id?: number,
-    uniqueId?: ArrayBuffer,
+    id?: number
+    uniqueId?: ArrayBuffer
     label?: string
     assigned?: boolean
     switchButton?: DSEProfileSwitchButton
@@ -645,19 +659,37 @@ export class DSEProfile {
     }
     // #endregion
 
-    // // #region Test
-    // {
-    //   console.log('this.rawData', this.rawData)
-    //   if (this.rawData[2]) {
-    //     // buffer1 直接复制 rawData[1][44:59]
-    //     buffer1.set(new Uint8Array(this.rawData[1].buffer.slice(44, 60)), 44)
-    //     // buffer2 rawData[2][2:3]
-    //     buffer2.set(new Uint8Array(this.rawData[2].buffer.slice(2, 4)), 2)
-    //     // buffer2 rawData[2][8:33]
-    //     buffer2.set(new Uint8Array(this.rawData[2].buffer.slice(8, 34)), 8)
-    //   }
-    // }
-    // // #endregion
+    // #region Copy button mapping setting
+    {
+      if (this.rawData[2]) {
+        buffer2.set(new Uint8Array(this.rawData[2].buffer.slice(10, 30)), 10)
+      }
+      else {
+        buffer2.set(new Uint8Array([
+          0x00,
+          0x01,
+          0x02,
+          0x03,
+          0x04,
+          0x05,
+          0x06,
+          0x07,
+          0x08,
+          0x09,
+          0x0A,
+          0x0B,
+          0x0C,
+          0x0D,
+          0x0E,
+          0x0F,
+          0x00,
+          0x00,
+          0xC0,
+          0x00,
+        ]), 10)
+      }
+    }
+    // #endregion
 
     fillProfileArrayReportChecksum(buffers)
 
@@ -820,10 +852,31 @@ export class DSEProfile {
   static utils = profileUtils
 }
 
+export function useSaveProfile() {
+  const device = useDevice()
+  return {
+    save: async (profile: DSEProfile) => {
+      profile.updateTimestamp()
+      const bytes = profile.bytes
+      const id = bytes[0][0]
+      await sendFeatureReport(device.value, id, bytes[0].buffer.slice(1))
+      await sendFeatureReport(device.value, id, bytes[1].buffer.slice(1))
+      await sendFeatureReport(device.value, id, bytes[2].buffer.slice(1))
+      const idMap: Record<number, number> = {
+        0x60: 0x63,
+        0x62: 0x65,
+        0x61: 0x64,
+      }
+      await receiveFeatureReport(device.value, idMap[id])
+    }
+  }
+}
+
 export function useInnerProfile(profile: MaybeRefOrGetter<DSEProfile>) {
   const innerProfile = shallowRef(reactive(toValue(profile).clone()))
   const unsaved = ref(false)
   const device = useDevice()
+  const { save: saveProfile } = useSaveProfile()
 
   watch(() => toValue(profile), () => {
     reset()
@@ -841,18 +894,7 @@ export function useInnerProfile(profile: MaybeRefOrGetter<DSEProfile>) {
   }
 
   function save() {
-    innerProfile.value.updateTimestamp()
-    const bytes = innerProfile.value.bytes
-    const id = bytes[0][0]
-    sendFeatureReport(device.value, id, bytes[0].buffer.slice(1))
-    sendFeatureReport(device.value, id, bytes[1].buffer.slice(1))
-    sendFeatureReport(device.value, id, bytes[2].buffer.slice(1))
-    const idMap: Record<number, number> = {
-      0x60: 0x63,
-      0x62: 0x65,
-      0x61: 0x64,
-    }
-    receiveFeatureReport(device.value, idMap[id])
+    saveProfile(innerProfile.value)
   }
 
   return {

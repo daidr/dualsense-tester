@@ -13,7 +13,12 @@
     "hold": "按住",
     "reset": "重置",
     "save": "保存",
-    "warning": "警告"
+    "warning": "警告",
+    "edit": "编辑",
+    "rename": "重命名",
+    "remove": "移除",
+    "create": "创建",
+    "refresh": "刷新"
   },
   "common": {
     "tips": "提示",
@@ -95,10 +100,10 @@
     "default": "默认配置",
     "unassigned": "未配置",
     "cannot_edit_default_profile_tips": "无法编辑默认配置文件",
-    "edit": "编辑",
-    "rename": "重命名",
-    "remove": "删除",
-    "create": "创建"
+    "remove_confirm_tips": "确定要删除配置文件 {name} 吗？",
+    "rename_invalid_tips": "配置文件名称不能为空或过长。",
+    "new_profile": "新配置文件",
+    "create_profile": "创建配置文件"
   },
   "info_panel": {
     "tips": "请先连接你的 DualSense 手柄",

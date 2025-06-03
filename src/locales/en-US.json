@@ -13,7 +13,12 @@
     "hold": "Hold",
     "reset": "Reset",
     "save": "Save",
-    "warning": "Warning"
+    "warning": "Warning",
+    "edit": "Edit",
+    "rename": "Rename",
+    "remove": "Remove",
+    "create": "Create",
+    "refresh": "Refresh"
   },
   "common": {
     "tips": "Tips",
@@ -95,10 +100,10 @@
     "default": "Default",
     "unassigned": "Unassigned",
     "cannot_edit_default_profile_tips": "The default profile can't be edited.",
-    "edit": "Edit",
-    "rename": "Rename",
-    "remove": "Remove",
-    "create": "Create"
+    "remove_confirm_tips": "Are you sure you want to delete profile {name}?",
+    "rename_invalid_tips": "Profile name cannot be empty or too long.",
+    "new_profile": "New Profile",
+    "create_profile": "Create Profile"
   },
   "info_panel": {
     "tips": "Please connect your DualSense first",

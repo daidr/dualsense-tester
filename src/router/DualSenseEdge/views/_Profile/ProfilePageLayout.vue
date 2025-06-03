@@ -1,16 +1,13 @@
 <script setup lang="ts">
 import type { DSEProfile } from './profile'
-import { computed, defineAsyncComponent, h, inject, ref, shallowRef, watch } from 'vue'
+import { Tooltip } from 'floating-vue'
+import { computed, defineAsyncComponent, h, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import DouButton from '@/components/base/DouButton.vue'
 import HexPreview from '@/components/common/HexPreview.vue'
-import { useDevice } from '@/composables/useInjectValues'
-import { sendFeatureReport, sendOutputReportFactory } from '@/utils/dualsense/ds.util'
-import { createAsyncLock } from '@/utils/lock.util'
+import { useWarningModal } from '@/composables/useModal'
 import { useInnerProfile } from './profile'
 import ProfileSwitchButton from './ProfileSwitchButton.vue'
-import { Tooltip } from 'floating-vue'
-import { useModal } from '@/composables/useModal'
 
 const props = defineProps<{
   profile: DSEProfile
@@ -70,10 +67,10 @@ function setActiveRouterIndex(index: number) {
   })
 }
 
+const { open: openModal } = useWarningModal()
+
 function showUnsavedModal(onConfirm: () => void) {
-  useModal({
-    icon: 'i-mingcute-alert-fill',
-    title: t('shared.warning'),
+  openModal({
     content: h('span', {
       class: 'text-base font-normal',
     }, t('profile_mode.unsaved_modal_content')),
@@ -82,7 +79,7 @@ function showUnsavedModal(onConfirm: () => void) {
 }
 
 function exitProfileMode() {
-  if(!unsaved.value) {
+  if (!unsaved.value) {
     emit('close')
     return
   }
@@ -111,9 +108,11 @@ function exitProfileMode() {
     </div>
     <div class="sub-header">
       <div class="category-button-wrapper">
-        <div v-for="route, index of router" :key="index" class="category-button" :class="{
-          active: activeRouterIndex === index,
-        }" @click="setActiveRouterIndex(index)">
+        <div
+          v-for="route, index of router" :key="index" class="category-button" :class="{
+            active: activeRouterIndex === index,
+          }" @click="setActiveRouterIndex(index)"
+        >
           {{ route.label }}
         </div>
       </div>
@@ -123,7 +122,7 @@ function exitProfileMode() {
         <component :is="router[activeRouterIndex].component" v-if="activeRouterIndex !== -1" :profile="innerProfile" />
       </Transition>
     </div>
-    <div class="sub-footer">
+    <!-- <div class="sub-footer">
       <div>
         <div>{{ innerProfile }}</div>
       </div>
@@ -133,17 +132,19 @@ function exitProfileMode() {
       <div class="flex gap-2">
         <HexPreview v-for="item, index of innerProfile.bytes" :key="index" :data-view="item" :trigger="innerProfile" />
       </div>
-    </div>
+    </div> -->
     <div class="footer">
       <!-- <DouButton @click="reset">
         {{ $t('shared.reset') }}
       </DouButton> -->
       <Tooltip v-if="unsaved">
-        <span class="text-sm text-primary/70 select-none">
+        <span class="select-none text-sm text-primary/70">
           {{ $t('profile_mode.edited') }}
         </span>
         <template #popper>
-          <div class="max-w-200px">{{ $t('profile_mode.edited_tips') }}</div>
+          <div class="max-w-200px">
+            {{ $t('profile_mode.edited_tips') }}
+          </div>
         </template>
       </Tooltip>
 

@@ -1,16 +1,18 @@
-import { type Component, defineComponent, effectScope, h, type MaybeRef, onScopeDispose, type Ref, shallowRef, type VNode } from 'vue'
+import type { Component, MaybeRef, Ref, VNode } from 'vue'
+import { defineComponent, effectScope, h, onScopeDispose, shallowRef } from 'vue'
+import { useI18n } from 'vue-i18n'
 import InnerModalContainer from './ModalContainer.vue'
 
 export interface ModalInfo {
   _id: string
   _createdAt: number
-  title?: MaybeRef<string> | VNode
-  content?: MaybeRef<string> | VNode
+  title?: MaybeRef<string> | VNode | (() => VNode)
+  content?: MaybeRef<string> | VNode | (() => VNode)
   icon?: Component | string
   confirmText?: MaybeRef<string>
   cancelText?: MaybeRef<string>
-  onConfirm?: () => void
-  onCancel?: () => void
+  onConfirm?: () => void | boolean | Promise<void | boolean>
+  onCancel?: () => void | boolean | Promise<void | boolean>
   onClose?: () => void
   hideConfirm?: MaybeRef<boolean>
   hideCancel?: MaybeRef<boolean>
@@ -46,12 +48,18 @@ export const ModalContainer = defineComponent(() => {
     const modals = _initModal()
     return h(InnerModalContainer, {
       modals: modals.value,
-      onCancel: (modal) => {
-        modal.onCancel?.()
+      onCancel: async (modal) => {
+        const close = await modal.onCancel?.()
+        if (close === false) {
+          return
+        }
         closeModal(modal._id)
       },
-      onConfirm: (modal) => {
-        modal.onConfirm?.()
+      onConfirm: async (modal) => {
+        const close = await modal.onConfirm?.()
+        if (close === false) {
+          return
+        }
         closeModal(modal._id)
       },
     })
@@ -62,24 +70,47 @@ function randomString(length: number) {
   return Math.random().toString(36).slice(2, 2 + length)
 }
 
-export function useModal(props: UseModalProps) {
-  if (!modals)
-    return { close: () => {} }
-  const randomNonce = randomString(6)
-  const _createdAt = Date.now()
-  const _id = `modal-${_createdAt}-${randomNonce}`
-  const modalInfo = {
-    _id,
-    _createdAt,
-    ...props,
-  }
-  modals.value = [...modals.value, modalInfo]
+export function useModal() {
+  const ids = [] as string[]
   onScopeDispose(() => {
-    closeModal(_id)
+    ids.forEach(id => closeModal(id))
   })
+
   return {
-    close: () => {
-      closeModal(_id)
+    open: (props: UseModalProps) => {
+      if (!modals) {
+        return { close: () => { } }
+      }
+      const randomNonce = randomString(6)
+      const _createdAt = Date.now()
+      const _id = `modal-${_createdAt}-${randomNonce}`
+      const modalInfo = {
+        _id,
+        _createdAt,
+        ...props,
+      }
+      modals.value = [...modals.value, modalInfo]
+      ids.push(_id)
+
+      return {
+        close: () => {
+          closeModal(_id)
+        },
+      }
+    },
+  }
+}
+
+export function useWarningModal() {
+  const { open } = useModal()
+  const { t } = useI18n()
+  return {
+    open: (props: Omit<UseModalProps, 'icon' | 'title'>) => {
+      return open({
+        ...props,
+        icon: 'i-mingcute-alert-fill',
+        title: t('shared.warning'),
+      })
     },
   }
 }
