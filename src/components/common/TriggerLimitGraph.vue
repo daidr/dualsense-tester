@@ -3,6 +3,7 @@ import { useThrottleFn } from '@vueuse/core'
 import { Application, Graphics } from 'pixi.js'
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, useTemplateRef, watch } from 'vue'
 import { usePageStore } from '@/store/page'
+import { createPixiApplication, usePixiApp } from '@/utils/pixi.util';
 
 const props = defineProps<{
   min: number
@@ -34,23 +35,8 @@ onMounted(async () => {
   if (!CanvasRef.value) {
     return
   }
-  let isDisposed = false
-  const app = new Application()
-  onBeforeUnmount(() => {
-    isDisposed = true
-    app.destroy({
-      removeView: true,
-    })
-  })
-  await app.init({
-    preference: 'webgl',
-    canvas: CanvasRef.value,
-    resizeTo: CanvasRef.value,
-    backgroundAlpha: 0,
-    antialias: true,
-    resolution: window.devicePixelRatio,
-  })
-  if (isDisposed) {
+  const { isDisposed, app } = await usePixiApp(CanvasRef.value)
+  if (isDisposed.value) {
     return
   }
 
@@ -59,7 +45,7 @@ onMounted(async () => {
   app.stage.addChild(graphics)
 
   function draw() {
-    if (isDisposed) {
+    if (isDisposed.value) {
       return
     }
     let centerX = 0

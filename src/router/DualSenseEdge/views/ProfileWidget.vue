@@ -13,6 +13,7 @@ import { inputReportOffsetBluetooth, inputReportOffsetUSB } from '../_utils/offs
 import { DSEProfile, DSEProfileSwitchButton } from './_Profile/profile'
 import ProfilePageLayout from './_Profile/ProfilePageLayout.vue'
 import ProfileSwitchButton from './_Profile/ProfileSwitchButton.vue'
+import { LayoutGroup, m } from 'motion-v'
 
 const device = useDevice()
 const connectionType = useConnectionType()
@@ -59,7 +60,7 @@ async function getProfiles(deviceItem: DeviceItem) {
     const dataClip3: DataView = await receiveFeatureReport(deviceItem, startReportId + i * 3 + 2)
     profileCollector[i].push(dataClip1, dataClip2, dataClip3)
   }
-  return profileCollector.map(i => reactive(new DSEProfile(i))).sort((a, b) => sortIndex[a.id] - sortIndex[b.id])
+  return profileCollector.map(i => reactive(DSEProfile.fromData(i))).sort((a, b) => sortIndex[a.id] - sortIndex[b.id])
 }
 
 const profiles = shallowRef<DSEProfile[]>()
@@ -116,7 +117,7 @@ function handleClose() {
       unassigned: !item.assigned,
     }">
     <div class="w-1em flex-shrink-0">
-      <div v-if="currentActiveProfile === item.switchButton" class="h-2 w-2 rounded-full bg-green-6" />
+      <m.div layout-id="profile-widget-indicator" v-if="currentActiveProfile === item.switchButton" class="h-2 w-2 rounded-full bg-green-6" />
     </div>
     <ProfileSwitchButton :button="item.switchButton" />
     <div class="name flex-grow overflow-hidden text-ellipsis whitespace-nowrap" :title="getProfileName(item)"
@@ -150,8 +151,10 @@ function handleClose() {
 
   <Teleport to="#main-content" defer>
     <template v-if="dsStore.profileMode && currentEditingProfile">
-      <ProfilePageLayout :key="currentEditingProfile.id" :profile="currentEditingProfile"
-        :active="currentActiveProfile === currentEditingProfile.switchButton" @close="handleClose" />
+      <LayoutGroup>
+        <ProfilePageLayout :key="currentEditingProfile.id" :profile="currentEditingProfile"
+          :active="currentActiveProfile === currentEditingProfile.switchButton" @close="handleClose" />
+      </LayoutGroup>
     </template>
   </Teleport>
 </template>

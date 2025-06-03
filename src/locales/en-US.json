@@ -10,7 +10,10 @@
     "confirm": "Confirm",
     "cancel": "Cancel",
     "close": "Close",
-    "hold": "Hold"
+    "hold": "Hold",
+    "reset": "Reset",
+    "save": "Save",
+    "warning": "Warning"
   },
   "common": {
     "tips": "Tips",
@@ -184,6 +187,9 @@
     "next_year": "Next year"
   },
   "profile_mode": {
+    "edited": "Edited",
+    "unsaved_modal_content": "You have unsaved changes, do you want to discard them?",
+    "edited_tips": "You need to save before switching to other configuration options to avoid losing your changes.",
     "abnormal_tips": "The controller may be in configuration mode, this panel has been temporarily disabled.",
     "try_exit": "Exit",
     "trigger_deadzone_label": "Trigger Deadzone",
@@ -207,8 +213,6 @@
     },
     "trigger_effect_intensity_label": "Trigger Effect Intensity",
     "trigger_effect_intensity_desc": "Set the level of force that's applied when pressing {L2} or {R2}. If you've adjusted the {L2} or {R2} stop sliders, the trigger effect will turn off.",
-    "reset": "Reset",
-    "save": "Save",
     "joystick_curves": {
       "default": "Default",
       "quick": "Quick",

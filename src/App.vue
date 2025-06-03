@@ -14,6 +14,7 @@ import { ModalContainer } from './composables/useModal'
 import { useOverlayHeader } from './composables/useOverlayHeader'
 import { ToastContainer } from './composables/useToast'
 import { usePageStore } from './store/page'
+import { domMax, LazyMotion } from 'motion-v'
 
 const pageStore = usePageStore()
 const { isWebHIDSupported, locale, direction } = storeToRefs(pageStore)
@@ -23,34 +24,36 @@ useLangSpecFont(locale)
 </script>
 
 <template>
-  <ConfigProvider :dir="direction">
-    <OverlayHeader v-if="showOverlayHeader" />
-    <MainHeader v-else />
-    <ModalContainer />
-    <ToastContainer />
-    <PWAPrompt />
-    <SpeedInsights />
-    <Debug />
-    <main>
-      <div class="main-container">
-        <template v-if="isWebHIDSupported">
-          <AppInner />
-        </template>
-        <template v-else>
-          <div class="h-[var(--min-height)] flex flex-col items-center justify-center">
-            <div class="i-mingcute-confused-line text-5xl" />
-            <p class="text-xl">
-              {{ $t("common.not_support_title") }}
-            </p>
-            <p class="text-base">
-              {{ $t("common.not_support_content") }}
-            </p>
-          </div>
-        </template>
-      </div>
-    </main>
-    <MainFooter />
-  </ConfigProvider>
+  <LazyMotion :features="domMax" strict>
+    <ConfigProvider :dir="direction">
+      <OverlayHeader v-if="showOverlayHeader" />
+      <MainHeader v-else />
+      <ModalContainer />
+      <ToastContainer />
+      <PWAPrompt />
+      <SpeedInsights />
+      <Debug />
+      <main>
+        <div class="main-container">
+          <template v-if="isWebHIDSupported">
+            <AppInner />
+          </template>
+          <template v-else>
+            <div class="h-[var(--min-height)] flex flex-col items-center justify-center">
+              <div class="i-mingcute-confused-line text-5xl" />
+              <p class="text-xl">
+                {{ $t("common.not_support_title") }}
+              </p>
+              <p class="text-base">
+                {{ $t("common.not_support_content") }}
+              </p>
+            </div>
+          </template>
+        </div>
+      </main>
+      <MainFooter />
+    </ConfigProvider>
+  </LazyMotion>
 </template>
 
 <style scoped>

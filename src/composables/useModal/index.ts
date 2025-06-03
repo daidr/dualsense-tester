@@ -74,6 +74,9 @@ export function useModal(props: UseModalProps) {
     ...props,
   }
   modals.value = [...modals.value, modalInfo]
+  onScopeDispose(() => {
+    closeModal(_id)
+  })
   return {
     close: () => {
       closeModal(_id)

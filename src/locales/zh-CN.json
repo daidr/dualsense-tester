@@ -10,7 +10,10 @@
     "confirm": "确认",
     "cancel": "取消",
     "close": "关闭",
-    "hold": "按住"
+    "hold": "按住",
+    "reset": "重置",
+    "save": "保存",
+    "warning": "警告"
   },
   "common": {
     "tips": "提示",
@@ -184,6 +187,9 @@
     "next_year": "明年"
   },
   "profile_mode": {
+    "edited": "已修改",
+    "edited_tips": "您需要在切换到其他配置项前保存，避免所做出的变更被丢弃。",
+    "unsaved_modal_content": "您有未保存的配置，是否要丢弃这些更改？",
     "abnormal_tips": "当前控制器可能正处于配置模式，本面板已被暂时禁用。",
     "try_exit": "尝试退出",
     "trigger_deadzone_label": "扳机死区",
@@ -207,8 +213,6 @@
     },
     "trigger_effect_intensity_label": "扳机效果强度",
     "trigger_effect_intensity_desc": "设定在按下 {L2} 或 {R2} 时的力度。若调节过 {L2} 或 {R2} 的键程滑杆，扳机效果将被关闭。",
-    "reset": "重置",
-    "save": "保存",
     "joystick_curves": {
       "default": "默认",
       "quick": "快速",

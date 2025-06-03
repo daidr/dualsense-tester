@@ -483,28 +483,77 @@ function resetBit(value: number, index: number): number {
 export class DSEProfile {
   id: number = -1
   uniqueId: ArrayBuffer
-  label: string = ''
-  assigned: boolean = false
-  switchButton: DSEProfileSwitchButton = DSEProfileSwitchButton.Unknown
+  label: string
+  assigned: boolean
+  switchButton: DSEProfileSwitchButton
 
-  triggerDeadzone: DSETriggerProfile = {
-    unified: false,
-    left: [0, 0],
-    right: [0, 0],
-  }
+  triggerDeadzone: DSETriggerProfile
 
   buttonMapping: DSEProfileButton[]
 
   leftJoystick: DSEJoystickProfile
   rightJoystick: DSEJoystickProfile
 
-  vibrationIntensity: DSEProfileIntensity = DSEProfileIntensity.Strong
-  triggerEffectIntensity: DSEProfileIntensity = DSEProfileIntensity.Strong
+  vibrationIntensity: DSEProfileIntensity
+  triggerEffectIntensity: DSEProfileIntensity
 
-  updatedAt: number = -1
+  updatedAt: number
 
   get default() {
     return this.switchButton === DSEProfileSwitchButton.Triangle
+  }
+
+  constructor(params?: {
+    id?: number,
+    uniqueId?: ArrayBuffer,
+    label?: string
+    assigned?: boolean
+    switchButton?: DSEProfileSwitchButton
+    triggerDeadzone?: DSETriggerProfile
+    buttonMapping?: DSEProfileButton[]
+    leftJoystick?: DSEJoystickProfile
+    rightJoystick?: DSEJoystickProfile
+    vibrationIntensity?: DSEProfileIntensity
+    triggerEffectIntensity?: DSEProfileIntensity
+    updatedAt?: number
+  }) {
+    const {
+      id = -1,
+      uniqueId = new ArrayBuffer(16),
+      label = '',
+      assigned = false,
+      switchButton = DSEProfileSwitchButton.Unknown,
+      triggerDeadzone = {
+        unified: false,
+        left: [0, 100],
+        right: [0, 100],
+      },
+      buttonMapping = [],
+      leftJoystick = {
+        preset: DSEJoystickProfilePreset.DEFAULT,
+        curvePoints: [0, 0, 128, 128, 196, 196, 225, 225],
+      },
+      rightJoystick = {
+        preset: DSEJoystickProfilePreset.DEFAULT,
+        curvePoints: [0, 0, 128, 128, 196, 196, 225, 225],
+      },
+      vibrationIntensity = DSEProfileIntensity.Strong,
+      triggerEffectIntensity = DSEProfileIntensity.Strong,
+      updatedAt = -1,
+    } = params || {}
+
+    this.id = id
+    this.uniqueId = uniqueId
+    this.label = label
+    this.assigned = assigned
+    this.switchButton = switchButton
+    this.triggerDeadzone = triggerDeadzone
+    this.buttonMapping = buttonMapping
+    this.leftJoystick = leftJoystick
+    this.rightJoystick = rightJoystick
+    this.vibrationIntensity = vibrationIntensity
+    this.triggerEffectIntensity = triggerEffectIntensity
+    this.updatedAt = updatedAt
   }
 
   rawData: DataView[] = []
@@ -615,111 +664,113 @@ export class DSEProfile {
     return buffers
   }
 
-  constructor(rawData?: DataView[]) {
-    if (rawData) {
-      if (rawData.length !== 3) {
-        throw new Error('Invalid raw data length')
-      }
+  public static fromData(rawData: DataView[]) {
+    if (rawData.length !== 3) {
+      throw new Error('Invalid raw data length')
+    }
 
-      this.rawData = rawData
+    const newInstance = new DSEProfile()
 
-      this.id = rawData[0].getUint8(0)
+    newInstance.rawData = rawData
 
-      this.assigned = rawData[0].getUint8(1) !== 16 // 0x10
-      this.switchButton = DSEProfileSwitchButtonMap[rawData[0].getUint8(0)] ?? DSEProfileSwitchButton.Unknown
+    newInstance.id = rawData[0].getUint8(0)
 
-      // #region Unique ID
+    newInstance.assigned = rawData[0].getUint8(1) !== 16 // 0x10
+    newInstance.switchButton = DSEProfileSwitchButtonMap[rawData[0].getUint8(0)] ?? DSEProfileSwitchButton.Unknown
+
+    // #region Unique ID
+    {
+      newInstance.uniqueId = rawData[1].buffer.slice(28, 44)
+    }
+    // #endregion
+
+    if (newInstance.assigned) {
+      // #region Label
       {
-        this.uniqueId = rawData[1].buffer.slice(28, 44)
+        const labelBuffer = new Uint8Array(80)
+        labelBuffer.set(new Uint8Array(rawData[0].buffer, 6, 54), 0)
+        labelBuffer.set(new Uint8Array(rawData[1].buffer, 2, 26), 54)
+        const decodedLabel = utf16LEDecoder.decode(labelBuffer).replace(/\0/g, '')
+        newInstance.label = decodedLabel.trim()
       }
       // #endregion
 
-      if (this.assigned) {
-        // #region Label
-        {
-          const labelBuffer = new Uint8Array(80)
-          labelBuffer.set(new Uint8Array(rawData[0].buffer, 6, 54), 0)
-          labelBuffer.set(new Uint8Array(rawData[1].buffer, 2, 26), 54)
-          const decodedLabel = utf16LEDecoder.decode(labelBuffer).replace(/\0/g, '')
-          this.label = decodedLabel.trim()
-        }
-        // #endregion
-
-        // #region Update Timestamp
-        {
-          this.updatedAt = leBufferToTimestamp(rawData[2].buffer.slice(34, 40))
-        }
-        // #endregion
-
-        // #region Trigger
-        {
-          const isUnified = profileUtils.getBit(rawData[2].getUint8(31), 7) === 1
-
-          if (isUnified) {
-            this.triggerDeadzone = {
-              unified: [
-                profileUtils.decodeTriggerLimit(rawData[2].getUint8(4)),
-                profileUtils.decodeTriggerLimit(rawData[2].getUint8(5)),
-              ],
-            }
-          }
-          else {
-            this.triggerDeadzone = {
-              unified: false,
-              left: [
-                profileUtils.decodeTriggerLimit(rawData[2].getUint8(4)),
-                profileUtils.decodeTriggerLimit(rawData[2].getUint8(5)),
-              ],
-              right: [
-                profileUtils.decodeTriggerLimit(rawData[2].getUint8(6)),
-                profileUtils.decodeTriggerLimit(rawData[2].getUint8(7)),
-              ],
-            }
-          }
-        }
-        // #endregion
-
-        // #region Vibration and Trigger Effect Intensity
-        {
-          this.vibrationIntensity = vibrationIntensityMap[rawData[2].getUint8(8)] ?? DSEProfileIntensity.Strong
-          this.triggerEffectIntensity = triggerEffectIntensityMap[rawData[2].getUint8(9)] ?? DSEProfileIntensity.Strong
-        }
-        // #endregion
-
-        // #region Joystick
-        const leftJoystickCurvePreset = rawData[2].getUint8(30)
-        const rightJoystickCurvePreset = rawData[2].getUint8(32)
-
-        this.leftJoystick = {
-          preset: leftJoystickCurvePreset,
-          curvePoints: [
-            rawData[1].getUint8(45),
-            rawData[1].getUint8(46),
-            rawData[1].getUint8(47),
-            rawData[1].getUint8(48),
-            rawData[1].getUint8(49),
-            rawData[1].getUint8(50),
-            rawData[1].getUint8(51),
-            rawData[1].getUint8(52),
-          ],
-        }
-
-        this.rightJoystick = {
-          preset: rightJoystickCurvePreset,
-          curvePoints: [
-            rawData[1].getUint8(54),
-            rawData[1].getUint8(55),
-            rawData[1].getUint8(56),
-            rawData[1].getUint8(57),
-            rawData[1].getUint8(58),
-            rawData[1].getUint8(59),
-            rawData[2].getUint8(2),
-            rawData[2].getUint8(3),
-          ],
-        }
-        // #endregion
+      // #region Update Timestamp
+      {
+        newInstance.updatedAt = leBufferToTimestamp(rawData[2].buffer.slice(34, 40))
       }
+      // #endregion
+
+      // #region Trigger
+      {
+        const isUnified = profileUtils.getBit(rawData[2].getUint8(31), 7) === 1
+
+        if (isUnified) {
+          newInstance.triggerDeadzone = {
+            unified: [
+              profileUtils.decodeTriggerLimit(rawData[2].getUint8(4)),
+              profileUtils.decodeTriggerLimit(rawData[2].getUint8(5)),
+            ],
+          }
+        }
+        else {
+          newInstance.triggerDeadzone = {
+            unified: false,
+            left: [
+              profileUtils.decodeTriggerLimit(rawData[2].getUint8(4)),
+              profileUtils.decodeTriggerLimit(rawData[2].getUint8(5)),
+            ],
+            right: [
+              profileUtils.decodeTriggerLimit(rawData[2].getUint8(6)),
+              profileUtils.decodeTriggerLimit(rawData[2].getUint8(7)),
+            ],
+          }
+        }
+      }
+      // #endregion
+
+      // #region Vibration and Trigger Effect Intensity
+      {
+        newInstance.vibrationIntensity = vibrationIntensityMap[rawData[2].getUint8(8)] ?? DSEProfileIntensity.Strong
+        newInstance.triggerEffectIntensity = triggerEffectIntensityMap[rawData[2].getUint8(9)] ?? DSEProfileIntensity.Strong
+      }
+      // #endregion
+
+      // #region Joystick
+      const leftJoystickCurvePreset = rawData[2].getUint8(30)
+      const rightJoystickCurvePreset = rawData[2].getUint8(32)
+
+      newInstance.leftJoystick = {
+        preset: leftJoystickCurvePreset,
+        curvePoints: [
+          rawData[1].getUint8(45),
+          rawData[1].getUint8(46),
+          rawData[1].getUint8(47),
+          rawData[1].getUint8(48),
+          rawData[1].getUint8(49),
+          rawData[1].getUint8(50),
+          rawData[1].getUint8(51),
+          rawData[1].getUint8(52),
+        ],
+      }
+
+      newInstance.rightJoystick = {
+        preset: rightJoystickCurvePreset,
+        curvePoints: [
+          rawData[1].getUint8(54),
+          rawData[1].getUint8(55),
+          rawData[1].getUint8(56),
+          rawData[1].getUint8(57),
+          rawData[1].getUint8(58),
+          rawData[1].getUint8(59),
+          rawData[2].getUint8(2),
+          rawData[2].getUint8(3),
+        ],
+      }
+      // #endregion
     }
+
+    return newInstance
   }
 
   serialize() {

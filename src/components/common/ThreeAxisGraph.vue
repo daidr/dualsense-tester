@@ -3,6 +3,7 @@ import { Application, Graphics } from 'pixi.js'
 import { nextTick, onBeforeUnmount, onMounted, ref, toRaw, useTemplateRef, watch, watchEffect } from 'vue'
 import { useIsRTL } from '@/store/page'
 import SliderBox from './SliderBox.vue'
+import { createPixiApplication, usePixiApp } from '@/utils/pixi.util';
 
 const { maxValue = 0x7FFF, value } = defineProps<{
   maxValue?: number
@@ -60,23 +61,8 @@ onMounted(async () => {
   if (!CanvasRef.value) {
     return
   }
-  let isDisposed = false
-  const app = new Application()
-  onBeforeUnmount(() => {
-    isDisposed = true
-    app.destroy({
-      removeView: false,
-    })
-  })
-  await app.init({
-    preference: 'webgl',
-    canvas: CanvasRef.value,
-    resizeTo: CanvasRef.value,
-    backgroundAlpha: 0,
-    antialias: true,
-    resolution: window.devicePixelRatio,
-  })
-  if (isDisposed) {
+  const { isDisposed, app } = await usePixiApp(CanvasRef.value)
+  if (isDisposed.value) {
     return
   }
 

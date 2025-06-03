@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { useThrottleFn } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
-import { Application, Graphics } from 'pixi.js'
+import { Graphics } from 'pixi.js'
 import { nextTick, onBeforeUnmount, onMounted, ref, useTemplateRef, watch } from 'vue'
 import { usePageStore } from '@/store/page'
+import { createPixiApplication, usePixiApp } from '@/utils/pixi.util'
 
 const props = defineProps<{
   deadzone: number
@@ -24,23 +25,8 @@ onMounted(async () => {
   if (!CanvasRef.value) {
     return
   }
-  let isDisposed = false
-  const app = new Application()
-  onBeforeUnmount(() => {
-    isDisposed = true
-    app.destroy({
-      removeView: true,
-    })
-  })
-  await app.init({
-    preference: 'webgl',
-    canvas: CanvasRef.value,
-    resizeTo: CanvasRef.value,
-    backgroundAlpha: 0,
-    antialias: true,
-    resolution: window.devicePixelRatio,
-  })
-  if (isDisposed) {
+  const { isDisposed, app } = await usePixiApp(CanvasRef.value)
+  if (isDisposed.value) {
     return
   }
 
@@ -116,7 +102,7 @@ onMounted(async () => {
   }
 
   function draw() {
-    if (isDisposed) {
+    if (isDisposed.value) {
       return
     }
     const { width, height } = app.screen

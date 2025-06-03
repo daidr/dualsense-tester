@@ -77,7 +77,7 @@ export default class DualSenseEdgeRouter extends BaseDeviceRouter {
       },
       {
         title: { key: 'profile_panel.title' },
-        tag: 'WIP',
+        tag: 'Beta',
         component: ProfileWidget,
       },
     ]
