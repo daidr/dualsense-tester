@@ -1,14 +1,24 @@
 <script setup lang="ts">
-import { useTemplateRef } from 'vue'
+import { ref, useTemplateRef } from 'vue'
 
 const emit = defineEmits(['hold', 'release'])
 const buttonRef = useTemplateRef('buttonRef')
 
+const isPressed = ref(false)
+
 function hold() {
+  if (isPressed.value) {
+    return
+  }
+  isPressed.value = true
   emit('hold')
 }
 
 function release() {
+  if (!isPressed.value) {
+    return
+  }
+  isPressed.value = false
   emit('release')
 }
 
@@ -19,21 +29,40 @@ function handlePointerDown(e: PointerEvent) {
 }
 
 function handlePointerUp(e: PointerEvent) {
-  e.preventDefault()
   release()
   buttonRef.value?.releasePointerCapture(e.pointerId)
+}
+
+function handleKeyDown(e: KeyboardEvent) {
+  if(e.repeat) {
+    return
+  }
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault()
+    hold()
+  }
+}
+
+function handleKeyUp(e: KeyboardEvent) {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault()
+    release()
+  }
 }
 </script>
 
 <template>
-  <button ref="buttonRef" class="dou-sc-btn" @pointerdown="handlePointerDown" @pointerup="handlePointerUp">
+  <div ref="buttonRef" tabindex="0" role="button" :aria-pressed="isPressed" class="dou-sc-btn" :class="{
+    active: isPressed,
+  }"
+    @pointerdown="handlePointerDown" @pointerup="handlePointerUp" @keydown="handleKeyDown" @keyup="handleKeyUp">
     <template v-if="$slots.default">
       <slot />
     </template>
     <template v-else>
       {{ $t("shared.hold") }}
     </template>
-  </button>
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -44,8 +73,8 @@ function handlePointerUp(e: PointerEvent) {
     @apply bg-primary/75;
   }
 
-  &:active {
-    @apply bg-primary;
+  &:active, &.active {
+    @apply bg-primary text-white scale-90;
   }
 }
 </style>

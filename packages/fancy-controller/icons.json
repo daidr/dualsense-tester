@@ -1,0 +1,29 @@
+{
+  "prefix": "fancy-controller",
+  "lastModified": 1748542886,
+  "icons": {
+    "curve-default": {
+      "body": "<path fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-width=\"2.67\" d=\"M4 28 28 4\"/>"
+    },
+    "curve-digital": {
+      "body": "<path fill=\"currentColor\" d=\"M3.531 26.75a1.335 1.335 0 10.938 2.5zM28 5.335a1.335 1.335 0 000-2.67zM13 4V2.665c-.713 0-1.3.56-1.334 1.272zm-1 21 .469 1.25.823-.309.042-.877zm1-21v1.335h15v-2.67H13zM4 28l.469 1.25 8-3L12 25l-.469-1.25-8 3zm8-3 1.334.064 1-21L13 4l-1.334-.063-1 21z\"/>"
+    },
+    "curve-dynamic": {
+      "body": "<path fill=\"currentColor\" d=\"M3.403 26.806a1.335 1.335 0 001.194 2.388zM28.597 5.194a1.335 1.335 0 10-1.194-2.388zM20 8l-.597-1.194c-.258.13-.468.339-.597.597zm-8 16 .597 1.194.398-.199.2-.398zm8-16 .597 1.194 8-4L28 4l-.597-1.194-8 4zM4 28l.597 1.194 8-4L12 24l-.597-1.194-8 4zm8-4 1.194.597 8-16L20 8l-1.194-.597-8 16z\"/>"
+    },
+    "curve-precise": {
+      "body": "<path fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.67\" d=\"M3.997 27.997s9.5.5 17-7 7-17 7-17\"/>"
+    },
+    "curve-quick": {
+      "body": "<path fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-width=\"2.67\" d=\"m4 28 5-4 3-15 16-5\"/>"
+    },
+    "curve-steady": {
+      "body": "<path fill=\"currentColor\" d=\"M2.89 27.26a1.335 1.335 0 102.22 1.48zM29.311 4.246a1.335 1.335 0 10-2.624-.492zM25 20l.156 1.326a1.335 1.335 0 001.156-1.08zM8 22l-.156-1.326-.613.072-.342.514zm17-2 1.312.246 3-16L28 4l-1.312-.246-3 16zM4 28l1.11.74 4-6L8 22l-1.11-.74-4 6zm4-6 .156 1.326 17-2L25 20l-.156-1.326-17 2z\"/>"
+    }
+  },
+  "suffixes": {
+    "": "Other"
+  },
+  "width": 32,
+  "height": 32
+}

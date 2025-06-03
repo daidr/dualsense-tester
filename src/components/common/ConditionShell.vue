@@ -1,21 +1,23 @@
 <script setup lang="ts" generic="Comp extends Component<{
     item: CustomPanelItem
-}>"
->
+}>">
+import type { Component, ExtractPropTypes } from 'vue'
+import type { CustomPanelItem } from '@/device-based-router/shared'
 import { useConnectionType, useInputReportId } from '@/composables/useInjectValues'
-import { type CustomPanelItem, DeviceConnectionType } from '@/device-based-router/shared'
-import { type Component, type ExtractPropTypes, watch } from 'vue'
+import { DeviceConnectionType } from '@/device-based-router/shared'
+import { useDualSenseStore } from '@/store/dualsense';
 
 defineProps<{
   shell: Comp
   widgets: CustomPanelItem[]
-  shellProps: Omit<ExtractPropTypes<Comp>, 'item'>
+  shellProps?: Omit<ExtractPropTypes<Comp>, 'item'>
 }>()
 
 const reportId = useInputReportId()
 const connectionType = useConnectionType()
+const dsStore = useDualSenseStore()
 
-function isVisible(item: CustomPanelItem) {
+function isReportAllowed(item: CustomPanelItem) {
   if (connectionType.value === DeviceConnectionType.USB) {
     if (!item.cableAllowedReportIds) {
       return true
@@ -30,11 +32,18 @@ function isVisible(item: CustomPanelItem) {
   }
   return false
 }
+
+function isProfileAllowed(item: CustomPanelItem) {
+  if (item.hideInProfileMode && dsStore.profileMode) {
+    return false
+  }
+  return true
+}
 </script>
 
 <template>
   <template v-for="(item, index) of widgets" :key="index">
-    <component :is="shell" v-if="isVisible(item)" :item="item" v-bind="shellProps" />
+    <component :is="shell" v-if="isReportAllowed(item) && isProfileAllowed(item)" :item="item" v-bind="shellProps" />
   </template>
 </template>
 

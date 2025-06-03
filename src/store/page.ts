@@ -1,8 +1,8 @@
-import { checkRTL } from '@/utils/direction.util'
 import { useColorMode } from '@vueuse/core'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import { computed, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { checkRTL } from '@/utils/direction.util'
 
 export const usePageStore = defineStore('page', () => {
   const { store: currentColorMode, system: systemColorMode } = useColorMode({
@@ -59,6 +59,23 @@ export const usePageStore = defineStore('page', () => {
     document.querySelector('meta[name="theme-color"]')!.setAttribute('content', colorModeState.value === 'dark' ? '#000000' : '#ffffff')
   }, { immediate: true })
 
+  const colorPalette = computed(() => {
+    if (colorModeState.value === 'dark') {
+      return {
+        normal: '#ffffff',
+        background: '#000000',
+        primary: '#2f81f7',
+        active: '#c586c0',
+      }
+    }
+    return {
+      normal: '#000000',
+      background: '#ffffff',
+      primary: '#2f81f7',
+      active: '#8546ef',
+    }
+  })
+
   return {
     currentColorMode,
     systemColorMode,
@@ -66,6 +83,7 @@ export const usePageStore = defineStore('page', () => {
     isWebHIDSupported,
     direction,
     locale,
+    colorPalette,
   }
 })
 

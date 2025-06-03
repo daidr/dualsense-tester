@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import type { MaybeRef, VNode } from 'vue'
 import type { ModalInfo } from '.'
-import { isRef, type MaybeRef, type VNode } from 'vue'
+import { computed, isRef, toValue } from 'vue'
 
-defineProps<{
+const props = defineProps<{
   info: ModalInfo
 }>()
 
@@ -12,7 +13,7 @@ defineSlots<{
   default: void
 }>()
 
-function refToVNode(ref: MaybeRef<string> | VNode) {
+function refToVNode(ref: MaybeRef<string> | VNode | (() => VNode)) {
   if (isRef(ref)) {
     return () => ref.value
   }
@@ -23,6 +24,8 @@ function refToVNode(ref: MaybeRef<string> | VNode) {
     return ref
   }
 }
+
+const icon = computed(() => toValue(props.info.icon))
 </script>
 
 <template>
@@ -34,8 +37,8 @@ function refToVNode(ref: MaybeRef<string> | VNode) {
             v-if="info.title"
             class="flex items-center self-start gap-1 rounded-full bg-primary/20 p-1 text-primary dark-bg-primary dark-text-white/70"
           >
-            <div v-if="typeof info.icon === 'string'" class="text-xl" :class="[info.icon]" />
-            <component :is="info.icon" v-else-if="info.icon" class="text-xl" />
+            <div v-if="typeof icon === 'string'" class="text-xl" :class="[icon]" />
+            <component :is="icon" v-else-if="icon" class="text-xl" />
             <span class="pe-2 font-extrabold">
               <component :is="refToVNode(info.title)" />
             </span>
@@ -44,11 +47,11 @@ function refToVNode(ref: MaybeRef<string> | VNode) {
             <component :is="refToVNode(info.content)" />
           </p>
           <div class="mt-5 flex justify-end gap-5">
-            <button v-if="!info.hideCancel" class="dismiss-button" type="button" @click="$emit('cancel')">
-              {{ info.cancelText || $t('shared.cancel') }}
+            <button v-if="!toValue(info.hideCancel)" class="dismiss-button" type="button" @click="$emit('cancel')">
+              {{ toValue(info.cancelText) || $t('shared.cancel') }}
             </button>
-            <button v-if="!info.hideConfirm" class="update-button" type="button" @click="$emit('confirm')">
-              {{ info.confirmText || $t('shared.confirm') }}
+            <button v-if="!toValue(info.hideConfirm)" class="update-button" type="button" @click="$emit('confirm')">
+              {{ toValue(info.confirmText) || $t('shared.confirm') }}
             </button>
           </div>
         </div>

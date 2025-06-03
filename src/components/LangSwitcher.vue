@@ -3,7 +3,7 @@ import { getLangSpecFont } from '@/composables/useLangSpecFont'
 import { getLocaleLabel } from '@/locales'
 import { usePageStore } from '@/store/page'
 import { getAvailableLanguages } from '@/utils/lang.util'
-import SelectBox from './common/SelectBox.vue'
+import DouSelect from './base/DouSelect.vue'
 
 const pageStore = usePageStore()
 
@@ -20,7 +20,7 @@ function toPercentage(value: number | undefined) {
 </script>
 
 <template>
-  <SelectBox
+  <DouSelect
     v-model="pageStore.locale" :options="availableLocales.map((locale) => ({
       value: locale,
       label: getLocaleLabel(locale),
@@ -42,7 +42,7 @@ function toPercentage(value: number | undefined) {
         </div>
       </div>
     </template>
-  </SelectBox>
+  </DouSelect>
 </template>
 
 <style scoped lang="scss">

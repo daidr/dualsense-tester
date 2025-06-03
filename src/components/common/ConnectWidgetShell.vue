@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { CustomConnectWidgetPanelItem } from '@/device-based-router/shared'
+import { m } from 'motion-v';
 import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -32,21 +33,20 @@ const finalTitle = computed(() => {
 </script>
 
 <template>
-  <div class="rounded-2xl p-1 text-primary space-y-2 dou-sc-colorborder">
-    <div v-if="finalTitle" class="widget-toggle" @click="showWidget = !showWidget">
+  <m.div layout="position" class="rounded-2xl p-1 text-primary space-y-2 dou-sc-colorborder">
+    <button v-if="finalTitle" class="widget-toggle" :aria-expanded="showWidget"
+      :aria-label="`${finalTitle} widget`" @click="showWidget = !showWidget">
       <div class="line" />
       {{ finalTitle }}
       <div class="line" />
-      <div
-        class="i-mingcute-down-fill transform-gpu text-lg transition-transform" :class="{
-          'rotate-180': showWidget,
-        }"
-      />
-    </div>
-    <div v-show="showWidget">
+      <div class="i-mingcute-down-fill transform-gpu text-lg transition-transform" :class="{
+        'rotate-180': showWidget,
+      }" aria-hidden="true" />
+    </button>
+    <div v-show="showWidget" :exit="{ opacity: 0 }">
       <component :is="item.component" />
     </div>
-  </div>
+  </m.div>
 </template>
 
 <style scoped lang="scss">

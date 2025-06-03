@@ -1,64 +1,49 @@
-<script setup lang="ts">
-import type { DSEProfileItem } from '../_utils/profile.util'
+<script setup lang="tsx">
+import type { DeviceItem } from '@/device-based-router/shared'
+
+import { LayoutGroup, m } from 'motion-v'
+import { computed, h, reactive, ref, shallowRef, watch } from 'vue'
+import { I18nT, useI18n } from 'vue-i18n'
 import { useConnectionType, useDevice, useInputReport } from '@/composables/useInjectValues'
-import { DeviceConnectionType, type DeviceItem } from '@/device-based-router/shared'
-import { utf16LEDecoder } from '@/utils/decoder.util'
-import { receiveFeatureReport } from '@/utils/dualsense/ds.util'
-import { computedAsync } from '@vueuse/core'
-import { computed } from 'vue'
-import { useI18n } from 'vue-i18n'
+import { useModal, useWarningModal } from '@/composables/useModal'
+import { DeviceConnectionType } from '@/device-based-router/shared'
+import { useDualSenseStore } from '@/store/dualsense'
+import { receiveFeatureReport, sendFeatureReport } from '@/utils/dualsense/ds.util'
 import { inputReportOffsetBluetooth, inputReportOffsetUSB } from '../_utils/offset.util'
+import { DSEProfile, DSEProfileSwitchButton, DSEProfileSwitchButtonIndexMap, useSaveProfile } from './_Profile/profile'
+import ProfilePageLayout from './_Profile/ProfilePageLayout.vue'
+import ProfileRenameInput from './_Profile/ProfileRenameInput.vue'
+import ProfileSwitchButton from './_Profile/ProfileSwitchButton.vue'
+import { track } from '@/utils/umami.util'
 
 const device = useDevice()
 const connectionType = useConnectionType()
 const inputReport = useInputReport()
+const dsStore = useDualSenseStore()
 const offset = computed(() =>
   connectionType.value === DeviceConnectionType.USB ? inputReportOffsetUSB : inputReportOffsetBluetooth,
 )
 
 const { t } = useI18n()
 
-const reverseIndexMap: Record<number, number> = {
-  1: 0,
-  2: 3,
-  3: 2,
-  4: 1,
-}
-
 function mapInputToOutput(i: number) {
-  return reverseIndexMap[i]
+  switch (i) {
+    case 1:
+      return DSEProfileSwitchButton.Triangle
+    case 2:
+      return DSEProfileSwitchButton.Square
+    case 3:
+      return DSEProfileSwitchButton.Cross
+    case 4:
+      return DSEProfileSwitchButton.Circle
+    default:
+      return DSEProfileSwitchButton.Triangle
+  }
 }
 
 const currentActiveProfile = computed(() => {
   return mapInputToOutput(inputReport.value.getUint8(offset.value.activeProfile) >> 4)
 })
-
-function parseProfile(profileClips: DataView[]): DSEProfileItem | undefined {
-  if (profileClips.length !== 3) {
-    return undefined
-  }
-  const id = profileClips[0].getUint8(0)
-  const unassigned = profileClips[0].getUint8(1) === 16
-
-  if (unassigned) {
-    return {
-      id,
-      assigned: false,
-    }
-  }
-  else {
-    const nameBuffer = new Uint8Array(80)
-    nameBuffer.set(new Uint8Array(profileClips[0].buffer, 6, 54), 0)
-    nameBuffer.set(new Uint8Array(profileClips[1].buffer, 2, 26), 54)
-    const decodedName = utf16LEDecoder.decode(nameBuffer).replace(/\0/g, '')
-    return {
-      id,
-      assigned: true,
-      default: id === 112,
-      name: decodedName,
-    }
-  }
-}
 
 async function getProfiles(deviceItem: DeviceItem) {
   const sortIndex: Record<number, number> = {
@@ -76,73 +61,214 @@ async function getProfiles(deviceItem: DeviceItem) {
     const dataClip3: DataView = await receiveFeatureReport(deviceItem, startReportId + i * 3 + 2)
     profileCollector[i].push(dataClip1, dataClip2, dataClip3)
   }
-  return profileCollector.map(parseProfile).filter(i => !!i).sort((a, b) => sortIndex[a.id] - sortIndex[b.id])
+  return profileCollector.map(i => reactive(DSEProfile.fromData(i))).sort((a, b) => sortIndex[a.id] - sortIndex[b.id])
 }
 
-const profiles = computedAsync(() => {
-  return getProfiles(device.value)
-})
+const profiles = shallowRef<DSEProfile[]>()
 
-function getProfileName(profile: DSEProfileItem) {
+async function refreshProfiles() {
+  profiles.value = await getProfiles(device.value)
+}
+
+watch(device, (newDevice) => {
+  if (newDevice) {
+    refreshProfiles()
+  }
+}, { immediate: true })
+
+function getProfileName(profile: DSEProfile) {
   if (!profile.assigned) {
     return t('profile_panel.unassigned')
   }
   if (profile.default) {
     return t('profile_panel.default')
   }
-  return profile.name
+  return profile.label
 }
 
-function getProfileKey(profile: DSEProfileItem) {
-  switch (profile.id) {
-    case 112:
-      return 'i-icon-park-twotone-handle-triangle'
-    case 121:
-      return 'i-icon-park-twotone-handle-round'
-    case 118:
-      return 'i-icon-park-twotone-handle-x'
-    case 115:
-      return 'i-icon-park-twotone-handle-square'
-    default:
-      return ''
-  }
+const currentEditingProfile = ref<DSEProfile | null>(null)
+
+const { open: openWarningModal } = useWarningModal()
+const { open: openModal } = useModal()
+const { save: saveProfile } = useSaveProfile()
+
+function handleCreate(profile: DSEProfile) {
+  track('profile.create.click')
+  const isConfirmHidden = ref(true)
+  const innerLabel = ref(t('profile_panel.new_profile'))
+  openModal({
+    icon: 'i-mingcute-textbox-fill',
+    title: t('profile_panel.create_profile'),
+    hideConfirm: isConfirmHidden,
+    content: () => h(ProfileRenameInput, {
+      'modelValue': innerLabel.value,
+      'onUpdate:modelValue': (value: string) => {
+        innerLabel.value = value
+      },
+      'onValidChanged': (valid: boolean) => {
+        isConfirmHidden.value = !valid
+      },
+    }),
+    async onConfirm() {
+      track('profile.create.confirm')
+      const { id, switchButton } = profile
+      const newProfile = new DSEProfile({
+        id,
+        switchButton,
+        uniqueId: new Uint8Array(16).map(() => Math.floor(Math.random() * 256)),
+        label: innerLabel.value,
+      })
+      saveProfile(newProfile).then(() => {
+        refreshProfiles()
+      })
+    },
+    onCancel() {
+      track('profile.create.cancel')
+    }
+  })
 }
+
+function handleRename(profile: DSEProfile) {
+  track('profile.rename.click')
+  const isConfirmHidden = ref(true)
+  const clonedProfile = profile.clone()
+  const innerLabel = ref(clonedProfile.label)
+  openModal({
+    icon: 'i-mingcute-textbox-fill',
+    title: t('shared.rename'),
+    hideConfirm: isConfirmHidden,
+    content: () => h(ProfileRenameInput, {
+      'modelValue': innerLabel.value,
+      'onUpdate:modelValue': (value: string) => {
+        innerLabel.value = value
+      },
+      'onValidChanged': (valid: boolean) => {
+        isConfirmHidden.value = !valid
+      },
+    }),
+    async onConfirm() {
+      track('profile.rename.confirm')
+      clonedProfile.label = innerLabel.value
+      await saveProfile(clonedProfile)
+      refreshProfiles()
+    },
+    onCancel() {
+      track('profile.rename.cancel')
+    }
+  })
+}
+
+function handleRemove(profile: DSEProfile) {
+  track('profile.remove.click')
+  const profileIndex = DSEProfileSwitchButtonIndexMap[profile.switchButton]
+  openWarningModal({
+    content: (
+      <div class="text-base font-normal">
+        <I18nT keypath="profile_panel.remove_confirm_tips" scope="global">
+          {{
+            name: () => <span class="rounded-lg bg-primary/10 px-2 py-0.5 text-sm text-primary">{profile.label}</span>,
+          }}
+        </I18nT>
+      </div>
+    ),
+    async onConfirm() {
+      track('profile.remove.confirm')
+      await sendFeatureReport(device.value, 0x68, new Uint8Array([profileIndex]))
+      refreshProfiles()
+    },
+    onCancel() {
+      track('profile.remove.cancel')
+    },
+  })
+}
+
+function handleEdit(profile: DSEProfile) {
+  track('profile.edit.click')
+  dsStore.profileMode = true
+  currentEditingProfile.value = profile
+}
+
+function handleClose() {
+  track('profile.edit.close')
+  dsStore.profileMode = false
+  currentEditingProfile.value = null
+}
+
+function handleRefreshButtonClick() {
+  track('profile.refresh.click')
+  refreshProfiles()
+}
+
+// const { MagicTeleport } = useMagicTeleport('profileLayout')
 </script>
 
 <template>
-  <div
-    v-for="item, index of profiles" :key="item.id" class="profile-item" :class="{
-      enterable: !item.default,
-    }"
-  >
+  <div v-for="item of profiles" :key="item.id"
+    v-tooltip.top-start="item.default ? $t('profile_panel.cannot_edit_default_profile_tips') : ''" class="profile-item"
+    :class="{
+      unassigned: !item.assigned,
+    }">
     <div class="w-1em flex-shrink-0">
-      <div v-if="currentActiveProfile === index" class="h-2 w-2 rounded-full bg-green-6" />
+      <m.div v-if="currentActiveProfile === item.switchButton" layout="position" layout-id="profile-widget-indicator"
+        class="h-2 w-2 rounded-full bg-green-6" />
     </div>
-    <div class="key-icon flex flex-shrink-0 items-center gap-1">
-      <div class="me-1.5px rounded bg-primary/30 px-1 text-xs font-bold font-mono ring-1.5 ring-current">
-        Fn
-      </div>
-      <span class="font-bold">+</span>
-      <div class="text-xl" :class="getProfileKey(item)" />
-    </div>
-    <div class="name flex-grow overflow-hidden text-ellipsis whitespace-nowrap" :title="getProfileName(item)">
+    <ProfileSwitchButton :button="item.switchButton" />
+    <div class="name flex-grow overflow-hidden text-ellipsis whitespace-nowrap" :title="getProfileName(item)"
+      tabindex="0">
       {{ getProfileName(item) }}
     </div>
-    <div class="w-1em flex-shrink-0">
-      <!-- <div v-if="item.assigned && !item.default" class="i-mingcute-more-2-line" />
-      <div v-else-if="!item.assigned" class="i-mingcute-add-line" /> -->
+    <div v-if="!dsStore.profileMode" class="flex flex-shrink-0">
+      <template v-if="item.assigned && !item.default">
+        <button v-tooltip.top="$t('shared.edit')" class="icon-button" :aria-label="$t('shared.edit')"
+          @click="handleEdit(item)">
+          <div class="i-mingcute-edit-line" />
+        </button>
+        <button v-tooltip.top="$t('shared.rename')" class="icon-button" :aria-label="$t('shared.rename')"
+          @click="handleRename(item)">
+          <div class="i-mingcute-textbox-line" />
+        </button>
+        <button v-tooltip.top="$t('shared.remove')" class="icon-button" :aria-label="$t('shared.remove')"
+          @click="handleRemove(item)">
+          <div class="i-mingcute-delete-2-line" />
+        </button>
+      </template>
+      <button v-else-if="!item.assigned" v-tooltip.top="$t('shared.create')" class="icon-button"
+        :aria-label="$t('shared.create')" @click="handleCreate(item)">
+        <div class="i-mingcute-add-line" />
+      </button>
     </div>
   </div>
+  <button v-if="!dsStore.profileMode" class="dou-sc-btn self-end" @click="handleRefreshButtonClick">
+    {{ $t("shared.refresh") }}
+  </button>
+
+  <Teleport to="#main-content" defer>
+    <template v-if="dsStore.profileMode && currentEditingProfile">
+      <LayoutGroup>
+        <ProfilePageLayout :key="currentEditingProfile.id" :profile="currentEditingProfile"
+          :active="currentActiveProfile === currentEditingProfile.switchButton" @close="handleClose" />
+      </LayoutGroup>
+    </template>
+  </Teleport>
 </template>
 
 <style scoped lang="scss">
 .profile-item {
   @apply transition-colors;
-  @apply flex items-center gap-2 justify-between select-none px-1.5 py-1 rounded-md text-primary;
+  @apply flex items-center gap-2 justify-between px-1.5 py-1 rounded-md text-[var(--color)];
+  @apply text-primary;
 
-  &.enterable {
-    @apply cursor-pointer;
-    @apply hover:bg-black/10;
+  &.unassigned {
+    // @apply text-orange;
+    @apply opacity-60;
+  }
+
+  .icon-button {
+    @apply flex-shrink-0 p-1 cursor-pointer;
+
+    &:hover {
+      @apply bg-primary/15 rounded-md;
+    }
   }
 }
 </style>

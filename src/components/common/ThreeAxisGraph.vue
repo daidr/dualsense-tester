@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { useIsRTL } from '@/store/page'
 import { Application, Graphics } from 'pixi.js'
-import { onBeforeUnmount, onMounted, ref, toRaw, useTemplateRef, watch, watchEffect } from 'vue'
+import { nextTick, onBeforeUnmount, onMounted, ref, toRaw, useTemplateRef, watch, watchEffect } from 'vue'
+import { useIsRTL } from '@/store/page'
 import SliderBox from './SliderBox.vue'
+import { createPixiApplication, usePixiApp } from '@/utils/pixi.util';
 
 const { maxValue = 0x7FFF, value } = defineProps<{
   maxValue?: number
@@ -15,6 +16,7 @@ const { maxValue = 0x7FFF, value } = defineProps<{
 
 const isRTL = useIsRTL()
 let isRTLwithoutTrack = isRTL.value
+const initialized = ref(true)
 
 watch(() => isRTL.value, (isRTL) => {
   isRTLwithoutTrack = isRTL
@@ -59,23 +61,8 @@ onMounted(async () => {
   if (!CanvasRef.value) {
     return
   }
-  let isDisposed = false
-  const app = new Application()
-  onBeforeUnmount(() => {
-    isDisposed = true
-    app.destroy({
-      removeView: false,
-    })
-  })
-  await app.init({
-    preference: 'webgl',
-    canvas: CanvasRef.value,
-    resizeTo: CanvasRef.value,
-    backgroundAlpha: 0,
-    antialias: true,
-    resolution: window.devicePixelRatio,
-  })
-  if (isDisposed) {
+  const { isDisposed, app } = await usePixiApp(CanvasRef.value)
+  if (isDisposed.value) {
     return
   }
 
@@ -132,6 +119,12 @@ onMounted(async () => {
     lineY.stroke()
     lineZ.stroke()
   })
+
+  app.ticker.addOnce(() => {
+    nextTick(() => {
+      initialized.value = true
+    })
+  })
 })
 
 function reset() {
@@ -145,7 +138,9 @@ defineExpose({
 
 <template>
   <div class="relative">
-    <div class="relative h-full w-[calc(100%-30px)] overflow-hidden rounded-xl dou-sc-colorborder">
+    <div class="relative h-full w-[calc(100%-30px)] overflow-hidden rounded-xl dou-sc-colorborder transition-opacity duration-300" :style="{
+    opacity: initialized ? 1 : 0,
+  }">
       <canvas ref="CanvasRef" class="absolute top-0 h-full w-full" w="1" h="1" />
     </div>
     <div class="absolute end-2 bottom-0 top-0">

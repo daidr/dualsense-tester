@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import DouSelect from '@/components/base/DouSelect.vue'
 import type { OutputStruct } from './outputStruct'
-import SelectBox from '@/components/common/SelectBox.vue'
 import SliderBox from '@/components/common/SliderBox.vue'
 import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -144,7 +144,7 @@ watch(currentTriggerEffect, () => {
     </td>
     <td class="value">
       <div>
-        <SelectBox v-model="currentTriggerEffect" :options="triggerModeSets" />
+        <DouSelect v-model="currentTriggerEffect" :options="triggerModeSets" />
       </div>
     </td>
   </tr>
