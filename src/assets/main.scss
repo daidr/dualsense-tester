@@ -15,8 +15,14 @@
 
 html {
   background: rgb(var(--bg-color));
-  overflow-y: scroll;
+  overflow: hidden;
+}
+
+body {
+  overflow-y: auto;
+  max-height: 100dvh;
   scrollbar-width: thin;
+  scrollbar-gutter: stable both-edges;
 }
 
 html.light {
@@ -40,6 +46,7 @@ html.dark {
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
+  padding: 0 2px 0 2px;
 }
 
 .v-popper__popper {

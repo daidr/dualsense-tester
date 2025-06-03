@@ -1,12 +1,18 @@
-import { defineConfig, presetIcons, presetUno, transformerDirectives, transformerVariantGroup } from 'unocss'
+import { defineConfig, presetIcons, presetWind3, transformerDirectives, transformerVariantGroup } from 'unocss'
 
 export default defineConfig({
   details: true,
   presets: [
-    presetUno({
+    presetWind3({
       dark: 'class',
     }),
-    presetIcons({}),
+    presetIcons({
+      collections: {
+        mingcute: () => import('@iconify-json/mingcute/icons.json').then(i => i.default),
+        'icon-park-twotone': () => import('@iconify-json/icon-park-twotone/icons.json').then(i => i.default),
+        'fancy-controller': () => import('fancy-controller/icons.json').then(i => i.default),
+      }
+    }),
   ],
   transformers: [transformerVariantGroup(), transformerDirectives()],
   theme: {
@@ -20,6 +26,9 @@ export default defineConfig({
     fontFamily: {
       mono: ['Noto Sans Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace'],
     },
+    containers: {
+      sm: '(min-width: 24rem)',
+    },
   },
   shortcuts: {
     'dou-sc-capsule':
@@ -31,7 +40,7 @@ export default defineConfig({
     'dou-sc-colorborder': 'border-1.5 border-primary/20 dark-border-primary/50',
     'dou-sc-autobg': 'bg-primary/20 dark-bg-primary/50',
     'dou-sc-title': 'text-xl font-bold text-primary lh-1em',
-    'dou-sc-subtitle': 'text-xl font-bold text-primary/60 lh-1.2em my-2',
+    'dou-sc-subtitle': 'text-xl font-bold text-primary lh-1.2em my-2',
     'dou-sc-link': 'text-primary hover:underline',
   },
 })

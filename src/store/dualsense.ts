@@ -33,6 +33,9 @@ export const useDualSenseStore = defineStore('dualsense', () => {
     return currentDevice.value !== undefined && inputReport.value !== undefined && inputReportId.value !== undefined
   })
 
+  /** Indicates whether the device is in profile configuration mode (only supported by DualSense Edge) */
+  const profileMode = ref(false)
+
   let currentAnimationFrame: number | undefined
 
   function inputReportHandlerFactory(deviceItem: DeviceItemWithRouter) {
@@ -89,6 +92,7 @@ export const useDualSenseStore = defineStore('dualsense', () => {
       currentDevice.value = undefined
       inputReport.value = undefined
       inputReportId.value = undefined
+      profileMode.value = false
       item.device.removeEventListener('inputreport', inputReportHandler)
       // item.device.oninputreport = null
     })
@@ -171,6 +175,7 @@ export const useDualSenseStore = defineStore('dualsense', () => {
     inputReportId,
     views: reactiveViews,
     isDeviceReady,
+    profileMode,
   }
 })
 

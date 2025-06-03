@@ -84,5 +84,15 @@ export default defineConfig(async ({ mode }) => {
       ...await gitDefine(),
       ...await crowdinDefine(env),
     },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'motion-v': ['motion-v'],
+            'pixi.js': ['pixi.js'],
+          }
+        }
+      }
+    }
   }
 })

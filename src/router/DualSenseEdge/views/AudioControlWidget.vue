@@ -2,8 +2,8 @@
 import HoldActiveButton from '@/components/common/HoldActiveButton.vue'
 import { useDevice } from '@/composables/useInjectValues'
 import { controlWaveOut } from '@/utils/dualsense/ds.util'
-import { useEventBusEmit } from '../_utils/eventbus.util'
 import { sleep } from '@/utils/time.util'
+import { useEventBusEmit } from '../_utils/eventbus.util'
 
 const device = useDevice()
 const eventBusEmit = useEventBusEmit()

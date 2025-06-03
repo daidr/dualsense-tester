@@ -25,7 +25,10 @@ const finalTag = computed(() => {
 
 <template>
   <GeneralContainer :title="finalTitle" :tag="finalTag">
-    <component :is="item.component" />
+    <component :is="item.layout" v-if="item.layout">
+      <component :is="item.component" />
+    </component>
+    <component :is="item.component" v-else />
   </GeneralContainer>
 </template>
 

@@ -93,12 +93,14 @@
     "BDADR",
     "CALIB",
     "colorborder",
+    "Deadzone",
     "dualsense",
     "dualshock",
     "EFUSE",
     "eventbus",
     "geometrychange",
     "HWVERSION",
+    "inited",
     "inputreport",
     "intlify",
     "lightbar",
@@ -111,6 +113,7 @@
     "PCBAID",
     "pixi",
     "precaching",
+    "reka",
     "RSSI",
     "SWITCHOFF",
     "TRACABILITY",
@@ -128,5 +131,12 @@
   ],
   "arrayIndexInlay.enabled": true,
   "i18n-ally.keystyle": "nested",
-  "i18n-ally.sourceLanguage": "en-US"
+  "i18n-ally.sourceLanguage": "en-US",
+  "iconify.customCollectionJsonPaths": [
+    "packages/fancy-controller/icons.json"
+  ],
+  "iconify.inplace": false,
+  "iconify.customAliasesJsonPaths": [
+    "packages/fancy-controller/icons.json"
+  ]
 }

@@ -67,7 +67,6 @@ export default class DualSenseRouter extends BaseDeviceRouter {
         title: {
           key: 'audio_panel.title',
         },
-        tag: 'WIP',
         component: AudioWidget,
       },
     ]

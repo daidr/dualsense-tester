@@ -1,4 +1,5 @@
-import { DeviceConnectionType, type DeviceItem } from '@/device-based-router/shared'
+import type { DeviceItem } from '@/device-based-router/shared'
+import { DeviceConnectionType } from '@/device-based-router/shared'
 import { shiftJISDecoder } from '@/utils/decoder.util'
 import { decodeShiftJIS, numberToHex } from '@/utils/format.util'
 import { hidLogger } from '@/utils/logger.util'
