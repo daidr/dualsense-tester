@@ -10,7 +10,15 @@
     "confirm": "تأكيد",
     "cancel": "إلغاء",
     "close": "أغلق",
-    "hold": "استمر بالضغط"
+    "hold": "استمر بالضغط",
+    "reset": "Reset",
+    "save": "Save",
+    "warning": "Warning",
+    "edit": "Edit",
+    "rename": "Rename",
+    "remove": "Remove",
+    "create": "Create",
+    "refresh": "Refresh"
   },
   "common": {
     "tips": "تلميحات",
@@ -90,7 +98,12 @@
   "profile_panel": {
     "title": "مِلَفّ تعريف",
     "default": "افتراضي",
-    "unassigned": "غير معيّن"
+    "unassigned": "غير معيّن",
+    "cannot_edit_default_profile_tips": "The default profile can't be edited.",
+    "remove_confirm_tips": "Are you sure you want to delete profile {name}?",
+    "rename_invalid_tips": "Profile name cannot be empty or too long.",
+    "new_profile": "New Profile",
+    "create_profile": "Create Profile"
   },
   "info_panel": {
     "tips": "يرجي توصيل جهاز DualSense أولاً",
@@ -177,5 +190,48 @@
     "next_month": "Next month",
     "last_year": "Last year",
     "next_year": "Next year"
+  },
+  "profile_mode": {
+    "edited": "Edited",
+    "unsaved_modal_content": "You have unsaved changes, do you want to discard them?",
+    "edited_tips": "You need to save before switching to other configuration options to avoid losing your changes.",
+    "abnormal_tips": "The controller may be in configuration mode, this panel has been temporarily disabled.",
+    "try_exit": "Exit",
+    "trigger_deadzone_label": "Trigger Deadzone",
+    "trigger_deadzone": {
+      "use_unified_tips": "Apply Same Setting for {L2} and {R2}",
+      "input_range": "{key} Input Range",
+      "range_from": "From",
+      "range_to": "To",
+      "limit_tip": "The trigger effect for {key} might not work properly because the input range is limited.",
+      "deadzone_preview": "Preview"
+    },
+    "joystick_sensitivity_label": "Joystick Sensitivity",
+    "custom_button_mapping_label": "Button Mapping",
+    "vibration_intensity_label": "Vibration Intensity",
+    "vibration_intensity_desc": "Set the strength of your controller's vibration.",
+    "intensity_level": {
+      "off": "Off",
+      "weak": "Weak",
+      "medium": "Medium",
+      "strong": "Strong (Default)"
+    },
+    "trigger_effect_intensity_label": "Trigger Effect Intensity",
+    "trigger_effect_intensity_desc": "Set the level of force that's applied when pressing {L2} or {R2}. If you've adjusted the {L2} or {R2} stop sliders, the trigger effect will turn off.",
+    "joystick_curves": {
+      "default": "Default",
+      "quick": "Quick",
+      "precise": "Precise",
+      "steady": "Steady",
+      "digital": "Digital",
+      "dynamic": "Dynamic"
+    },
+    "left_joystick": "Left Joystick",
+    "right_joystick": "Right Joystick",
+    "joystick_curves_label": "Sensitivity curve",
+    "joystick_curves_adjust_label": "Curve adjustment",
+    "joystick_deadzone_adjust_label": "Deadzone adjustment",
+    "joystick_preview_raw_input": "Raw Input",
+    "joystick_preview_mapped_input": "Mapped Input"
   }
 }
