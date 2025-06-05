@@ -11,14 +11,14 @@
     "cancel": "Скасувати",
     "close": "Закрити",
     "hold": "Утримуйте",
-    "reset": "Reset",
-    "save": "Save",
-    "warning": "Warning",
-    "edit": "Edit",
-    "rename": "Rename",
-    "remove": "Remove",
-    "create": "Create",
-    "refresh": "Refresh"
+    "reset": "Скинути",
+    "save": "Зберегти",
+    "warning": "Увага!",
+    "edit": "Редагувати",
+    "rename": "Перейменувати",
+    "remove": "Видалити",
+    "create": "Створити",
+    "refresh": "Оновити"
   },
   "common": {
     "tips": "Поради",
@@ -99,11 +99,11 @@
     "title": "Профіль",
     "default": "Типовий",
     "unassigned": "Не призначено",
-    "cannot_edit_default_profile_tips": "The default profile can't be edited.",
-    "remove_confirm_tips": "Are you sure you want to delete profile {name}?",
-    "rename_invalid_tips": "Profile name cannot be empty or too long.",
-    "new_profile": "New Profile",
-    "create_profile": "Create Profile"
+    "cannot_edit_default_profile_tips": "Неможливо редагувати профіль за замовчуванням.",
+    "remove_confirm_tips": "Ви впевнені, що бажаєте видалити профіль {name}?",
+    "rename_invalid_tips": "Ім'я профілю не може бути пустим або задовгим.",
+    "new_profile": "Новий профіль",
+    "create_profile": "Створити профіль"
   },
   "info_panel": {
     "tips": "Будь ласка, спочатку підключіть ваш DualSense",
@@ -192,46 +192,46 @@
     "next_year": "Наступного року"
   },
   "profile_mode": {
-    "edited": "Edited",
-    "unsaved_modal_content": "You have unsaved changes, do you want to discard them?",
-    "edited_tips": "You need to save before switching to other configuration options to avoid losing your changes.",
-    "abnormal_tips": "The controller may be in configuration mode, this panel has been temporarily disabled.",
-    "try_exit": "Exit",
-    "trigger_deadzone_label": "Trigger Deadzone",
+    "edited": "Відредаговано",
+    "unsaved_modal_content": "У вас є незбережені зміни. Бажаєте їх відхилити?",
+    "edited_tips": "Щоб уникнути втрати змін, збережіть їх перед перемиканням на інші параметри конфігурації.",
+    "abnormal_tips": "Контролер може бути в режимі налаштування. Ця панель тимчасово недоступна.",
+    "try_exit": "Вийти",
+    "trigger_deadzone_label": "Мертва зона тригера",
     "trigger_deadzone": {
-      "use_unified_tips": "Apply Same Setting for {L2} and {R2}",
-      "input_range": "{key} Input Range",
-      "range_from": "From",
-      "range_to": "To",
-      "limit_tip": "The trigger effect for {key} might not work properly because the input range is limited.",
-      "deadzone_preview": "Preview"
+      "use_unified_tips": "Застосувати однакові налаштування для {L2} та {R2}",
+      "input_range": "Діапазон вводу {key}",
+      "range_from": "Від",
+      "range_to": "До",
+      "limit_tip": "Ефект тригера для {key} може не працювати належно, оскільки обмежено діапазон вводу.",
+      "deadzone_preview": "Попередній перегляд"
     },
-    "joystick_sensitivity_label": "Joystick Sensitivity",
-    "custom_button_mapping_label": "Button Mapping",
-    "vibration_intensity_label": "Vibration Intensity",
-    "vibration_intensity_desc": "Set the strength of your controller's vibration.",
+    "joystick_sensitivity_label": "Чутливість джойстика",
+    "custom_button_mapping_label": "Призначення кнопок",
+    "vibration_intensity_label": "Інтенсивність вібрації",
+    "vibration_intensity_desc": "Встановіть силу вібрації контролера.",
     "intensity_level": {
-      "off": "Off",
-      "weak": "Weak",
-      "medium": "Medium",
-      "strong": "Strong (Default)"
+      "off": "Вимкнено",
+      "weak": "Слабка",
+      "medium": "Середня",
+      "strong": "Сильна (типово)"
     },
-    "trigger_effect_intensity_label": "Trigger Effect Intensity",
-    "trigger_effect_intensity_desc": "Set the level of force that's applied when pressing {L2} or {R2}. If you've adjusted the {L2} or {R2} stop sliders, the trigger effect will turn off.",
+    "trigger_effect_intensity_label": "Інтенсивність ефекту тригера",
+    "trigger_effect_intensity_desc": "Визначає силу натиску {L2} або {R2}. Якщо ви налаштували повзунки зупинки {L2} або {R2}, ефект буде вимкнено.",
     "joystick_curves": {
-      "default": "Default",
-      "quick": "Quick",
-      "precise": "Precise",
-      "steady": "Steady",
-      "digital": "Digital",
-      "dynamic": "Dynamic"
+      "default": "Типова",
+      "quick": "Швидка",
+      "precise": "Точна",
+      "steady": "Стабільна",
+      "digital": "Цифрова",
+      "dynamic": "Динамічна"
     },
-    "left_joystick": "Left Joystick",
-    "right_joystick": "Right Joystick",
-    "joystick_curves_label": "Sensitivity curve",
-    "joystick_curves_adjust_label": "Curve adjustment",
-    "joystick_deadzone_adjust_label": "Deadzone adjustment",
-    "joystick_preview_raw_input": "Raw Input",
-    "joystick_preview_mapped_input": "Mapped Input"
+    "left_joystick": "Лівий джойстик",
+    "right_joystick": "Правий джойстик",
+    "joystick_curves_label": "Крива чутливості",
+    "joystick_curves_adjust_label": "Налаштування кривої",
+    "joystick_deadzone_adjust_label": "Налаштування мертвої зони",
+    "joystick_preview_raw_input": "Сирий ввід",
+    "joystick_preview_mapped_input": "Преобразований ввід"
   }
 }
