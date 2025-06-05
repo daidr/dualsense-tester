@@ -105,20 +105,20 @@ If you want to add a new language support or improve an existing one, please vis
         <br /><sub><b><code title="Persian">fa</code></b></sub>
       </td>
       <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/sladkOy"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/13328300/medium/e972a38d081a3ff644c1447dc53aedb8.jpg" />
+          <br />
+          <sub><b>Maksym Abramov (sladkOy)</b></sub></a>
+        <br />
+        <sub><b>280 words</b></sub>
+        <br /><sub><b><code title="Ukrainian">uk</code></b></sub>
+      </td>
+      <td align="center" valign="top">
         <a href="https://crowdin.com/profile/hargabt"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/14426098/medium/a93444c4c26f513b05caf8dcdd7acea9_default.png" />
           <br />
           <sub><b>Robert Galoyan (hargabt)</b></sub></a>
         <br />
         <sub><b>273 words</b></sub>
         <br /><sub><b><code title="Russian">ru</code></b></sub>
-      </td>
-      <td align="center" valign="top">
-        <a href="https://crowdin.com/profile/sladkOy"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/13328300/medium/e972a38d081a3ff644c1447dc53aedb8.jpg" />
-          <br />
-          <sub><b>Maksym Abramov (sladkOy)</b></sub></a>
-        <br />
-        <sub><b>107 words</b></sub>
-        <br /><sub><b><code title="Ukrainian">uk</code></b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/luan.pivotto94"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/16890461/medium/4a4ace6ea757364b2362b95c3dce9797.png" />
