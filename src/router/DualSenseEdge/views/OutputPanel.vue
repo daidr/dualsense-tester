@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import type { Ref } from 'vue'
 import type { PlayerLedBrightness } from '@/utils/dualsense/ds.type'
+import { computed, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import ColorInput from '@/components/common/ColorInput.vue'
 import GroupedButton from '@/components/common/GroupedButton.vue'
 import SelfResettingSlider from '@/components/common/SelfResettingSlider.vue'
@@ -10,8 +13,6 @@ import { MuteButtonLedControl, PlayerLedControl } from '@/utils/dualsense/ds.typ
 import { sendOutputReportFactory } from '@/utils/dualsense/ds.util'
 import { bitShiftByte } from '@/utils/format.util'
 import { createAsyncLock } from '@/utils/lock.util'
-import { computed, onMounted, type Ref } from 'vue'
-import { useI18n } from 'vue-i18n'
 import { useEventBusRegister } from '../_utils/eventbus.util'
 import { OutputStruct } from './_OutputPanel/outputStruct'
 import TriggerEffect from './_OutputPanel/TriggerEffect.vue'
@@ -350,6 +351,13 @@ useEventBusRegister('output:store-headphone-volume', () => {
 useEventBusRegister('output:retrieve-headphone-volume', () => {
   headphoneVolume.value = lastHeadphoneVolume
 })
+
+// function handleVibration() {
+//   const report = new Uint8Array(47)
+//   report[0] = 0x80
+//   report[7] = 0x0C
+//   _sendOutputReport.value(report)
+// }
 </script>
 
 <template>
@@ -439,6 +447,9 @@ useEventBusRegister('output:retrieve-headphone-volume', () => {
       </tr>
     </tbody>
   </table>
+  <!-- <button @click="handleVibration">
+    click
+  </button> -->
 </template>
 
 <style scoped lang="scss">

@@ -59,6 +59,8 @@ export enum DSEJoystickProfilePreset {
   DIGITAL = 0x04,
   // 动态
   DYNAMIC = 0x05,
+  // 自定义
+  CUSTOM = 0xFF,
 }
 
 export interface DSEJoystickProfile {
@@ -66,7 +68,7 @@ export interface DSEJoystickProfile {
   curvePoints: number[]
 }
 
-class DSEJoystickCurvePos {
+export class DSEJoystickCurvePos {
   private value: number
   private delta?: number
   private affectedDeadzone?: boolean
@@ -350,6 +352,28 @@ export const DSEJoystickCurveMap: Record<DSEJoystickProfilePreset, DSEJoystickCu
       ],
     ],
     reversePointIndex: 5,
+  }),
+  [DSEJoystickProfilePreset.CUSTOM]: new DSEJoystickCurve({
+    adjustment: false,
+    pointCount: 4,
+    points: [
+      [
+        new DSEJoystickCurvePos(0),
+        new DSEJoystickCurvePos(0, { a: false }),
+      ],
+      [
+        new DSEJoystickCurvePos(128),
+        new DSEJoystickCurvePos(128, { a: false }),
+      ],
+      [
+        new DSEJoystickCurvePos(196),
+        new DSEJoystickCurvePos(196, { a: false }),
+      ],
+      [
+        new DSEJoystickCurvePos(225),
+        new DSEJoystickCurvePos(225, { a: false }),
+      ],
+    ],
   }),
 }
 
@@ -868,7 +892,7 @@ export function useSaveProfile() {
         0x61: 0x64,
       }
       await receiveFeatureReport(device.value, idMap[id])
-    }
+    },
   }
 }
 

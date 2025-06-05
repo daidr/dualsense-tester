@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import type { DSEJoystickProfile } from '../../profile'
-import { computed, ref, shallowRef, watch } from 'vue'
+import { storeToRefs } from 'pinia'
+import { computed, reactive, ref, shallowRef, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import DouSelect from '@/components/base/DouSelect.vue'
 import JoystickCurveGraph from '@/components/common/JoystickCurveGraph.vue'
 import JoystickPreviewGraph from '@/components/common/JoystickPreviewGraph.vue'
 import SliderBox from '@/components/common/SliderBox.vue'
-import { DSEJoystickCurveMap, DSEJoystickProfilePreset } from '../../profile'
 import { usePageStore } from '@/store/page'
-import { storeToRefs } from 'pinia'
+import { DSEJoystickCurveMap, DSEJoystickCurvePos, DSEJoystickProfilePreset } from '../../profile'
+import { useThrottleFn } from '@vueuse/core'
+import { Tooltip } from 'floating-vue'
 
 defineProps<{
   current: number
@@ -69,6 +71,13 @@ const curveOptions = computed(() => [
       icon: 'i-fancy-controller-curve-dynamic',
     },
   },
+  {
+    label: t('profile_mode.joystick_curves.custom'),
+    value: DSEJoystickProfilePreset.CUSTOM,
+    extra: {
+      icon: 'i-mingcute-settings-2-line',
+    },
+  },
 ])
 
 const adjustment = ref(0)
@@ -94,14 +103,56 @@ watch(() => modelValue.value, (newValue) => {
   adjustment.value = preset.getAdjustment(newValue.curvePoints) || 0
 }, { immediate: true })
 
-watch(() => [adjustment.value, deadzone.value, currentCurvePresetId.value], () => {
+watch(() => [adjustment.value, deadzone.value, currentCurvePresetId.value], (_, [_a, _b, oldCurvePresetId]) => {
   const preset = DSEJoystickCurveMap[currentCurvePresetId.value]
-  currentCurve.value = preset.getCurve(deadzone.value / 100, adjustment.value)
+  const oldDeadzoneWidth = currentCurve.value[0] || 0
+  const newDeadzone = deadzone.value / 100
+
+  // 自定义曲线缩放
+  if (currentCurvePresetId.value === DSEJoystickProfilePreset.CUSTOM && oldCurvePresetId === DSEJoystickProfilePreset.CUSTOM) {
+    // 首先将曲线恢复
+    const widthFactor = 1 - oldDeadzoneWidth / 255
+    const originalCurve = currentCurve.value.map((value, index) => {
+      if (index % 2 === 1) {
+        return value
+      }
+      return Math.round((value - oldDeadzoneWidth) / widthFactor)
+    })
+
+    const points = originalCurve.map((value, index) => {
+      return new DSEJoystickCurvePos(value, { a: index % 2 === 0 })
+    })
+
+    // 重新计算曲线
+    const newCurve = points.map((point) => {
+      return point.getValue(newDeadzone)
+    })
+
+    currentCurve.value = reactive(newCurve)
+    modelValue.value = {
+      preset: DSEJoystickProfilePreset.CUSTOM,
+      curvePoints: newCurve,
+    }
+    return
+  }
+
+  // 正常曲线
+  currentCurve.value = preset.getCurve(newDeadzone, adjustment.value)
   modelValue.value = {
     preset: currentCurvePresetId.value,
     curvePoints: currentCurve.value,
   }
 })
+
+function handleUpdateCurve(newCurve: number[]) {
+  currentCurve.value = newCurve
+  modelValue.value = {
+    preset: DSEJoystickProfilePreset.CUSTOM,
+    curvePoints: newCurve,
+  }
+}
+
+const throttleUpdateCurve = useThrottleFn(handleUpdateCurve, 16, true)
 </script>
 
 <template>
@@ -110,10 +161,16 @@ watch(() => [adjustment.value, deadzone.value, currentCurvePresetId.value], () =
       <div class="field">
         <label>{{ $t("profile_mode.joystick_curves_label") }}</label>
         <DouSelect v-model="currentCurvePresetId" :options="curveOptions" class="w-30">
-          <template #default="{ label, extra }">
+          <template #default="{ label, extra, value }">
             <div class="flex items-center gap-2">
               <div :class="extra?.icon" />
               <span>{{ label }}</span>
+              <Tooltip v-if="value === DSEJoystickProfilePreset.CUSTOM" :delay="0">
+                <div class="i-mingcute-alert-fill cursor-help text-orange pointer-events-auto" />
+                <template #popper>
+                  <div class="max-w-200px">{{ $t("profile_mode.custom_joystick_curve_tips") }}</div>
+                </template>
+              </Tooltip>
             </div>
           </template>
         </DouSelect>
@@ -140,17 +197,18 @@ watch(() => [adjustment.value, deadzone.value, currentCurvePresetId.value], () =
     </div>
 
     <JoystickCurveGraph :default-curve="currentDefaultCurve" :current="current" :deadzone="deadzone / 100"
-      :curve="currentCurve" class="flex-shrink min-w-0 w-full max-w-400px h-auto" />
-    <div class="flex flex-grow min-w-0 flex-shrink w-full">
-      <JoystickPreviewGraph class="flex-shrink-0 flex-grow max-w-200px" :deadzone="deadzone / 100" :x="x" :y="y" :final-x="finalX"
-        :final-y="finalY" />
-      <div class="legend flex-shrink min-w-0 overflow-hidden">
+      :curve="currentCurve" class="h-auto max-w-400px min-w-0 w-full flex-shrink"
+      :editable="currentCurvePresetId === DSEJoystickProfilePreset.CUSTOM" @update-curve="throttleUpdateCurve" />
+    <div class="min-w-0 w-full flex flex-shrink flex-grow">
+      <JoystickPreviewGraph class="max-w-200px flex-shrink-0 flex-grow" :deadzone="deadzone / 100" :x="x" :y="y"
+        :final-x="finalX" :final-y="finalY" />
+      <div class="legend min-w-0 flex-shrink overflow-hidden">
         <div class="legend-item">
-          <div class="color-box" :style="{ backgroundColor: colorPalette.primary }"></div>
+          <div class="color-box" :style="{ backgroundColor: colorPalette.primary }" />
           <span :style="{ color: colorPalette.primary }">{{ $t('profile_mode.joystick_preview_raw_input') }}</span>
         </div>
         <div class="legend-item">
-          <div class="color-box" :style="{ backgroundColor: colorPalette.active }"></div>
+          <div class="color-box" :style="{ backgroundColor: colorPalette.active }" />
           <span :style="{ color: colorPalette.active }">{{ $t('profile_mode.joystick_preview_mapped_input') }}</span>
         </div>
       </div>

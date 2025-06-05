@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import type { FederatedPointerEvent } from 'pixi.js'
 import { useThrottleFn } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
-import { Graphics } from 'pixi.js'
-import { nextTick, onBeforeUnmount, onMounted, ref, useTemplateRef, watch } from 'vue'
+import { Container, Graphics } from 'pixi.js'
+import { nextTick, onBeforeUnmount, onMounted, ref, shallowRef, useTemplateRef, watch } from 'vue'
 import { usePageStore } from '@/store/page'
 import { createPixiApplication, usePixiApp } from '@/utils/pixi.util'
 
@@ -11,6 +12,7 @@ const props = defineProps<{
   curve: number[]
   deadzone: number
   current: number
+  editable?: boolean
 }>()
 
 const CanvasRef = useTemplateRef('CanvasRef')
@@ -19,6 +21,10 @@ const pageStore = usePageStore()
 
 const { colorPalette } = storeToRefs(pageStore)
 const initialized = ref(false)
+
+const emit = defineEmits<{
+  'updateCurve': [curve: number[]]
+}>()
 
 onMounted(async () => {
   if (!CanvasRef.value) {
@@ -29,17 +35,82 @@ onMounted(async () => {
     return
   }
 
+  const currentPoint = shallowRef<Graphics>()
+
   const grid = new Graphics()
   const deadzone = new Graphics()
   const defaultCurve = new Graphics()
   const currentCurve = new Graphics()
   const activeCurve = new Graphics()
 
+  function updateCurve(index: number, valueX: number, valueY: number) {
+    const newIndex = index + 1;
+    const newCurve = [...props.curve]
+    // 取出第一个点
+    const firstPointX = newCurve[0]
+    const lastPointX = 255
+    const prevPointX = newCurve[(newIndex - 1) * 2] || firstPointX
+    const nextPointX = newCurve[(newIndex + 1) * 2] || lastPointX
+
+    newCurve[newIndex * 2] = Math.max(prevPointX, Math.min(nextPointX, valueX))
+    newCurve[newIndex * 2 + 1] = Math.max(0, Math.min(255, 255 - valueY))
+    emit('updateCurve', newCurve)
+  }
+  const dragPoints = new Container()
+  const dragPointsChildren: Graphics[] = []
+  for (let i = 0; i < 3; i++) {
+    const point = new Graphics()
+    let isDragging = false
+    function handlePointerEnter(this: Graphics, e: FederatedPointerEvent) {
+      if (currentPoint.value) {
+        return;
+      }
+      currentPoint.value = this
+    }
+
+    function handlePointerLeave(this: Graphics, e: FederatedPointerEvent) {
+      if (!isDragging) {
+        currentPoint.value = undefined
+      }
+    }
+
+    function handlePointerDown(this: Graphics, e: FederatedPointerEvent) {
+      isDragging = true
+      currentPoint.value = this
+    }
+
+    function handlePointerUp(this: Graphics, e: FederatedPointerEvent) {
+      isDragging = false
+      currentPoint.value = undefined
+    }
+
+    function handlePointerMove(this: Graphics, e: FederatedPointerEvent) {
+      if (!isDragging) {
+        return
+      }
+      const { x: mouseX, y: mouseY } = e.global
+      const { width, height } = app.screen
+      updateCurve(i, mouseX / width * 255, mouseY / height * 255)
+    }
+
+    point.on('pointerenter', handlePointerEnter)
+    point.on('pointerleave', handlePointerLeave)
+    point.on('pointerdown', handlePointerDown)
+    point.on('pointerup', handlePointerUp)
+    point.on('pointerupoutside', handlePointerUp)
+    point.on('globalpointermove', handlePointerMove)
+    point.eventMode = 'static'
+    point.cursor = 'move'
+    dragPointsChildren.push(point)
+    dragPoints.addChild(point)
+  }
+
   app.stage.addChild(grid)
   app.stage.addChild(deadzone)
   app.stage.addChild(defaultCurve)
   app.stage.addChild(currentCurve)
   app.stage.addChild(activeCurve)
+  app.stage.addChild(dragPoints)
 
   function drawGrid(x: number, y: number, w: number, h: number) {
     grid.clear()
@@ -182,6 +253,44 @@ onMounted(async () => {
     graphics.stroke()
   }
 
+  function drawDragPoints(curve: number[], width: number, height: number) {
+    dragPointsChildren.forEach((point) => {
+      point.clear()
+    })
+    if (curve.length === 0 || !props.editable) {
+      return
+    }
+    const realCurve = curve.map((point, index) => {
+      if (index % 2) {
+        return (255 - point) / 255 * height
+      }
+      else {
+        return point / 255 * width
+      }
+    })
+
+    for (let i = 2; i < realCurve.length; i += 2) {
+      let x = realCurve[i]
+      let y = realCurve[i + 1]
+      const point = dragPointsChildren[i / 2 - 1]
+      const isActive = currentPoint.value === point
+      point.clear()
+      point.setStrokeStyle({
+        color: isActive ? colorPalette.value.active : colorPalette.value.primary,
+        alpha: 1,
+        width: 2,
+      })
+
+      point.setFillStyle({
+        color: colorPalette.value.background,
+        alpha: 1,
+      })
+      point.circle(x, y, 6)
+      point.fill()
+      point.stroke()
+    }
+  }
+
   let prevContext = {
     width: 0,
     height: 0,
@@ -190,6 +299,8 @@ onMounted(async () => {
     defaultCurve: [0],
     current: 0,
     colorMode: '',
+    editable: false,
+    currentPoint: undefined as any,
   }
 
   function draw() {
@@ -228,6 +339,11 @@ onMounted(async () => {
       drawActiveCurve(activeCurve, 0, 0, width, height, finalCurrent * width + props.deadzone * width, props.curve, colorPalette.value.active)
     }
 
+    // 检查是否需要绘制操作点
+    if (basicChanged || prevContext.curve !== props.curve || prevContext.editable !== props.editable || currentPoint.value !== prevContext.currentPoint) {
+      drawDragPoints(props.curve, width, height)
+    }
+
     prevContext = {
       width,
       height,
@@ -236,6 +352,8 @@ onMounted(async () => {
       defaultCurve: props.defaultCurve,
       current: props.current,
       colorMode: pageStore.colorModeState,
+      editable: props.editable || false,
+      currentPoint: currentPoint.value,
     }
   }
 
@@ -246,7 +364,7 @@ onMounted(async () => {
   })
 
   watch(
-    () => [props.curve, props.defaultCurve, props.deadzone, props.current, pageStore.colorModeState],
+    () => [props.curve, props.defaultCurve, props.deadzone, props.current, props.editable, pageStore.colorModeState, currentPoint.value],
     () => {
       throttledDraw()
     },
@@ -262,7 +380,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="relative aspect-[2/1] overflow-hidden rounded-xl dou-sc-colorborder transition-opacity duration-300"
+  <div class="relative aspect-[2/1] overflow-hidden rounded-xl transition-opacity duration-300 dou-sc-colorborder"
     :style="{
       opacity: initialized ? 1 : 0,
     }">

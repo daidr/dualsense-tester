@@ -3,11 +3,11 @@ import type { DSEJoystickProfile, DSEJoystickProfilePreset, DSEProfile } from '.
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { onDocumentUnload } from '@/composables/onDocumentUnload'
 import { useConnectionType, useDevice, useInputReport } from '@/composables/useInjectValues'
+import { DeviceConnectionType } from '@/device-based-router/shared'
 import { sendOutputReportFactory } from '@/utils/dualsense/ds.util'
 import { createAsyncLock } from '@/utils/lock.util'
 import { DSEJoystickCurveMap } from '../profile'
 import JoystickPreview from './JoystickSensitivity/JoystickPreview.vue'
-import { DeviceConnectionType } from '@/device-based-router/shared'
 
 const props = defineProps<{
   profile: DSEProfile
@@ -146,15 +146,19 @@ onMounted(() => {
   <div v-if="initialized" class="flex flex-col gap-10">
     <div class="flex flex-col gap-2">
       <label class="title">{{ $t('profile_mode.left_joystick') }}</label>
-      <JoystickPreview v-model="leftJoystick" :current="currentJoystickOffset.left" :x="currentJoystickPreview.leftX"
+      <JoystickPreview
+        v-model="leftJoystick" :current="currentJoystickOffset.left" :x="currentJoystickPreview.leftX"
         :y="currentJoystickPreview.leftY" :final-x="currentJoystickPreview.finalLeftX"
-        :final-y="currentJoystickPreview.finalLeftY" />
+        :final-y="currentJoystickPreview.finalLeftY"
+      />
     </div>
     <div class="flex flex-col gap-2">
       <label class="title">{{ $t('profile_mode.right_joystick') }}</label>
-      <JoystickPreview v-model="rightJoystick" :current="currentJoystickOffset.right" :x="currentJoystickPreview.rightX"
+      <JoystickPreview
+        v-model="rightJoystick" :current="currentJoystickOffset.right" :x="currentJoystickPreview.rightX"
         :y="currentJoystickPreview.rightY" :final-x="currentJoystickPreview.finalRightX"
-        :final-y="currentJoystickPreview.finalRightY" />
+        :final-y="currentJoystickPreview.finalRightY"
+      />
     </div>
   </div>
 </template>
