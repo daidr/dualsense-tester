@@ -224,8 +224,10 @@
       "precise": "Precise",
       "steady": "Steady",
       "digital": "Digital",
-      "dynamic": "Dynamic"
+      "dynamic": "Dynamic",
+      "custom": "Custom"
     },
+    "custom_joystick_curve_tips": "This is an experimental feature. Only DualSense Tester supports editing. Editing on the console will cause the curve to return to its default value.",
     "left_joystick": "Left Joystick",
     "right_joystick": "Right Joystick",
     "joystick_curves_label": "Sensitivity curve",
