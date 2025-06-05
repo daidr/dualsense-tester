@@ -224,8 +224,10 @@
       "precise": "精确",
       "steady": "稳定",
       "digital": "数字",
-      "dynamic": "动态"
+      "dynamic": "动态",
+      "custom": "自定义"
     },
+    "custom_joystick_curve_tips": "这是一个实验性特性，只有 DualSense Tester 支持编辑，在主机上编辑会导致曲线恢复到默认值。",
     "left_joystick": "左摇杆",
     "right_joystick": "右摇杆",
     "joystick_curves_label": "灵敏度曲线",
