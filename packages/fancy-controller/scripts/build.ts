@@ -4,8 +4,9 @@ import {
   isEmptyColor,
   parseColors,
   runSVGO,
+  SVG,
   writeJSONFile,
-} from '@iconify/tools';
+} from '@iconify/tools'
 
 (async () => {
   const iconSet = await importDirectory('sets', {
@@ -36,7 +37,8 @@ import {
         },
       })
 
-      runSVGO(svg)
+      runSVGO(svg, {
+      })
     }
     catch (err) {
       console.error(`Error parsing ${name}:`, err)
@@ -52,7 +54,7 @@ import {
     'twotone': 'Two-tone',
     'solid': 'Solid',
     'twotone-bordered': 'Two-tone bordered',
-    'bordered': 'Solid bordered',
+    'outline': 'Outline',
   }
 
   const result = iconSet.export()

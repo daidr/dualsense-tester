@@ -1,0 +1,17 @@
+<svg width="46" height="31" viewBox="0 0 46 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="varient=ls-twotone">
+<g id="Group 37">
+<mask id="mask0_31_79" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="46" height="31">
+<g id="Group">
+<path id="Vector" d="M36 27C36 27 31 29 22.9999 29C14.9999 29 10 27 10 27" stroke="#555555" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_2" d="M23 24C34.598 24 44 19.0751 44 13C44 6.92487 34.598 2 23 2C11.402 2 2 6.92487 2 13C2 19.0751 11.402 24 23 24Z" fill="#555555" stroke="#555555" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_3" d="M21 18H14V8" stroke="white" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector 3" d="M32 9.72414C31.125 8.34483 29.375 8 28.5 8C27.625 8 25 8.34483 25 10.4138C25 11.7931 26.75 12.1379 28.5 12.8276C30.25 13.5172 32 14.2069 32 15.5862C32 17.6552 29.375 18 28.5 18C27.625 18 25.875 17.6552 25 16.2759" stroke="white" stroke-width="2.67" stroke-linecap="round"/>
+</g>
+</mask>
+<g mask="url(#mask0_31_79)">
+<path id="Vector_4" d="M-2 -0.0999756H48V30.9H-2V-0.0999756Z" fill="black"/>
+</g>
+</g>
+</g>
+</svg>
