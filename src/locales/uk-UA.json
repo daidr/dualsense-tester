@@ -225,9 +225,9 @@
       "steady": "Стабільна",
       "digital": "Цифрова",
       "dynamic": "Динамічна",
-      "custom": "Custom"
+      "custom": "Користувацька"
     },
-    "custom_joystick_curve_tips": "This is an experimental feature. Only DualSense Tester supports editing. Editing on the console will cause the curve to return to its default value.",
+    "custom_joystick_curve_tips": "Це експериментальна функція. Редагування можливе лише у DualSense Tester. Якщо змінювати криву на консолі, вона повернеться до типового значення.",
     "left_joystick": "Лівий джойстик",
     "right_joystick": "Правий джойстик",
     "joystick_curves_label": "Крива чутливості",
