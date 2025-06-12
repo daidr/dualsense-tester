@@ -1,10 +1,9 @@
-import { useToast } from '@/composables/useToast'
-import { usePageStore } from '@/store/page'
-import { gitDefine, isDev } from '@/utils/env.util'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import { useRegisterSW } from 'virtual:pwa-register/vue'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useToast } from '@/composables/useToast'
+import { usePageStore } from '@/store/page'
 
 const intervalMS = 30 * 60 * 1000
 function getUpgradeState(state: ServiceWorkerState): 'upgrading' | 'waiting' | 'idle' {

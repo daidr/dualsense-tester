@@ -4,11 +4,11 @@ import DouSwitch from '@/components/base/DouSwitch.vue'
 import ControllerTextButton from '@/components/common/ControllerTextButton.vue'
 import { onDocumentUnload } from '@/composables/onDocumentUnload'
 import { useConnectionType, useDevice, useInputReport } from '@/composables/useInjectValues'
+import { DeviceConnectionType } from '@/device-based-router/shared'
 import { sendOutputReportFactory } from '@/utils/dualsense/ds.util'
 import { createAsyncLock } from '@/utils/lock.util'
 import { DSEProfile } from '../profile'
 import TriggerDeadZonePreview from './TriggerDeadZone/TriggerDeadZonePreview.vue'
-import { DeviceConnectionType } from '@/device-based-router/shared'
 
 const props = defineProps<{
   profile: DSEProfile
@@ -19,7 +19,6 @@ const leaveOutputReport = new Uint8Array(63)
 enterOutputReport[38] = leaveOutputReport[38] = 0x80
 enterOutputReport[40] = 0x03
 const initialized = ref(false)
-
 
 function createNewEnterReport(left: number[], right: number[]) {
   const newReport = enterOutputReport.slice()
@@ -196,7 +195,7 @@ const currentUnifiedTrigger = computed(() => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-10" v-if="initialized">
+  <div v-if="initialized" class="flex flex-col gap-10">
     <div class="flex flex-wrap items-center justify-center gap-3">
       <i18n-t tag="div" keypath="profile_mode.trigger_deadzone.use_unified_tips" scope="global">
         <template #L2>
@@ -210,14 +209,20 @@ const currentUnifiedTrigger = computed(() => {
     </div>
     <div class="grid grid-flow-dense gap-5 px-2 sm:grid-cols-2">
       <template v-if="unified">
-        <TriggerDeadZonePreview v-model:min="leftMin" v-model:max="leftMax" :current="currentUnifiedTrigger.val"
-          :real-current="currentUnifiedTrigger.finalVal" side="unified" />
+        <TriggerDeadZonePreview
+          v-model:min="leftMin" v-model:max="leftMax" :current="currentUnifiedTrigger.val"
+          :real-current="currentUnifiedTrigger.finalVal" side="unified"
+        />
       </template>
       <template v-else>
-        <TriggerDeadZonePreview v-model:min="leftMin" v-model:max="leftMax" class="ltr-col-start-1 rtl-col-start-2"
-          :current="currentTriggerPreview.left" :real-current="currentTriggerPreview.finalLeft" side="left" />
-        <TriggerDeadZonePreview v-model:min="rightMin" v-model:max="rightMax" class="ltr-col-start-2 rtl-col-start-1"
-          :current="currentTriggerPreview.right" :real-current="currentTriggerPreview.finalRight" side="right" />
+        <TriggerDeadZonePreview
+          v-model:min="leftMin" v-model:max="leftMax" class="ltr-col-start-1 rtl-col-start-2"
+          :current="currentTriggerPreview.left" :real-current="currentTriggerPreview.finalLeft" side="left"
+        />
+        <TriggerDeadZonePreview
+          v-model:min="rightMin" v-model:max="rightMax" class="ltr-col-start-2 rtl-col-start-1"
+          :current="currentTriggerPreview.right" :real-current="currentTriggerPreview.finalRight" side="right"
+        />
       </template>
     </div>
   </div>

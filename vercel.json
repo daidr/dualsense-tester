@@ -1,4 +1,5 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "vite",
   "installCommand": "bun install --frozen-lockfile",
   "buildCommand": "bun run build-only",
@@ -56,5 +57,11 @@
         }
       ]
     }
-  ]
+  ],
+  "functions": {
+    "api/*.ts": {
+      "maxDuration": 5,
+      "memory": 512
+    }
+  }
 }

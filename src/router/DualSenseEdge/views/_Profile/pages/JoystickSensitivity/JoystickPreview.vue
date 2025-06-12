@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type { DSEJoystickProfile } from '../../profile'
+import { useThrottleFn } from '@vueuse/core'
+import { Tooltip } from 'floating-vue'
 import { storeToRefs } from 'pinia'
 import { computed, reactive, ref, shallowRef, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -9,8 +11,6 @@ import JoystickPreviewGraph from '@/components/common/JoystickPreviewGraph.vue'
 import SliderBox from '@/components/common/SliderBox.vue'
 import { usePageStore } from '@/store/page'
 import { DSEJoystickCurveMap, DSEJoystickCurvePos, DSEJoystickProfilePreset } from '../../profile'
-import { useThrottleFn } from '@vueuse/core'
-import { Tooltip } from 'floating-vue'
 
 defineProps<{
   current: number
@@ -166,22 +166,28 @@ const throttleUpdateCurve = useThrottleFn(handleUpdateCurve, 16, true)
               <div :class="extra?.icon" />
               <span>{{ label }}</span>
               <Tooltip v-if="value === DSEJoystickProfilePreset.CUSTOM" :delay="0">
-                <div class="i-mingcute-alert-fill cursor-help text-orange pointer-events-auto" />
+                <div class="i-mingcute-alert-fill pointer-events-auto cursor-help text-orange" />
                 <template #popper>
-                  <div class="max-w-200px">{{ $t("profile_mode.custom_joystick_curve_tips") }}</div>
+                  <div class="max-w-200px">
+                    {{ $t("profile_mode.custom_joystick_curve_tips") }}
+                  </div>
                 </template>
               </Tooltip>
             </div>
           </template>
         </DouSelect>
       </div>
-      <div class="field" :class="{
-        disabled: !currentCurvePreset.curveParams.adjustment,
-      }">
+      <div
+        class="field" :class="{
+          disabled: !currentCurvePreset.curveParams.adjustment,
+        }"
+      >
         <label>{{ $t("profile_mode.joystick_curves_adjust_label") }}</label>
         <div class="w-40 py-2">
-          <SliderBox v-model="adjustment" :min="-5" :max="5" :start-point="0"
-            :disabled="!currentCurvePreset.curveParams.adjustment" />
+          <SliderBox
+            v-model="adjustment" :min="-5" :max="5" :start-point="0"
+            :disabled="!currentCurvePreset.curveParams.adjustment"
+          />
         </div>
       </div>
       <div class="field">
@@ -196,12 +202,16 @@ const throttleUpdateCurve = useThrottleFn(handleUpdateCurve, 16, true)
       </div>
     </div>
 
-    <JoystickCurveGraph :default-curve="currentDefaultCurve" :current="current" :deadzone="deadzone / 100"
+    <JoystickCurveGraph
+      :default-curve="currentDefaultCurve" :current="current" :deadzone="deadzone / 100"
       :curve="currentCurve" class="h-auto max-w-400px min-w-0 w-full flex-shrink"
-      :editable="currentCurvePresetId === DSEJoystickProfilePreset.CUSTOM" @update-curve="throttleUpdateCurve" />
+      :editable="currentCurvePresetId === DSEJoystickProfilePreset.CUSTOM" @update-curve="throttleUpdateCurve"
+    />
     <div class="min-w-0 w-full flex flex-shrink flex-grow">
-      <JoystickPreviewGraph class="max-w-200px flex-shrink-0 flex-grow" :deadzone="deadzone / 100" :x="x" :y="y"
-        :final-x="finalX" :final-y="finalY" />
+      <JoystickPreviewGraph
+        class="max-w-200px flex-shrink-0 flex-grow" :deadzone="deadzone / 100" :x="x" :y="y"
+        :final-x="finalX" :final-y="finalY"
+      />
       <div class="legend min-w-0 flex-shrink overflow-hidden">
         <div class="legend-item">
           <div class="color-box" :style="{ backgroundColor: colorPalette.primary }" />

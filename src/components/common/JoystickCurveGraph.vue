@@ -3,9 +3,9 @@ import type { FederatedPointerEvent } from 'pixi.js'
 import { useThrottleFn } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 import { Container, Graphics } from 'pixi.js'
-import { nextTick, onBeforeUnmount, onMounted, ref, shallowRef, useTemplateRef, watch } from 'vue'
+import { nextTick, onMounted, ref, shallowRef, useTemplateRef, watch } from 'vue'
 import { usePageStore } from '@/store/page'
-import { createPixiApplication, usePixiApp } from '@/utils/pixi.util'
+import { usePixiApp } from '@/utils/pixi.util'
 
 const props = defineProps<{
   defaultCurve: number[]
@@ -15,16 +15,16 @@ const props = defineProps<{
   editable?: boolean
 }>()
 
+const emit = defineEmits<{
+  updateCurve: [curve: number[]]
+}>()
+
 const CanvasRef = useTemplateRef('CanvasRef')
 
 const pageStore = usePageStore()
 
 const { colorPalette } = storeToRefs(pageStore)
 const initialized = ref(false)
-
-const emit = defineEmits<{
-  'updateCurve': [curve: number[]]
-}>()
 
 onMounted(async () => {
   if (!CanvasRef.value) {
@@ -44,7 +44,7 @@ onMounted(async () => {
   const activeCurve = new Graphics()
 
   function updateCurve(index: number, valueX: number, valueY: number) {
-    const newIndex = index + 1;
+    const newIndex = index + 1
     const newCurve = [...props.curve]
     // 取出第一个点
     const firstPointX = newCurve[0]
@@ -63,7 +63,7 @@ onMounted(async () => {
     let isDragging = false
     function handlePointerEnter(this: Graphics, e: FederatedPointerEvent) {
       if (currentPoint.value) {
-        return;
+        return
       }
       currentPoint.value = this
     }
@@ -270,8 +270,8 @@ onMounted(async () => {
     })
 
     for (let i = 2; i < realCurve.length; i += 2) {
-      let x = realCurve[i]
-      let y = realCurve[i + 1]
+      const x = realCurve[i]
+      const y = realCurve[i + 1]
       const point = dragPointsChildren[i / 2 - 1]
       const isActive = currentPoint.value === point
       point.clear()
@@ -380,10 +380,12 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="relative aspect-[2/1] overflow-hidden rounded-xl transition-opacity duration-300 dou-sc-colorborder"
+  <div
+    class="relative aspect-[2/1] overflow-hidden rounded-xl transition-opacity duration-300 dou-sc-colorborder"
     :style="{
       opacity: initialized ? 1 : 0,
-    }">
+    }"
+  >
     <canvas ref="CanvasRef" class="absolute top-0 h-full w-full" w="1" h="1" />
   </div>
 </template>

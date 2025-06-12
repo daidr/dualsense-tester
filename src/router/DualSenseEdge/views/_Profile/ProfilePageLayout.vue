@@ -4,11 +4,11 @@ import { Tooltip } from 'floating-vue'
 import { computed, defineAsyncComponent, h, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import DouButton from '@/components/base/DouButton.vue'
-import HexPreview from '@/components/common/HexPreview.vue'
 import { useWarningModal } from '@/composables/useModal'
+import { track } from '@/utils/umami.util'
 import { useInnerProfile } from './profile'
 import ProfileSwitchButton from './ProfileSwitchButton.vue'
-import { track } from '@/utils/umami.util'
+import '@/components/common/HexPreview.vue'
 
 const props = defineProps<{
   profile: DSEProfile

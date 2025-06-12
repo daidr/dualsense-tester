@@ -9,12 +9,12 @@ import { useModal, useWarningModal } from '@/composables/useModal'
 import { DeviceConnectionType } from '@/device-based-router/shared'
 import { useDualSenseStore } from '@/store/dualsense'
 import { receiveFeatureReport, sendFeatureReport } from '@/utils/dualsense/ds.util'
+import { track } from '@/utils/umami.util'
 import { inputReportOffsetBluetooth, inputReportOffsetUSB } from '../_utils/offset.util'
 import { DSEProfile, DSEProfileSwitchButton, DSEProfileSwitchButtonIndexMap, useSaveProfile } from './_Profile/profile'
 import ProfilePageLayout from './_Profile/ProfilePageLayout.vue'
 import ProfileRenameInput from './_Profile/ProfileRenameInput.vue'
 import ProfileSwitchButton from './_Profile/ProfileSwitchButton.vue'
-import { track } from '@/utils/umami.util'
 
 const device = useDevice()
 const connectionType = useConnectionType()
@@ -88,7 +88,8 @@ function getProfileName(profile: DSEProfile) {
 
 const currentEditingProfileId = ref<number | null>(null)
 const currentEditingProfile = computed(() => {
-  currentEditingProfileId.value, profiles.value;
+  void currentEditingProfileId.value
+  void profiles.value
   if (currentEditingProfileId.value === null) {
     return null
   }
@@ -131,7 +132,7 @@ function handleCreate(profile: DSEProfile) {
     },
     onCancel() {
       track('profile.create.cancel')
-    }
+    },
   })
 }
 
@@ -161,7 +162,7 @@ function handleRename(profile: DSEProfile) {
     },
     onCancel() {
       track('profile.rename.cancel')
-    }
+    },
   })
 }
 
@@ -210,50 +211,66 @@ function handleRefreshButtonClick() {
 </script>
 
 <template>
-  <div v-for="item of profiles" :key="item.id"
+  <div
+    v-for="item of profiles" :key="item.id"
     v-tooltip.top-start="item.default ? $t('profile_panel.cannot_edit_default_profile_tips') : ''" class="profile-item"
     :class="{
       unassigned: !item.assigned,
-    }">
+    }"
+  >
     <div class="w-1em flex-shrink-0">
-      <m.div v-if="currentActiveProfile === item.switchButton" layout="position" layout-id="profile-widget-indicator"
-        class="h-2 w-2 rounded-full bg-green-6" />
+      <m.div
+        v-if="currentActiveProfile === item.switchButton" layout="position" layout-id="profile-widget-indicator"
+        class="h-2 w-2 rounded-full bg-green-6"
+      />
     </div>
     <ProfileSwitchButton :button="item.switchButton" />
-    <div class="name flex-grow overflow-hidden text-ellipsis whitespace-nowrap" :title="getProfileName(item)"
-      tabindex="0">
+    <div
+      class="name flex-grow overflow-hidden text-ellipsis whitespace-nowrap" :title="getProfileName(item)"
+      tabindex="0"
+    >
       {{ getProfileName(item) }}
     </div>
     <div v-if="!dsStore.profileMode" class="flex flex-shrink-0">
       <template v-if="item.assigned && !item.default">
-        <button v-tooltip.top="$t('shared.edit')" class="icon-button" :aria-label="$t('shared.edit')"
-          @click="handleEdit(item)">
+        <button
+          v-tooltip.top="$t('shared.edit')" class="icon-button" :aria-label="$t('shared.edit')"
+          @click="handleEdit(item)"
+        >
           <div class="i-mingcute-edit-line" />
         </button>
-        <button v-tooltip.top="$t('shared.rename')" class="icon-button" :aria-label="$t('shared.rename')"
-          @click="handleRename(item)">
+        <button
+          v-tooltip.top="$t('shared.rename')" class="icon-button" :aria-label="$t('shared.rename')"
+          @click="handleRename(item)"
+        >
           <div class="i-mingcute-textbox-line" />
         </button>
-        <button v-tooltip.top="$t('shared.remove')" class="icon-button" :aria-label="$t('shared.remove')"
-          @click="handleRemove(item)">
+        <button
+          v-tooltip.top="$t('shared.remove')" class="icon-button" :aria-label="$t('shared.remove')"
+          @click="handleRemove(item)"
+        >
           <div class="i-mingcute-delete-2-line" />
         </button>
       </template>
-      <button v-else-if="!item.assigned" v-tooltip.top="$t('shared.create')" class="icon-button"
-        :aria-label="$t('shared.create')" @click="handleCreate(item)">
+      <button
+        v-else-if="!item.assigned" v-tooltip.top="$t('shared.create')" class="icon-button"
+        :aria-label="$t('shared.create')" @click="handleCreate(item)"
+      >
         <div class="i-mingcute-add-line" />
       </button>
     </div>
   </div>
-  <button v-if="!dsStore.profileMode" class="dou-sc-btn self-end" @click="handleRefreshButtonClick">
+  <button v-if="!dsStore.profileMode" class="self-end dou-sc-btn" @click="handleRefreshButtonClick">
     {{ $t("shared.refresh") }}
   </button>
 
   <Teleport to="#main-content" defer>
     <template v-if="dsStore.profileMode && currentEditingProfile">
       <LayoutGroup>
-        <ProfilePageLayout :key="currentEditingProfile.id" :profile="currentEditingProfile"
-          :active="currentActiveProfile === currentEditingProfile.switchButton" @close="handleClose" @refresh="refreshProfiles" />
+        <ProfilePageLayout
+          :key="currentEditingProfile.id" :profile="currentEditingProfile"
+          :active="currentActiveProfile === currentEditingProfile.switchButton" @close="handleClose" @refresh="refreshProfiles"
+        />
       </LayoutGroup>
     </template>
   </Teleport>

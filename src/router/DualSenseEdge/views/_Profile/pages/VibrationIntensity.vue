@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import ControllerTextButton from '@/components/common/ControllerTextButton.vue';
-import { DSEProfileIntensity, type DSEProfile } from '../profile';
-import { computed } from 'vue';
-import { useI18n } from 'vue-i18n';
-import DouSelect from '@/components/base/DouSelect.vue';
+import type { DSEProfile } from '../profile'
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import DouSelect from '@/components/base/DouSelect.vue'
+import ControllerTextButton from '@/components/common/ControllerTextButton.vue'
+import { DSEProfileIntensity } from '../profile'
 
 const props = defineProps<{
   profile: DSEProfile
@@ -35,13 +36,19 @@ const intensitySets = computed(() => {
 
 <template>
   <div class="flex flex-col gap-10">
-    <div class="flex flex-col gap-2 items-start">
-      <p class="font-bold">{{ $t('profile_mode.vibration_intensity_label') }}</p>
-      <p class="text-sm opacity-70">{{ $t('profile_mode.vibration_intensity_desc') }}</p>
+    <div class="flex flex-col items-start gap-2">
+      <p class="font-bold">
+        {{ $t('profile_mode.vibration_intensity_label') }}
+      </p>
+      <p class="text-sm opacity-70">
+        {{ $t('profile_mode.vibration_intensity_desc') }}
+      </p>
       <DouSelect v-model="profile.vibrationIntensity" :options="intensitySets" />
     </div>
-    <div class="flex flex-col gap-2 items-start">
-      <p class="font-bold">{{ $t('profile_mode.trigger_effect_intensity_label') }}</p>
+    <div class="flex flex-col items-start gap-2">
+      <p class="font-bold">
+        {{ $t('profile_mode.trigger_effect_intensity_label') }}
+      </p>
       <i18n-t keypath="profile_mode.trigger_effect_intensity_desc" tag="p" class="text-sm opacity-70" scope="global">
         <template #L2>
           <ControllerTextButton text="L2" small />

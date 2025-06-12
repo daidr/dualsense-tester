@@ -1,5 +1,7 @@
-import { type Component, defineAsyncComponent } from 'vue'
-import { BaseDeviceRouter, type CustomPanelItem, type DeviceItem } from '../../device-based-router/shared'
+import type { Component } from 'vue'
+import type { CustomPanelItem, DeviceItem } from '../../device-based-router/shared'
+import { defineAsyncComponent } from 'vue'
+import { BaseDeviceRouter } from '../../device-based-router/shared'
 import { checkConnectionTypeDS4, PRODUCT_ID_DUALSHOCK_V1, PRODUCT_ID_DUALSHOCK_V2, USAGE_ID_GD_GAME_PAD, USAGE_PAGE_GENERIC_DESKTOP, VENDOR_ID_SONY } from '../../utils/dualsense/ds.util'
 
 const InputInfoWidget = defineAsyncComponent(() => import('./views/_ConnectPanel/InputInfo.vue'))

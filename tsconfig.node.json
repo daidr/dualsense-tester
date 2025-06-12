@@ -4,7 +4,8 @@
     "composite": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "types": ["node"]
+    "types": ["node"],
+    "skipLibCheck": true
   },
   "include": [
     "./**/vite.config.*",

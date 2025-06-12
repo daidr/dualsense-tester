@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { DSEProfile } from '../profile';
+import type { DSEProfile } from '../profile'
 
 const props = defineProps<{
   profile: DSEProfile
