@@ -3,7 +3,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --hosts",
     "build": "run-p type-check \"build-only {@}\" --",
     "build:icon": "bun run --filter 'fancy-controller' build",
     "preview": "vite preview",
