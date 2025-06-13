@@ -1,6 +1,8 @@
 # DualSense Tester
 
-Test your DualSense controller in the browser.
+Test your DualSense/DualSenseEdge/DualShock4 controller in the browser.
+
+For DualSense Edge, you can customize profiles in the browser using this tool.
 
 <https://ds.daidr.me>
 
@@ -14,9 +16,10 @@ Test your DualSense controller in the browser.
 * Test the adaptive triggers
 * Multiple Controllers Support
 * DualSense Edge Basic Support
-* **TODO**: DualShock 4 Support (2025Q2)
-* **TODO**: DualSense Edge Full Support (2025Q3)
-* **TODO**: DualSense Edge Profile Customization (2025Q3)
+* DualShock 4 Support
+* DualSense Edge Full Support
+* DualSense Edge Profile Customization
+* **TODO**: DualSense Edge button remapping (2025Q3)
 
 ## Project Setup
 
@@ -34,18 +37,6 @@ bun run --bun dev
 
 ```sh
 bun run --bun build
-```
-
-### (Optional) Compile and Hot-Reload for Isolated Web App Development
-
-```sh
-bun run --bun dev:iwa
-```
-
-### (Optional) Compile and Minify for Isolated Web App
-
-```sh
-bun run --bun build:iwa
 ```
 
 ## Translations
