@@ -8,3 +8,8 @@ export function isObjectShallowEqual(obj1: Record<string, any> | undefined, obj2
   const keys2 = Object.keys(obj2)
   return keys1.length === keys2.length && keys1.every(key => obj1[key] === obj2[key])
 }
+
+export const shellVariants = {
+  visible: { opacity: 1, transition: { when: 'beforeChildren' } },
+  hidden: { opacity: 0, transition: { when: 'afterChildren' } },
+}

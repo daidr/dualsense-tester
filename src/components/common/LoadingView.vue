@@ -1,17 +1,19 @@
 <script setup lang="ts">
+import { m } from 'motion-v'
+
 defineProps<{
   h?: number
 }>()
 </script>
 
 <template>
-  <div
-    class="h-full flex items-center justify-center text-xl" :style="{
+  <m.div
+    class="flex items-center justify-center text-xl" :style="{
       height: h ? `${h}px` : undefined,
     }"
   >
     <div class="i-mingcute-loading-3-fill animate-spin" />
-  </div>
+  </m.div>
 </template>
 
 <style scoped></style>

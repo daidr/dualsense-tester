@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import type { CustomPanelItem } from '@/device-based-router/shared'
+import { m } from 'motion-v'
+import { shellVariants } from '@/utils/common.util'
+import LoadingView from './LoadingView.vue'
 import TextTag from './TextTag.vue'
-import { m } from 'motion-v';
 
 defineProps<{
   item: CustomPanelItem
@@ -18,10 +20,19 @@ defineProps<{
         {{ typeof item.tag === 'string' ? item.tag : $t(item.tag.key) }}
       </TextTag>
     </h1>
-    <component :is="item.layout" v-if="item.layout">
-      <component :is="item.component" :show-value="showValue" />
-    </component>
-    <component :is="item.component" v-else :show-value="showValue" />
+    <Suspense>
+      <component :is="item.layout" v-if="item.layout">
+        <component :is="item.component" :show-value="showValue" />
+      </component>
+      <component :is="item.component" v-else :show-value="showValue" />
+
+      <template #fallback>
+        <LoadingView
+          layout="position" :h="100" class="w-full p-1 text-primary" :variants="shellVariants"
+          initial="hidden" animate="visible" exit="hidden"
+        />
+      </template>
+    </Suspense>
   </m.div>
 </template>
 
