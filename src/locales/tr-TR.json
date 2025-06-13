@@ -62,7 +62,7 @@
       "unknown": "Unknown"
     },
     "factory_info": {
-      "build_time": "Build Time",
+      "build_time": "Yapım Zamanı",
       "hw_info": "HW Info",
       "device_info": "Device Info",
       "fw_type": "FW Type",
