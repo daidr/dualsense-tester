@@ -43,6 +43,12 @@ bun run --bun build
 
 If you want to add a new language support or improve an existing one, please visit issue [#14](https://github.com/daidr/dualsense-tester/issues/14) for more details.
 
+## Frequently Asked Questions
+
+### I am using a Linux distribution. After selecting the controller, the webpage goes blank.
+
+It might be due to a lack of permissions for the hidraw device. Go to the issue [#76](https://github.com/daidr/dualsense-tester/issues/76#issuecomment-2970719936) to learn how to resolve it.
+
 ## Sponsors
 
 <picture>
