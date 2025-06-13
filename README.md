@@ -78,20 +78,20 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
         <br /><sub><b><code title="Arabic">ar</code></b>, <b><code title="Arabic, Egypt">ar-EG</code></b></sub>
       </td>
       <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/fasoylada"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/14505702/medium/4e229055cb7145a9468cc818adf2432e.jpeg" />
+          <br />
+          <sub><b>ΒΑΣΙΛΕΙΟΣ Γ.Π. (fasoylada)</b></sub></a>
+        <br />
+        <sub><b>548 words</b></sub>
+        <br /><sub><b><code title="Greek">el</code></b></sub>
+      </td>
+      <td align="center" valign="top">
         <a href="https://crowdin.com/profile/Jacksoft87"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/15437446/medium/c2a764b94f1f3f766e304a650c700ec7_default.png" />
           <br />
           <sub><b>Jacksoft87</b></sub></a>
         <br />
         <sub><b>363 words</b></sub>
         <br /><sub><b><code title="Italian">it</code></b></sub>
-      </td>
-      <td align="center" valign="top">
-        <a href="https://crowdin.com/profile/fasoylada"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/14505702/medium/4e229055cb7145a9468cc818adf2432e.jpeg" />
-          <br />
-          <sub><b>ΒΑΣΙΛΕΙΟΣ Γ.Π. (fasoylada)</b></sub></a>
-        <br />
-        <sub><b>350 words</b></sub>
-        <br /><sub><b><code title="Greek">el</code></b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/sladkOy"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/13328300/medium/e972a38d081a3ff644c1447dc53aedb8.jpg" />
