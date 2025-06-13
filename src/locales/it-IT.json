@@ -12,13 +12,13 @@
     "close": "Chiudi",
     "hold": "Mantieni",
     "reset": "Reset",
-    "save": "Save",
-    "warning": "Warning",
-    "edit": "Edit",
-    "rename": "Rename",
-    "remove": "Remove",
-    "create": "Create",
-    "refresh": "Refresh"
+    "save": "Salva",
+    "warning": "Attenzione",
+    "edit": "Modifica",
+    "rename": "Rinomina",
+    "remove": "Rimuovi",
+    "create": "Crea",
+    "refresh": "Aggiorna"
   },
   "common": {
     "tips": "Suggerimenti",
@@ -101,9 +101,9 @@
     "unassigned": "Non assegnato",
     "cannot_edit_default_profile_tips": "The default profile can't be edited.",
     "remove_confirm_tips": "Are you sure you want to delete profile {name}?",
-    "rename_invalid_tips": "Profile name cannot be empty or too long.",
-    "new_profile": "New Profile",
-    "create_profile": "Create Profile"
+    "rename_invalid_tips": "Il nome del profilo non può essere vuoto o troppo lungo.",
+    "new_profile": "Nuovo Profilo",
+    "create_profile": "Crea Profilo"
   },
   "info_panel": {
     "tips": "Per favore collega il tuo DualSense",
@@ -192,44 +192,44 @@
     "next_year": "L'anno prossimo"
   },
   "profile_mode": {
-    "edited": "Edited",
-    "unsaved_modal_content": "You have unsaved changes, do you want to discard them?",
-    "edited_tips": "You need to save before switching to other configuration options to avoid losing your changes.",
+    "edited": "Modificato",
+    "unsaved_modal_content": "Hai delle modifiche non salvate, vuoi ignorarle?",
+    "edited_tips": "Per non perdere le modifiche effettuate devi salvare prima di passare ad altre configurazioni.",
     "abnormal_tips": "The controller may be in configuration mode, this panel has been temporarily disabled.",
-    "try_exit": "Exit",
+    "try_exit": "Esci",
     "trigger_deadzone_label": "Trigger Deadzone",
     "trigger_deadzone": {
-      "use_unified_tips": "Apply Same Setting for {L2} and {R2}",
+      "use_unified_tips": "Applica gli stessi parametri per {L2} e {R2}",
       "input_range": "{key} Input Range",
-      "range_from": "From",
-      "range_to": "To",
+      "range_from": "Da",
+      "range_to": "A",
       "limit_tip": "The trigger effect for {key} might not work properly because the input range is limited.",
-      "deadzone_preview": "Preview"
+      "deadzone_preview": "Anteprima"
     },
-    "joystick_sensitivity_label": "Joystick Sensitivity",
-    "custom_button_mapping_label": "Button Mapping",
-    "vibration_intensity_label": "Vibration Intensity",
+    "joystick_sensitivity_label": "Sensibilità Joystick",
+    "custom_button_mapping_label": "Mappatura Tasti",
+    "vibration_intensity_label": "Intensità Vibrazione",
     "vibration_intensity_desc": "Set the strength of your controller's vibration.",
     "intensity_level": {
-      "off": "Off",
-      "weak": "Weak",
-      "medium": "Medium",
-      "strong": "Strong (Default)"
+      "off": "Spento",
+      "weak": "Debole",
+      "medium": "Medio",
+      "strong": "Forte (Predefinito)"
     },
     "trigger_effect_intensity_label": "Trigger Effect Intensity",
     "trigger_effect_intensity_desc": "Set the level of force that's applied when pressing {L2} or {R2}. If you've adjusted the {L2} or {R2} stop sliders, the trigger effect will turn off.",
     "joystick_curves": {
-      "default": "Default",
-      "quick": "Quick",
-      "precise": "Precise",
-      "steady": "Steady",
-      "digital": "Digital",
-      "dynamic": "Dynamic",
-      "custom": "Custom"
+      "default": "Predefinito",
+      "quick": "Veloce",
+      "precise": "Preciso",
+      "steady": "Stabile",
+      "digital": "Digitale",
+      "dynamic": "Dinamico",
+      "custom": "Personalizzato"
     },
     "custom_joystick_curve_tips": "This is an experimental feature. Only DualSense Tester supports editing. Editing on the console will cause the curve to return to its default value.",
-    "left_joystick": "Left Joystick",
-    "right_joystick": "Right Joystick",
+    "left_joystick": "Joystick Sinistro",
+    "right_joystick": "Joystick Destro",
     "joystick_curves_label": "Sensitivity curve",
     "joystick_curves_adjust_label": "Curve adjustment",
     "joystick_deadzone_adjust_label": "Deadzone adjustment",
