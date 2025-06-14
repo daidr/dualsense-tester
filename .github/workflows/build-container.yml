@@ -1,0 +1,34 @@
+name: Build Production Docker Image
+
+on:
+  push:
+    branches:
+      - main  # Trigger workflow on push to the main branch
+  workflow_dispatch:
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Log in to GitHub Container Registry
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}  # GitHub's token to authenticate
+
+      # Build and tag the Docker image for GHCR
+      - name: Build Docker image
+        run: |
+          docker build -f prod/Dockerfile -t ghcr.io/${{ github.repository_owner }}/dualsense-tester:latest .
+
+      # Push the Docker image to GHCR
+      - name: Push Docker image
+        run: |
+          docker push ghcr.io/${{ github.repository_owner }}/dualsense-tester:latest
