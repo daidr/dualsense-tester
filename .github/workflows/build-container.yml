@@ -1,4 +1,4 @@
-name: Build Node.js Docker Image
+name: Build Production Docker Image
 
 on:
   push:
