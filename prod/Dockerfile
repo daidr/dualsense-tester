@@ -1,7 +1,7 @@
 # build stage
-FROM node:current-alpine3.22 as build
+FROM node:current-alpine3.22 AS build
 
-RUN apk add git --no-cache && npm install -g bun@1.2.16
+RUN apk add git=2.49.0-r0 --no-cache && npm install -g bun@1.2.16
 
 WORKDIR /app
 
@@ -15,7 +15,7 @@ COPY ../. .
 RUN bun i && bun run build
 
 # production stage
-FROM nginx:alpine3.21 as production
+FROM nginx:alpine3.21 AS production
 COPY --from=build /app/dist /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
