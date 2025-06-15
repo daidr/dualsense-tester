@@ -4,28 +4,63 @@ on:
   workflow_dispatch:
 
 jobs:
-  push-to-release:
+  release:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Checkout repository (with tags)
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          fetch-tags: true
 
-      - name: Setup Git
+      - name: Configure Git
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
 
-      - name: Push main to release
+      - name: Force push main to release
         run: |
-          echo "Starting force push from main branch to release branch"
-          
+          echo "🔄 Forcing push from main to release branch"
           git push origin main:release --force
-          
-          echo "Push completed!"
 
-      - name: Push results
+      - name: Get latest tag
+        id: get_tag
         run: |
-          echo "✅ Master branch has been successfully force-pushed to release branch"
-          echo "Time: $(date)"
+          git checkout release
+          # Get all tags
+          git fetch --tags
+
+          latest_tag=$(git tag --sort=-v:refname | head -n 1)
+          if [ -z "$latest_tag" ]; then
+            latest_tag="v0.0.0"
+          fi
+          echo "Latest tag: $latest_tag"
+          echo "latest_tag=$latest_tag" >> $GITHUB_OUTPUT
+
+      - name: Calculate next tag
+        id: next_tag
+        run: |
+          old_tag="${{ steps.get_tag.outputs.latest_tag }}"
+          echo "Calculating next version from $old_tag"
+
+          # Split
+          IFS='.' read -r major minor patch <<< "${old_tag#v}"
+
+          new_patch=$((patch + 1))
+          new_tag="v${major}.${minor}.${new_patch}"
+
+          echo "New tag will be: $new_tag"
+          echo "new_tag=$new_tag" >> $GITHUB_OUTPUT
+
+      - name: Create and push new tag
+        run: |
+          tag=${{ steps.next_tag.outputs.new_tag }}
+          git tag "$tag"
+          git push origin "$tag"
+
+      - name: ✅ Done
+        run: |
+          echo "🎉 Release branch updated!"
+          echo "📦 Version tagged: ${{ steps.next_tag.outputs.new_tag }}"
+          echo "🕒 Time: $(date)"
