@@ -11,8 +11,7 @@ WORKDIR /app
 # COPY ../packages/ ./
 
 COPY ../. .
-# RUN bun install && bun run --bun build |this is not working sorry|
-RUN bun i && bun run build
+RUN bun i && bun run --bun build-only
 
 # production stage
 FROM nginx:alpine3.21 AS production
