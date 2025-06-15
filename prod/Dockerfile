@@ -1,20 +1,26 @@
-# build stage
-FROM node:current-alpine3.22 AS build
-
-RUN apk add git=2.49.0-r0 --no-cache && npm install -g bun@1.2.16
-
+# build environment
+FROM oven/bun:1 AS base
 WORKDIR /app
+RUN apt-get update  && \
+    apt-get install --no-install-recommends -y git && \
+    rm -rf /var/lib/apt/lists/*
 
-# These doesn't work. I need help for making dockerfile build time faster.
-# COPY ../package.json ./
-# COPY ../bun.lock ./
-# COPY ../packages/ ./
+# Install dependencies
+FROM base AS install
+RUN mkdir -p /temp/dev
+COPY package.json bun.lock /temp/dev/
+COPY packages/fancy-controller/package.json /temp/dev/packages/fancy-controller/
+RUN cd /temp/dev && bun install --frozen-lockfile
 
-COPY ../. .
-RUN bun i && bun run --bun build-only
+# build stage
+FROM base AS build
+COPY --from=install /temp/dev/node_modules node_modules
+COPY . .
+ENV NODE_ENV=production
+RUN bun run --bun build-only
 
 # production stage
-FROM nginx:alpine3.21 AS production
+FROM nginx:alpine3.21-slim AS production
 COPY --from=build /app/dist /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
