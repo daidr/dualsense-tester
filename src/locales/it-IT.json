@@ -99,8 +99,8 @@
     "title": "Profilo",
     "default": "Predefinito",
     "unassigned": "Non assegnato",
-    "cannot_edit_default_profile_tips": "The default profile can't be edited.",
-    "remove_confirm_tips": "Are you sure you want to delete profile {name}?",
+    "cannot_edit_default_profile_tips": "Il profilo di default non può essere modificato.",
+    "remove_confirm_tips": "Sei sicuro di voler eliminare il profilo {name}?",
     "rename_invalid_tips": "Il nome del profilo non può essere vuoto o troppo lungo.",
     "new_profile": "Nuovo Profilo",
     "create_profile": "Crea Profilo"
@@ -139,7 +139,7 @@
     "right_trigger_mode": "Grilletto destro",
     "trigger_mode": {
       "off": "Spento",
-      "resistance": "resistenza",
+      "resistance": "Resistenza",
       "trigger": "Grilletto",
       "auto_trigger": "Grilletto Automatico"
     },
@@ -163,7 +163,7 @@
     "dismiss": "Ignora",
     "upgrade": "Aggiorna",
     "update_available": "Una nuova versione di DualSense Tester è disponibile!\nRicarica per completare l'aggiornamento.",
-    "upgrading": "Pulling new version assets...",
+    "upgrading": "Caricando una nuova versione...",
     "offline_ready": "Quest'app ora può essere usata in modalità offline."
   },
   "git_version": {
@@ -195,7 +195,7 @@
     "edited": "Modificato",
     "unsaved_modal_content": "Hai delle modifiche non salvate, vuoi ignorarle?",
     "edited_tips": "Per non perdere le modifiche effettuate devi salvare prima di passare ad altre configurazioni.",
-    "abnormal_tips": "The controller may be in configuration mode, this panel has been temporarily disabled.",
+    "abnormal_tips": "Il controller potrebbe essere in modalità configurazione, questo pannello è stato temporaneamente disattivato.",
     "try_exit": "Esci",
     "trigger_deadzone_label": "Trigger Deadzone",
     "trigger_deadzone": {
@@ -209,7 +209,7 @@
     "joystick_sensitivity_label": "Sensibilità Joystick",
     "custom_button_mapping_label": "Mappatura Tasti",
     "vibration_intensity_label": "Intensità Vibrazione",
-    "vibration_intensity_desc": "Set the strength of your controller's vibration.",
+    "vibration_intensity_desc": "Imposta la forza della vibrazione del controller.",
     "intensity_level": {
       "off": "Spento",
       "weak": "Debole",
@@ -230,9 +230,9 @@
     "custom_joystick_curve_tips": "This is an experimental feature. Only DualSense Tester supports editing. Editing on the console will cause the curve to return to its default value.",
     "left_joystick": "Joystick Sinistro",
     "right_joystick": "Joystick Destro",
-    "joystick_curves_label": "Sensitivity curve",
-    "joystick_curves_adjust_label": "Curve adjustment",
-    "joystick_deadzone_adjust_label": "Deadzone adjustment",
+    "joystick_curves_label": "Sensibilità curva",
+    "joystick_curves_adjust_label": "Calibrazione curva",
+    "joystick_deadzone_adjust_label": "Calibrazione deadzone",
     "joystick_preview_raw_input": "Raw Input",
     "joystick_preview_mapped_input": "Mapped Input"
   }
