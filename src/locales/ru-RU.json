@@ -194,8 +194,8 @@
   "profile_mode": {
     "edited": "Изменено",
     "unsaved_modal_content": "У вас есть несохраненные изменения, вы хотите отменить их?",
-    "edited_tips": "You need to save before switching to other configuration options to avoid losing your changes.",
-    "abnormal_tips": "The controller may be in configuration mode, this panel has been temporarily disabled.",
+    "edited_tips": "Во избежание потери ваших изменений вы должны сохранить изменения перед переходом к другим настройкам конфигурации.",
+    "abnormal_tips": "Контроллер может находиться в режиме конфигурации, эта панель временно отключена.",
     "try_exit": "Выход",
     "trigger_deadzone_label": "Мёртвая зона курков",
     "trigger_deadzone": {
@@ -203,13 +203,13 @@
       "input_range": "Диапазон входного сигнала ({key})",
       "range_from": "От",
       "range_to": "До",
-      "limit_tip": "The trigger effect for {key} might not work properly because the input range is limited.",
-      "deadzone_preview": "Preview"
+      "limit_tip": "Триггерный эффект для {key} может не действовать как следует, потому что диапазон входного сигнала ограничен.",
+      "deadzone_preview": "Предпросмотр"
     },
     "joystick_sensitivity_label": "Чувствительность джойстика",
-    "custom_button_mapping_label": "Button Mapping",
+    "custom_button_mapping_label": "Назначение кнопок",
     "vibration_intensity_label": "Интенсивность вибрации",
-    "vibration_intensity_desc": "Set the strength of your controller's vibration.",
+    "vibration_intensity_desc": "Установите интенсивность вибрации вашего контроллера.",
     "intensity_level": {
       "off": "Выкл.",
       "weak": "Слабая",
@@ -217,15 +217,15 @@
       "strong": "Сильная (стандартная)"
     },
     "trigger_effect_intensity_label": "Интенсивность триггерного эффекта",
-    "trigger_effect_intensity_desc": "Set the level of force that's applied when pressing {L2} or {R2}. If you've adjusted the {L2} or {R2} stop sliders, the trigger effect will turn off.",
+    "trigger_effect_intensity_desc": "Настройте силу триггерного эффекта при нажатии {L2} или {R2}. Если вы отрегулировали ползунки остановки {L2} или {R2}, триггерный эффект будет отключен.",
     "joystick_curves": {
       "default": "По умолчанию",
-      "quick": "Quick",
-      "precise": "Precise",
-      "steady": "Steady",
-      "digital": "Digital",
-      "dynamic": "Dynamic",
-      "custom": "Custom"
+      "quick": "Быстрый",
+      "precise": "Точный",
+      "steady": "Спокойный",
+      "digital": "Цифровой",
+      "dynamic": "Динамический",
+      "custom": "Собственный"
     },
     "custom_joystick_curve_tips": "Данная функция носит экспериментальный характер. Только Тестер контроллера DualSense поддерживает данную функцию. Изменения, вносимые через игровую приставку, вернут значения кривой по умолчанию.",
     "left_joystick": "Левый джойстик",
@@ -233,7 +233,7 @@
     "joystick_curves_label": "Кривая чувствительности",
     "joystick_curves_adjust_label": "Регулировка кривой",
     "joystick_deadzone_adjust_label": "Регулировка мёртвой зоны",
-    "joystick_preview_raw_input": "Raw Input",
-    "joystick_preview_mapped_input": "Mapped Input"
+    "joystick_preview_raw_input": "Входной сигнал",
+    "joystick_preview_mapped_input": "Скорректированный входной сигнал"
   }
 }
