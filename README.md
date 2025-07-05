@@ -102,6 +102,14 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
         <br /><sub><b><code title="Turkish">tr</code></b></sub>
       </td>
       <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/hargabt"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/14426098/medium/8d9f140158ee575545feedd642f44d8e.jpg" />
+          <br />
+          <sub><b>Robert Galoyan (hargabt)</b></sub></a>
+        <br />
+        <sub><b>471 words</b></sub>
+        <br /><sub><b><code title="Russian">ru</code></b></sub>
+      </td>
+      <td align="center" valign="top">
         <a href="https://crowdin.com/profile/sladkOy"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/13328300/medium/e972a38d081a3ff644c1447dc53aedb8.jpg" />
           <br />
           <sub><b>Maksym Abramov (sladkOy)</b></sub></a>
@@ -116,14 +124,6 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
         <br />
         <sub><b>299 words</b></sub>
         <br /><sub><b><code title="Persian">fa</code></b></sub>
-      </td>
-      <td align="center" valign="top">
-        <a href="https://crowdin.com/profile/hargabt"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/14426098/medium/a93444c4c26f513b05caf8dcdd7acea9_default.png" />
-          <br />
-          <sub><b>Robert Galoyan (hargabt)</b></sub></a>
-        <br />
-        <sub><b>273 words</b></sub>
-        <br /><sub><b><code title="Russian">ru</code></b></sub>
       </td>
     </tr>
     <tr>
