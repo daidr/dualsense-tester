@@ -66,7 +66,7 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
           <br />
           <sub><b>戴兜 (daidr)</b></sub></a>
         <br />
-        <sub><b>2392 words</b></sub>
+        <sub><b>2469 words</b></sub>
         <br /><sub><b><code title="Arabic">ar</code></b>, <b><code title="Arabic, Egypt">ar-EG</code></b>, <b><code title="Chinese Simplified">zh-CN</code></b>, <b><code title="Italian">it</code></b>, <b><code title="Persian">fa</code></b>, <b><code title="Russian">ru</code></b>, <b><code title="Ukrainian">uk</code></b></sub>
       </td>
       <td align="center" valign="top">
@@ -94,20 +94,20 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
         <br /><sub><b><code title="Greek">el</code></b></sub>
       </td>
       <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/hargabt"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/14426098/medium/8d9f140158ee575545feedd642f44d8e.jpg" />
+          <br />
+          <sub><b>Robert Galoyan (hargabt)</b></sub></a>
+        <br />
+        <sub><b>517 words</b></sub>
+        <br /><sub><b><code title="Russian">ru</code></b></sub>
+      </td>
+      <td align="center" valign="top">
         <a href="https://crowdin.com/profile/cilgin"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17158452/medium/dd235d0476c59b8dae3b7c530e40377a_default.png" />
           <br />
           <sub><b>cilgin</b></sub></a>
         <br />
         <sub><b>507 words</b></sub>
         <br /><sub><b><code title="Turkish">tr</code></b></sub>
-      </td>
-      <td align="center" valign="top">
-        <a href="https://crowdin.com/profile/hargabt"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/14426098/medium/8d9f140158ee575545feedd642f44d8e.jpg" />
-          <br />
-          <sub><b>Robert Galoyan (hargabt)</b></sub></a>
-        <br />
-        <sub><b>471 words</b></sub>
-        <br /><sub><b><code title="Russian">ru</code></b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/sladkOy"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/13328300/medium/e972a38d081a3ff644c1447dc53aedb8.jpg" />
