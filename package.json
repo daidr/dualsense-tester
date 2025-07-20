@@ -30,11 +30,10 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.17.0",
-    "@eslint/eslintrc": "^3.3.1",
     "@iconify-json/icon-park-twotone": "^1.2.2",
     "@iconify-json/mingcute": "^1.2.3",
     "@intlify/unplugin-vue-i18n": "^6.0.8",
-    "@tsconfig/node18": "^18.2.4",
+    "@tsconfig/bun": "^1.0.8",
     "@types/bun": "^1.2.19",
     "@types/lodash-es": "^4.17.12",
     "@types/umami": "^2.10.0",
@@ -46,7 +45,6 @@
     "@vue/tsconfig": "^0.7.0",
     "eslint": "^9.31.0",
     "eslint-plugin-oxlint": "^1.7.0",
-    "npm-run-all2": "^8.0.4",
     "oxlint": "^1.7.0",
     "redis": "^5.6.0",
     "rollup-plugin-bundle-stats": "^4.21.0",
@@ -61,6 +59,9 @@
     "vue-tsc": "2.2.10",
     "wbn-sign": "^0.2.1",
     "workbox-routing": "^7.3.0"
+  },
+  "overrides": {
+    "vite": "^7.0.5"
   },
   "trustedDependencies": [
     "@swc/core"

@@ -21,7 +21,7 @@ export default defineConfig(async ({ mode }) => {
   return {
     plugins: [
       // vueDevTools(),
-      ...(isVercelProduction ? [] : [bundleStats()]),
+      ...(isVercelProduction ? [] : [bundleStats() as any]),
       vueJsx(),
       vue({
         script: {
