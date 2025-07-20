@@ -173,7 +173,7 @@
   },
   "time_ago": {
     "just_now": "Just now",
-    "n_seconds": "",
+    "n_seconds": "1 second | {num} seconds",
     "n_minutes": "1 minute | {num} minutes",
     "n_hours": "1 hour | {num} hours",
     "n_days": "1 day | {num} days",
