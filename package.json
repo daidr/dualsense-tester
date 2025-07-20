@@ -9,8 +9,8 @@
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p ./tsconfig.app.json --composite false",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
+    "lint": "bunx --bun eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
+    "migrate-eslint": "bunx --bun @oxlint/migrate ./eslint.config.mjs"
   },
   "dependencies": {
     "@unocss/reset": "^66.3.2",
@@ -45,7 +45,9 @@
     "@vitejs/plugin-vue-jsx": "^4.2.0",
     "@vue/tsconfig": "^0.7.0",
     "eslint": "^9.30.0",
+    "eslint-plugin-oxlint": "^1.7.0",
     "npm-run-all2": "^8.0.4",
+    "oxlint": "^1.7.0",
     "redis": "^5.5.6",
     "rollup-plugin-webbundle": "^0.2.0",
     "sass-embedded": "^1.89.2",
