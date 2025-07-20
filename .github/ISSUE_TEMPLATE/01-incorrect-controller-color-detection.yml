@@ -32,4 +32,4 @@ body:
   - type: markdown
     attributes:
       value: |
-        You can add more additional information here, such as screenshots of the controller.
+        You can add more additional information in the form of comments after creating an issue, such as screenshots of the controller.
