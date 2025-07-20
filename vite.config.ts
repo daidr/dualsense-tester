@@ -5,21 +5,23 @@ import { fileURLToPath, URL } from 'node:url'
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import { bundleStats } from 'rollup-plugin-bundle-stats'
 import UnoCSS from 'unocss/vite'
 import { defineConfig, loadEnv } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
+// import vueDevTools from 'vite-plugin-vue-devtools'
 import { crowdinDefine } from './config/crowdin'
 import { gitDefine } from './config/git'
 
 const isVercelProduction = process.env.VERCEL_ENV === 'production'
 
-// import vueDevTools from 'vite-plugin-vue-devtools'
 // https://vitejs.dev/config/
 export default defineConfig(async ({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   return {
     plugins: [
       // vueDevTools(),
+      ...(isVercelProduction ? [] : [bundleStats()]),
       vueJsx(),
       vue({
         script: {
@@ -30,6 +32,7 @@ export default defineConfig(async ({ mode }) => {
       VueI18nPlugin({
         include: [path.resolve(__dirname, './src/locales/**.json')],
         strictMessage: false,
+        dropMessageCompiler: true,
       }),
       VitePWA({
         strategies: 'injectManifest',
@@ -84,15 +87,84 @@ export default defineConfig(async ({ mode }) => {
       ...await gitDefine(),
       ...await crowdinDefine(env),
     },
+    // experimental: {
+    //   enableNativePlugin: true,
+    // },
     build: {
+      cssCodeSplit: false,
+      sourcemap: true,
       rollupOptions: {
         output: {
+          assetFileNames: 'assets/[name].[hash][extname]',
+          entryFileNames: 'assets/[name].[hash].js',
+          chunkFileNames: 'assets/[name].[hash].js',
           manualChunks: {
             'motion-v': ['motion-v'],
             'pixi.js': ['pixi.js'],
-          }
-        }
-      }
-    }
+            'reka-ui': ['reka-ui'],
+            'floating-vue': ['floating-vue'],
+          },
+          // advancedChunks: {
+          //   groups: [
+          //     {
+          //       name: 'motion-v',
+          //       test: /node_modules[\\/]motion-v/,
+          //     },
+          //     {
+          //       name: 'pixi-rendering',
+          //       test: /node_modules[\\/]pixi\.js[\\/]lib[\\/]rendering/,
+          //     },
+          //     {
+          //       name: 'pixi-scene',
+          //       test: /node_modules[\\/]pixi\.js[\\/]lib[\\/]scene/,
+          //     },
+          //     {
+          //       name: 'pixi-utils',
+          //       test: /node_modules[\\/]pixi\.js[\\/]lib[\\/]utils/,
+          //     },
+          //     {
+          //       name: 'pixi-filters',
+          //       test: /node_modules[\\/]pixi\.js[\\/]lib[\\/]filters/,
+          //     },
+          //     {
+          //       name: 'pixi',
+          //       test: /node_modules[\\/]pixi\.js/,
+          //     },
+          //     {
+          //       name: 'reka-ui',
+          //       test: /node_modules[\\/]reka-ui/,
+          //     },
+          //     {
+          //       name: 'floating-utils',
+          //       test: (path: string) => {
+          //         return /node_modules[\\/]floating-vue/.test(path)
+          //           || /node_modules[\\/]@floating-ui/.test(path)
+          //       },
+          //     },
+          //     {
+          //       name: 'locale',
+          //       test: /unplugin-vue-i18n[\\/]messages/,
+          //     },
+          //     {
+          //       name: (moduleId: string) => {
+          //         const modelName = moduleId.match(/src[\\/]router[\\/](\w+)/)?.[1]
+          //         return modelName ? `model-${modelName}` : 'model'
+          //       },
+          //       test: /src[\\/]router[\\/]\w+/,
+          //     },
+          //     {
+          //       name: 'vendor',
+          //       test: (path: string) => {
+          //         return (
+          //           path.startsWith('\0vite')
+          //           || /node_modules[\\/]@vue/.test(path)
+          //         )
+          //       },
+          //     },
+          //   ],
+          // },
+        },
+      },
+    },
   }
 })

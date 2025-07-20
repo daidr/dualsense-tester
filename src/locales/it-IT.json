@@ -75,6 +75,7 @@
       "bt_patch_version": "Versione Patch BT",
       "pcba_id": "PCBA ID",
       "serial_number": "Numero di Serie",
+      "color": "Colore",
       "assemble_parts_info": "Assemble Parts Info",
       "battery_barcode": "Barcode Batteria",
       "vcm_barcode": "Barcode VCM",

@@ -8,10 +8,10 @@ export default defineConfig({
     }),
     presetIcons({
       collections: {
-        mingcute: () => import('@iconify-json/mingcute/icons.json').then(i => i.default),
+        'mingcute': () => import('@iconify-json/mingcute/icons.json').then(i => i.default),
         'icon-park-twotone': () => import('@iconify-json/icon-park-twotone/icons.json').then(i => i.default),
         'fancy-controller': () => import('fancy-controller/icons.json').then(i => i.default),
-      }
+      },
     }),
   ],
   transformers: [transformerVariantGroup(), transformerDirectives()],
@@ -24,7 +24,7 @@ export default defineConfig({
       },
     },
     fontFamily: {
-      mono: ['Noto Sans Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace'],
+      mono: ['Noto Sans Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"'],
     },
     containers: {
       sm: '(min-width: 24rem)',

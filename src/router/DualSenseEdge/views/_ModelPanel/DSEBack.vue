@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { useConnectionType, useInputReport } from '@/composables/useInjectValues'
-import { DeviceConnectionType, type ModelProps } from '@/device-based-router/shared'
-import { DPadDirection } from '@/utils/dualsense/ds.type'
+import type { ModelProps } from '@/device-based-router/shared'
 import { computed } from 'vue'
+import { useConnectionType, useInputReport } from '@/composables/useInjectValues'
+import { DeviceConnectionType } from '@/device-based-router/shared'
+import { DPadDirection } from '@/utils/dualsense/ds.type'
 import { inputReportOffsetBluetooth, inputReportOffsetUSB } from '../../_utils/offset.util'
 
 defineProps<ModelProps>()

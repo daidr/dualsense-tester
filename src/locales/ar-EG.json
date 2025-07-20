@@ -75,6 +75,7 @@
       "bt_patch_version": "إصدار تصحيح البلوتوث",
       "pcba_id": "معرف PCBA",
       "serial_number": "الرقم التسلسلي",
+
       "assemble_parts_info": "معلومات أجزاء التجميع",
       "battery_barcode": "باركود البطارية",
       "vcm_barcode": "باركود VCM",

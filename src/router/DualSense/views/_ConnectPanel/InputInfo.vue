@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import LocaleLabeledValue from '@/components/common/LocaleLabeledValue.vue'
 import { useConnectionType, useInputReport } from '@/composables/useInjectValues'
 import { DeviceConnectionType } from '@/device-based-router/shared'
-import { computed } from 'vue'
 import { inputReportOffsetBluetooth, inputReportOffsetUSB } from '../../_utils/offset.util'
 
 const inputReport = useInputReport()
@@ -93,7 +93,7 @@ const seqNum = computed(() => inputReport.value.getUint8(offset.value.sequenceNu
 
 <template>
   <div class="flex flex-col">
-    <LocaleLabeledValue :value="seqNum.toString()" label="connect_panel.seq_num" />
+    <LocaleLabeledValue :value="seqNum.toString()" label="connect_panel.seq_num" value-class="seq-number" />
     <LocaleLabeledValue
       :value="chargeStatus" value-locale-prefix="connect_panel.charge_status"
       label="connect_panel.charge_status_label"
@@ -114,5 +114,7 @@ const seqNum = computed(() => inputReport.value.getUint8(offset.value.sequenceNu
 </template>
 
 <style scoped lang="scss">
-
+:deep(.seq-number) {
+  @apply w-40px h-1.1em contain-strict float-end;
+}
 </style>

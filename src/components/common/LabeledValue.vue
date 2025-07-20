@@ -1,20 +1,22 @@
 <script setup lang="ts">
 defineProps({
-    label: String
+  label: String,
 })
 
 defineSlots<{
-    default: () => any
+  default: () => any
 }>()
 </script>
 
 <template>
-    <div class="flex justify-between gap-2 text-sm labeled-value px-1 rounded-lg">
-        <div class="font-bold select-none flex-shrink-0">{{ label }}</div>
-        <div class="opacity-80 font-mono break-all whitespace-pre-wrap flex-grow text-end">
-            <slot />
-        </div>
+  <div class="labeled-value flex justify-between gap-2 rounded-lg px-1 text-sm">
+    <div class="flex-shrink-0 select-none font-bold">
+      {{ label }}
     </div>
+    <div class="flex-grow whitespace-pre-wrap break-all text-end font-mono opacity-80">
+      <slot />
+    </div>
+  </div>
 </template>
 
 <style scoped>

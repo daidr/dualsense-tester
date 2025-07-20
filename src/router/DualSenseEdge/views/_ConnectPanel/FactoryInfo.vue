@@ -1,14 +1,18 @@
-<script setup lang="ts">
+<script setup lang="tsx">
+import type { LabeledValueItem } from '@/utils/labeled-value.util'
+import { computedAsync } from '@vueuse/core'
+import { I18nT, useI18n } from 'vue-i18n'
 import LocaleLabeledValue from '@/components/common/LocaleLabeledValue.vue'
 import { useDevice } from '@/composables/useInjectValues'
 import { utf8Decoder } from '@/utils/decoder.util'
+import { DualSenseColorMap } from '@/utils/dualsense/ds.type'
 import { formatDspVersion, formatThreePartVersion, formatUpdateVersion, getAssemblePartsInfo, getBatteryBarcode, getBdMacAddress, getBtPatchInfo, getIndividualDataVerifyStatus, getPcbaId, getPcbaIdFull, getPcbaIdFullString, getSerialNumber, getUniqueId, getVcmBarcode, type2TracabilityInfoRead } from '@/utils/dualsense/ds.util'
 import { decodeShiftJIS, mapDataViewToU8Hex, notAllFalsy, numberToMacAddress, numberToXHex, pairedValue } from '@/utils/format.util'
-import { createLabeledValueItem, type LabeledValueItem } from '@/utils/labeled-value.util'
+import { createLabeledValueItem } from '@/utils/labeled-value.util'
 import { hidLogger } from '@/utils/logger.util'
-import { computedAsync } from '@vueuse/core'
 
 const deviceItem = useDevice()
+const { t } = useI18n()
 
 async function getFirmwareInfo(device: HIDDevice) {
   const data = await device.receiveFeatureReport(0x20)
@@ -58,6 +62,36 @@ const hardwareInfo = computedAsync(async () => {
       pcbaIdFull && result.push(createLabeledValueItem('pcba_id', getPcbaIdFullString(pcbaIdFull, firmwareInfo.hwInfo)))
       const serialNumber = await getSerialNumber(deviceItem.value)
       serialNumber && result.push(createLabeledValueItem('serial_number', decodeShiftJIS(serialNumber)))
+
+      if (serialNumber) {
+        const serialNumberStr = decodeShiftJIS(serialNumber)
+        const color = DualSenseColorMap[serialNumberStr.slice(4, 6)]
+        const tooltip = (
+          <div>
+            <I18nT keypath="connect_panel.factory_info.colors.tips" tag="p" scope="global">
+              {{
+                tips_link: () => (
+                  <a
+                    href="https://github.com/daidr/dualsense-tester/issues/new?template=01-incorrect-controller-color-detection.yml"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="dou-sc-link"
+                  >
+                    {t('connect_panel.factory_info.colors.tips_link')}
+                  </a>
+                ),
+              }}
+            </I18nT>
+          </div>
+        )
+        if (color) {
+          result.push(createLabeledValueItem('color', color, `connect_panel.factory_info.colors`, tooltip))
+        }
+        else {
+          result.push(createLabeledValueItem('color', '', 'shared.unknown', tooltip))
+        }
+      }
+
       const assemblePartsInfo = await getAssemblePartsInfo(deviceItem.value)
       assemblePartsInfo && result.push(createLabeledValueItem('assemble_parts_info', `0x${mapDataViewToU8Hex(assemblePartsInfo, true)}`))
       const batteryBarcode = await getBatteryBarcode(deviceItem.value)
@@ -99,7 +133,7 @@ const hardwareInfo = computedAsync(async () => {
     <LocaleLabeledValue
       v-for="item of hardwareInfo" :key="item.label"
       :label="`connect_panel.factory_info.${item.label}`" :value="item.value"
-      :value-locale-prefix="item.valueLocalePrefix"
+      :value-locale-prefix="item.valueLocalePrefix" :tooltip="item.tooltip"
     />
   </div>
 </template>

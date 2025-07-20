@@ -75,6 +75,7 @@
       "bt_patch_version": "ورژن پچ بلوتوث",
       "pcba_id": "شناسه PCBA",
       "serial_number": "شماره سریال",
+      "color": "",
       "assemble_parts_info": "اطلاعات قطعات مونتاژ",
       "battery_barcode": "بارکد باطری",
       "vcm_barcode": "بارکد VCM",

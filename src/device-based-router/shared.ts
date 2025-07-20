@@ -1,4 +1,4 @@
-import type { Component, ComponentCustomProps } from 'vue'
+import type { Component } from 'vue'
 
 export enum DeviceConnectionType {
   USB = 'usb',
@@ -30,7 +30,7 @@ export interface CustomPanelItem {
   btAllowedReportIds?: number[]
   component: Component
   layout?: Component
-  hideInProfileMode?: boolean,
+  hideInProfileMode?: boolean
 }
 
 export interface CustomConnectWidgetPanelItem {

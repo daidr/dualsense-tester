@@ -20,6 +20,7 @@ export function decodeShiftJIS(dataView?: DataView) {
   if (!dataView) {
     return ''
   }
+  // oxlint-disable-next-line no-control-regex
   return shiftJISDecoder.decode(dataView).replace(/\0/g, '')
 }
 
