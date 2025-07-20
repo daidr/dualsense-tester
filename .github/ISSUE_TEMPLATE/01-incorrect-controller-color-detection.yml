@@ -1,6 +1,6 @@
 name: Incorrect Controller Color Detection
 description: Report an issue with the color detection of your controller.
-title: '[Controller Color] Incorrect Color Detection'
+title: '[Bug] Incorrect Color Detection'
 labels: [bug, controller-color]
 assignees:
   - daidr
