@@ -5,7 +5,7 @@ import { BaseDeviceRouter } from '../../device-based-router/shared'
 import { checkConnectionTypeDS4, PRODUCT_ID_DUALSHOCK_V1, PRODUCT_ID_DUALSHOCK_V2, USAGE_ID_GD_GAME_PAD, USAGE_PAGE_GENERIC_DESKTOP, VENDOR_ID_SONY } from '../../utils/dualsense/ds.util'
 
 const InputInfoWidget = defineAsyncComponent(() => import('./views/_ConnectPanel/InputInfo.vue'))
-// const FactoryInfoWidget = defineAsyncComponent(() => import('./views/_ConnectPanel/FactoryInfo.vue'))
+const FactoryInfoWidget = defineAsyncComponent(() => import('./views/_ConnectPanel/FactoryInfo.vue'))
 const OutputPanel = defineAsyncComponent(() => import('./views/OutputPanel.vue'))
 const ModelPanel = defineAsyncComponent(() => import('./views/ModelPanel.vue'))
 const GyroView = defineAsyncComponent(() => import('./views/_visualizerPanel/GyroView.vue'))
@@ -49,13 +49,13 @@ export default class DualSenseRouter extends BaseDeviceRouter {
       {
         component: InputInfoWidget,
       },
-      // {
-      //   title: {
-      //     key: 'connect_panel.factory_info_title',
-      //   },
-      //   fold: true,
-      //   component: FactoryInfoWidget,
-      // },
+      {
+        title: {
+          key: 'connect_panel.factory_info_title',
+        },
+        fold: true,
+        component: FactoryInfoWidget,
+      },
     ]
   }
 
@@ -81,14 +81,14 @@ export default class DualSenseRouter extends BaseDeviceRouter {
           key: 'info_panel.title_gyroscope',
         },
         component: GyroView,
-        btAllowedReportIds: [0x17],
+        btAllowedReportIds: [0x11],
       },
       {
         title: {
           key: 'info_panel.title_accelerometer',
         },
         component: AccelView,
-        btAllowedReportIds: [0x17],
+        btAllowedReportIds: [0x11],
       },
     ]
   }

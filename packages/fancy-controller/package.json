@@ -2,21 +2,21 @@
   "name": "fancy-controller",
   "type": "module",
   "private": true,
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
-  },
-  "license": "MIT",
   "author": {
     "name": "Xuezhou Dai",
     "url": "https://github.com/daidr"
   },
+  "license": "MIT",
+  "scripts": {
+    "build": "bun run ./scripts/build.ts"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
   "dependencies": {
     "@iconify/tools": "^4.1.2"
   },
-  "scripts": {
-    "build": "bun run ./scripts/build.ts"
+  "devDependencies": {
+    "@types/bun": "latest"
   }
 }

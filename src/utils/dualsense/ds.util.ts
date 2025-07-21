@@ -160,7 +160,6 @@ export async function getTestResult(
 }> {
   let report: DataView
   try {
-    // eslint-disable-next-line no-cond-assign
     while (report = await receiveFeatureReport(item, 0x81)) {
       if (report.getUint8(0) === 0x81 && report.getUint8(1) === deviceId && report.getUint8(2) === actionId) {
         const result = report.getUint8(3)
@@ -386,6 +385,12 @@ export async function getVcmBarcode(item: DeviceItem) {
     left: leftReport,
     right: rightReport,
   }
+}
+
+export async function getModuleBarcode(item: DeviceItem) {
+  const report = await sendTestCommandPure(item, 21 as any, 34 as any, 56)
+  hidLogger.debug('GetModuleBarcode', report)
+  return report
 }
 
 export async function getUniqueId(item: DeviceItem) {

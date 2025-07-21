@@ -6,7 +6,7 @@ import LocaleLabeledValue from '@/components/common/LocaleLabeledValue.vue'
 import { useDevice } from '@/composables/useInjectValues'
 import { utf8Decoder } from '@/utils/decoder.util'
 import { DualSenseColorMap } from '@/utils/dualsense/ds.type'
-import { formatDspVersion, formatThreePartVersion, formatUpdateVersion, getAssemblePartsInfo, getBatteryBarcode, getBdMacAddress, getBtPatchInfo, getIndividualDataVerifyStatus, getPcbaId, getPcbaIdFull, getPcbaIdFullString, getSerialNumber, getUniqueId, getVcmBarcode, type2TracabilityInfoRead } from '@/utils/dualsense/ds.util'
+import { formatDspVersion, formatThreePartVersion, formatUpdateVersion, getAssemblePartsInfo, getBatteryBarcode, getBdMacAddress, getBtPatchInfo, getIndividualDataVerifyStatus, getModuleBarcode, getPcbaId, getPcbaIdFull, getPcbaIdFullString, getSerialNumber, getUniqueId, getVcmBarcode, type2TracabilityInfoRead } from '@/utils/dualsense/ds.util'
 import { decodeShiftJIS, mapDataViewToU8Hex, notAllFalsy, numberToMacAddress, numberToXHex, pairedValue } from '@/utils/format.util'
 import { createLabeledValueItem } from '@/utils/labeled-value.util'
 import { hidLogger } from '@/utils/logger.util'
@@ -98,6 +98,12 @@ const hardwareInfo = computedAsync(async () => {
       batteryBarcode && result.push(createLabeledValueItem('battery_barcode', decodeShiftJIS(batteryBarcode)))
       const { left, right } = await getVcmBarcode(deviceItem.value)
       notAllFalsy(left, right) && result.push(createLabeledValueItem('vcm_barcode', pairedValue(decodeShiftJIS(left), decodeShiftJIS(right))))
+      const moduleReport = await getModuleBarcode(deviceItem.value)
+      if (moduleReport) {
+        const leftModule = decodeShiftJIS(new DataView(moduleReport.buffer.slice(0x11, 0x22)))
+        const rightModule = decodeShiftJIS(new DataView(moduleReport.buffer.slice(0x24, 0x35)))
+        notAllFalsy(leftModule, rightModule) && result.push(createLabeledValueItem('joystick_barcode', pairedValue(leftModule, rightModule)))
+      }
     }
     else {
       const pcbaId = await getPcbaId(deviceItem.value)

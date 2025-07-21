@@ -101,11 +101,11 @@ export const useUpgradeStore = defineStore('upgrade', () => {
     },
   })
 
-  if (import.meta.env.DEV) {
-    upgradeState.value = 'waiting'
-    upgradeGitVersion.value = gitDefine
-    needRefresh.value = true
-  }
+  // if (import.meta.env.DEV) {
+  //   upgradeState.value = 'waiting'
+  //   upgradeGitVersion.value = gitDefine
+  //   needRefresh.value = true
+  // }
 
   return {
     upgradeState,

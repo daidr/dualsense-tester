@@ -1,11 +1,12 @@
 <script setup lang="ts" generic="Comp extends Component<{
     item: CustomPanelItem
-}>">
+}>"
+>
 import type { Component, ExtractPropTypes } from 'vue'
 import type { CustomPanelItem } from '@/device-based-router/shared'
 import { useConnectionType, useInputReportId } from '@/composables/useInjectValues'
 import { DeviceConnectionType } from '@/device-based-router/shared'
-import { useDualSenseStore } from '@/store/dualsense';
+import { useDualSenseStore } from '@/store/dualsense'
 
 defineProps<{
   shell: Comp

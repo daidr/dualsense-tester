@@ -1,6 +1,6 @@
 import type { VNode } from 'vue'
 
-export function createLabeledValueItem(label: string, value: string, valueLocalePrefix?: string, tooltip?: VNode): LabeledValueItem {
+export function createLabeledValueItem(label: string, value: string | Promise<string>, valueLocalePrefix?: string, tooltip?: VNode): LabeledValueItem {
   return {
     label,
     value,
@@ -11,7 +11,7 @@ export function createLabeledValueItem(label: string, value: string, valueLocale
 
 export interface LabeledValueItem {
   label: string
-  value: string
+  value: string | Promise<string>
   valueLocalePrefix?: string
   tooltip?: VNode
 }
