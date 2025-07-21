@@ -62,6 +62,9 @@
       "unknown": "Sconosciuto"
     },
     "factory_info": {
+      "status": "Status",
+      "status_fake": "Fake",
+      "joystick_barcode": "Joystick Barcode",
       "build_time": "Data Compilazione",
       "hw_info": "Info HW",
       "device_info": "Info Dispositivo",
