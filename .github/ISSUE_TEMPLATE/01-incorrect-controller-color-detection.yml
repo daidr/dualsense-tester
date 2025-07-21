@@ -1,0 +1,35 @@
+name: Incorrect Controller Color Detection
+description: Report an issue with the color detection of your controller.
+title: '[Bug] Incorrect Color Detection'
+labels: [bug, 'controller color']
+assignees:
+  - daidr
+body:
+  - type: dropdown
+    id: model
+    attributes:
+      label: Model
+      description: What model of controller are you using?
+      options:
+        - DualSense
+        - DualSense Edge
+    validations:
+      required: true
+  - type: input
+    id: serial-number
+    attributes:
+      label: Serial Number
+      description: What is the serial number of your controller?
+    validations:
+      required: true
+  - type: input
+    id: color
+    attributes:
+      label: Actual Color
+      description: What is the actual color of your controller?
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        You can add more additional information in the form of comments after creating an issue, such as screenshots of the controller.

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import DouSelect from '@/components/base/DouSelect.vue';
 import type { OutputStruct } from './outputStruct'
-import SliderBox from '@/components/common/SliderBox.vue'
 import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+import DouSelect from '@/components/base/DouSelect.vue'
+import SliderBox from '@/components/common/SliderBox.vue'
 
 const props = withDefaults(defineProps<{
   is?: 'left' | 'right'

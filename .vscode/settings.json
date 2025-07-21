@@ -8,6 +8,7 @@
   // Auto fix
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
+    "source.fixAll.oxc": "explicit",
     "source.organizeImports": "never"
   },
   // Silent the stylistic rules in you IDE, but still auto fix them
@@ -63,6 +64,7 @@
       "fixable": true
     }
   ],
+  "oxc.enable": true,
   // Enable eslint for all supported languages
   "eslint.validate": [
     "javascript",
@@ -91,6 +93,7 @@
     "autobg",
     "autoborder",
     "BDADR",
+    "bunx",
     "CALIB",
     "colorborder",
     "Deadzone",
@@ -98,6 +101,7 @@
     "dualshock",
     "EFUSE",
     "eventbus",
+    "Fortnite",
     "geometrychange",
     "globalpointermove",
     "HWVERSION",
@@ -110,6 +114,7 @@
     "mstile",
     "nodrag",
     "oninputreport",
+    "oxlintrc",
     "pcba",
     "PCBAID",
     "pixi",
@@ -121,12 +126,14 @@
     "TRACABILITY",
     "twotone",
     "TXPOWER",
+    "unconfig",
     "Unfonts",
     "vazirmatn",
     "VCOM",
     "vercel",
     "VERISION",
     "WAVEOUT",
+    "webbundle",
     "webgpu",
     "XTAL",
     "Русский"

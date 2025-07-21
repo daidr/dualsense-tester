@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import { joinURL } from 'ufo'
+import { useI18n } from 'vue-i18n'
 import { useTimeAgo } from '@/composables/useTimeAgo'
 import { useUpgradeStore } from '@/store/upgrade'
 import { gitDefine } from '@/utils/env.util'
-import { joinURL } from 'ufo'
-import { useI18n } from 'vue-i18n'
 
 const { showUpgradeButton = false } = defineProps<{
   showUpgradeButton?: boolean
@@ -33,13 +33,17 @@ function upgrade() {
 
 <template>
   <div class="max-h-600px max-w-400px min-h-10px min-w-200px flex flex-col gap-2">
-    <div v-if="upgradeStore.upgradeState === 'upgrading'"
-      class="rounded-10px bg-blue/20 px-2 py-1 text-start text-sm text-blue-500 ring-1.5 ring-blue/50">
+    <div
+      v-if="upgradeStore.upgradeState === 'upgrading'"
+      class="rounded-10px bg-blue/20 px-2 py-1 text-start text-sm text-blue-500 ring-1.5 ring-blue/50"
+    >
       {{
         t('pwa.upgrading') }}
     </div>
-    <div v-if="upgradeStore.upgradeState === 'waiting'"
-      class="rounded-10px bg-green/20 px-2 py-1 text-start text-sm text-green-600 ring-1.5 ring-green/50">
+    <div
+      v-if="upgradeStore.upgradeState === 'waiting'"
+      class="rounded-10px bg-green/20 px-2 py-1 text-start text-sm text-green-600 ring-1.5 ring-green/50"
+    >
       {{
         t('pwa.update_available') }}
     </div>
@@ -56,8 +60,10 @@ function upgrade() {
       <div class="flex flex-grow flex-col text-center">
         <div class="version-wrapper new-version-wrapper">
           <p>{{ upgradeStore.upgradeGitVersion.shortCommitHash }}</p>
-          <p class="text-xs opacity-70"
-            :title="new Date(upgradeStore.upgradeGitVersion.commitTimestamp).toLocaleString()">
+          <p
+            class="text-xs opacity-70"
+            :title="new Date(upgradeStore.upgradeGitVersion.commitTimestamp).toLocaleString()"
+          >
             {{ useTimeAgo(new Date(upgradeStore.upgradeGitVersion.commitTimestamp)) }}
           </p>
         </div>
@@ -65,8 +71,10 @@ function upgrade() {
     </div>
     <div v-if="upgradeStore.upgradeGitVersion" class="changelog-wrapper">
       {{ upgradeStore.upgradeGitVersion.commitMessage }}
-      <a :href="getCompareLink(upgradeStore.upgradeGitVersion, gitDefine)" target="_blank"
-        class="inline-block v-middle">
+      <a
+        :href="getCompareLink(upgradeStore.upgradeGitVersion, gitDefine)" target="_blank"
+        class="inline-block v-middle"
+      >
         <div class="i-mingcute-external-link-line inline-block" />
       </a>
     </div>

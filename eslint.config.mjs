@@ -1,4 +1,5 @@
 import antfu from '@antfu/eslint-config'
+import oxlint from 'eslint-plugin-oxlint'
 
 export default antfu(
   {
@@ -13,4 +14,8 @@ export default antfu(
       }],
     },
   },
+  {
+    ignores: ['*.json', 'dist/**/*', 'dist-type/**/*'],
+  },
+  ...oxlint.buildFromOxlintConfigFile('./.oxlintrc.json'),
 )

@@ -1,12 +1,12 @@
 import type { DeviceItemWithRouter } from '@/device-based-router/shared'
+import { acceptHMRUpdate, defineStore } from 'pinia'
+import { computed, onMounted, onUnmounted, ref, shallowRef, watch } from 'vue'
 import { RouterManager } from '@/device-based-router'
 import { registerRouters } from '@/device-based-router/register-entry'
 import { connectionTypeToString, DeviceConnectionType } from '@/device-based-router/shared'
 import { gitDefine } from '@/utils/env.util'
 import { requestHIDDevice } from '@/utils/hid.util'
 import { hidLogger } from '@/utils/logger.util'
-import { acceptHMRUpdate, defineStore } from 'pinia'
-import { computed, onMounted, onUnmounted, ref, shallowRef, watch } from 'vue'
 
 export const useDualSenseStore = defineStore('dualsense', () => {
   const routerManager = new RouterManager()

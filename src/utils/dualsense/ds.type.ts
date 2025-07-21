@@ -417,3 +417,25 @@ export enum PlayerLedBrightness {
   MEDIUM,
   LOW,
 }
+
+export const DualSenseColorMap: Record<string, string> = {
+  '00': 'white',
+  '01': 'midnight_black',
+  '02': 'cosmic_red',
+  '03': 'nova_pink',
+  '04': 'galactic_purple',
+  '05': 'starlight_blue',
+  '06': 'grey_camouflage',
+  '07': 'volcanic_red',
+  '08': 'sterling_silver',
+  '09': 'cobalt_blue',
+  '10': 'chroma_teal',
+  '11': 'chroma_indigo',
+  '12': 'chroma_pearl',
+  '30': '30th_anniversary',
+  'Z1': 'god_of_war_ragnarok',
+  'Z2': 'spider_man_2',
+  'Z3': 'astro_bot',
+  'Z4': 'fortnite',
+  'Z6': 'the_last_of_us',
+}

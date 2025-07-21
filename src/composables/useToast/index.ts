@@ -1,4 +1,5 @@
-import { defineComponent, effectScope, h, type MaybeRefOrGetter, onScopeDispose, type Ref, shallowRef, type VNode } from 'vue'
+import type { MaybeRefOrGetter, Ref, VNode } from 'vue'
+import { defineComponent, effectScope, h, onScopeDispose, shallowRef } from 'vue'
 import InnerToastContainer from './ToastContainer.vue'
 
 export interface ToastInfo {

@@ -32,8 +32,8 @@ function getCenterPointPos(value: number) {
         />
       </div>
     </div>
-    <div class="w-24 text-end text-lg text-current font-sans">
-      {{ (value / 10).toFixed(1) }}°/S
+    <div class="w-24 text-end text-current">
+      <span class="changed-value">{{ (value / 10).toFixed(1) }}°/S</span>
     </div>
   </div>
 </template>
@@ -42,5 +42,9 @@ function getCenterPointPos(value: number) {
 .point {
   image-rendering: optimizeSpeed;
   backface-visibility: hidden;
+}
+
+.changed-value {
+  @apply contain-strict text-lg font-mono w-full h-full inline-block;
 }
 </style>
