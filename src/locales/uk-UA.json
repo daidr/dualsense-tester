@@ -77,6 +77,8 @@
       "serial_number": "Серійний номер",
       "color": "Колір",
       "colors": {
+        "tips": "Incorrect color detection? {tips_link}",
+        "tips_link": "Feedback",
         "white": "Білий",
         "midnight_black": "Чорна ніч",
         "cosmic_red": "Космічний червоний",
