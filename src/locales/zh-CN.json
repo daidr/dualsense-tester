@@ -62,6 +62,9 @@
       "unknown": "未知"
     },
     "factory_info": {
+      "status": "状态",
+      "status_fake": "盗版",
+      "joystick_barcode": "摇杆条码",
       "build_time": "构建时间",
       "hw_info": "硬件信息",
       "device_info": "设备信息",
