@@ -62,6 +62,9 @@
       "unknown": "Невідомо"
     },
     "factory_info": {
+      "status": "Status",
+      "status_fake": "Fake",
+      "joystick_barcode": "Joystick Barcode",
       "build_time": "Час складання",
       "hw_info": "Інфо про апаратне забезпечення",
       "device_info": "Інфо про пристрій",
