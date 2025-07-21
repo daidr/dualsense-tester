@@ -62,6 +62,9 @@
       "unknown": "ناشناس"
     },
     "factory_info": {
+      "status": "Status",
+      "status_fake": "Fake",
+      "joystick_barcode": "Joystick Barcode",
       "build_time": "زمان ساخت",
       "hw_info": "اطلاعات سخت‌افزار",
       "device_info": "اطلاعات دستگاه",
