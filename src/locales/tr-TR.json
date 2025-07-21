@@ -62,6 +62,9 @@
       "unknown": "Bilinmeyen"
     },
     "factory_info": {
+      "status": "Status",
+      "status_fake": "Fake",
+      "joystick_barcode": "Joystick Barcode",
       "build_time": "Yapım Zamanı",
       "hw_info": "HW Info",
       "device_info": "Cihaz Bilgisi",
