@@ -62,6 +62,9 @@
       "unknown": "غير معروف"
     },
     "factory_info": {
+      "status": "Status",
+      "status_fake": "Fake",
+      "joystick_barcode": "Joystick Barcode",
       "build_time": "تاريخ الإصدار",
       "hw_info": "معلومات المكونات",
       "device_info": "معلومات الجهاز",
