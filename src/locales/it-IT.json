@@ -62,9 +62,9 @@
       "unknown": "Sconosciuto"
     },
     "factory_info": {
-      "status": "Status",
-      "status_fake": "Fake",
-      "joystick_barcode": "Joystick Barcode",
+      "status": "Stato",
+      "status_fake": "Contraffatto",
+      "joystick_barcode": "Codice a barre Joystick",
       "build_time": "Data Compilazione",
       "hw_info": "Info HW",
       "device_info": "Info Dispositivo",
@@ -80,9 +80,9 @@
       "serial_number": "Numero di Serie",
       "color": "Colore",
       "colors": {
-        "tips": "Incorrect color detection? {tips_link}",
+        "tips": "Colore non rilevato correttamente? {tips_link}",
         "tips_link": "Feedback",
-        "white": "White",
+        "white": "Bianco",
         "midnight_black": "Midnight Black",
         "cosmic_red": "Cosmic Red",
         "nova_pink": "Nova Pink",
@@ -95,7 +95,7 @@
         "chroma_teal": "Chroma Teal",
         "chroma_indigo": "Chroma Indigo",
         "chroma_pearl": "Chroma Pearl",
-        "30th_anniversary": "30th Anniversary",
+        "30th_anniversary": "30° Anniversario",
         "god_of_war_ragnarok": "God of War Ragnarok",
         "spider_man_2": "Spider-Man 2",
         "astro_bot": "Astro Bot",
