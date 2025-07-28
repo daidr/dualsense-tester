@@ -4,9 +4,9 @@ import { computed, onMounted, onUnmounted, ref, shallowRef, watch } from 'vue'
 import { RouterManager } from '@/device-based-router'
 import { registerRouters } from '@/device-based-router/register-entry'
 import { connectionTypeToString, DeviceConnectionType } from '@/device-based-router/shared'
-import { gitDefine } from '@/utils/env.util'
 import { requestHIDDevice } from '@/utils/hid.util'
 import { hidLogger } from '@/utils/logger.util'
+import { track } from '@/utils/umami.util'
 
 export const useDualSenseStore = defineStore('dualsense', () => {
   const routerManager = new RouterManager()
@@ -61,12 +61,11 @@ export const useDualSenseStore = defineStore('dualsense', () => {
 
   watch(() => currentDevice.value, (value) => {
     if (value) {
-      umami?.track('device_changed', {
+      track('device_changed', {
         productName: value.device.productName,
         connectionType: connectionTypeToString(value.connectionType),
         productId: value.device.productId,
         vendorId: value.device.vendorId,
-        version: gitDefine.shortCommitHash,
       })
     }
   })
@@ -128,9 +127,8 @@ export const useDualSenseStore = defineStore('dualsense', () => {
       .filter(item => item !== undefined)
     hidLogger.debug('deviceList', deviceList.value)
     updatingDeviceList.value = false
-    umami?.track('device_list_updated', {
+    track('device_list_updated', {
       count: deviceList.value.length,
-      version: gitDefine.shortCommitHash,
     })
   }
 

@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import { useTimeAgo } from '@/composables/useTimeAgo'
 import { useUpgradeStore } from '@/store/upgrade'
 import { gitDefine } from '@/utils/env.util'
+import { track } from '@/utils/umami.util'
 
 const { showUpgradeButton = false } = defineProps<{
   showUpgradeButton?: boolean
@@ -23,9 +24,8 @@ function getCompareLink(gitInfo: GitInfo, oldGitInfo: GitInfo) {
 
 function upgrade() {
   upgradeStore.updateServiceWorker(true)
-  umami?.track('pwa_upgrade_tooltip', {
+  track('pwa_upgrade_tooltip', {
     action: 'confirm',
-    version: gitDefine.shortCommitHash,
     new_version: upgradeStore.upgradeGitVersion?.shortCommitHash,
   })
 }

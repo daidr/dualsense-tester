@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import { useModal } from '@/composables/useModal'
 import { useUpgradeStore } from '@/store/upgrade'
 import { gitDefine } from '@/utils/env.util'
+import { track } from '@/utils/umami.util'
 import NewVersionDiff from '../NewVersionDiff.vue'
 
 const { t } = useI18n()
@@ -28,16 +29,14 @@ watch(() => upgradeStore.needRefresh, (value) => {
     }),
     onConfirm: () => {
       upgradeStore.updateServiceWorker(true)
-      umami?.track('pwa_upgrade_modal', {
+      track('pwa_upgrade_modal', {
         action: 'confirm',
-        version: gitDefine.shortCommitHash,
         new_version: upgradeStore.upgradeGitVersion?.shortCommitHash,
       })
     },
     onCancel() {
-      umami?.track('pwa_upgrade_modal', {
+      track('pwa_upgrade_modal', {
         action: 'cancel',
-        version: gitDefine.shortCommitHash,
         new_version: upgradeStore.upgradeGitVersion?.shortCommitHash,
       })
     },
@@ -52,11 +51,13 @@ onUnmounted(() => {
 })
 
 onMounted(() => {
-  umami?.track(props => ({
-    ...props,
-    version: gitDefine.shortCommitHash,
-    versionTimestamp: gitDefine.commitTimestamp,
-  }))
+  if ('umami' in window) {
+    window?.umami?.track(props => ({
+      ...props,
+      version: gitDefine.shortCommitHash,
+      versionTimestamp: gitDefine.commitTimestamp,
+    }))
+  }
 })
 </script>
 

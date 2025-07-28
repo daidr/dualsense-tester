@@ -6,7 +6,7 @@ import ContentTips from '@/components/common/ContentTips.vue'
 import { DeviceConnectionType } from '@/device-based-router/shared'
 import { useDualSenseStore } from '@/store/dualsense'
 import { shellVariants } from '@/utils/common.util'
-import { gitDefine } from '@/utils/env.util'
+import { track } from '@/utils/umami.util'
 import DouButton from './base/DouButton.vue'
 // import LoadingView from './common/LoadingView.vue'
 import DouSelect from './base/DouSelect.vue'
@@ -17,9 +17,7 @@ const dsStore = useDualSenseStore()
 
 function onConnectBtnClick() {
   dsStore.requestControllerDevice()
-  umami?.track('connect_button_click', {
-    version: gitDefine.shortCommitHash,
-  })
+  track('connect_button_click')
 }
 
 const deviceList = computed(() => {
@@ -36,7 +34,7 @@ const deviceList = computed(() => {
 
 <template>
   <LayoutGroup>
-    <m.div layout="position" class="w-full self-start space-y-2 dou-sc-container">
+    <m.div layout="position" class="w-full self-start dou-sc-container space-y-2">
       <m.div layout="position" class="flex items-stretch gap-2">
         <DouSelect
           v-if="deviceList.length" class="min-w-0 flex-1" :options="deviceList"
@@ -88,7 +86,7 @@ const deviceList = computed(() => {
 
         <template #fallback>
           <LoadingView
-            layout="position" :h="100" class="rounded-2xl p-1 text-primary dou-sc-colorborder"
+            layout="position" :h="100" class="dou-sc-colorborder rounded-2xl p-1 text-primary"
             :variants="shellVariants" initial="hidden" animate="visible" exit="hidden"
           />
         </template>

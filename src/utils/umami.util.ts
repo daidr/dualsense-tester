@@ -1,8 +1,11 @@
-import { gitDefine } from "./env.util";
+import { gitDefine } from './env.util'
 
 export function track(name: string, data?: Record<string, any>) {
-    umami?.track(name, {
-        version: gitDefine.shortCommitHash,
-        ...data || {}
-    })
+  if (!('umami' in window)) {
+    return
+  }
+  window?.umami?.track(name, {
+    version: gitDefine.shortCommitHash,
+    ...data || {},
+  })
 }
