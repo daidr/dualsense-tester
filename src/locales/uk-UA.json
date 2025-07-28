@@ -62,9 +62,9 @@
       "unknown": "Невідомо"
     },
     "factory_info": {
-      "status": "Status",
-      "status_fake": "Fake",
-      "joystick_barcode": "Joystick Barcode",
+      "status": "Статус",
+      "status_fake": "Підробка",
+      "joystick_barcode": "Штрих-код джойстика",
       "build_time": "Час складання",
       "hw_info": "Інфо про апаратне забезпечення",
       "device_info": "Інфо про пристрій",
@@ -80,12 +80,12 @@
       "serial_number": "Серійний номер",
       "color": "Колір",
       "colors": {
-        "tips": "Incorrect color detection? {tips_link}",
-        "tips_link": "Feedback",
+        "tips": "Неправильно визначили колір? {tips_link}",
+        "tips_link": "Зв’яжіться з нами",
         "white": "Білий",
         "midnight_black": "Чорна ніч",
         "cosmic_red": "Космічний червоний",
-        "nova_pink": "Nova Pink",
+        "nova_pink": "Рожевий «Нова зірка»",
         "galactic_purple": "Галактичний пурпуровий",
         "starlight_blue": "Зоряний синій",
         "grey_camouflage": "Сірий камуфляж",
@@ -97,10 +97,10 @@
         "chroma_pearl": "Насичений перлистий",
         "30th_anniversary": "до 30-тої річниці",
         "god_of_war_ragnarok": "God of War: Ragnarok",
-        "spider_man_2": "Spider-Man 2",
-        "astro_bot": "Astro Bot",
-        "fortnite": "Fortnite",
-        "the_last_of_us": "The Last of Us"
+        "spider_man_2": "Обмежена серія Spider-Man 2",
+        "astro_bot": "Обмежена серія Astro Bot",
+        "fortnite": "Обмежена серія Fortnite",
+        "the_last_of_us": "Обмежена серія The Last of Us"
       },
       "assemble_parts_info": "Інфо про зібрані частини",
       "battery_barcode": "Штрихкод акумулятора",
