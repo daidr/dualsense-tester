@@ -1,16 +1,6 @@
 import process from 'node:process'
 import { simpleGit } from 'simple-git'
 
-function pickUpObject(obj: Record<string, any>, prefix: string) {
-  const picked: Record<string, string> = {}
-  for (const key in obj) {
-    if (key.startsWith(prefix)) {
-      picked[key] = obj[key]
-    }
-  }
-  return picked
-}
-
 export async function gitDefine() {
   const git = simpleGit()
   const owner = process.env.VERCEL_GIT_REPO_OWNER || 'daidr'

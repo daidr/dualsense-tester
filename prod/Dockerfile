@@ -18,6 +18,7 @@ FROM base AS build
 COPY --from=install /temp/dev/node_modules node_modules
 COPY . .
 ENV NODE_ENV=production
+ENV BUILD_ENV=docker
 RUN bun run --bun build-only
 
 # production stage
