@@ -12,6 +12,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 // import vueDevTools from 'vite-plugin-vue-devtools'
 import { crowdinDefine } from './config/crowdin'
 import { gitDefine } from './config/git'
+import htmlPlugin from './plugins/html-plugin'
 
 const isVercelProduction = process.env.VERCEL_ENV === 'production'
 
@@ -20,6 +21,7 @@ export default defineConfig(async ({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   return {
     plugins: [
+      htmlPlugin(),
       // vueDevTools(),
       ...(isVercelProduction ? [] : [bundleStats() as any]),
       vueJsx(),
