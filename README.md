@@ -114,7 +114,7 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
           <br />
           <sub><b>Maksym Abramov (sladkOy)</b></sub></a>
         <br />
-        <sub><b>305 words</b></sub>
+        <sub><b>325 words</b></sub>
         <br /><sub><b><code title="Ukrainian">uk</code></b></sub>
       </td>
       <td align="center" valign="top">
