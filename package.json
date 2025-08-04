@@ -9,7 +9,7 @@
     "build": "bunx --bun vite build",
     "build-only": "bunx --bun vite build",
     "type-check": "vue-tsc --noEmit -p ./tsconfig.app.json --composite false",
-    "lint": "bunx --bun eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
+    "lint": "bunx --bun oxlint . --fix && bunx --bun eslint . --fix",
     "migrate-eslint": "bunx --bun @oxlint/migrate ./eslint.config.mjs"
   },
   "dependencies": {

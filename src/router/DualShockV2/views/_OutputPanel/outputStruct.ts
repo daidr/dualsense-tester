@@ -1,8 +1,6 @@
 import { ref } from 'vue'
 
 export class OutputStruct {
-  constructor() { }
-
   #length = 73
 
   private sort = [

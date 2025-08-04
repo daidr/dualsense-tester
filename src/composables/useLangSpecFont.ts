@@ -1,4 +1,5 @@
-import { type MaybeRefOrGetter, toValue, watch } from 'vue'
+import type { MaybeRefOrGetter } from 'vue'
+import { toValue, watch } from 'vue'
 
 const defaultFontFamily = `'SN Pro', -apple-system, BlinkMacSystemFont, 'SF Pro Text', PingFang SC, 'Helvetica Neue', 'Helvetica', Hiragino Sans GB, Microsoft YaHei, sans-serif`
 

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { useThrottleFn } from '@vueuse/core'
-import { Application, Graphics } from 'pixi.js'
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, useTemplateRef, watch } from 'vue'
+import { Graphics } from 'pixi.js'
+import { computed, nextTick, onMounted, ref, useTemplateRef, watch } from 'vue'
 import { usePageStore } from '@/store/page'
-import { createPixiApplication, usePixiApp } from '@/utils/pixi.util';
+import { usePixiApp } from '@/utils/pixi.util'
 
 const props = defineProps<{
   min: number

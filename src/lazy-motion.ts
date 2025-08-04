@@ -1,2 +1,3 @@
-import { domAnimation } from "motion-v"
+import { domAnimation } from 'motion-v'
+
 export default domAnimation

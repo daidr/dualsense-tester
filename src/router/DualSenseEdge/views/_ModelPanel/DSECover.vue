@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import type { ModelProps } from '@/device-based-router/shared'
+import { computed } from 'vue'
 import { useConnectionType, useInputReport } from '@/composables/useInjectValues'
-import { DeviceConnectionType, type ModelProps } from '@/device-based-router/shared'
+import { DeviceConnectionType } from '@/device-based-router/shared'
 import { normalizeThumbStickAxis } from '@/utils/dualsense/ds.util'
 import { numberToXHex } from '@/utils/format.util'
-import { computed } from 'vue'
 import { inputReportOffsetBluetooth, inputReportOffsetUSB } from '../../_utils/offset.util'
 
 const props = defineProps<ModelProps>()
@@ -105,11 +106,6 @@ const leftStickStyle = computed(() => {
     transform: `translate(${getStickPoint(stickL.value.x ?? 0)}px, ${getStickPoint(stickL.value.y ?? 0)}px)`,
   }
 })
-
-function formatStickValue(value: number) {
-  const result = value.toPrecision(9).slice(0, 9)
-  return value < 0 ? result : `\u00A0${result}`
-}
 </script>
 
 <template>

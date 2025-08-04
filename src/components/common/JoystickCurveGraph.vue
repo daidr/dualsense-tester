@@ -61,25 +61,25 @@ onMounted(async () => {
   for (let i = 0; i < 3; i++) {
     const point = new Graphics()
     let isDragging = false
-    function handlePointerEnter(this: Graphics, e: FederatedPointerEvent) {
+    function handlePointerEnter(this: Graphics, _e: FederatedPointerEvent) {
       if (currentPoint.value) {
         return
       }
       currentPoint.value = this
     }
 
-    function handlePointerLeave(this: Graphics, e: FederatedPointerEvent) {
+    function handlePointerLeave(this: Graphics, _e: FederatedPointerEvent) {
       if (!isDragging) {
         currentPoint.value = undefined
       }
     }
 
-    function handlePointerDown(this: Graphics, e: FederatedPointerEvent) {
+    function handlePointerDown(this: Graphics, _e: FederatedPointerEvent) {
       isDragging = true
       currentPoint.value = this
     }
 
-    function handlePointerUp(this: Graphics, e: FederatedPointerEvent) {
+    function handlePointerUp(this: Graphics, _e: FederatedPointerEvent) {
       isDragging = false
       currentPoint.value = undefined
     }
@@ -381,7 +381,7 @@ onMounted(async () => {
 
 <template>
   <div
-    class="relative aspect-[2/1] overflow-hidden rounded-xl transition-opacity duration-300 dou-sc-colorborder"
+    class="relative aspect-[2/1] overflow-hidden dou-sc-colorborder rounded-xl transition-opacity duration-300"
     :style="{
       opacity: initialized ? 1 : 0,
     }"

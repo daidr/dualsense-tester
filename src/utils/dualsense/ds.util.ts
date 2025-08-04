@@ -160,6 +160,7 @@ export async function getTestResult(
 }> {
   let report: DataView
   try {
+    // oxlint-disable-next-line no-cond-assign
     while (report = await receiveFeatureReport(item, 0x81)) {
       if (report.getUint8(0) === 0x81 && report.getUint8(1) === deviceId && report.getUint8(2) === actionId) {
         const result = report.getUint8(3)
@@ -545,6 +546,7 @@ export async function type2TracabilityInfoRead(item: DeviceItem, type: 'left' | 
           serialNo += numToTwoDigitHex(rawSerialNo.getUint8(i))
         }
 
+        // oxlint-disable-next-line no-control-regex
         motorInfo = shiftJISDecoder.decode(rawMotorInfo).replace(/\0/g, '')
         break
       }

@@ -40,7 +40,7 @@ export default class DualSenseEdgeRouter extends BaseDeviceRouter {
     }
   }
 
-  connectWidgetPanels(deviceItem: DeviceItem) {
+  connectWidgetPanels(_deviceItem: DeviceItem) {
     return [
       {
         component: InputInfoWidget,
@@ -55,11 +55,11 @@ export default class DualSenseEdgeRouter extends BaseDeviceRouter {
     ]
   }
 
-  modelPanel(deviceItem: DeviceItem): Component {
+  modelPanel(_deviceItem: DeviceItem): Component {
     return ModelPanel
   }
 
-  widgetPanels(deviceItem: DeviceItem): CustomPanelItem[] | undefined {
+  widgetPanels(_deviceItem: DeviceItem): CustomPanelItem[] | undefined {
     return [
       {
         title: {
@@ -83,7 +83,7 @@ export default class DualSenseEdgeRouter extends BaseDeviceRouter {
     ]
   }
 
-  visualizerPanels(deviceItem: DeviceItem): CustomPanelItem[] {
+  visualizerPanels(_deviceItem: DeviceItem): CustomPanelItem[] {
     return [
       {
         title: {

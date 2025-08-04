@@ -1,24 +1,26 @@
 <script setup lang="ts">
 const modelValue = defineModel<boolean>({ required: true })
 
-const onSwitch = () => {
-    modelValue.value = !modelValue.value
+function onSwitch() {
+  modelValue.value = !modelValue.value
 }
 </script>
 
 <template>
-    <div ref="switchRef" class="switch" @click="onSwitch">
-        <div class="switch-thumb" :class="{
-            active: modelValue,
-        }">
-            <div v-if="modelValue">
-                <slot v-if="$slots.on" name="on"></slot>
-            </div>
-            <div v-else>
-                <slot v-if="$slots.off" name="off"></slot>
-            </div>
-        </div>
+  <div class="switch" @click="onSwitch">
+    <div
+      class="switch-thumb" :class="{
+        active: modelValue,
+      }"
+    >
+      <div v-if="modelValue">
+        <slot v-if="$slots.on" name="on" />
+      </div>
+      <div v-else>
+        <slot v-if="$slots.off" name="off" />
+      </div>
     </div>
+  </div>
 </template>
 
 <style scoped lang="scss">

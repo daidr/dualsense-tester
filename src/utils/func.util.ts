@@ -1,2 +1,3 @@
-// eslint-disable-next-line unused-imports/no-unused-vars
-export function hole(..._args: unknown[]) {}
+export function hole(..._args: unknown[]) {
+  void _args
+}

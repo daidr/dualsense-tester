@@ -2,29 +2,27 @@
 import { NumberFieldDecrement, NumberFieldIncrement, NumberFieldInput, NumberFieldRoot } from 'reka-ui'
 
 defineProps<{
-    min?: number
-    max?: number
-    disabled?: boolean
+  min?: number
+  max?: number
+  disabled?: boolean
 }>()
 
 const value = defineModel<number>()
-
 </script>
 
 <template>
-    <NumberFieldRoot :min="min" :max="max" :disabled="disabled" v-model="value">
-        <div class="number-input-wrapper">
-            <NumberFieldDecrement class="number-button">
-                <div class="i-mingcute-minimize-line"></div>
-            </NumberFieldDecrement>
-            <NumberFieldInput class="number-input" />
-            <NumberFieldIncrement class="number-button">
-                <div class="i-mingcute-add-line"></div>
-            </NumberFieldIncrement>
-        </div>
-    </NumberFieldRoot>
+  <NumberFieldRoot v-model="value" :min="min" :max="max" :disabled="disabled">
+    <div class="number-input-wrapper">
+      <NumberFieldDecrement class="number-button">
+        <div class="i-mingcute-minimize-line" />
+      </NumberFieldDecrement>
+      <NumberFieldInput class="number-input" />
+      <NumberFieldIncrement class="number-button">
+        <div class="i-mingcute-add-line" />
+      </NumberFieldIncrement>
+    </div>
+  </NumberFieldRoot>
 </template>
-
 
 <style scoped lang="scss">
 .number-input-wrapper {

@@ -2,9 +2,9 @@
 import { useThrottleFn } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 import { Graphics } from 'pixi.js'
-import { nextTick, onBeforeUnmount, onMounted, ref, useTemplateRef, watch } from 'vue'
+import { nextTick, onMounted, ref, useTemplateRef, watch } from 'vue'
 import { usePageStore } from '@/store/page'
-import { createPixiApplication, usePixiApp } from '@/utils/pixi.util'
+import { usePixiApp } from '@/utils/pixi.util'
 
 const props = defineProps<{
   deadzone: number
@@ -178,9 +178,11 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="relative aspect-[1/1] overflow-hidden transition-opacity duration-300" :style="{
-    opacity: initialized ? 1 : 0,
-  }">
+  <div
+    class="relative aspect-[1/1] overflow-hidden transition-opacity duration-300" :style="{
+      opacity: initialized ? 1 : 0,
+    }"
+  >
     <canvas ref="CanvasRef" class="absolute top-0 h-full w-full" w="1" h="1" />
   </div>
 </template>

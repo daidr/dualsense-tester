@@ -1,4 +1,5 @@
-import { defineComponent, h, isVNode, type MaybeRefOrGetter, toValue, type VNode } from 'vue'
+import type { MaybeRefOrGetter, VNode } from 'vue'
+import { defineComponent, h, isVNode, toValue } from 'vue'
 
 export const RenderComponent = defineComponent((props: { node: MaybeRefOrGetter<string | VNode>, className?: string, textClassName?: string }) => {
   return () => {

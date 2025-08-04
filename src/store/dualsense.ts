@@ -38,7 +38,7 @@ export const useDualSenseStore = defineStore('dualsense', () => {
 
   let currentAnimationFrame: number | undefined
 
-  function inputReportHandlerFactory(deviceItem: DeviceItemWithRouter) {
+  function inputReportHandlerFactory(_deviceItem: DeviceItemWithRouter) {
     return (event: HIDInputReportEvent) => {
       if (currentAnimationFrame) {
         cancelAnimationFrame(currentAnimationFrame)

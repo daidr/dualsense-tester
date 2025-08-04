@@ -1,4 +1,5 @@
-import { DeviceConnectionType, type DeviceItem } from '@/device-based-router/shared'
+import type { DeviceItem } from '@/device-based-router/shared'
+import { DeviceConnectionType } from '@/device-based-router/shared'
 import { hidLogger } from '../logger.util'
 import { fillFeatureReportChecksum, fillOutputReportChecksum } from './crc32.util'
 

@@ -34,7 +34,7 @@ function handlePointerUp(e: PointerEvent) {
 }
 
 function handleKeyDown(e: KeyboardEvent) {
-  if(e.repeat) {
+  if (e.repeat) {
     return
   }
   if (e.key === 'Enter' || e.key === ' ') {
@@ -52,10 +52,12 @@ function handleKeyUp(e: KeyboardEvent) {
 </script>
 
 <template>
-  <div ref="buttonRef" tabindex="0" role="button" :aria-pressed="isPressed" class="dou-sc-btn" :class="{
-    active: isPressed,
-  }"
-    @pointerdown="handlePointerDown" @pointerup="handlePointerUp" @keydown="handleKeyDown" @keyup="handleKeyUp">
+  <div
+    ref="buttonRef" tabindex="0" role="button" :aria-pressed="isPressed" class="dou-sc-btn" :class="{
+      active: isPressed,
+    }"
+    @pointerdown="handlePointerDown" @pointerup="handlePointerUp" @keydown="handleKeyDown" @keyup="handleKeyUp"
+  >
     <template v-if="$slots.default">
       <slot />
     </template>

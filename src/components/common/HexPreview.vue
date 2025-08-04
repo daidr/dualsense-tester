@@ -7,7 +7,8 @@ const props = defineProps<{
 }>()
 
 const finalReport = computed(() => {
-  props.trigger;
+  // eslint-disable-next-line ts/no-unused-expressions
+  props.trigger
   if (!props.dataView)
     return ''
   const dv = props.dataView
@@ -39,18 +40,18 @@ function handleClick(event: MouseEvent) {
 </script>
 
 <template>
-<div>
+  <div>
     <pre
-      class="block max-h-80vh w-full resize-none overflow-auto whitespace-pre-wrap rounded-2xl bg-transparent p-1 dou-sc-autoborder"
+      class="block max-h-80vh w-full resize-none overflow-auto whitespace-pre-wrap dou-sc-autoborder rounded-2xl bg-transparent p-1"
       @click="handleClick"
     ><span v-for="code, index of finalReport" :key="index" :data-index="index" class="inline-block cursor-pointer font-mono" :title="`${index}`">{{ code }} </span></pre>
-    <div v-if="binBit" class="rounded-2xl p-1 p-1 font-mono dou-sc-autoborder">
+    <div v-if="binBit" class="dou-sc-autoborder rounded-2xl p-1 p-1 font-mono">
       current Index: {{ currentIndex }}
       <p class="tracking-widest font-mono">
         {{ binBit }}
       </p>
     </div>
-</div>
+  </div>
 </template>
 
 <style scoped>

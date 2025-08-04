@@ -3,9 +3,9 @@ name: Build and Push to GHCR on Release Branch with Version Tag
 on:
   push:
     tags:
-      - "v*"  # Such as v1.0.0
+      - 'v*' # Such as v1.0.0
   workflow_run:
-    workflows: ["Production Release"]
+    workflows: [Production Release]
     types:
       - completed
 

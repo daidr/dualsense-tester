@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
-
 defineProps<{
-    transform: string
+  transform: string
 }>()
 
 // let historySize = 5;
@@ -13,7 +11,6 @@ defineProps<{
 // let avaragePitch = ref(0);
 // let avarageYaw = ref(0);
 // let avarageRoll = ref(0);
-
 
 // watch(() => props.pitch, () => {
 //     pitchHistory.shift();
@@ -33,21 +30,19 @@ defineProps<{
 // }
 </script>
 
-
-
-
-
 <template>
-    <div class="cube" :style="{
-        'transform': transform
-    }">
-        <div class="face front"></div>
-        <div class="face left"></div>
-        <div class="face top"></div>
-        <div class="face bottom"></div>
-        <div class="face right"></div>
-        <div class="face back"></div>
-    </div>
+  <div
+    class="cube" :style="{
+      transform,
+    }"
+  >
+    <div class="face front" />
+    <div class="face left" />
+    <div class="face top" />
+    <div class="face bottom" />
+    <div class="face right" />
+    <div class="face back" />
+  </div>
 </template>
 
 <style scoped lang="scss">

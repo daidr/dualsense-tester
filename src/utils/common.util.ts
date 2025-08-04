@@ -1,5 +1,3 @@
-import type { watch } from 'vue'
-
 export function isObjectShallowEqual(obj1: Record<string, any> | undefined, obj2: Record<string, any> | undefined) {
   if (!obj1 || !obj2) {
     return false

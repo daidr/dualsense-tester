@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { Application, Graphics } from 'pixi.js'
-import { nextTick, onBeforeUnmount, onMounted, ref, toRaw, useTemplateRef, watch, watchEffect } from 'vue'
+import { Graphics } from 'pixi.js'
+import { nextTick, onMounted, ref, toRaw, useTemplateRef, watch, watchEffect } from 'vue'
 import { useIsRTL } from '@/store/page'
+import { usePixiApp } from '@/utils/pixi.util'
 import SliderBox from './SliderBox.vue'
-import { createPixiApplication, usePixiApp } from '@/utils/pixi.util';
 
 const { maxValue = 0x7FFF, value } = defineProps<{
   maxValue?: number
@@ -138,9 +138,11 @@ defineExpose({
 
 <template>
   <div class="relative">
-    <div class="relative h-full w-[calc(100%-30px)] overflow-hidden rounded-xl dou-sc-colorborder transition-opacity duration-300" :style="{
-    opacity: initialized ? 1 : 0,
-  }">
+    <div
+      class="relative h-full w-[calc(100%-30px)] overflow-hidden dou-sc-colorborder rounded-xl transition-opacity duration-300" :style="{
+        opacity: initialized ? 1 : 0,
+      }"
+    >
       <canvas ref="CanvasRef" class="absolute top-0 h-full w-full" w="1" h="1" />
     </div>
     <div class="absolute end-2 bottom-0 top-0">

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { CustomPanelItem } from '@/device-based-router/shared'
-import { AnimatePresence } from 'motion-v'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { shellVariants } from '@/utils/common.util'

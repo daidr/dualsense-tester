@@ -25,7 +25,7 @@ watch(modelValue, (value) => {
 
 <template>
   <div class="text-base font-normal">
-    <input v-model="modelValue" class="w-full rounded-full bg-transparent px-2 py-1 dou-sc-colorborder focus:outline-none focus:ring-2" type="text">
+    <input v-model="modelValue" class="w-full dou-sc-colorborder rounded-full bg-transparent px-2 py-1 focus:outline-none focus:ring-2" type="text">
     <div v-if="!valid" class="pt-1 text-xs text-red-600">
       {{ $t('profile_panel.rename_invalid_tips') }}
     </div>

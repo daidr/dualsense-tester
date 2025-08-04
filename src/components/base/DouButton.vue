@@ -1,14 +1,14 @@
 <script setup lang="ts">
 defineProps<{
-    disabled?: boolean
-    small?: boolean
+  disabled?: boolean
+  small?: boolean
 }>()
 </script>
 
 <template>
-    <button class="button" :disabled="disabled" :class="[small ? 'button-small' : 'button-normal']">
-        <slot />
-    </button>
+  <button class="button" :disabled="disabled" :class="[small ? 'button-small' : 'button-normal']">
+    <slot />
+  </button>
 </template>
 
 <style scoped lang="scss">

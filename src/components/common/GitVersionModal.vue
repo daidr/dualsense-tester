@@ -1,9 +1,9 @@
 <script setup lang="tsx">
-import { usePageStore } from '@/store/page'
 import { storeToRefs } from 'pinia'
 import { joinURL } from 'ufo'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { usePageStore } from '@/store/page'
 import LabeledValue from './LabeledValue.vue'
 
 const { t } = useI18n()
@@ -63,7 +63,7 @@ const timeString = computed(() => {
   <LabeledValue v-if="prUrl" label="PR">
     <a v-if="pr" :href="prUrl" target="_blank">{{ `#${pr}` }}</a>
   </LabeledValue>
-  <div class="mt-2 rounded-2xl px-3 py-2 text-start text-sm font-light font-mono dou-sc-autoborder break-all">
+  <div class="mt-2 break-all dou-sc-autoborder rounded-2xl px-3 py-2 text-start text-sm font-light font-mono">
     {{ commitMessage }}
   </div>
 </template>

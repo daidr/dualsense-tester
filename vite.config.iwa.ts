@@ -1,8 +1,7 @@
 import type { KeyObject } from 'node:crypto'
-import { Buffer } from 'node:buffer'
 
-import { writeFileSync, writeSync } from 'node:fs'
-import path, { join, resolve, toNamespacedPath } from 'node:path'
+import { writeFileSync } from 'node:fs'
+import path from 'node:path'
 import process from 'node:process'
 import { fileURLToPath, URL } from 'node:url'
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'

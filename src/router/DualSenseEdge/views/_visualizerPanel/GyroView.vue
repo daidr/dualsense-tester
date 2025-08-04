@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import type { ModelProps } from '@/device-based-router/shared'
+import { computedAsync } from '@vueuse/core'
+import { computed } from 'vue'
 import ThreeAxisGraph from '@/components/common/ThreeAxisGraph.vue'
 import GyroValueBar from '@/components/GyroValueBar.vue'
 import { useConnectionType, useInputReport } from '@/composables/useInjectValues'
-import { DeviceConnectionType, type ModelProps } from '@/device-based-router/shared'
-import { computedAsync } from '@vueuse/core'
-import { computed } from 'vue'
+import { DeviceConnectionType } from '@/device-based-router/shared'
 import { inputReportOffsetBluetooth, inputReportOffsetUSB } from '../../_utils/offset.util'
 
 defineProps<ModelProps>()

@@ -1,6 +1,6 @@
-import { gitDefine } from '@/utils/env.util'
 import { cleanupOutdatedCaches, createHandlerBoundToURL, precacheAndRoute } from 'workbox-precaching'
 import { NavigationRoute, registerRoute } from 'workbox-routing'
+import { gitDefine } from '@/utils/env.util'
 
 declare let self: ServiceWorkerGlobalScope
 

@@ -1,5 +1,6 @@
+import type { ShallowRef } from 'vue'
 import type { DeviceItemWithRouter } from '@/device-based-router/shared'
-import { computed, inject, type ShallowRef } from 'vue'
+import { computed, inject } from 'vue'
 
 export function useInputReport() {
   const inputReport = inject<ShallowRef<DataView>>('inputReport')!

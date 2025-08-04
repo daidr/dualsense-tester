@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { SpeedInsights } from '@vercel/speed-insights/vue'
+import { domMax, LazyMotion } from 'motion-v'
 import { storeToRefs } from 'pinia'
 import { ConfigProvider } from 'reka-ui'
 import AppInner from './AppInner.vue'
@@ -14,7 +15,6 @@ import { ModalContainer } from './composables/useModal'
 import { useOverlayHeader } from './composables/useOverlayHeader'
 import { ToastContainer } from './composables/useToast'
 import { usePageStore } from './store/page'
-import { domMax, LazyMotion } from 'motion-v'
 
 const pageStore = usePageStore()
 const { isWebHIDSupported, locale, direction } = storeToRefs(pageStore)

@@ -1,5 +1,5 @@
+import { inject, onScopeDispose, provide } from 'vue'
 import { eventBusLogger } from '@/utils/logger.util'
-import { inject, onScopeDispose, provide, reactive, ref, type Ref } from 'vue'
 
 const __EVENT_BUS_PROVIDE__ = '__EVENT_BUS_PROVIDE__'
 

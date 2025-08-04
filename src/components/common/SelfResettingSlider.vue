@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useIsRTL } from '@/store/page'
 import { useElementBounding } from '@vueuse/core'
 import { computed, ref } from 'vue'
+import { useIsRTL } from '@/store/page'
 
 const props = defineProps<{
   min: number

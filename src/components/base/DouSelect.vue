@@ -3,7 +3,6 @@ import {
   SelectContent,
   SelectItem,
   SelectItemText,
-  SelectLabel,
   SelectPortal,
   SelectRoot,
   SelectScrollDownButton,

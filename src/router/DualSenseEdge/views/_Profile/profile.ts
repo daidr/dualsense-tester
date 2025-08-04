@@ -1,11 +1,10 @@
 import type { MaybeRefOrGetter } from 'vue'
-import { nextTick, reactive, ref, shallowReactive, shallowRef, toValue, watch } from 'vue'
+import { nextTick, reactive, ref, shallowRef, toValue, watch } from 'vue'
 import { useDevice } from '@/composables/useInjectValues'
 import { utf16LEDecoder } from '@/utils/decoder.util'
 import { fillProfileArrayReportChecksum } from '@/utils/dualsense/crc32.util'
 import { receiveFeatureReport, sendFeatureReport } from '@/utils/dualsense/ds.util'
 import { utf16LEEncoder } from '@/utils/encoder.util'
-import { isDev } from '@/utils/env.util'
 import { leBufferToTimestamp, timestampToLEBuffer } from '@/utils/time.util'
 
 export enum DSEProfileSwitchButton {
@@ -174,7 +173,7 @@ export class DSEJoystickCurve {
 
     const currentPointValue = points[this.curveParams.reversePointIndex]
 
-    const key = `${deadzone}-${currentPointValue}`
+    // const key = `${deadzone}-${currentPointValue}`
 
     // const cache = this.adjustmentCache.get(key)
     // if (cache !== undefined) {
@@ -514,10 +513,6 @@ function setBit(value: number, index: number): number {
   return value | (1 << index)
 }
 
-function resetBit(value: number, index: number): number {
-  return value & ~(1 << index)
-}
-
 export class DSEProfile {
   id: number = -1
   uniqueId: ArrayBuffer
@@ -746,6 +741,7 @@ export class DSEProfile {
         const labelBuffer = new Uint8Array(80)
         labelBuffer.set(new Uint8Array(rawData[0].buffer, 6, 54), 0)
         labelBuffer.set(new Uint8Array(rawData[1].buffer, 2, 26), 54)
+        // oxlint-disable-next-line no-control-regex
         const decodedLabel = utf16LEDecoder.decode(labelBuffer).replace(/\0/g, '')
         newInstance.label = decodedLabel.trim()
       }

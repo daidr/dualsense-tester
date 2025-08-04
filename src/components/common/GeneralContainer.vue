@@ -13,7 +13,7 @@ defineProps<{
   <m.div
     :variants="shellVariants"
     initial="hidden" animate="visible" exit="hidden" layout="position"
-    class="w-full flex flex-col self-start gap-y-1 bg-white dou-sc-container dark-bg-black"
+    class="w-full flex flex-col self-start gap-y-1 dou-sc-container bg-white dark-bg-black"
   >
     <div v-if="title" class="mb-3 ms-2 mt-2 flex items-center gap-2 dou-sc-title">
       {{ title }}

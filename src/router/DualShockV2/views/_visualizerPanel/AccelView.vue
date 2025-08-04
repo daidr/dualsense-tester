@@ -6,7 +6,6 @@ import AccelValueBar from '@/components/AccelValueBar.vue'
 import ThreeAxisGraph from '@/components/common/ThreeAxisGraph.vue'
 import { useConnectionType, useInputReport } from '@/composables/useInjectValues'
 import { DeviceConnectionType } from '@/device-based-router/shared'
-import { formatAccel } from '@/utils/format.util'
 import { inputReportOffsetBluetooth, inputReportOffsetUSB } from '../../_utils/offset.util'
 
 defineProps<ModelProps>()

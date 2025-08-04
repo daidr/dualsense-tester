@@ -6,7 +6,7 @@ import DouSelect from '@/components/base/DouSelect.vue'
 import ControllerTextButton from '@/components/common/ControllerTextButton.vue'
 import { DSEProfileIntensity } from '../profile'
 
-const props = defineProps<{
+defineProps<{
   profile: DSEProfile
 }>()
 

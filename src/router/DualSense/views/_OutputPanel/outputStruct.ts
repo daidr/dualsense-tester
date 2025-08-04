@@ -1,7 +1,6 @@
 import { ref } from 'vue'
 
 export class OutputStruct {
-  constructor() { }
   private sort = [
     'validFlag0',
     'validFlag1',

@@ -1,5 +1,3 @@
-import { fill } from 'lodash-es'
-
 // Generate CRC32 lookup table.
 export function makeCRCTable() {
   let c

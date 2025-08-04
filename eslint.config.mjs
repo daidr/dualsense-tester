@@ -7,7 +7,10 @@ export default antfu(
     rules: {
       '@unocss/order': 'off',
       'no-console': ['warn', { allow: ['warn', 'error'] }],
-      'unused-imports/no-unused-vars': ['warn', { caughtErrors: 'none' }],
+      'unused-imports/no-unused-vars': ['warn', {
+        caughtErrors: 'none',
+        argsIgnorePattern: '^_',
+      }],
       'no-lone-blocks': 'off',
       'vue/no-mutating-props': ['error', {
         shallowOnly: true,

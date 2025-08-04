@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { DSEJoystickProfile, DSEJoystickProfilePreset, DSEProfile } from '../profile'
+import type { DSEJoystickProfile, DSEProfile } from '../profile'
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { onDocumentUnload } from '@/composables/onDocumentUnload'
 import { useConnectionType, useDevice, useInputReport } from '@/composables/useInjectValues'

@@ -33,7 +33,7 @@ const finalTitle = computed(() => {
 </script>
 
 <template>
-  <m.div layout="position" class="rounded-2xl p-1 text-primary space-y-2 dou-sc-colorborder">
+  <m.div layout="position" class="dou-sc-colorborder rounded-2xl p-1 text-primary space-y-2">
     <button
       v-if="finalTitle" class="widget-toggle" :aria-expanded="showWidget"
       :aria-label="`${finalTitle} widget`" @click="showWidget = !showWidget"

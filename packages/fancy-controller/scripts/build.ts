@@ -4,7 +4,6 @@ import {
   isEmptyColor,
   parseColors,
   runSVGO,
-  SVG,
   writeJSONFile,
 } from '@iconify/tools'
 

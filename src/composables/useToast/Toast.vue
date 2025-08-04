@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ToastInfo } from '.'
-import { RenderComponent } from '@/utils/comp.util'
 import { computed, onMounted, onUnmounted, ref, toValue } from 'vue'
+import { RenderComponent } from '@/utils/comp.util'
 
 const props = defineProps<{
   info: ToastInfo

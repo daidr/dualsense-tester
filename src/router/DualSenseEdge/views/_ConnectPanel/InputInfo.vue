@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import LocaleLabeledValue from '@/components/common/LocaleLabeledValue.vue'
 import { useConnectionType, useInputReport } from '@/composables/useInjectValues'
 import { DeviceConnectionType } from '@/device-based-router/shared'
-import { computed } from 'vue'
 import { inputReportOffsetBluetooth, inputReportOffsetUSB } from '../../_utils/offset.util'
 
 const inputReport = useInputReport()

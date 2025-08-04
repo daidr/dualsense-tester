@@ -3,7 +3,7 @@ name: Build Production Docker Image
 on:
   push:
     branches:
-      - main  # Trigger workflow on push to the main branch
+      - main # Trigger workflow on push to the main branch
   workflow_dispatch:
 
 jobs:
@@ -21,7 +21,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}  # GitHub's token to authenticate
+          password: ${{ secrets.GITHUB_TOKEN }} # GitHub's token to authenticate
 
       # Build and tag the Docker image for GHCR
       - name: Build Docker image

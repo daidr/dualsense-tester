@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { DSEProfile } from '../profile'
 
-const props = defineProps<{
+defineProps<{
   profile: DSEProfile
 }>()
 </script>
@@ -10,6 +10,4 @@ const props = defineProps<{
   <div>CustomButtonMapping (TODO)</div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

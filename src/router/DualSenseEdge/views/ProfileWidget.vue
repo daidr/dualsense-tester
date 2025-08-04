@@ -8,7 +8,6 @@ import { useConnectionType, useDevice, useInputReport } from '@/composables/useI
 import { useModal, useWarningModal } from '@/composables/useModal'
 import { DeviceConnectionType } from '@/device-based-router/shared'
 import { useDualSenseStore } from '@/store/dualsense'
-import { shellVariants } from '@/utils/common.util'
 import { receiveFeatureReport, sendFeatureReport } from '@/utils/dualsense/ds.util'
 import { track } from '@/utils/umami.util'
 import { inputReportOffsetBluetooth, inputReportOffsetUSB } from '../_utils/offset.util'
@@ -263,7 +262,7 @@ function handleRefreshButtonClick() {
       </div>
     </div>
 
-    <m.button v-if="!dsStore.profileMode" class="self-end dou-sc-btn" @click="handleRefreshButtonClick">
+    <m.button v-if="!dsStore.profileMode" class="dou-sc-btn self-end" @click="handleRefreshButtonClick">
       {{ $t("shared.refresh") }}
     </m.button>
   </m.div>
