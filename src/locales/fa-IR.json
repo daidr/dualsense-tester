@@ -26,7 +26,7 @@
     "not_support_content": "از آخرین نسخه Google Chrome یا Microsoft Edge دسکتاپ استفاده کنید"
   },
   "connect_panel": {
-    "tips": "دوال‌سنس را با استفاده از <b>کابل</b> یا <b>بلوتوث</b> به کامپیوتر خود متصل کنید، سپس روی دکمه \"اتصال\" زیر کلیک کنید.",
+    "tips": "دسته‌ی دوال‌شوک یا دوال‌سنس را با استفاده از <b>کابل</b> یا <b>بلوتوث</b> به کامپیوتر خود متصل کنید، سپس روی دکمه \"افزودن دسته\" بالا کلیک کنید.",
     "connect": "اتصال",
     "disconnect": "قطع اتصال",
     "not_connected": "متصل نیست",
@@ -80,12 +80,12 @@
       "serial_number": "شماره سریال",
       "color": "Color",
       "colors": {
-        "tips": "Incorrect color detection? {tips_link}",
+        "tips": "رنگ اشتباه تشخیص داده شده؟ {tips_link}",
         "tips_link": "Feedback",
-        "white": "White",
-        "midnight_black": "Midnight Black",
-        "cosmic_red": "Cosmic Red",
-        "nova_pink": "Nova Pink",
+        "white": "سفید",
+        "midnight_black": "مشکی نیمه‌شب",
+        "cosmic_red": "قرمز کیهانی",
+        "nova_pink": "صورتی",
         "galactic_purple": "Galactic Purple",
         "starlight_blue": "Starlight Blue",
         "grey_camouflage": "Grey Camouflage",
