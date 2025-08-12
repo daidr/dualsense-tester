@@ -110,20 +110,20 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
         <br /><sub><b><code title="Turkish">tr</code></b></sub>
       </td>
       <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/ironB0SS"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/15966143/medium/644944c91fa73dce082cccdfec5c7f3f.jpeg" />
+          <br />
+          <sub><b>Mamad Safari (ironB0SS)</b></sub></a>
+        <br />
+        <sub><b>429 words</b></sub>
+        <br /><sub><b><code title="Persian">fa</code></b></sub>
+      </td>
+      <td align="center" valign="top">
         <a href="https://crowdin.com/profile/sladkOy"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/13328300/medium/e972a38d081a3ff644c1447dc53aedb8.jpg" />
           <br />
           <sub><b>Maksym Abramov (sladkOy)</b></sub></a>
         <br />
         <sub><b>325 words</b></sub>
         <br /><sub><b><code title="Ukrainian">uk</code></b></sub>
-      </td>
-      <td align="center" valign="top">
-        <a href="https://crowdin.com/profile/ironB0SS"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/15966143/medium/644944c91fa73dce082cccdfec5c7f3f.jpeg" />
-          <br />
-          <sub><b>Mamad Safari (ironB0SS)</b></sub></a>
-        <br />
-        <sub><b>299 words</b></sub>
-        <br /><sub><b><code title="Persian">fa</code></b></sub>
       </td>
     </tr>
     <tr>
