@@ -74,7 +74,7 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
           <br />
           <sub><b>Ahmed El-Shinawy (aelshinawy)</b></sub></a>
         <br />
-        <sub><b>590 words</b></sub>
+        <sub><b>1186 words</b></sub>
         <br /><sub><b><code title="Arabic">ar</code></b>, <b><code title="Arabic, Egypt">ar-EG</code></b></sub>
       </td>
       <td align="center" valign="top">
