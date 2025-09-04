@@ -69,7 +69,7 @@
       "hw_info": "HW Info",
       "device_info": "Cihaz Bilgisi",
       "fw_type": "FW Type",
-      "sw_series": "SW Series",
+      "sw_series": "SW Serisi",
       "update_version": "Güncelleme Sürümü",
       "sbl_fw_version": "SBL FW Version",
       "main_fw_version": "Main FW Version",
@@ -194,7 +194,7 @@
     "offline_ready": "Bu uygulama artık çevrimdışı kullanım için önbelleğe alınmıştır."
   },
   "git_version": {
-    "title": "Commit Info",
+    "title": "Versiyon sürüm bilgisi",
     "warn_pr": "Bu bir ön izleme sürümüdür. Lütfen dikkatli kullanın çünkü hatalar olabilir.",
     "warn_dev": "Bu bir önizleme sürümüdür. Lütfen dikkatli kullanın çünkü hatalar olabilir."
   },
