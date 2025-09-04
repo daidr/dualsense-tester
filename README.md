@@ -135,6 +135,22 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
         <sub><b>53 words</b></sub>
         <br /><sub><b><code title="Russian">ru</code></b></sub>
       </td>
+      <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/OsakaRider"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17305750/medium/ddc95852f21f5e96c8830129a0cd4c53.png" />
+          <br />
+          <sub><b>OsakaRider</b></sub></a>
+        <br />
+        <sub><b>8 words</b></sub>
+        <br /><sub><b><code title="Arabic">ar</code></b></sub>
+      </td>
+      <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/bipboo"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17306770/medium/9e691eced760d4aa6ccb91ca64bc19c7.jpeg" />
+          <br />
+          <sub><b>ilkay norvig (sentinel) (bipboo)</b></sub></a>
+        <br />
+        <sub><b>4 words</b></sub>
+        <br /><sub><b><code title="Turkish">tr</code></b></sub>
+      </td>
     </tr>
   </tbody>
 </table><a href="https://crowdin.com/project/dualsense-tester" target="_blank">Translate in Crowdin 🚀</a>
