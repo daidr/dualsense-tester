@@ -78,20 +78,20 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
         <br /><sub><b><code title="Arabic">ar</code></b>, <b><code title="Arabic, Egypt">ar-EG</code></b></sub>
       </td>
       <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/fasoylada"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/14505702/medium/4e229055cb7145a9468cc818adf2432e.jpeg" />
+          <br />
+          <sub><b>ΒΑΣΙΛΕΙΟΣ Γ.Π. (fasoylada)</b></sub></a>
+        <br />
+        <sub><b>598 words</b></sub>
+        <br /><sub><b><code title="Greek">el</code></b></sub>
+      </td>
+      <td align="center" valign="top">
         <a href="https://crowdin.com/profile/Jacksoft87"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/15437446/medium/c2a764b94f1f3f766e304a650c700ec7_default.png" />
           <br />
           <sub><b>Jacksoft87</b></sub></a>
         <br />
         <sub><b>582 words</b></sub>
         <br /><sub><b><code title="Italian">it</code></b></sub>
-      </td>
-      <td align="center" valign="top">
-        <a href="https://crowdin.com/profile/fasoylada"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/14505702/medium/4e229055cb7145a9468cc818adf2432e.jpeg" />
-          <br />
-          <sub><b>ΒΑΣΙΛΕΙΟΣ Γ.Π. (fasoylada)</b></sub></a>
-        <br />
-        <sub><b>548 words</b></sub>
-        <br /><sub><b><code title="Greek">el</code></b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/hargabt"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/14426098/medium/8d9f140158ee575545feedd642f44d8e.jpg" />
@@ -134,6 +134,22 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
         <br />
         <sub><b>53 words</b></sub>
         <br /><sub><b><code title="Russian">ru</code></b></sub>
+      </td>
+      <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/OsakaRider"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17305750/medium/ddc95852f21f5e96c8830129a0cd4c53.png" />
+          <br />
+          <sub><b>OsakaRider</b></sub></a>
+        <br />
+        <sub><b>8 words</b></sub>
+        <br /><sub><b><code title="Arabic">ar</code></b></sub>
+      </td>
+      <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/bipboo"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17306770/medium/9e691eced760d4aa6ccb91ca64bc19c7.jpeg" />
+          <br />
+          <sub><b>ilkay norvig (sentinel) (bipboo)</b></sub></a>
+        <br />
+        <sub><b>4 words</b></sub>
+        <br /><sub><b><code title="Turkish">tr</code></b></sub>
       </td>
     </tr>
   </tbody>
