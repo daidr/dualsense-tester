@@ -260,7 +260,7 @@
     "joystick_curves_label": "Sensibilità curva",
     "joystick_curves_adjust_label": "Regolazione curva",
     "joystick_deadzone_adjust_label": "Regolazione deadzone",
-    "joystick_preview_raw_input": "Raw Input",
+    "joystick_preview_raw_input": "Dati Grezzi",
     "joystick_preview_mapped_input": "Mapped Input"
   }
 }
