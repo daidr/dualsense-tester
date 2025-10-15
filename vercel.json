@@ -57,11 +57,5 @@
         }
       ]
     }
-  ],
-  "functions": {
-    "api/*.ts": {
-      "maxDuration": 5,
-      "memory": 512
-    }
-  }
+  ]
 }
