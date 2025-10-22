@@ -4,7 +4,6 @@
     "composite": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "types": ["node"],
     "skipLibCheck": true
   },
   "include": [

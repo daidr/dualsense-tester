@@ -1,4 +1,3 @@
-/* eslint-disable ts/no-duplicate-enum-values */
 export enum DualSenseConnectionType {
   Unknown = 'unknown',
   /** The controller is connected over USB */
