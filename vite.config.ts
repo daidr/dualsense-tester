@@ -89,9 +89,9 @@ export default defineConfig(async ({ mode }) => {
       ...await gitDefine(),
       ...await crowdinDefine(env),
     },
-    // experimental: {
-    //   enableNativePlugin: true,
-    // },
+    experimental: {
+      enableNativePlugin: true,
+    },
     build: {
       cssCodeSplit: false,
       sourcemap: true,
@@ -100,71 +100,71 @@ export default defineConfig(async ({ mode }) => {
           assetFileNames: 'assets/[name].[hash][extname]',
           entryFileNames: 'assets/[name].[hash].js',
           chunkFileNames: 'assets/[name].[hash].js',
-          manualChunks: {
-            'motion-v': ['motion-v'],
-            'pixi.js': ['pixi.js'],
-            'reka-ui': ['reka-ui'],
-            'floating-vue': ['floating-vue'],
-          },
-          // advancedChunks: {
-          //   groups: [
-          //     {
-          //       name: 'motion-v',
-          //       test: /node_modules[\\/]motion-v/,
-          //     },
-          //     {
-          //       name: 'pixi-rendering',
-          //       test: /node_modules[\\/]pixi\.js[\\/]lib[\\/]rendering/,
-          //     },
-          //     {
-          //       name: 'pixi-scene',
-          //       test: /node_modules[\\/]pixi\.js[\\/]lib[\\/]scene/,
-          //     },
-          //     {
-          //       name: 'pixi-utils',
-          //       test: /node_modules[\\/]pixi\.js[\\/]lib[\\/]utils/,
-          //     },
-          //     {
-          //       name: 'pixi-filters',
-          //       test: /node_modules[\\/]pixi\.js[\\/]lib[\\/]filters/,
-          //     },
-          //     {
-          //       name: 'pixi',
-          //       test: /node_modules[\\/]pixi\.js/,
-          //     },
-          //     {
-          //       name: 'reka-ui',
-          //       test: /node_modules[\\/]reka-ui/,
-          //     },
-          //     {
-          //       name: 'floating-utils',
-          //       test: (path: string) => {
-          //         return /node_modules[\\/]floating-vue/.test(path)
-          //           || /node_modules[\\/]@floating-ui/.test(path)
-          //       },
-          //     },
-          //     {
-          //       name: 'locale',
-          //       test: /unplugin-vue-i18n[\\/]messages/,
-          //     },
-          //     {
-          //       name: (moduleId: string) => {
-          //         const modelName = moduleId.match(/src[\\/]router[\\/](\w+)/)?.[1]
-          //         return modelName ? `model-${modelName}` : 'model'
-          //       },
-          //       test: /src[\\/]router[\\/]\w+/,
-          //     },
-          //     {
-          //       name: 'vendor',
-          //       test: (path: string) => {
-          //         return (
-          //           path.startsWith('\0vite')
-          //           || /node_modules[\\/]@vue/.test(path)
-          //         )
-          //       },
-          //     },
-          //   ],
+          // manualChunks: {
+          //   'motion-v': ['motion-v'],
+          //   'pixi.js': ['pixi.js'],
+          //   'reka-ui': ['reka-ui'],
+          //   'floating-vue': ['floating-vue'],
           // },
+          advancedChunks: {
+            groups: [
+              {
+                name: 'motion-v',
+                test: /node_modules[\\/]motion-v/,
+              },
+              {
+                name: 'pixi-rendering',
+                test: /node_modules[\\/]pixi\.js[\\/]lib[\\/]rendering/,
+              },
+              {
+                name: 'pixi-scene',
+                test: /node_modules[\\/]pixi\.js[\\/]lib[\\/]scene/,
+              },
+              {
+                name: 'pixi-utils',
+                test: /node_modules[\\/]pixi\.js[\\/]lib[\\/]utils/,
+              },
+              {
+                name: 'pixi-filters',
+                test: /node_modules[\\/]pixi\.js[\\/]lib[\\/]filters/,
+              },
+              {
+                name: 'pixi',
+                test: /node_modules[\\/]pixi\.js/,
+              },
+              {
+                name: 'reka-ui',
+                test: /node_modules[\\/]reka-ui/,
+              },
+              {
+                name: 'floating-utils',
+                test: (path: string) => {
+                  return /node_modules[\\/]floating-vue/.test(path)
+                    || /node_modules[\\/]@floating-ui/.test(path)
+                },
+              },
+              {
+                name: 'locale',
+                test: /unplugin-vue-i18n[\\/]messages/,
+              },
+              {
+                name: (moduleId: string) => {
+                  const modelName = moduleId.match(/src[\\/]router[\\/](\w+)/)?.[1]
+                  return modelName ? `model-${modelName}` : 'model'
+                },
+                test: /src[\\/]router[\\/]\w+/,
+              },
+              {
+                name: 'vendor',
+                test: (path: string) => {
+                  return (
+                    path.startsWith('\0vite')
+                    || /node_modules[\\/]@vue/.test(path)
+                  )
+                },
+              },
+            ],
+          },
         },
       },
     },

@@ -10,20 +10,20 @@
     "build-only": "bunx --bun vite build",
     "type-check": "vue-tsc --noEmit -p ./tsconfig.app.json --composite false",
     "lint": "bunx --bun oxlint . --fix && bunx --bun eslint . --fix",
-    "migrate-eslint": "bunx --bun @oxlint/migrate ./eslint.config.mjs"
+    "lint:migrate": "bunx --bun @oxlint/migrate ./eslint.config.mjs"
   },
   "dependencies": {
     "@unocss/reset": "^66.5.4",
     "@vercel/speed-insights": "^1.2.0",
-    "@vueuse/core": "^13.9.0",
+    "@vueuse/core": "^14.0.0",
     "consola": "^3.4.2",
     "fancy-controller": "workspace:*",
     "floating-vue": "^5.2.2",
     "lodash-es": "^4.17.21",
-    "motion-v": "^1.7.2",
+    "motion-v": "^1.7.3",
     "pinia": "^3.0.3",
     "pixi.js": "^8.14.0",
-    "reka-ui": "^2.5.1",
+    "reka-ui": "^2.6.0",
     "ufo": "^1.6.1",
     "vue": "^3.5.22",
     "vue-i18n": "^11.1.12"
@@ -42,24 +42,24 @@
     "@vitejs/plugin-vue": "^6.0.1",
     "@vitejs/plugin-vue-jsx": "^5.1.1",
     "@vue/tsconfig": "^0.8.1",
-    "eslint": "^9.37.0",
-    "eslint-plugin-oxlint": "^1.23.0",
-    "oxlint": "^1.23.0",
+    "eslint": "^9.38.0",
+    "eslint-plugin-oxlint": "^1.24.0",
+    "oxlint": "^1.24.0",
     "rollup-plugin-bundle-stats": "^4.21.5",
     "rollup-plugin-webbundle": "^0.2.0",
     "sass-embedded": "^1.93.2",
     "simple-git": "^3.28.0",
     "typescript": "5.9.3",
     "unocss": "^66.5.4",
-    "vite": "^7.1.10",
+    "vite": "npm:rolldown-vite@latest",
     "vite-plugin-pwa": "^1.1.0",
-    "vite-plugin-vue-devtools": "^8.0.2",
+    "vite-plugin-vue-devtools": "^8.0.3",
     "vue-tsc": "3.1.1",
     "wbn-sign": "^0.2.5",
     "workbox-routing": "^7.3.0"
   },
   "overrides": {
-    "vite": "^7.0.5"
+    "vite": "npm:rolldown-vite@latest"
   },
   "trustedDependencies": [
     "@swc/core"
