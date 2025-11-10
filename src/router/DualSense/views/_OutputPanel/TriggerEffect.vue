@@ -148,7 +148,7 @@ watch(currentTriggerEffect, () => {
       </div>
     </td>
   </tr>
-  <tr v-if="EFFECT_SETTING[currentTriggerEffect].includes('start_pos')">
+  <tr v-if="EFFECT_SETTING[currentTriggerEffect]!.includes('start_pos')">
     <td class="label">
       {{ $t('output_panel.trigger_values.start_pos') }}
     </td>
@@ -156,7 +156,7 @@ watch(currentTriggerEffect, () => {
       <SliderBox v-model="startpos" class="w-full" :min="0" :max="255" />
     </td>
   </tr>
-  <tr v-if="EFFECT_SETTING[currentTriggerEffect].includes('end_pos')">
+  <tr v-if="EFFECT_SETTING[currentTriggerEffect]!.includes('end_pos')">
     <td class="label">
       {{ $t('output_panel.trigger_values.end_pos') }}
     </td>
@@ -164,7 +164,7 @@ watch(currentTriggerEffect, () => {
       <SliderBox v-model="endpos" class="w-full" :min="0" :max="255" />
     </td>
   </tr>
-  <tr v-if="EFFECT_SETTING[currentTriggerEffect].includes('force')">
+  <tr v-if="EFFECT_SETTING[currentTriggerEffect]!.includes('force')">
     <td class="label">
       {{ $t('output_panel.trigger_values.force') }}
     </td>
@@ -172,7 +172,7 @@ watch(currentTriggerEffect, () => {
       <SliderBox v-model="force" class="w-full" :min="0" :max="255" />
     </td>
   </tr>
-  <tr v-if="EFFECT_SETTING[currentTriggerEffect].includes('frequency')">
+  <tr v-if="EFFECT_SETTING[currentTriggerEffect]!.includes('frequency')">
     <td class="label">
       {{ $t('output_panel.trigger_values.frequency') }}
     </td>

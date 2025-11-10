@@ -10,6 +10,7 @@ const LOCALES: Record<string, string> = {
   'el-GR': 'Ελληνικά',
   'tr-TR': 'Türkçe',
   'pt-BR': 'Português (BR)',
+  'de-DE': 'Deutsch',
 }
 
 export function getLocaleLabel(locale: string): string {

@@ -103,7 +103,7 @@ export class OutputStruct {
     const length = this.sort.length
     const data = new Uint8Array(length)
     for (let i = 0; i < length; i++) {
-      data[i] = this[this.sort[i]].value
+      data[i] = this[this.sort[i]!].value
     }
     return data
   }
