@@ -1,6 +1,6 @@
 {
   "application": {
-    "name": "دوال‌سنس تستر",
+    "name": "گیم‌پد تستر",
     "footer": {
       "copyright": "© {year} {'|'} کد نویسی شده توسط {author} با ❤"
     }
@@ -23,7 +23,7 @@
   "common": {
     "tips": "راهنمایی",
     "not_support_title": "مرورگر شما از WebHID پشتیبانی نمی کند",
-    "not_support_content": "از Google Chrome دسکتاپ استفاده کنید"
+    "not_support_content": "از مرورگر دسکتاپ استفاده کنید"
   },
   "connect_panel": {
     "tips": "دسته‌ی دوال‌شوک یا دوال‌سنس را با استفاده از <b>کابل</b> یا <b>بلوتوث</b> به کامپیوتر خود متصل کنید، سپس روی دکمه \"افزودن دسته\" بالا کلیک کنید.",
@@ -103,8 +103,8 @@
         "the_last_of_us": "The Last of Us"
       },
       "assemble_parts_info": "اطلاعات قطعات مونتاژ",
-      "battery_barcode": "بارکد باطری",
-      "vcm_barcode": "بارکد VCM",
+      "battery_barcode": "بارکد باتری",
+      "vcm_barcode": "بارکد موتور ویبره‌ها",
       "unique_id": "شناسه یونیک",
       "bd_mac_address": "مک آدرس بلوتوث",
       "at_serial_number": "شماره سریال AT",
@@ -133,7 +133,7 @@
     "create_profile": "ایجاد پروفایل"
   },
   "info_panel": {
-    "tips": "لطفاً ابتدا دسته‌ی خود را وصل کنید",
+    "tips": "دسته‌ی خود را وصل کنید",
     "stick_module_not_found": "ماژول استیک قطع شد",
     "title_buttons": "دکمه‌های اصلی",
     "title_accelerometer": "شتاب‌سنج",
