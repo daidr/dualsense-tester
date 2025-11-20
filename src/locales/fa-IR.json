@@ -84,10 +84,10 @@
         "tips_link": "بازخورد",
         "white": "سفید",
         "midnight_black": "مشکی نیمه‌شب",
-        "cosmic_red": "قرمز کیهانی",
+        "cosmic_red": "قرمز کهکشانی",
         "nova_pink": "صورتی",
         "galactic_purple": "بنفش کهکشانی",
-        "starlight_blue": "آبی درخشان",
+        "starlight_blue": "آبی آسمانی",
         "grey_camouflage": "ارتشی خاکستری",
         "volcanic_red": "قرمز آتشین",
         "sterling_silver": "نقره‌ای لوکس",
@@ -244,7 +244,7 @@
       "strong": "Strong (Default)"
     },
     "trigger_effect_intensity_label": "Trigger Effect Intensity",
-    "trigger_effect_intensity_desc": "Set the level of force that's applied when pressing {L2} or {R2}. If you've adjusted the {L2} or {R2} stop sliders, the trigger effect will turn off.",
+    "trigger_effect_intensity_desc": "میزان فشاری را که هنگام فشردن {L2} یا {R2} اعمال می‌شود را تنظیم کنید. اگر اسلایدرهای توقف {L2} یا {R2} را تنظیم کرده باشید، اثر تریگر غیرفعال خواهد شد.\n",
     "joystick_curves": {
       "default": "Default",
       "quick": "Quick",
@@ -254,7 +254,7 @@
       "dynamic": "Dynamic",
       "custom": "Custom"
     },
-    "custom_joystick_curve_tips": "This is an experimental feature. Only DualSense Tester supports editing. Editing on the console will cause the curve to return to its default value.",
+    "custom_joystick_curve_tips": "این یک قابلیت آزمایشی است. تنها گیم پد تستر از ویرایش پشتیبانی می‌کند. انجام ویرایش روی کنسول باعث می‌شود منحنی به مقدار پیش‌فرض خود بازگردد.",
     "left_joystick": "Left Joystick",
     "right_joystick": "Right Joystick",
     "joystick_curves_label": "Sensitivity curve",
