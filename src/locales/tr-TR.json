@@ -29,8 +29,8 @@
     "tips": "DualSense'i bilgisayarınıza <b>USB kablosu</b> yada <b>Bluetooth kullanarak</b> bağlayın, sonra \"Cihaz Ekle\" düğmesine tıklayın.",
     "connect": "Bağlan",
     "disconnect": "Bağlantıyı Kes",
-    "not_connected": "Bağlı eğil",
-    "connected": "Bağlı",
+    "not_connected": "Bağlı değil",
+    "connected": "Bağlandı",
     "seq_num": "Sıra Numarası:",
     "charge_status_label": "Şarj Durumu",
     "battery_level_label": "Pil Seviyesi",
@@ -76,7 +76,7 @@
       "dsp_fw_version": "DSP Yazılım Sürümü",
       "mcu_dsp_fw_version": "MCU DSP Yazılım Sürümü",
       "bt_patch_version": "BT Yama Sürümü",
-      "pcba_id": "PCBA ID",
+      "pcba_id": "PCBA Devre Kartı Kimliği",
       "serial_number": "Seri Numarası",
       "color": "Renk",
       "colors": {
@@ -91,10 +91,10 @@
         "grey_camouflage": "Gri Kamuflaj",
         "volcanic_red": "Volcanic Red",
         "sterling_silver": "Sterling Silver",
-        "cobalt_blue": "Saf Çivit Mavisi",
-        "chroma_teal": "Chroma Teal",
-        "chroma_indigo": "Chroma Indigo",
-        "chroma_pearl": "Chroma Pearl",
+        "cobalt_blue": "Cobalt Blue",
+        "chroma_teal": "Saf Camgöbeği",
+        "chroma_indigo": "Saf Çivit Mavisi",
+        "chroma_pearl": "Saf İnci",
         "30th_anniversary": "30. Yıl Dönümü",
         "god_of_war_ragnarok": "God of War Ragnarok",
         "spider_man_2": "Spider-Man 2",
@@ -105,16 +105,16 @@
       "assemble_parts_info": "Birleştirilmiş Parçalar Bilgisi",
       "battery_barcode": "Batarya Barkodu",
       "vcm_barcode": "VCM Barkodu",
-      "unique_id": "Eşsiz ID",
+      "unique_id": "Eşsiz Kimlik",
       "bd_mac_address": "BD MAC Adresi",
       "at_serial_number": "AT Seri Numarası",
       "at_motor_info": "AT Motor Bilgisi",
-      "individual_data_verify": "Individual Data Verify",
+      "individual_data_verify": "Bireysel Veri Doğrulama",
       "individual_data": {
         "not_supported": "Desteklenmiyor",
         "no_data": "Veri yok",
         "start_error": "Başlangıç hatası",
-        "get_error": "Get error",
+        "get_error": "Hata alındı",
         "successful": "Başarılı",
         "retry_timeout": "Yeniden Deneme Zaman Aşımı",
         "fail": "Başarısız"
@@ -142,13 +142,13 @@
     "yaw": "Sapma (Yaw)",
     "roll": "Dönme (Roll)",
     "model_value": {
-      "on": "Değerleri Göster",
-      "off": "Değerleri Kapa"
+      "on": "Değer görünümü açık",
+      "off": "Değer görünümü kapalı"
     }
   },
   "output_panel": {
     "title": "Çıktı",
-    "mic_mute_led": "Mikrofon Bildirim Işığı",
+    "mic_mute_led": "Mikrofon durum ışığı",
     "mic_mute_led_off": "Kapalı",
     "mic_mute_led_on": "Açık",
     "mic_mute_led_blink": "Yanıp Sönme",
@@ -188,14 +188,14 @@
   "pwa": {
     "title": "Yeni Sürüm Bulundu",
     "dismiss": "Yoksay",
-    "upgrade": "Güncelle",
-    "update_available": "Dualsense Tester'ın yeni bir versiyonu hazır!\nGüncellemeyi tamamlamak için sayfayı yeniden başlatın.",
+    "upgrade": "Yükselt",
+    "update_available": "Dualsense Tester'ın yeni bir sürümü hazır!\nYükseltmeyi tamamlamak için sayfayı yenileyin.",
     "upgrading": "Yeni versiyonun dosyaları indiriliyor...",
     "offline_ready": "Bu uygulama artık çevrimdışı kullanım için önbelleğe alınmıştır."
   },
   "git_version": {
     "title": "Versiyon sürüm bilgisi",
-    "warn_pr": "Bu bir ön izleme sürümüdür. Lütfen dikkatli kullanın çünkü hatalar olabilir.",
+    "warn_pr": "Bu bir çekme isteği ön izleme sürümüdür. Bu uyarıyı dikkate alarak kullanın, hatalarla karşılaşabilirsiniz.",
     "warn_dev": "Bu bir önizleme sürümüdür. Lütfen dikkatli kullanın çünkü hatalar olabilir."
   },
   "time_ago": {
