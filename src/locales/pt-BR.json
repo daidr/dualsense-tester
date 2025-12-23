@@ -59,10 +59,10 @@
       "level8": "80-89%",
       "level9": "90-99%",
       "level10": "100%",
-      "unknown": "Unknown"
+      "unknown": "Desconhecido"
     },
     "factory_info": {
-      "status": "Status",
+      "status": "Estado",
       "status_fake": "Fake",
       "joystick_barcode": "Joystick Barcode",
       "build_time": "Build Time",
@@ -75,12 +75,12 @@
       "main_fw_version": "Main FW Version",
       "dsp_fw_version": "DSP FW Version",
       "mcu_dsp_fw_version": "MCU DSP FW Version",
-      "bt_patch_version": "BT Patch Version",
-      "pcba_id": "PCBA ID",
-      "serial_number": "Serial Number",
-      "color": "Color",
+      "bt_patch_version": "Versão do Patch BT",
+      "pcba_id": "ID da PCBA",
+      "serial_number": "Número de Série",
+      "color": "Cor",
       "colors": {
-        "tips": "Incorrect color detection? {tips_link}",
+        "tips": "Detecção de cor incorreta? {tips_link}",
         "tips_link": "Feedback",
         "white": "White",
         "midnight_black": "Midnight Black",
