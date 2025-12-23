@@ -128,6 +128,14 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
     </tr>
     <tr>
       <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/Valentineu0"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/14830324/medium/154471fb075a0c670463f2ddcc910c3d.jpeg" />
+          <br />
+          <sub><b>Doğukan (Valentineu0)</b></sub></a>
+        <br />
+        <sub><b>133 words</b></sub>
+        <br /><sub><b><code title="Turkish">tr</code></b></sub>
+      </td>
+      <td align="center" valign="top">
         <a href="https://crowdin.com/profile/luan.pivotto94"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/16890461/medium/4a4ace6ea757364b2362b95c3dce9797.png" />
           <br />
           <sub><b>Luan Pivotto (luan.pivotto94)</b></sub></a>
