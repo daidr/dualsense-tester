@@ -142,15 +142,15 @@
     "yaw": "Yaw",
     "roll": "Roll",
     "model_value": {
-      "on": "Exibir valor ativado",
-      "off": "Exibir valor desativado"
+      "on": "Exibição de valor: ativado",
+      "off": "Exibição de valor: desativado"
     }
   },
   "output_panel": {
     "title": "Saída",
     "mic_mute_led": "Luz de status do microfone",
     "mic_mute_led_off": "Desligado",
-    "mic_mute_led_on": "Lig.",
+    "mic_mute_led_on": "Ligado",
     "mic_mute_led_blink": "Piscar",
     "lightbar_color": "Cor da barra de luz",
     "player_led": "Luz do jogador",
@@ -165,13 +165,13 @@
     "left_trigger_mode": "Gatilho esquerdo",
     "right_trigger_mode": "Gatilho direito",
     "trigger_mode": {
-      "off": "Des.",
-      "resistance": "resistência",
+      "off": "Desativado",
+      "resistance": "Resistência",
       "trigger": "Gatilho",
       "auto_trigger": "Gatilho Automático"
     },
     "trigger_values": {
-      "start_pos": "Início",
+      "start_pos": "Inicial",
       "end_pos": "Fim",
       "frequency": "Frequência",
       "force": "Força"
@@ -191,7 +191,7 @@
     "upgrade": "Atualizar",
     "update_available": "Uma nova versão do DualSense Tester está pronta! Recarregue para concluir a atualização.",
     "upgrading": "Obtendo recursos da nova versão...",
-    "offline_ready": "Este aplicativo agora está em cache para uso offline."
+    "offline_ready": "Este site agora está em cache para uso offline."
   },
   "git_version": {
     "title": "Info. de Commit",
