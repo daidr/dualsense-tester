@@ -13,53 +13,53 @@
     "lint:migrate": "bunx --bun @oxlint/migrate ./eslint.config.mjs"
   },
   "dependencies": {
-    "@unocss/reset": "^66.5.5",
-    "@vercel/speed-insights": "^1.2.0",
-    "@vueuse/core": "^14.0.0",
+    "@unocss/reset": "^66.5.10",
+    "@vercel/speed-insights": "^1.3.1",
+    "@vueuse/core": "^14.1.0",
     "consola": "^3.4.2",
     "fancy-controller": "workspace:*",
     "floating-vue": "^5.2.2",
-    "lodash-es": "^4.17.21",
+    "lodash-es": "^4.17.22",
     "motion-v": "^1.7.4",
     "pinia": "^3.0.4",
-    "pixi.js": "^8.14.1",
-    "reka-ui": "^2.6.0",
+    "pixi.js": "^8.14.3",
+    "reka-ui": "^2.7.0",
     "ufo": "^1.6.1",
-    "vue": "^3.5.24",
-    "vue-i18n": "^11.1.12"
+    "vue": "^3.5.26",
+    "vue-i18n": "^11.2.7"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^6.2.0",
+    "@antfu/eslint-config": "^6.7.3",
     "@iconify-json/icon-park-twotone": "^1.2.4",
-    "@iconify-json/mingcute": "^1.2.5",
-    "@intlify/unplugin-vue-i18n": "^11.0.1",
-    "@tsconfig/bun": "^1.0.9",
-    "@types/bun": "^1.3.2",
+    "@iconify-json/mingcute": "^1.2.6",
+    "@intlify/unplugin-vue-i18n": "^11.0.3",
+    "@tsconfig/bun": "^1.0.10",
+    "@types/bun": "^1.3.5",
     "@types/lodash-es": "^4.17.12",
     "@types/umami": "^2.10.1",
     "@types/w3c-web-hid": "^1.0.6",
-    "@unocss/eslint-config": "^66.5.5",
-    "@vitejs/plugin-vue": "^6.0.1",
-    "@vitejs/plugin-vue-jsx": "^5.1.1",
+    "@unocss/eslint-config": "^66.5.10",
+    "@vitejs/plugin-vue": "^6.0.3",
+    "@vitejs/plugin-vue-jsx": "^5.1.3",
     "@vue/tsconfig": "^0.8.1",
-    "eslint": "^9.39.1",
-    "eslint-plugin-oxlint": "^1.26.0",
-    "oxlint": "^1.27.0",
-    "rollup-plugin-bundle-stats": "^4.21.6",
+    "eslint": "^9.39.2",
+    "eslint-plugin-oxlint": "^1.35.0",
+    "oxlint": "^1.35.0",
+    "rollup-plugin-bundle-stats": "^4.21.7",
     "rollup-plugin-webbundle": "^0.2.0",
-    "sass-embedded": "^1.93.3",
+    "sass-embedded": "^1.97.1",
     "simple-git": "^3.30.0",
     "typescript": "5.9.3",
-    "unocss": "^66.5.5",
-    "vite": "npm:rolldown-vite@latest",
-    "vite-plugin-pwa": "^1.1.0",
-    "vite-plugin-vue-devtools": "^8.0.3",
-    "vue-tsc": "3.1.3",
+    "unocss": "^66.5.10",
+    "vite": "^8.0.0-beta.4",
+    "vite-plugin-pwa": "^1.2.0",
+    "vite-plugin-vue-devtools": "^8.0.5",
+    "vue-tsc": "3.2.1",
     "wbn-sign": "^0.2.5",
-    "workbox-routing": "^7.3.0"
+    "workbox-routing": "^7.4.0"
   },
   "overrides": {
-    "vite": "npm:rolldown-vite@latest"
+    "vite": "^8.0.0-beta.4"
   },
   "trustedDependencies": [
     "@swc/core"
@@ -69,7 +69,7 @@
       "packages/*"
     ],
     "catalog": {
-      "@types/bun": "^1.3.2"
+      "@types/bun": "^1.3.5"
     }
   }
 }
