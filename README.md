@@ -102,6 +102,14 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
         <br /><sub><b><code title="Greek">el</code></b></sub>
       </td>
       <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/Emertels"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/14322716/medium/b2ad68402ac45afff3ea3376b03797b8.jpg" />
+          <br />
+          <sub><b>Emertels</b></sub></a>
+        <br />
+        <sub><b>598 words</b></sub>
+        <br /><sub><b><code title="Portuguese, Brazilian">pt-BR</code></b></sub>
+      </td>
+      <td align="center" valign="top">
         <a href="https://crowdin.com/profile/hargabt"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/14426098/medium/8d9f140158ee575545feedd642f44d8e.jpg" />
           <br />
           <sub><b>Robert Galoyan (hargabt)</b></sub></a>
@@ -117,6 +125,8 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
         <sub><b>507 words</b></sub>
         <br /><sub><b><code title="Turkish">tr</code></b></sub>
       </td>
+    </tr>
+    <tr>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/sladkOy"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/13328300/medium/e972a38d081a3ff644c1447dc53aedb8.jpg" />
           <br />
@@ -125,8 +135,6 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
         <sub><b>325 words</b></sub>
         <br /><sub><b><code title="Ukrainian">uk</code></b></sub>
       </td>
-    </tr>
-    <tr>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/Valentineu0"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/14830324/medium/154471fb075a0c670463f2ddcc910c3d.jpeg" />
           <br />
