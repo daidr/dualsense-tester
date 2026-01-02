@@ -18,7 +18,9 @@
     "rename": "تغيير الاسم",
     "remove": "حذف",
     "create": "إنشاء",
-    "refresh": "تحديث"
+    "refresh": "تحديث",
+    "start": "بدء",
+    "stop": "إيقاف"
   },
   "common": {
     "tips": "نصائح",

@@ -18,7 +18,9 @@
     "rename": "Rename",
     "remove": "Remove",
     "create": "Create",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "start": "Start",
+    "stop": "Stopp"
   },
   "common": {
     "tips": "Tips",
@@ -183,7 +185,8 @@
   "audio_panel": {
     "title": "Audio",
     "headphone_1khz_sine_wave_test": "Headphone 1kHz sine wave",
-    "speaker_1khz_sine_wave_test": "Speaker 1kHz sine wave"
+    "speaker_1khz_sine_wave_test": "Speaker 1kHz sine wave",
+    "mic_record_playback": "Mikrofon Aufnahme & Wiedergabe"
   },
   "pwa": {
     "title": "New version detected",

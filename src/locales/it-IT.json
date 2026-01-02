@@ -18,7 +18,9 @@
     "rename": "Rinomina",
     "remove": "Rimuovi",
     "create": "Crea",
-    "refresh": "Aggiorna"
+    "refresh": "Aggiorna",
+    "start": "Avvia",
+    "stop": "Ferma"
   },
   "common": {
     "tips": "Suggerimenti",
@@ -183,7 +185,8 @@
   "audio_panel": {
     "title": "Audio",
     "headphone_1khz_sine_wave_test": "Cuffie onda sinusoidale da 1kHz",
-    "speaker_1khz_sine_wave_test": "Altoparlante onda sinusoidale da 1kHz"
+    "speaker_1khz_sine_wave_test": "Altoparlante onda sinusoidale 1kHz",
+    "mic_record_playback": "Registrazione e riproduzione microfono"
   },
   "pwa": {
     "title": "Nuova versione rilevata",

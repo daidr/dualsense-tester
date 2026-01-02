@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import HoldActiveButton from '@/components/common/HoldActiveButton.vue'
+import RecordButton from '@/components/common/RecordButton.vue'
 import { useDevice } from '@/composables/useInjectValues'
 import { controlWaveOut } from '@/utils/dualsense/ds.util'
 import { sleep } from '@/utils/time.util'
@@ -75,6 +76,16 @@ async function stopSPKWaveout() {
         <td class="value">
           <div>
             <HoldActiveButton @hold="startSPKWaveout" @release="stopSPKWaveout" />
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="label">
+          {{ $t('audio_panel.mic_record_playback') }}
+        </td>
+        <td class="value">
+          <div>
+            <RecordButton />
           </div>
         </td>
       </tr>
