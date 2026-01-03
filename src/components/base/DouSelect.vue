@@ -53,30 +53,30 @@ const open = ref(false)
       <div class="i-mingcute-down-line" />
     </SelectTrigger>
     <SelectPortal to="#teleport-container">
-      <Transition name="trans-fade">
-        <SelectContent v-if="open" :body-lock="true" class="popup-wrapper" :side-offset="5">
-          <SelectScrollUpButton class="scroll-button">
-            <div class="i-mingcute-up-fill" />
-          </SelectScrollUpButton>
+      <!-- <Transition name="trans-fade"> -->
+      <SelectContent v-if="open" class="popup-wrapper" position="popper" :side-offset="5">
+        <SelectScrollUpButton class="scroll-button">
+          <div class="i-mingcute-up-fill" />
+        </SelectScrollUpButton>
 
-          <SelectViewport class="popup-content">
-            <template v-for="option, index of options" :key="option.value">
-              <SelectItem :value="option.value" class="popup-label">
-                <SelectItemText>
-                  <template v-if="!$slots.default">
-                    {{ option.label }}
-                  </template>
-                  <slot v-else :value="option.value" :label="option.label" :extra="option.extra" :index="index" />
-                </SelectItemText>
-              </SelectItem>
-            </template>
-          </SelectViewport>
+        <SelectViewport class="popup-content">
+          <template v-for="option, index of options" :key="option.value">
+            <SelectItem :value="option.value" class="popup-label">
+              <SelectItemText>
+                <template v-if="!$slots.default">
+                  {{ option.label }}
+                </template>
+                <slot v-else :value="option.value" :label="option.label" :extra="option.extra" :index="index" />
+              </SelectItemText>
+            </SelectItem>
+          </template>
+        </SelectViewport>
 
-          <SelectScrollDownButton class="scroll-button">
-            <div class="i-mingcute-down-fill" />
-          </SelectScrollDownButton>
-        </SelectContent>
-      </Transition>
+        <SelectScrollDownButton class="scroll-button">
+          <div class="i-mingcute-down-fill" />
+        </SelectScrollDownButton>
+      </SelectContent>
+      <!-- </Transition> -->
     </SelectPortal>
   </SelectRoot>
 </template>

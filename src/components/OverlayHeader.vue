@@ -12,8 +12,8 @@ import LangSwitcher from './LangSwitcher.vue'
           <h1>{{ $t('application.name') }}</h1>
           <DarkModeSwitch class="no-drag" />
         </div>
-        <div class="tools-wrapper">
-          <LangSwitcher class="no-drag" />
+        <div class="tools-wrapper no-drag">
+          <LangSwitcher />
         </div>
       </div>
     </header>
