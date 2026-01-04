@@ -36,7 +36,7 @@
     "battery_level_label": "Nível da Bateria",
     "headphone_status_label": "Fone de Ouvido",
     "microphone_status_label": "Microfone",
-    "factory_info_title": "Info. de Fábrica",
+    "factory_info_title": "Informações de Fábrica",
     "add_device": "Adicionar Dispositivo",
     "charge_status": {
       "discharging": "Não está carregando",
@@ -66,11 +66,11 @@
       "status_fake": "Falso",
       "joystick_barcode": "Código de Barras do Analógico",
       "build_time": "Hora da Compilação",
-      "hw_info": "Info. de HW",
+      "hw_info": "Info. de Hardware",
       "device_info": "Info. do Dispositivo",
       "fw_type": "Tipo de FW",
       "sw_series": "Série do SW",
-      "update_version": "Versão de Atualização",
+      "update_version": "Versão da Atualização",
       "sbl_fw_version": "Versão do FW SBL",
       "main_fw_version": "Versão Principal do FW",
       "dsp_fw_version": "Versão do FW DSP",
@@ -82,7 +82,7 @@
       "colors": {
         "tips": "Detecção de cor incorreta? {tips_link}",
         "tips_link": "Sugestão",
-        "white": "Branco",
+        "white": "White",
         "midnight_black": "Midnight Black",
         "cosmic_red": "Cosmic Red",
         "nova_pink": "Nova Pink",
@@ -172,7 +172,7 @@
     },
     "trigger_values": {
       "start_pos": "Inicial",
-      "end_pos": "Fim",
+      "end_pos": "Final",
       "frequency": "Frequência",
       "force": "Força"
     },
@@ -194,7 +194,7 @@
     "offline_ready": "Este site agora está em cache para uso offline."
   },
   "git_version": {
-    "title": "Info. de Commit",
+    "title": "Informações de Commit",
     "warn_pr": "Esta é uma versão de prévia de um PR. Use com cautela, pois pode haver problemas.",
     "warn_dev": "Esta é uma versão de prévia do ramo de desenvolvimento. Use com cautela, pois pode haver problemas."
   },
