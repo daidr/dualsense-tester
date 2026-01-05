@@ -102,14 +102,14 @@
         "fortnite": "Fortnite",
         "the_last_of_us": "The Last of Us"
       },
-      "assemble_parts_info": "Assemble Parts Info",
+      "assemble_parts_info": "Assembla Info Parti",
       "battery_barcode": "Barcode Batteria",
       "vcm_barcode": "Barcode VCM",
       "unique_id": "ID Univoco",
       "bd_mac_address": "BD MAC Address",
       "at_serial_number": "Numero di Serie AT",
       "at_motor_info": "Informazione Motore AT",
-      "individual_data_verify": "Individual Data Verify",
+      "individual_data_verify": "Verifica Dati Individuali",
       "individual_data": {
         "not_supported": "Non supportato",
         "no_data": "Nessun dato",
@@ -208,7 +208,7 @@
     "n_months": "1 mese | {num} mesi",
     "n_years": "1 anno | {num} anni",
     "ago": "{time_string} fa",
-    "future": "in {time_string}",
+    "future": "tra {time_string}",
     "yesterday": "Ieri",
     "tomorrow": "Domani",
     "last_week": "La settimana scorsa",
@@ -227,7 +227,7 @@
     "trigger_deadzone_label": "Deadzone del Trigger",
     "trigger_deadzone": {
       "use_unified_tips": "Applica gli stessi parametri per {L2} e {R2}",
-      "input_range": "{key} Input Range",
+      "input_range": "{key} Intervallo Input",
       "range_from": "Da",
       "range_to": "A",
       "limit_tip": "L'effetto trigger per {key} potrebbe non funzionare correttamente perché l'intervallo di input è limitato.",
@@ -261,6 +261,6 @@
     "joystick_curves_adjust_label": "Regolazione curva",
     "joystick_deadzone_adjust_label": "Regolazione deadzone",
     "joystick_preview_raw_input": "Dati Grezzi",
-    "joystick_preview_mapped_input": "Mapped Input"
+    "joystick_preview_mapped_input": "Input Mappato"
   }
 }
