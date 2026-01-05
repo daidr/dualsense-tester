@@ -147,7 +147,7 @@
     }
   },
   "output_panel": {
-    "title": "Saída",
+    "title": "Interação",
     "mic_mute_led": "Luz de status do microfone",
     "mic_mute_led_off": "Desligado",
     "mic_mute_led_on": "Ligado",
