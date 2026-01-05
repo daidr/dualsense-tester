@@ -227,7 +227,7 @@
     "trigger_deadzone_label": "Deadzone del Trigger",
     "trigger_deadzone": {
       "use_unified_tips": "Applica gli stessi parametri per {L2} e {R2}",
-      "input_range": "{key} Input Range",
+      "input_range": "{key} Intervallo Input",
       "range_from": "Da",
       "range_to": "A",
       "limit_tip": "L'effetto trigger per {key} potrebbe non funzionare correttamente perché l'intervallo di input è limitato.",
@@ -261,6 +261,6 @@
     "joystick_curves_adjust_label": "Regolazione curva",
     "joystick_deadzone_adjust_label": "Regolazione deadzone",
     "joystick_preview_raw_input": "Dati Grezzi",
-    "joystick_preview_mapped_input": "Mapped Input"
+    "joystick_preview_mapped_input": "Input Mappato"
   }
 }
