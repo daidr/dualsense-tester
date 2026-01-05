@@ -18,7 +18,9 @@
     "rename": "重命名",
     "remove": "移除",
     "create": "创建",
-    "refresh": "刷新"
+    "refresh": "刷新",
+    "start": "开始",
+    "stop": "停止"
   },
   "common": {
     "tips": "提示",
@@ -183,7 +185,8 @@
   "audio_panel": {
     "title": "音频",
     "headphone_1khz_sine_wave_test": "耳机 1kHz 正弦波",
-    "speaker_1khz_sine_wave_test": "扬声器 1kHz 正弦波"
+    "speaker_1khz_sine_wave_test": "扬声器 1kHz 正弦波测试",
+    "mic_record_playback": "麦克风录制和播放"
   },
   "pwa": {
     "title": "检测到新版本",

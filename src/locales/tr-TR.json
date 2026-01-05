@@ -18,7 +18,9 @@
     "rename": "Yeniden adlandır",
     "remove": "Kaldır",
     "create": "Oluştur",
-    "refresh": "Yenile"
+    "refresh": "Yenile",
+    "start": "Başlat",
+    "stop": "Durdur"
   },
   "common": {
     "tips": "İpuçları",
@@ -183,7 +185,8 @@
   "audio_panel": {
     "title": "Ses",
     "headphone_1khz_sine_wave_test": "Kulaklık 1kHz sinüs dalgası",
-    "speaker_1khz_sine_wave_test": "Hoparlör 1kHz sinüs dalgası"
+    "speaker_1khz_sine_wave_test": "Hoparlör 1kHz sinüs dalgası",
+    "mic_record_playback": "Mikrofon kaydı ve oynatma"
   },
   "pwa": {
     "title": "Yeni Sürüm Bulundu",

@@ -183,7 +183,8 @@
   "audio_panel": {
     "title": "صدا",
     "headphone_1khz_sine_wave_test": "موج سینوسی 1kHz هدفون",
-    "speaker_1khz_sine_wave_test": "موج سینوسی 1kHz اسپیکر"
+    "speaker_1khz_sine_wave_test": "موج سینوسی 1kHz اسپیکر",
+    "mic_record_playback": "ضبط و پخش میکروفون"
   },
   "pwa": {
     "title": "نسخه جدید شناسایی شد",
