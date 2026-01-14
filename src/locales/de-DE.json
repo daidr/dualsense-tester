@@ -21,7 +21,7 @@
     "refresh": "Refresh"
   },
   "common": {
-    "tips": "Tips",
+    "tips": "Tipps",
     "not_support_title": "Your browser does not support WebHID",
     "not_support_content": "Try to use the latest version of Google Chrome or Microsoft Edge"
   },
@@ -57,7 +57,7 @@
       "level6": "60-69%",
       "level7": "70-79%",
       "level8": "80-89%",
-      "level9": "90-99%",
+      "level9": "90-99 %",
       "level10": "100%",
       "unknown": "Unknown"
     },
@@ -119,7 +119,7 @@
         "retry_timeout": "Retry timeout",
         "fail": "Fail"
       },
-      "board_version": "Board Version"
+      "board_version": "Boardversion"
     }
   },
   "profile_panel": {
