@@ -21,7 +21,7 @@
     "refresh": "Refresh"
   },
   "common": {
-    "tips": "Tips",
+    "tips": "Tipps",
     "not_support_title": "Your browser does not support WebHID",
     "not_support_content": "Try to use the latest version of Google Chrome or Microsoft Edge"
   },
@@ -29,14 +29,14 @@
     "tips": "Connect the DualSense to your computer using either a <b>USB cable</b> or <b>Bluetooth</b>, then click the \"Add Device\" button above.",
     "connect": "Connect",
     "disconnect": "Disconnect",
-    "not_connected": "Not connected",
+    "not_connected": "Nicht verbunden",
     "connected": "Connected",
     "seq_num": "Sequence No.",
     "charge_status_label": "Charge Status",
     "battery_level_label": "Battery Level",
     "headphone_status_label": "Headphone",
     "microphone_status_label": "Microphone",
-    "factory_info_title": "Factory Info",
+    "factory_info_title": "Werksinfo",
     "add_device": "Add Device",
     "charge_status": {
       "discharging": "Not charging",
@@ -57,7 +57,7 @@
       "level6": "60-69%",
       "level7": "70-79%",
       "level8": "80-89%",
-      "level9": "90-99%",
+      "level9": "90-99 %",
       "level10": "100%",
       "unknown": "Unknown"
     },
@@ -115,11 +115,11 @@
         "no_data": "No data",
         "start_error": "Start error",
         "get_error": "Get error",
-        "successful": "Successful",
+        "successful": "Erfolgreich",
         "retry_timeout": "Retry timeout",
         "fail": "Fail"
       },
-      "board_version": "Board Version"
+      "board_version": "Boardversion"
     }
   },
   "profile_panel": {
@@ -138,22 +138,22 @@
     "title_buttons": "Basic Buttons",
     "title_accelerometer": "Accelerometer",
     "title_gyroscope": "Gyroscope",
-    "pitch": "Pitch",
-    "yaw": "Yaw",
-    "roll": "Roll",
+    "pitch": "Neigung",
+    "yaw": "Gier",
+    "roll": "Rollwinkel",
     "model_value": {
-      "on": "Value display on",
-      "off": "Value display off"
+      "on": "Wertanzeige an",
+      "off": "Wertanzeige aus"
     }
   },
   "output_panel": {
-    "title": "Output",
-    "mic_mute_led": "Mic status light",
-    "mic_mute_led_off": "Off",
+    "title": "Ausgang",
+    "mic_mute_led": "Mikrostatus Licht",
+    "mic_mute_led_off": "Aus",
     "mic_mute_led_on": "On",
     "mic_mute_led_blink": "Blink",
     "lightbar_color": "Lightbar color",
-    "player_led": "Player light",
+    "player_led": "Player-Licht",
     "player_led_brightness": "Brightness",
     "player_led_brightness_high": "High",
     "player_led_brightness_medium": "Medium",
@@ -176,8 +176,8 @@
       "frequency": "Frequency",
       "force": "Force"
     },
-    "headphone_volume": "Headphone volume",
-    "speaker_volume": "Speaker volume",
+    "headphone_volume": "Kopfhörer Lautstärke",
+    "speaker_volume": "Lautsprecher Lautstärke",
     "haptic_volume": "Haptic volume"
   },
   "audio_panel": {
@@ -243,7 +243,7 @@
       "medium": "Medium",
       "strong": "Strong (Default)"
     },
-    "trigger_effect_intensity_label": "Trigger Effect Intensity",
+    "trigger_effect_intensity_label": "Trigger-Effekt Stärke",
     "trigger_effect_intensity_desc": "Set the level of force that's applied when pressing {L2} or {R2}. If you've adjusted the {L2} or {R2} stop sliders, the trigger effect will turn off.",
     "joystick_curves": {
       "default": "Default",
@@ -254,13 +254,13 @@
       "dynamic": "Dynamic",
       "custom": "Custom"
     },
-    "custom_joystick_curve_tips": "This is an experimental feature. Only DualSense Tester supports editing. Editing on the console will cause the curve to return to its default value.",
+    "custom_joystick_curve_tips": "Dies ist eine experimentelle Funktion. Nur DualSense Tester unterstützt die Bearbeitung. Das Bearbeiten der Konsole wird dazu führen, dass die Kurve zu ihrem Standardwert zurückkehrt.",
     "left_joystick": "Left Joystick",
     "right_joystick": "Right Joystick",
     "joystick_curves_label": "Sensitivity curve",
     "joystick_curves_adjust_label": "Curve adjustment",
     "joystick_deadzone_adjust_label": "Deadzone adjustment",
     "joystick_preview_raw_input": "Raw Input",
-    "joystick_preview_mapped_input": "Mapped Input"
+    "joystick_preview_mapped_input": "Belegte Eingabe"
   }
 }
