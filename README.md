@@ -66,8 +66,8 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
           <br />
           <sub><b>戴兜 (daidr)</b></sub></a>
         <br />
-        <sub><b>2473 words</b></sub>
-        <br /><sub><b><code title="Arabic">ar</code></b>, <b><code title="Arabic, Egypt">ar-EG</code></b>, <b><code title="Chinese Simplified">zh-CN</code></b>, <b><code title="Italian">it</code></b>, <b><code title="Persian">fa</code></b>, <b><code title="Russian">ru</code></b>, <b><code title="Ukrainian">uk</code></b></sub>
+        <sub><b>2969 words</b></sub>
+        <br /><sub><b><code title="Arabic">ar</code></b>, <b><code title="Arabic, Egypt">ar-EG</code></b>, <b><code title="Chinese Simplified">zh-CN</code></b>, <b><code title="German">de</code></b>, <b><code title="Italian">it</code></b>, <b><code title="Persian">fa</code></b>, <b><code title="Russian">ru</code></b>, <b><code title="Ukrainian">uk</code></b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/aelshinawy"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/16875609/medium/8a3b3e62494f39b1bb0e5e6b3ed2693b.png" />
