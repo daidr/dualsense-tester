@@ -144,6 +144,14 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
         <br /><sub><b><code title="Turkish">tr</code></b></sub>
       </td>
       <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/n.gert.2211"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17531788/medium/f4dcc3f3a11388ef7c39ec8ffa09ed48.png" />
+          <br />
+          <sub><b>Nikita Gert (n.gert.2211)</b></sub></a>
+        <br />
+        <sub><b>62 words</b></sub>
+        <br /><sub><b><code title="German">de</code></b></sub>
+      </td>
+      <td align="center" valign="top">
         <a href="https://crowdin.com/profile/luan.pivotto94"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/16890461/medium/4a4ace6ea757364b2362b95c3dce9797.png" />
           <br />
           <sub><b>Luan Pivotto (luan.pivotto94)</b></sub></a>
