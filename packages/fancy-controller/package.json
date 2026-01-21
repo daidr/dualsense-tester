@@ -14,7 +14,7 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@iconify/tools": "^4.2.0"
+    "@iconify/tools": "^5.0.2"
   },
   "devDependencies": {
     "@types/bun": "catalog:"

@@ -13,9 +13,7 @@
     "builtin": true,
     "es2026": true,
     "browser": true,
-    "commonjs": true,
-    "node": true,
-    "shared-node-browser": true
+    "node": true
   },
   "ignorePatterns": [
     "**/logs",
@@ -96,8 +94,16 @@
     "watchEffect": "readonly"
   },
   "rules": {
+    "accessor-pairs": [
+      "error",
+      {
+        "enforceForClassMembers": true,
+        "setWithoutGet": true
+      }
+    ],
     "array-callback-return": "error",
     "block-scoped-var": "error",
+    "constructor-super": "error",
     "default-case-last": "error",
     "eqeqeq": [
       "error",
@@ -144,7 +150,6 @@
         "allowEmptyCatch": true
       }
     ],
-    "no-empty-character-class": "off",
     "no-empty-pattern": "error",
     "no-eval": "error",
     "no-ex-assign": "error",
@@ -155,7 +160,6 @@
     "no-func-assign": "error",
     "no-global-assign": "error",
     "no-import-assign": "error",
-    "no-invalid-regexp": "off",
     "no-irregular-whitespace": "error",
     "no-iterator": "error",
     "no-labels": [
@@ -165,7 +169,6 @@
         "allowSwitch": false
       }
     ],
-    "no-lone-blocks": "off",
     "no-loss-of-precision": "error",
     "no-multi-str": "error",
     "no-new": "error",
@@ -200,6 +203,7 @@
       }
     ],
     "no-self-compare": "error",
+    "no-sequences": "error",
     "no-shadow-restricted-names": "error",
     "no-sparse-arrays": "error",
     "no-template-curly-in-string": "error",
@@ -231,12 +235,12 @@
         "vars": "all"
       }
     ],
-    "no-useless-backreference": "off",
     "no-useless-call": "error",
     "no-useless-catch": "error",
     "no-useless-computed-key": "error",
     "no-useless-constructor": "error",
     "no-useless-rename": "error",
+    "no-useless-return": "error",
     "no-var": "error",
     "no-with": "error",
     "prefer-exponentiation-operator": "error",
@@ -311,6 +315,7 @@
         "**/*.vue"
       ],
       "rules": {
+        "constructor-super": "off",
         "no-class-assign": "off",
         "no-const-assign": "off",
         "no-dupe-keys": "off",
@@ -383,7 +388,14 @@
           }
         ],
         "@typescript-eslint/no-import-type-side-effects": "error"
-      },
+      }
+    },
+    {
+      "files": [
+        "**/*.?([cm])ts",
+        "**/*.?([cm])tsx",
+        "**/*.vue"
+      ],
       "plugins": [
         "typescript"
       ]
@@ -421,7 +433,10 @@
         "**/*.vue"
       ],
       "rules": {
+        "vue/no-arrow-functions-in-watch": "error",
+        "vue/no-deprecated-destroyed-lifecycle": "error",
         "vue/no-export-in-script-setup": "error",
+        "vue/no-lifecycle-after-await": "error",
         "vue/prefer-import-from-vue": "error",
         "vue/valid-define-emits": "error",
         "vue/valid-define-props": "error",
