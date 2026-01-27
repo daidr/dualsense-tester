@@ -8,6 +8,7 @@ For DualSense Edge, you can customize profiles in the browser using this tool.
 
 ## Features
 
+* Read controller factory information
 * Test all buttons and axes
 * Test the touchpad
 * Test the gyroscope and accelerometer
@@ -19,7 +20,7 @@ For DualSense Edge, you can customize profiles in the browser using this tool.
 * DualShock 4 Support
 * DualSense Edge Full Support
 * DualSense Edge Profile Customization
-* **TODO**: DualSense Edge button remapping (2025Q3)
+* **TODO**: DualSense Edge button remapping
 
 ## Project Setup
 
