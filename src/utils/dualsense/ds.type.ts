@@ -437,4 +437,6 @@ export const DualSenseColorMap: Record<string, string> = {
   'Z3': 'astro_bot',
   'Z4': 'fortnite',
   'Z6': 'the_last_of_us',
+  'ZB': 'icon_blue_limited_edition',
+  'ZE': 'genshin_impact',
 }
