@@ -67,7 +67,7 @@
       "joystick_barcode": "Código de Barras do Analógico",
       "build_time": "Hora da Compilação",
       "hw_info": "Informações de Hardware",
-      "device_info": "Informação do Dispositivo",
+      "device_info": "Informações do Dispositivo",
       "fw_type": "Tipo de FW",
       "sw_series": "Série do SW",
       "update_version": "Versão da Atualização",
@@ -101,7 +101,7 @@
         "astro_bot": "Astro Bot",
         "fortnite": "Fortnite",
         "the_last_of_us": "The Last of Us",
-        "icon_blue_limited_edition": "Icon Blue Limited Edition",
+        "icon_blue_limited_edition": "Icon Blue - Edição Limitada",
         "genshin_impact": "Genshin Impact"
       },
       "assemble_parts_info": "Informações das Peças de Montagem",
