@@ -67,7 +67,7 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
           <br />
           <sub><b>戴兜 (daidr)</b></sub></a>
         <br />
-        <sub><b>2969 words</b></sub>
+        <sub><b>2975 words</b></sub>
         <br /><sub><b><code title="Arabic">ar</code></b>, <b><code title="Arabic, Egypt">ar-EG</code></b>, <b><code title="Chinese Simplified">zh-CN</code></b>, <b><code title="German">de</code></b>, <b><code title="Italian">it</code></b>, <b><code title="Persian">fa</code></b>, <b><code title="Russian">ru</code></b>, <b><code title="Ukrainian">uk</code></b></sub>
       </td>
       <td align="center" valign="top">
@@ -83,7 +83,7 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
           <br />
           <sub><b>Mamad Safari (ironB0SS)</b></sub></a>
         <br />
-        <sub><b>623 words</b></sub>
+        <sub><b>629 words</b></sub>
         <br /><sub><b><code title="Persian">fa</code></b></sub>
       </td>
       <td align="center" valign="top">
@@ -91,7 +91,7 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
           <br />
           <sub><b>Emertels</b></sub></a>
         <br />
-        <sub><b>612 words</b></sub>
+        <sub><b>618 words</b></sub>
         <br /><sub><b><code title="Italian">it</code></b>, <b><code title="Portuguese, Brazilian">pt-BR</code></b></sub>
       </td>
       <td align="center" valign="top">
@@ -115,7 +115,7 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
           <br />
           <sub><b>Robert Galoyan (hargabt)</b></sub></a>
         <br />
-        <sub><b>521 words</b></sub>
+        <sub><b>527 words</b></sub>
         <br /><sub><b><code title="Russian">ru</code></b></sub>
       </td>
       <td align="center" valign="top">
