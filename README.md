@@ -169,6 +169,14 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
         <br /><sub><b><code title="Arabic">ar</code></b></sub>
       </td>
       <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/sinnss"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17588754/medium/491678b431f97b13dafaeb2035ef0b46.png" />
+          <br />
+          <sub><b>sinnss</b></sub></a>
+        <br />
+        <sub><b>6 words</b></sub>
+        <br /><sub><b><code title="Turkish">tr</code></b></sub>
+      </td>
+      <td align="center" valign="top">
         <a href="https://crowdin.com/profile/bipboo"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17306770/medium/9e691eced760d4aa6ccb91ca64bc19c7.jpeg" />
           <br />
           <sub><b>ilkay norvig (sentinel) (bipboo)</b></sub></a>
