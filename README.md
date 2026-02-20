@@ -99,7 +99,7 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
           <br />
           <sub><b>Jacksoft87</b></sub></a>
         <br />
-        <sub><b>608 words</b></sub>
+        <sub><b>614 words</b></sub>
         <br /><sub><b><code title="Italian">it</code></b></sub>
       </td>
       <td align="center" valign="top">
@@ -115,7 +115,7 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
           <br />
           <sub><b>Robert Galoyan (hargabt)</b></sub></a>
         <br />
-        <sub><b>527 words</b></sub>
+        <sub><b>565 words</b></sub>
         <br /><sub><b><code title="Russian">ru</code></b></sub>
       </td>
       <td align="center" valign="top">
