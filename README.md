@@ -115,7 +115,7 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
           <br />
           <sub><b>ΒΑΣΙΛΕΙΟΣ Γ.Π. (fasoylada)</b></sub></a>
         <br />
-        <sub><b>598 words</b></sub>
+        <sub><b>604 words</b></sub>
         <br /><sub><b><code title="Greek">el</code></b></sub>
       </td>
       <td align="center" valign="top">
