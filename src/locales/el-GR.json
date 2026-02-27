@@ -101,7 +101,7 @@
         "astro_bot": "Astro Bot",
         "fortnite": "Fortnite",
         "the_last_of_us": "The Last of Us",
-        "icon_blue_limited_edition": "Icon Blue Limited Edition",
+        "icon_blue_limited_edition": "Μπλε Εικονίδιο Περιορισμένης Έκδοσης",
         "genshin_impact": "Genshin Impact"
       },
       "assemble_parts_info": "Πληροφορίες Συναρμολόγησης Εξαρτημάτων",
@@ -168,7 +168,7 @@
     "right_trigger_mode": "Δεξιά σκανδάλη",
     "trigger_mode": {
       "off": "Κλειστό",
-      "resistance": "αντίσταση",
+      "resistance": "Αντίσταση",
       "trigger": "Σκανδάλη",
       "auto_trigger": "Αυτόματη Σκανδάλη"
     },
