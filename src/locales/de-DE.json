@@ -18,7 +18,8 @@
     "rename": "Umbenennen",
     "remove": "Entfernen",
     "create": "Erstellen",
-    "refresh": "Aktualisieren"
+    "refresh": "Aktualisieren",
+    "stop": "Stopp"
   },
   "common": {
     "tips": "Tipps",
@@ -185,7 +186,8 @@
   "audio_panel": {
     "title": "Audio",
     "headphone_1khz_sine_wave_test": "Kopfhörer 1kHz Sinuswelle",
-    "speaker_1khz_sine_wave_test": "Lautsprecher 1kHz Sinuswelle"
+    "speaker_1khz_sine_wave_test": "Lautsprecher 1kHz Sinuswelle",
+    "mic_record_playback": "Mikrofon Aufnahme & Wiedergabe"
   },
   "pwa": {
     "title": "Neue Version erkannt",

@@ -1,12 +1,18 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import HoldActiveButton from '@/components/common/HoldActiveButton.vue'
-import { useDevice } from '@/composables/useInjectValues'
+import MicTester from '@/components/common/MicTester.vue'
+import { useConnectionType, useDevice } from '@/composables/useInjectValues'
+import { DeviceConnectionType } from '@/device-based-router/shared'
 import { controlWaveOut } from '@/utils/dualsense/ds.util'
 import { sleep } from '@/utils/time.util'
 import { useEventBusEmit } from '../_utils/eventbus.util'
 
 const device = useDevice()
+const connectionType = useConnectionType()
 const eventBusEmit = useEventBusEmit()
+
+const isMicTestable = computed(() => connectionType.value === DeviceConnectionType.USB)
 
 let hpResolver: () => void
 let spkResolver: () => void
@@ -56,33 +62,46 @@ async function stopSPKWaveout() {
 </script>
 
 <template>
-  <table>
-    <tbody>
-      <tr>
-        <td class="label">
-          {{ $t('audio_panel.headphone_1khz_sine_wave_test') }}
-        </td>
-        <td class="value">
-          <div>
-            <HoldActiveButton @hold="startHPWaveout" @release="stopHPWaveout" />
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td class="label">
-          {{ $t('audio_panel.speaker_1khz_sine_wave_test') }}
-        </td>
-        <td class="value">
-          <div>
-            <HoldActiveButton @hold="startSPKWaveout" @release="stopSPKWaveout" />
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="audio-control">
+    <table>
+      <tbody>
+        <tr>
+          <td class="label">
+            {{ $t('audio_panel.headphone_1khz_sine_wave_test') }}
+          </td>
+          <td class="value">
+            <div>
+              <HoldActiveButton @hold="startHPWaveout" @release="stopHPWaveout" />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="label">
+            {{ $t('audio_panel.speaker_1khz_sine_wave_test') }}
+          </td>
+          <td class="value">
+            <div>
+              <HoldActiveButton @hold="startSPKWaveout" @release="stopSPKWaveout" />
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="mic-section">
+      <MicTester :device-name="device.deviceName" :available="isMicTestable" />
+    </div>
+  </div>
 </template>
 
 <style scoped lang="scss">
+.audio-control {
+    @apply flex flex-col gap-3 w-full min-w-0;
+}
+
+.mic-section {
+    @apply pt-3 border-t border-gray-3 dark-border-gray-6;
+}
+
 table {
     @apply w-full;
 }
