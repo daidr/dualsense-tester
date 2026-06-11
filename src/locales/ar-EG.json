@@ -19,7 +19,9 @@
     "remove": "حذف",
     "create": "إنشاء",
     "refresh": "تحديث",
-    "stop": "إيقاف"
+    "stop": "إيقاف",
+    "play": "Play",
+    "pause": "Pause"
   },
   "common": {
     "tips": "نصائح",
@@ -186,7 +188,14 @@
   "audio_panel": {
     "title": "الصوت",
     "headphone_1khz_sine_wave_test": "موجة بتردد 1 كيلو هرتز لسماعات الرأس",
-    "speaker_1khz_sine_wave_test": "موجة بتردد 1 كيلو هرتز للسماعة"
+    "speaker_1khz_sine_wave_test": "موجة بتردد 1 كيلو هرتز للسماعة",
+    "mic_record_playback": "Mic Record & Playback",
+    "mic_record_error": "Microphone recording failed. Please check permissions and try again.",
+    "mic_usb_only": "Controller mic is only testable over a USB connection.",
+    "mic_device_not_found": "Couldn't find the controller's microphone. Make sure it's connected via USB.",
+    "mic_record": "Record",
+    "mic_level": "Level",
+    "mic_volume": "Volume"
   },
   "pwa": {
     "title": "يوجد إصدار جديد",
