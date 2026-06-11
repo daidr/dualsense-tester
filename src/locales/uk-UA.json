@@ -19,7 +19,9 @@
     "remove": "Видалити",
     "create": "Створити",
     "refresh": "Оновити",
-    "stop": "Стоп"
+    "stop": "Стоп",
+    "play": "Play",
+    "pause": "Pause"
   },
   "common": {
     "tips": "Поради",
@@ -186,7 +188,14 @@
   "audio_panel": {
     "title": "Аудіо",
     "headphone_1khz_sine_wave_test": "1 кГц синусоїда в навушниках",
-    "speaker_1khz_sine_wave_test": "1 кГц синусоїда у динаміку"
+    "speaker_1khz_sine_wave_test": "1 кГц синусоїда у динаміку",
+    "mic_record_playback": "Mic Record & Playback",
+    "mic_record_error": "Microphone recording failed. Please check permissions and try again.",
+    "mic_usb_only": "Controller mic is only testable over a USB connection.",
+    "mic_device_not_found": "Couldn't find the controller's microphone. Make sure it's connected via USB.",
+    "mic_record": "Record",
+    "mic_level": "Level",
+    "mic_volume": "Volume"
   },
   "pwa": {
     "title": "Виявлено нову версію",
