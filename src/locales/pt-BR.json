@@ -65,7 +65,7 @@
       "status": "Estado",
       "status_fake": "Falso",
       "joystick_barcode": "Código de Barras do Analógico",
-      "build_time": "Hora da Compilação",
+      "build_time": "Data de Compilação",
       "hw_info": "Informações de Hardware",
       "device_info": "Informações do Dispositivo",
       "fw_type": "Tipo de FW",
@@ -104,7 +104,7 @@
         "icon_blue_limited_edition": "Icon Blue - Edição Limitada",
         "genshin_impact": "Genshin Impact"
       },
-      "assemble_parts_info": "Informações das Peças de Montagem",
+      "assemble_parts_info": "Informações de Peças de Montagem",
       "battery_barcode": "Código de Barras da Bateria",
       "vcm_barcode": "Código de Barras do VCM",
       "unique_id": "ID Exclusivo",
