@@ -19,7 +19,9 @@
     "remove": "移除",
     "create": "创建",
     "refresh": "刷新",
-    "stop": "停止"
+    "stop": "停止",
+    "play": "Play",
+    "pause": "Pause"
   },
   "common": {
     "tips": "提示",
@@ -187,7 +189,13 @@
     "title": "音频",
     "headphone_1khz_sine_wave_test": "耳机 1kHz 正弦波",
     "speaker_1khz_sine_wave_test": "扬声器 1kHz 正弦波",
-    "mic_record_playback": "麦克风录制和播放"
+    "mic_record_playback": "麦克风录制和播放",
+    "mic_record_error": "Microphone recording failed. Please check permissions and try again.",
+    "mic_usb_only": "Controller mic is only testable over a USB connection.",
+    "mic_device_not_found": "Couldn't find the controller's microphone. Make sure it's connected via USB.",
+    "mic_record": "Record",
+    "mic_level": "Level",
+    "mic_volume": "Volume"
   },
   "pwa": {
     "title": "检测到新版本",
