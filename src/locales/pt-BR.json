@@ -18,7 +18,8 @@
     "rename": "Renomear",
     "remove": "Remover",
     "create": "Criar",
-    "refresh": "Atualizar"
+    "refresh": "Atualizar",
+    "stop": "Parar"
   },
   "common": {
     "tips": "Dicas",

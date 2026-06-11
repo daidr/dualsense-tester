@@ -18,7 +18,8 @@
     "rename": "Renommer",
     "remove": "Supprimer",
     "create": "Créer",
-    "refresh": "Actualiser"
+    "refresh": "Actualiser",
+    "stop": "Arrêter"
   },
   "common": {
     "tips": "Conseils",
@@ -185,7 +186,8 @@
   "audio_panel": {
     "title": "Audio",
     "headphone_1khz_sine_wave_test": "Casque – onde sinusoïdale 1 kHz",
-    "speaker_1khz_sine_wave_test": "Haut-parleur – onde sinusoïdale 1 kHz"
+    "speaker_1khz_sine_wave_test": "Haut-parleur – onde sinusoïdale 1 kHz",
+    "mic_record_playback": "Enregistrement et lecture du micro"
   },
   "pwa": {
     "title": "Nouvelle version détectée",
