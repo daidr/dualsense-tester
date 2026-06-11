@@ -19,7 +19,9 @@
     "remove": "Supprimer",
     "create": "Créer",
     "refresh": "Actualiser",
-    "stop": "Arrêter"
+    "stop": "Arrêter",
+    "play": "Play",
+    "pause": "Pause"
   },
   "common": {
     "tips": "Conseils",
@@ -187,7 +189,13 @@
     "title": "Audio",
     "headphone_1khz_sine_wave_test": "Casque – onde sinusoïdale 1 kHz",
     "speaker_1khz_sine_wave_test": "Haut-parleur – onde sinusoïdale 1 kHz",
-    "mic_record_playback": "Enregistrement et lecture du micro"
+    "mic_record_playback": "Enregistrement et lecture du micro",
+    "mic_record_error": "Microphone recording failed. Please check permissions and try again.",
+    "mic_usb_only": "Controller mic is only testable over a USB connection.",
+    "mic_device_not_found": "Couldn't find the controller's microphone. Make sure it's connected via USB.",
+    "mic_record": "Record",
+    "mic_level": "Level",
+    "mic_volume": "Volume"
   },
   "pwa": {
     "title": "Nouvelle version détectée",
