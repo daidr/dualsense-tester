@@ -18,7 +18,10 @@
     "rename": "تغییرنام",
     "remove": "حذف",
     "create": "ایجاد",
-    "refresh": "تازه‌سازی"
+    "refresh": "تازه‌سازی",
+    "stop": "Stop",
+    "play": "Play",
+    "pause": "Pause"
   },
   "common": {
     "tips": "راهنمایی",
@@ -186,7 +189,13 @@
     "title": "صدا",
     "headphone_1khz_sine_wave_test": "موج سینوسی 1kHz هدفون",
     "speaker_1khz_sine_wave_test": "موج سینوسی 1kHz اسپیکر",
-    "mic_record_playback": "ضبط و پخش میکروفون"
+    "mic_record_playback": "ضبط و پخش میکروفون",
+    "mic_record_error": "Microphone recording failed. Please check permissions and try again.",
+    "mic_usb_only": "Controller mic is only testable over a USB connection.",
+    "mic_device_not_found": "Couldn't find the controller's microphone. Make sure it's connected via USB.",
+    "mic_record": "Record",
+    "mic_level": "Level",
+    "mic_volume": "Volume"
   },
   "pwa": {
     "title": "نسخه جدید شناسایی شد",
