@@ -19,7 +19,9 @@
     "remove": "Διαγραφή",
     "create": "Δημιουργία",
     "refresh": "Ανανέωση",
-    "stop": "Διακοπή"
+    "stop": "Διακοπή",
+    "play": "Play",
+    "pause": "Pause"
   },
   "common": {
     "tips": "Συμβουλές",
@@ -186,7 +188,14 @@
   "audio_panel": {
     "title": "Ήχος",
     "headphone_1khz_sine_wave_test": "Ημιτονοειδές κύμα ακουστικών 1kHz",
-    "speaker_1khz_sine_wave_test": "Ημιτονοειδές κύμα ηχείου 1kHz"
+    "speaker_1khz_sine_wave_test": "Ημιτονοειδές κύμα ηχείου 1kHz",
+    "mic_record_playback": "Mic Record & Playback",
+    "mic_record_error": "Microphone recording failed. Please check permissions and try again.",
+    "mic_usb_only": "Controller mic is only testable over a USB connection.",
+    "mic_device_not_found": "Couldn't find the controller's microphone. Make sure it's connected via USB.",
+    "mic_record": "Record",
+    "mic_level": "Level",
+    "mic_volume": "Volume"
   },
   "pwa": {
     "title": "Εντοπίστηκε νέα έκδοση",
