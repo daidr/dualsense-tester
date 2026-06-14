@@ -20,8 +20,8 @@
     "create": "Создать",
     "refresh": "Обновить",
     "stop": "Стоп",
-    "play": "Play",
-    "pause": "Pause"
+    "play": "Воспроизвести",
+    "pause": "Пауза"
   },
   "common": {
     "tips": "Подсказки",
@@ -111,7 +111,7 @@
       "battery_barcode": "Штрихкод (аккумулятор)",
       "vcm_barcode": "Штрихкод (виброприводы)",
       "unique_id": "Уникальный ID",
-      "bd_mac_address": "MAC-Адрес Bluetooth",
+      "bd_mac_address": "MAC-адрес Bluetooth",
       "at_serial_number": "Адаптивные курки (серийный номер)",
       "at_motor_info": "Адаптивные курки (информация)",
       "individual_data_verify": "Проверка индивидуальных данных",
@@ -189,13 +189,13 @@
     "title": "Аудио",
     "headphone_1khz_sine_wave_test": "Синус 1кГц (Гарнитура)",
     "speaker_1khz_sine_wave_test": "Синус 1кГц (Динамик)",
-    "mic_record_playback": "Mic Record & Playback",
-    "mic_record_error": "Microphone recording failed. Please check permissions and try again.",
-    "mic_usb_only": "Controller mic is only testable over a USB connection.",
-    "mic_device_not_found": "Couldn't find the controller's microphone. Make sure it's connected via USB.",
-    "mic_record": "Record",
-    "mic_level": "Level",
-    "mic_volume": "Volume"
+    "mic_record_playback": "Микрофон: запись и воспроизведение",
+    "mic_record_error": "Ошибка записи микрофона. Проверьте права доступа и повторите попытку.",
+    "mic_usb_only": "Проверка микрофона контроллера возможна только при подключении по USB.",
+    "mic_device_not_found": "Не удалось найти микрофон контроллера. Убедитесь, что подключение осуществляется по USB.",
+    "mic_record": "Запись",
+    "mic_level": "Уровень",
+    "mic_volume": "Громкость"
   },
   "pwa": {
     "title": "Обнаружена новая версия",
