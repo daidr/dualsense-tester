@@ -20,8 +20,8 @@
     "create": "Створити",
     "refresh": "Оновити",
     "stop": "Стоп",
-    "play": "Play",
-    "pause": "Pause"
+    "play": "Відтворити",
+    "pause": "Пауза"
   },
   "common": {
     "tips": "Поради",
@@ -104,7 +104,7 @@
         "astro_bot": "Обмежена серія Astro Bot",
         "fortnite": "Обмежена серія Fortnite",
         "the_last_of_us": "Обмежена серія The Last of Us",
-        "icon_blue_limited_edition": "Icon Blue Limited Edition",
+        "icon_blue_limited_edition": "Обмежена серія Icon Blue",
         "genshin_impact": "Обмежена серія Genshin Impact"
       },
       "assemble_parts_info": "Інфо про зібрані частини",
@@ -189,12 +189,12 @@
     "title": "Аудіо",
     "headphone_1khz_sine_wave_test": "1 кГц синусоїда в навушниках",
     "speaker_1khz_sine_wave_test": "1 кГц синусоїда у динаміку",
-    "mic_record_playback": "Mic Record & Playback",
-    "mic_record_error": "Microphone recording failed. Please check permissions and try again.",
+    "mic_record_playback": "Записи мікрофона та відтворення",
+    "mic_record_error": "Не вдалося записати мікрофон. Перевірте дозволи та спробуйте ще раз.",
     "mic_usb_only": "Мікрофон контролера перевіряється лише через USB-підключення.",
     "mic_device_not_found": "Не вдалося знайти мікрофон контролера. Переконайтесь, що він підключений через USB.",
     "mic_record": "Запис",
-    "mic_level": "Level",
+    "mic_level": "Рівень",
     "mic_volume": "Гучність"
   },
   "pwa": {
