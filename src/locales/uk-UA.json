@@ -191,11 +191,11 @@
     "speaker_1khz_sine_wave_test": "1 кГц синусоїда у динаміку",
     "mic_record_playback": "Mic Record & Playback",
     "mic_record_error": "Microphone recording failed. Please check permissions and try again.",
-    "mic_usb_only": "Controller mic is only testable over a USB connection.",
-    "mic_device_not_found": "Couldn't find the controller's microphone. Make sure it's connected via USB.",
-    "mic_record": "Record",
+    "mic_usb_only": "Мікрофон контролера перевіряється лише через USB-підключення.",
+    "mic_device_not_found": "Не вдалося знайти мікрофон контролера. Переконайтесь, що він підключений через USB.",
+    "mic_record": "Запис",
     "mic_level": "Level",
-    "mic_volume": "Volume"
+    "mic_volume": "Гучність"
   },
   "pwa": {
     "title": "Виявлено нову версію",
