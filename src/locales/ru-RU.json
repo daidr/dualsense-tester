@@ -187,8 +187,8 @@
   },
   "audio_panel": {
     "title": "Аудио",
-    "headphone_1khz_sine_wave_test": "Синус 1кГц (Гарнитура)",
-    "speaker_1khz_sine_wave_test": "Синус 1кГц (Динамик)",
+    "headphone_1khz_sine_wave_test": "Синусоида 1 кГц (Гарнитура)",
+    "speaker_1khz_sine_wave_test": "Синусоида 1 кГц (Динамик)",
     "mic_record_playback": "Микрофон: запись и воспроизведение",
     "mic_record_error": "Ошибка записи микрофона. Проверьте права доступа и повторите попытку.",
     "mic_usb_only": "Проверка микрофона контроллера возможна только при подключении по USB.",
