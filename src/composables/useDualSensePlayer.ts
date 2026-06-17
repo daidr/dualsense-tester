@@ -10,13 +10,18 @@ import { uiLogger } from '@/utils/logger.util'
  *
  * 不含「扬声器/耳机」或「触觉声道」等设备特定的副作用，那些由集成层（widget）处理。
  */
-export function useDualSensePlayer() {
+export function useDualSensePlayer(options: { haptic?: boolean } = {}) {
+  // 触觉模式：把音频路由到 USB 声卡的后 2 声道（ch2/ch3 = 左/右触觉马达），而非扬声器(ch0/1)。
+  const isHaptic = options.haptic ?? false
+
   const fileName = ref('')
   const hasClip = ref(false)
   const isPlaying = ref(false)
   const currentTime = ref(0)
   const duration = ref(0)
   const syncToPC = ref(false)
+  /** 触觉声道路由：左马达(ch2) / 右马达(ch3) / 双马达。 */
+  const hapticChannel = ref<'left' | 'right' | 'both'>('both')
 
   /** 可选的输出端点列表（audiooutput），label 需要媒体权限才可见。 */
   const outputDevices = shallowRef<MediaDeviceInfo[]>([])
@@ -41,6 +46,8 @@ export function useDualSensePlayer() {
   let analyserNode: AnalyserNode | null = null
   let mainSource: AudioBufferSourceNode | null = null
   let localSource: AudioBufferSourceNode | null = null
+  let hapticSplitter: ChannelSplitterNode | null = null
+  let hapticMerger: ChannelMergerNode | null = null
 
   let startedAtCtxTime = 0
   let resumeOffset = 0
@@ -56,7 +63,6 @@ export function useDualSensePlayer() {
       analyserNode = mainCtx.createAnalyser()
       analyserNode.fftSize = 512
       analyserNode.smoothingTimeConstant = 0.8
-      analyserNode.connect(mainCtx.destination)
       analyser.value = analyserNode
     }
     return mainCtx
@@ -114,6 +120,45 @@ export function useDualSensePlayer() {
       localSource.disconnect()
       localSource = null
     }
+    hapticSplitter?.disconnect()
+    hapticMerger?.disconnect()
+    hapticSplitter = null
+    hapticMerger = null
+  }
+
+  /** 构建输出图：音频经 analyser 出扬声器；触觉拆成 L/R 路由到声卡 ch2/ch3。 */
+  function buildGraph(source: AudioBufferSourceNode, ctx: AudioContext) {
+    source.connect(analyserNode!)
+    if (!isHaptic) {
+      analyserNode!.connect(ctx.destination)
+      return
+    }
+    const maxChannels = ctx.destination.maxChannelCount
+    const channels = Math.min(4, maxChannels)
+    try {
+      ctx.destination.channelCount = channels
+      ctx.destination.channelCountMode = 'explicit'
+      ctx.destination.channelInterpretation = 'discrete'
+    }
+    catch (error) {
+      uiLogger.warn('haptic: set multi-channel destination failed', error)
+    }
+    uiLogger.info(`haptic output: maxChannelCount=${maxChannels}, using ${channels}ch`)
+    const splitter = ctx.createChannelSplitter(2)
+    const merger = ctx.createChannelMerger(channels)
+    source.connect(splitter)
+    // 4 声道时路由到 ch2/ch3（触觉马达）；否则降级到 ch0/ch1。
+    const leftCh = channels >= 4 ? 2 : 0
+    const rightCh = channels >= 4 ? 3 : Math.min(1, channels - 1)
+    if (hapticChannel.value !== 'right') {
+      splitter.connect(merger, 0, leftCh)
+    }
+    if (hapticChannel.value !== 'left') {
+      splitter.connect(merger, 1, rightCh)
+    }
+    merger.connect(ctx.destination)
+    hapticSplitter = splitter
+    hapticMerger = merger
   }
 
   /** 从 offset 处开始实际播放（创建新的 source 节点）。 */
@@ -127,7 +172,7 @@ export function useDualSensePlayer() {
 
     mainSource = ctx.createBufferSource()
     mainSource.buffer = buffer
-    mainSource.connect(analyserNode!)
+    buildGraph(mainSource, ctx)
     mainSource.onended = onSourceEnded
 
     if (syncToPC.value) {
@@ -215,6 +260,16 @@ export function useDualSensePlayer() {
     }
     else {
       resumeOffset = target
+    }
+  }
+
+  /** 切换触觉声道路由（左/右/双马达）；播放中会从当前位置重连输出图。 */
+  function setHapticChannel(channel: 'left' | 'right' | 'both') {
+    hapticChannel.value = channel
+    if (isPlaying.value && mainCtx) {
+      const offset = Math.min(resumeOffset + (mainCtx.currentTime - startedAtCtxTime), duration.value)
+      teardownSources()
+      void startFrom(offset)
     }
   }
 
@@ -314,6 +369,8 @@ export function useDualSensePlayer() {
     hasNamedOutputs,
     setSinkDevice,
     selectOutputDevice,
+    hapticChannel,
+    setHapticChannel,
     dispose,
   }
 }

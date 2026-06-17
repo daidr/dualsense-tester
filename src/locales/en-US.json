@@ -204,7 +204,11 @@
   },
   "haptic_panel": {
     "title": "Haptics",
-    "coming_soon": "Haptics test is coming soon."
+    "coming_soon": "Haptics test is coming soon.",
+    "usb_only": "Haptics test is only available over a USB connection for now.",
+    "target_both": "Both motors",
+    "target_left": "Left motor",
+    "target_right": "Right motor"
   },
   "pwa": {
     "title": "New version detected",

@@ -8,13 +8,16 @@ import { uiLogger } from '@/utils/logger.util'
 import SliderBox from './SliderBox.vue'
 import SpectrumView from './SpectrumView.vue'
 
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
   /** 目标下拉选项（音频：扬声器/耳机；触觉：左/右/双马达）。 */
   targetOptions: { value: string, label: string }[]
   accept?: string
   disabled?: boolean
+  /** 播放模式：audio=出扬声器；haptic=驱动触觉马达(ch2/ch3)。 */
+  mode?: 'audio' | 'haptic'
 }>(), {
   accept: 'audio/*',
+  mode: 'audio',
 })
 
 const emit = defineEmits<{
@@ -27,7 +30,7 @@ const target = defineModel<string>('target', { required: true })
 
 const { t } = useI18n()
 
-const player = useDualSensePlayer()
+const player = useDualSensePlayer({ haptic: props.mode === 'haptic' })
 const {
   fileName,
   hasClip,
@@ -121,6 +124,13 @@ function onSelectOutput(deviceId: string) {
 }
 
 watch(isPlaying, value => emit('playingChange', value))
+
+// 触觉模式：目标下拉控制左/右/双马达的声道路由。
+watch(target, (value) => {
+  if (props.mode === 'haptic') {
+    player.setHapticChannel(value as 'left' | 'right' | 'both')
+  }
+})
 
 onMounted(() => {
   void player.refreshOutputDevices()
