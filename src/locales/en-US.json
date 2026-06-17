@@ -185,7 +185,22 @@
   "audio_panel": {
     "title": "Audio",
     "headphone_1khz_sine_wave_test": "Headphone 1kHz sine wave",
-    "speaker_1khz_sine_wave_test": "Speaker 1kHz sine wave"
+    "speaker_1khz_sine_wave_test": "Speaker 1kHz sine wave",
+    "file_playback": "Play an audio file",
+    "file_playback_usb_only": "Audio file playback is only available over a USB connection for now.",
+    "upload_file": "Upload audio file",
+    "replace_file": "Replace",
+    "play": "Play",
+    "pause": "Pause",
+    "progress": "Playback progress",
+    "target": "Target",
+    "target_speaker": "Speaker",
+    "target_headphone": "Headphone",
+    "output_device": "Output device",
+    "output_default": "System default",
+    "output_generic": "Output {n}",
+    "sync_to_pc": "Also play on this PC",
+    "list_devices": "List devices"
   },
   "haptic_panel": {
     "title": "Haptics",
