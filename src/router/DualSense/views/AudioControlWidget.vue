@@ -27,13 +27,13 @@ const audioTargetOptions = computed(() => [
 let volumeStored = false
 
 function applyAudioTargetVolume() {
+  // 只设目标那一路：其 setter 会把 audioControl 路由位设到对应输出。
+  // 若再设另一路（哪怕设为 0），会把 audioControl 覆盖成另一路由，导致音频走错输出而静音。
   if (audioTarget.value === 'headphone') {
-    eventBusEmit('output:set-headphone-volume', 65)
-    eventBusEmit('output:set-speaker-volume', 0)
+    eventBusEmit('output:set-headphone-volume', 255)
   }
   else {
-    eventBusEmit('output:set-speaker-volume', 85)
-    eventBusEmit('output:set-headphone-volume', 0)
+    eventBusEmit('output:set-speaker-volume', 255)
   }
 }
 

@@ -44,7 +44,6 @@ export function useDualSensePlayer() {
 
   let startedAtCtxTime = 0
   let resumeOffset = 0
-  let manualStop = false
   let raf = 0
 
   function supportsSetSinkId(ctx: AudioContext): boolean {
@@ -97,14 +96,24 @@ export function useDualSensePlayer() {
   }
 
   function teardownSources() {
-    manualStop = true
-    mainSource?.stop()
-    localSource?.stop()
-    mainSource?.disconnect()
-    localSource?.disconnect()
-    mainSource = null
-    localSource = null
-    manualStop = false
+    // 先摘掉 onended，避免手动 stop() 异步触发自然结束逻辑（否则暂停会跳到结尾）。
+    if (mainSource) {
+      mainSource.onended = null
+      try {
+        mainSource.stop()
+      }
+      catch { /* source 可能已结束 */ }
+      mainSource.disconnect()
+      mainSource = null
+    }
+    if (localSource) {
+      try {
+        localSource.stop()
+      }
+      catch { /* source 可能已结束 */ }
+      localSource.disconnect()
+      localSource = null
+    }
   }
 
   /** 从 offset 处开始实际播放（创建新的 source 节点）。 */
@@ -141,9 +150,9 @@ export function useDualSensePlayer() {
   }
 
   function onSourceEnded() {
-    if (manualStop) {
-      return
-    }
+    // 仅在自然播放结束时触发（手动停止已摘除 onended）。
+    mainSource = null
+    localSource = null
     isPlaying.value = false
     resumeOffset = 0
     currentTime.value = duration.value
