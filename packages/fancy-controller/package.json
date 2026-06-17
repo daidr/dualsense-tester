@@ -11,10 +11,10 @@
     "build": "bun run ./scripts/build.ts"
   },
   "peerDependencies": {
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.3"
   },
   "dependencies": {
-    "@iconify/tools": "^5.0.2"
+    "@iconify/tools": "^5.0.12"
   },
   "devDependencies": {
     "@types/bun": "catalog:"
