@@ -12,6 +12,7 @@ const ProfileWidget = defineAsyncComponent(() => import('./views/ProfileWidget.v
 const GyroView = defineAsyncComponent(() => import('./views/_visualizerPanel/GyroView.vue'))
 const AccelView = defineAsyncComponent(() => import('./views/_visualizerPanel/AccelView.vue'))
 const AudioWidget = defineAsyncComponent(() => import('./views/AudioControlWidget.vue'))
+const HapticWidget = defineAsyncComponent(() => import('./views/HapticControlWidget.vue'))
 const HideInConfigModeLayout = defineAsyncComponent(() => import('./views/HideInConfigModeLayout.vue'))
 
 export default class DualSenseEdgeRouter extends BaseDeviceRouter {
@@ -70,10 +71,19 @@ export default class DualSenseEdgeRouter extends BaseDeviceRouter {
         hideInProfileMode: true,
       },
       {
-        title: { key: 'audio_panel.title' },
-        component: AudioWidget,
-        layout: HideInConfigModeLayout,
         hideInProfileMode: true,
+        tabs: [
+          {
+            title: { key: 'audio_panel.title' },
+            component: AudioWidget,
+            layout: HideInConfigModeLayout,
+          },
+          {
+            title: { key: 'haptic_panel.title' },
+            component: HapticWidget,
+            layout: HideInConfigModeLayout,
+          },
+        ],
       },
       {
         title: { key: 'profile_panel.title' },

@@ -1,12 +1,15 @@
 <script setup lang="ts" generic="T extends string | number">
 import { m } from 'motion-v'
 
-defineProps<{
+withDefaults(defineProps<{
   sets: {
     label: string
     value: T
   }[]
-}>()
+  size?: 'sm' | 'md'
+}>(), {
+  size: 'sm',
+})
 
 const modelValue = defineModel<T>({ required: true })
 
@@ -18,7 +21,7 @@ const randomId = Math.random().toString(36).substring(2, 15)
 </script>
 
 <template>
-  <div class="relative h-1.5rem flex gap-1 dou-sc-colorborder rounded-full p-2px" role="group">
+  <div class="grouped-button relative flex gap-1 dou-sc-colorborder rounded-full p-2px" :class="`is-${size}`" role="group">
     <button
       v-for="button of sets" :key="button.value" class="relative" :class="{ active: button.value === modelValue }"
       :aria-pressed="button.value === modelValue"
@@ -31,6 +34,14 @@ const randomId = Math.random().toString(36).substring(2, 15)
 </template>
 
 <style scoped lang="scss">
+.grouped-button.is-sm {
+    @apply h-1.5rem;
+}
+
+.grouped-button.is-md {
+    @apply h-2rem;
+}
+
 button {
     @apply transition-colors;
     @apply flex items-center justify-center;
@@ -44,5 +55,9 @@ button {
     &.active {
         @apply text-white;
     }
+}
+
+.is-md button {
+    @apply min-w-3em px-3 text-sm;
 }
 </style>

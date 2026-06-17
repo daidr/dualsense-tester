@@ -23,12 +23,27 @@ export interface DeviceItem {
   device: HIDDevice
 }
 
+/**
+ * 面板内的子组件项，用于一个面板注册多个组件并以 tab 形式切换。
+ * A sub-widget inside a panel, used when a panel registers multiple components switched via tabs.
+ */
+export interface PanelTabItem {
+  title: string | { key: string }
+  component: Component
+  layout?: Component
+}
+
 export interface CustomPanelItem {
   title?: string | { key: string }
   tag?: string | { key: string }
   cableAllowedReportIds?: number[]
   btAllowedReportIds?: number[]
-  component: Component
+  /**
+   * 单组件面板使用 component；多组件 tab 面板使用 tabs。两者二选一，提供 tabs 时标题区会渲染为 tab 切换栏。
+   * Use `component` for a single-component panel, or `tabs` for a multi-component tabbed panel. When `tabs` is provided, the title area renders a tab switcher.
+   */
+  component?: Component
+  tabs?: PanelTabItem[]
   layout?: Component
   hideInProfileMode?: boolean
 }

@@ -18,10 +18,7 @@
     "rename": "Rename",
     "remove": "Remove",
     "create": "Create",
-    "refresh": "Refresh",
-    "stop": "Stop",
-    "play": "Play",
-    "pause": "Pause"
+    "refresh": "Refresh"
   },
   "common": {
     "tips": "Tips",
@@ -188,14 +185,11 @@
   "audio_panel": {
     "title": "Audio",
     "headphone_1khz_sine_wave_test": "Headphone 1kHz sine wave",
-    "speaker_1khz_sine_wave_test": "Speaker 1kHz sine wave",
-    "mic_record_playback": "Mic Record & Playback",
-    "mic_record_error": "Microphone recording failed. Please check permissions and try again.",
-    "mic_usb_only": "Controller mic is only testable over a USB connection.",
-    "mic_device_not_found": "Couldn't find the controller's microphone. Make sure it's connected via USB.",
-    "mic_record": "Record",
-    "mic_level": "Level",
-    "mic_volume": "Volume"
+    "speaker_1khz_sine_wave_test": "Speaker 1kHz sine wave"
+  },
+  "haptic_panel": {
+    "title": "Haptics",
+    "coming_soon": "Haptics test is coming soon."
   },
   "pwa": {
     "title": "New version detected",
