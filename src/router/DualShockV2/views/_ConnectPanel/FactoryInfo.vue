@@ -46,6 +46,10 @@ async function getFirmwareInfo(device: HIDDevice) {
 
 const hardwareInfo = computedAsync(async () => {
   const result: LabeledValueItem[] = []
+  // 断连/切换时 deviceItem 会被置空，此处可能被重新触发，需空值守卫避免解引用 undefined。
+  if (!deviceItem.value) {
+    return result
+  }
   const device = deviceItem.value.device
   const firmwareInfo = await getFirmwareInfo(device)
 

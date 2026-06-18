@@ -113,7 +113,13 @@ export function useBtAudioPlayer(options: { audioEnabled: Ref<boolean>, hapticEn
     }
     const target = audioTarget.value === 'headphone' ? 'headphone' : 'speaker'
     const payload = buildReportSix(opus, haptic, sendSeq, frameCounter, target, audioVolume.value)
-    device.value.device.sendReport(0x36, payload).catch((err) => {
+    const hidDevice = device.value?.device
+    if (!hidDevice) {
+      // 设备已断连/切换，停止发送，避免 raf 回调解引用 undefined。
+      stop()
+      return
+    }
+    hidDevice.sendReport(0x36, payload).catch((err) => {
       hidLogger.error('bt audio sendReport(0x36) failed', err)
       stop()
     })

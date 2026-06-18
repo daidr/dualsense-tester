@@ -211,7 +211,7 @@ const resolvedGroups = computed(() => {
 })
 
 async function load() {
-  if (loading.value) {
+  if (loading.value || !deviceItem.value) {
     return
   }
   loading.value = true

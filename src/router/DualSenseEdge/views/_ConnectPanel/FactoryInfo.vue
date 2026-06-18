@@ -39,6 +39,10 @@ async function getFirmwareInfo(device: HIDDevice) {
 
 const hardwareInfo = computedAsync(async () => {
   const result: LabeledValueItem[] = []
+  // 断连/切换时 deviceItem 会被置空，此处可能被重新触发，需空值守卫避免解引用 undefined。
+  if (!deviceItem.value) {
+    return result
+  }
   const device = deviceItem.value.device
   const firmwareInfo = await getFirmwareInfo(device)
 
@@ -124,7 +128,7 @@ const hardwareInfo = computedAsync(async () => {
     }
 
     // 触摸板厂测命令仅 USB 响应（蓝牙下设备不回显该命令）
-    if (deviceItem.value.connectionType === DeviceConnectionType.USB) {
+    if (deviceItem.value?.connectionType === DeviceConnectionType.USB) {
       const touchpadId = await getTouchpadId(deviceItem.value)
       touchpadId && result.push(createLabeledValueItem('touchpad_id', `0x${mapDataViewToU8Hex(touchpadId)}`))
       const touchpadFwVersion = await getTouchpadFwVersion(deviceItem.value)

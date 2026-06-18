@@ -88,12 +88,14 @@ export const useDualSenseStore = defineStore('dualsense', () => {
     onWatcherCleanup(() => {
       cleanedUp = true
       item.device.close()
+      // 只置空 currentDevice 作为「设备就绪」的权威判据：isDeviceReady 随之变 false 并卸载相关面板。
+      // 刻意不置空 inputReport / inputReportId —— 可视化/型号面板里有大量 computed 直接解引用
+      // inputReport.value.getXxx()，它们在断连/切换瞬间会先于（被退场动画延迟的）卸载而重算一次，
+      // 此时若为 undefined 就会抛 "Cannot read properties of undefined"。设备已 close，保留上一帧
+      // DataView 读取无副作用，可让这次重算安全拿到陈旧但有效的数据，面板随后正常卸载。
       currentDevice.value = undefined
-      inputReport.value = undefined
-      inputReportId.value = undefined
       profileMode.value = false
       item.device.removeEventListener('inputreport', inputReportHandler)
-      // item.device.oninputreport = null
     })
   })
 
