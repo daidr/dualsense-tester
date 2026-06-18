@@ -27,8 +27,6 @@
   },
   "connect_panel": {
     "tips": "Verbinden Sie den DualSense Controller mit Ihrem Computer über ein <b>USB-Kabel</b> oder per <b>Bluetooth</b>, dann klicken Sie oben auf die Schaltfläche \"Gerät hinzufügen\".",
-    "connect": "Verbinden",
-    "disconnect": "Trennen",
     "not_connected": "Nicht verbunden",
     "connected": "Verbunden",
     "seq_num": "Sequenznummer",
@@ -276,7 +274,6 @@
     "headphone_1khz_sine_wave_test": "Kopfhörer 1kHz Sinuswelle",
     "speaker_1khz_sine_wave_test": "Lautsprecher 1kHz Sinuswelle",
     "file_playback": "Play an audio file",
-    "file_playback_usb_only": "Audio file playback is only available over a USB connection for now.",
     "file_playback_unsupported": "Connect the controller over USB or Bluetooth to test playback.",
     "upload_file": "Upload audio file",
     "replace_file": "Replace",
@@ -299,8 +296,6 @@
   "haptic_panel": {
     "title": "Haptics",
     "coming_soon": "Haptics test is coming soon.",
-    "usb_only": "Haptics test is only available over a USB connection for now.",
-    "unsupported": "Connect the controller over USB or Bluetooth to test haptics.",
     "motor": "Motor",
     "target_both": "Both motors",
     "target_left": "Left motor",
@@ -315,7 +310,6 @@
     "offline_ready": "Diese Anwendung ist jetzt zum Offline-Betrieb zwischengespeichert."
   },
   "git_version": {
-    "title": "Commit Info",
     "warn_pr": "Diese ist eine Vorschau-Version von PR. Bitte verwenden Sie mit Vorsicht, da es Probleme geben kann.",
     "warn_dev": "Diese ist eine Vorschau-Version von der Entwicklungsbranch. Bitte verwenden Sie mit Vorsicht, da es Probleme geben kann."
   },
