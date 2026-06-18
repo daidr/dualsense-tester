@@ -27,8 +27,6 @@
   },
   "connect_panel": {
     "tips": "DualSense'i bilgisayarınıza <b>USB kablosu</b> yada <b>Bluetooth kullanarak</b> bağlayın, sonra \"Cihaz Ekle\" düğmesine tıklayın.",
-    "connect": "Bağlan",
-    "disconnect": "Bağlantıyı Kes",
     "not_connected": "Bağlı değil",
     "connected": "Bağlandı",
     "seq_num": "Sıra Numarası:",
@@ -276,7 +274,6 @@
     "headphone_1khz_sine_wave_test": "Kulaklık 1kHz sinüs dalgası",
     "speaker_1khz_sine_wave_test": "Hoparlör 1kHz sinüs dalgası",
     "file_playback": "Play an audio file",
-    "file_playback_usb_only": "Audio file playback is only available over a USB connection for now.",
     "file_playback_unsupported": "Connect the controller over USB or Bluetooth to test playback.",
     "upload_file": "Upload audio file",
     "replace_file": "Replace",
@@ -299,8 +296,6 @@
   "haptic_panel": {
     "title": "Haptics",
     "coming_soon": "Haptics test is coming soon.",
-    "usb_only": "Haptics test is only available over a USB connection for now.",
-    "unsupported": "Connect the controller over USB or Bluetooth to test haptics.",
     "motor": "Motor",
     "target_both": "Both motors",
     "target_left": "Left motor",
@@ -315,7 +310,6 @@
     "offline_ready": "Bu uygulama artık çevrimdışı kullanım için önbelleğe alınmıştır."
   },
   "git_version": {
-    "title": "Versiyon sürüm bilgisi",
     "warn_pr": "Bu bir çekme isteği ön izleme sürümüdür. Bu uyarıyı dikkate alarak kullanın, hatalarla karşılaşabilirsiniz.",
     "warn_dev": "Bu bir önizleme sürümüdür. Lütfen dikkatli kullanın çünkü hatalar olabilir."
   },
