@@ -27,8 +27,6 @@
   },
   "connect_panel": {
     "tips": "Connectez la DualSense à votre ordinateur à l’aide d’un <b>câble USB</b> ou en <b>Bluetooth</b>, puis cliquez sur le bouton « Ajouter un appareil » ci-dessus.",
-    "connect": "Connecter",
-    "disconnect": "Déconnecter",
     "not_connected": "Non connecté",
     "connected": "Connectée",
     "seq_num": "Séquence N°.",
@@ -276,7 +274,6 @@
     "headphone_1khz_sine_wave_test": "Casque – onde sinusoïdale 1 kHz",
     "speaker_1khz_sine_wave_test": "Haut-parleur – onde sinusoïdale 1 kHz",
     "file_playback": "Play an audio file",
-    "file_playback_usb_only": "Audio file playback is only available over a USB connection for now.",
     "file_playback_unsupported": "Connect the controller over USB or Bluetooth to test playback.",
     "upload_file": "Upload audio file",
     "replace_file": "Replace",
@@ -299,8 +296,6 @@
   "haptic_panel": {
     "title": "Haptics",
     "coming_soon": "Haptics test is coming soon.",
-    "usb_only": "Haptics test is only available over a USB connection for now.",
-    "unsupported": "Connect the controller over USB or Bluetooth to test haptics.",
     "motor": "Motor",
     "target_both": "Both motors",
     "target_left": "Left motor",
@@ -315,7 +310,6 @@
     "offline_ready": "Cette application est maintenant mise en cache pour une utilisation hors ligne."
   },
   "git_version": {
-    "title": "Infos sur la révision",
     "warn_pr": "Ceci est une version préliminaire issue d’une PR. Veuillez l’utiliser avec prudence, car des problèmes peuvent survenir.",
     "warn_dev": "Il s’agit d’une version préliminaire issue de la branche de développement. Veuillez l’utiliser avec prudence, car des problèmes peuvent survenir."
   },
