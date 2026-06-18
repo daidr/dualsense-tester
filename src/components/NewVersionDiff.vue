@@ -13,6 +13,13 @@ const { showUpgradeButton = false } = defineProps<{
 const upgradeStore = useUpgradeStore()
 const { t } = useI18n()
 
+const currentVersionTimeAgo = useTimeAgo(() => new Date(gitDefine.commitTimestamp))
+const newVersionTimeAgo = useTimeAgo(() =>
+  upgradeStore.upgradeGitVersion
+    ? new Date(upgradeStore.upgradeGitVersion.commitTimestamp)
+    : new Date(),
+)
+
 function getCompareLink(gitInfo: GitInfo, oldGitInfo: GitInfo) {
   const { owner, repo, shortCommitHash: commitHash } = gitInfo
   const { shortCommitHash: oldCommitHash } = oldGitInfo
@@ -52,7 +59,7 @@ function upgrade() {
         <div class="version-wrapper border-dashed">
           <p>{{ gitDefine.shortCommitHash }}</p>
           <p class="text-xs opacity-70" :title="new Date(gitDefine.commitTimestamp).toLocaleString()">
-            {{ useTimeAgo(new Date(gitDefine.commitTimestamp)) }}
+            {{ currentVersionTimeAgo }}
           </p>
         </div>
       </div>
@@ -64,7 +71,7 @@ function upgrade() {
             class="text-xs opacity-70"
             :title="new Date(upgradeStore.upgradeGitVersion.commitTimestamp).toLocaleString()"
           >
-            {{ useTimeAgo(new Date(upgradeStore.upgradeGitVersion.commitTimestamp)) }}
+            {{ newVersionTimeAgo }}
           </p>
         </div>
       </div>
