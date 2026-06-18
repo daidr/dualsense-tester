@@ -27,8 +27,6 @@
   },
   "connect_panel": {
     "tips": "Connect the DualSense to your computer using either a <b>USB cable</b> or <b>Bluetooth</b>, then click the \"Add Device\" button above.",
-    "connect": "Connect",
-    "disconnect": "Disconnect",
     "not_connected": "Not connected",
     "connected": "Connected",
     "seq_num": "Sequence No.",
@@ -276,7 +274,6 @@
     "headphone_1khz_sine_wave_test": "Headphone 1kHz sine wave",
     "speaker_1khz_sine_wave_test": "Speaker 1kHz sine wave",
     "file_playback": "Play an audio file",
-    "file_playback_usb_only": "Audio file playback is only available over a USB connection for now.",
     "file_playback_unsupported": "Connect the controller over USB or Bluetooth to test playback.",
     "upload_file": "Upload audio file",
     "replace_file": "Replace",
@@ -299,8 +296,6 @@
   "haptic_panel": {
     "title": "Haptics",
     "coming_soon": "Haptics test is coming soon.",
-    "usb_only": "Haptics test is only available over a USB connection for now.",
-    "unsupported": "Connect the controller over USB or Bluetooth to test haptics.",
     "motor": "Motor",
     "target_both": "Both motors",
     "target_left": "Left motor",
@@ -315,7 +310,6 @@
     "offline_ready": "This app is now cached for offline use."
   },
   "git_version": {
-    "title": "Commit Info",
     "warn_pr": "This is a preview version from PR. Please use with caution as there may be issues.",
     "warn_dev": "This is a preview version from the development branch. Please use with caution as there may be issues."
   },
