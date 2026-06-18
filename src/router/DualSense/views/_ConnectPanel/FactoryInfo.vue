@@ -4,9 +4,10 @@ import { computedAsync } from '@vueuse/core'
 import { I18nT, useI18n } from 'vue-i18n'
 import LocaleLabeledValue from '@/components/common/LocaleLabeledValue.vue'
 import { useDevice } from '@/composables/useInjectValues'
+import { DeviceConnectionType } from '@/device-based-router/shared'
 import { utf8Decoder } from '@/utils/decoder.util'
 import { DualSenseColorMap } from '@/utils/dualsense/ds.type'
-import { formatDspVersion, formatThreePartVersion, formatUpdateVersion, getAssemblePartsInfo, getBatteryBarcode, getBdMacAddress, getBtPatchInfo, getPcbaId, getPcbaIdFull, getPcbaIdFullString, getSerialNumber, getUniqueId, getVcmBarcode, type2TracabilityInfoRead } from '@/utils/dualsense/ds.util'
+import { formatDspVersion, formatThreePartVersion, formatUpdateVersion, getAssemblePartsInfo, getBatteryBarcode, getBatteryVoltage, getBdMacAddress, getBtPatchInfo, getPcbaId, getPcbaIdFull, getPcbaIdFullString, getSerialNumber, getTouchpadFwVersion, getTouchpadId, getUniqueId, getVcmBarcode, type2TracabilityInfoRead } from '@/utils/dualsense/ds.util'
 import { decodeShiftJIS, mapDataViewToU8Hex, notAllFalsy, numberToMacAddress, numberToXHex, pairedValue } from '@/utils/format.util'
 import { createLabeledValueItem } from '@/utils/labeled-value.util'
 import { hidLogger } from '@/utils/logger.util'
@@ -125,6 +126,16 @@ const hardwareInfo = computedAsync(async () => {
       notAllFalsy(leftTracabilityInfo, rightTracabilityInfo) && result.push(createLabeledValueItem('at_serial_number', pairedValue(leftTracabilityInfo?.serialNo, rightTracabilityInfo?.serialNo)))
       notAllFalsy(leftTracabilityInfo, rightTracabilityInfo) && result.push(createLabeledValueItem('at_motor_info', pairedValue(leftTracabilityInfo?.motorInfo, rightTracabilityInfo?.motorInfo)))
     }
+
+    // 触摸板厂测命令仅 USB 响应（蓝牙下设备不回显该命令）
+    if (deviceItem.value.connectionType === DeviceConnectionType.USB) {
+      const touchpadId = await getTouchpadId(deviceItem.value)
+      touchpadId && result.push(createLabeledValueItem('touchpad_id', `0x${mapDataViewToU8Hex(touchpadId)}`))
+      const touchpadFwVersion = await getTouchpadFwVersion(deviceItem.value)
+      touchpadFwVersion && result.push(createLabeledValueItem('touchpad_fw_version', `0x${mapDataViewToU8Hex(touchpadFwVersion)}`))
+    }
+    const batteryVoltage = await getBatteryVoltage(deviceItem.value)
+    batteryVoltage !== undefined && result.push(createLabeledValueItem('battery_voltage', `${(batteryVoltage / 1000).toFixed(2)} V`))
 
     // if (connectionType.value === DeviceConnectionType.USB) {
     //   const individualDataVerifyStatus = await getIndividualDataVerifyStatus(deviceItem.value)

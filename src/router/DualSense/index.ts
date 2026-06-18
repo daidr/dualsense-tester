@@ -6,6 +6,7 @@ import { checkConnectionType, PRODUCT_ID_DUALSENSE, USAGE_ID_GD_GAME_PAD, USAGE_
 
 const InputInfoWidget = defineAsyncComponent(() => import('./views/_ConnectPanel/InputInfo.vue'))
 const FactoryInfoWidget = defineAsyncComponent(() => import('./views/_ConnectPanel/FactoryInfo.vue'))
+const DiagnosticsWidget = defineAsyncComponent(() => import('./views/_ConnectPanel/DiagnosticsInfo.vue'))
 const OutputPanel = defineAsyncComponent(() => import('./views/OutputPanel.vue'))
 const ModelPanel = defineAsyncComponent(() => import('./views/ModelPanel.vue'))
 const GyroView = defineAsyncComponent(() => import('./views/_visualizerPanel/GyroView.vue'))
@@ -49,6 +50,13 @@ export default class DualSenseRouter extends BaseDeviceRouter {
         },
         fold: true,
         component: FactoryInfoWidget,
+      },
+      {
+        title: {
+          key: 'connect_panel.diagnostics_title',
+        },
+        fold: true,
+        component: DiagnosticsWidget,
       },
     ]
   }

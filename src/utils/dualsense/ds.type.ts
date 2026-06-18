@@ -70,6 +70,8 @@ export enum DualSenseTestDeviceId {
   FINGER = 17,
   POSITION_TRACKING = 19,
   BUILTIN_MIC_CALIB_DATA = 20,
+  // 厂测扩展诊断块（不在公开枚举内），遥测计数器经此读取。
+  TELEMETRY = 0x70,
 }
 
 export enum DualSenseTestActionId {

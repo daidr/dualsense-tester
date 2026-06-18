@@ -147,6 +147,10 @@ export async function receiveFeatureReportWithError(item: DeviceItem, reportId: 
   }
 }
 
+// 单条测试命令的墙钟超时：设备对不支持的命令可能持续无响应或卡在 Running（尤其蓝牙，单次
+// 特性报告往返还可能被拉长），用墙钟超时兜底，避免按次数判断失准导致长时间卡顿 / 死循环。
+const TEST_COMMAND_TIMEOUT_MS = 1000
+
 export async function getTestResult(
   item: DeviceItem,
   deviceId: DualSenseTestDeviceId,
@@ -159,6 +163,7 @@ export async function getTestResult(
   report: null
 }> {
   let report: DataView
+  const startedAt = performance.now()
   try {
     // oxlint-disable-next-line no-cond-assign
     while (report = await receiveFeatureReport(item, 0x81)) {
@@ -176,6 +181,9 @@ export async function getTestResult(
               report,
             }
         }
+      }
+      if (performance.now() - startedAt >= TEST_COMMAND_TIMEOUT_MS) {
+        break
       }
       await sleep(10)
     }
@@ -319,6 +327,65 @@ export async function sendTestCommandPure(
   return resp.report
 }
 
+/**
+ * 读取分页诊断块（如遥测 0x70）。与 sendTestCommand 不同：这类块每页都回 COMPLETE_2、
+ * 从不回 COMPLETE，发完后会清空 0x81 头部。因此以「头部不再回显 deviceId/actionId」或
+ * 达到页数上限作为结束，避免死循环 / 越界。返回固定 maxPages*56 字节缓冲（不足补 0），
+ * 一页都没读到则返回 undefined。
+ */
+export async function readPagedTestBlock(
+  item: DeviceItem,
+  deviceId: DualSenseTestDeviceId,
+  actionId: DualSenseTestActionId,
+  maxPages: number,
+): Promise<DataView | undefined> {
+  return await testCommandLock(async () => {
+    const cmd = new Uint8Array(2)
+    cmd[0] = deviceId
+    cmd[1] = actionId
+    try {
+      await sendFeatureReport(item, 0x80, cmd)
+    }
+    catch (error) {
+      hidLogger.error(error)
+      return undefined
+    }
+    const PAGE_SIZE = 56
+    const buffer = new Uint8Array(maxPages * PAGE_SIZE)
+    let page = 0
+    let received = false
+    // 给足轮询次数以容纳可能夹杂的 idle/running 帧
+    for (let attempt = 0; attempt < maxPages * 4 + 8 && page < maxPages; attempt++) {
+      let report: DataView
+      try {
+        report = await receiveFeatureReport(item, 0x81)
+      }
+      catch (error) {
+        hidLogger.error(error)
+        break
+      }
+      const matched = report.getUint8(0) === 0x81 && report.getUint8(1) === deviceId && report.getUint8(2) === actionId
+      if (matched) {
+        const status = report.getUint8(3)
+        if (status === TestStatus.TEST_STATUS_COMPLETE || status === TestStatus.TEST_STATUS_COMPLETE_2) {
+          buffer.set(new Uint8Array(report.buffer, 4, PAGE_SIZE), page * PAGE_SIZE)
+          page++
+          received = true
+          if (status === TestStatus.TEST_STATUS_COMPLETE) {
+            break
+          }
+        }
+      }
+      else if (received) {
+        // 头部已清空，数据发送完毕
+        break
+      }
+      await sleep(10)
+    }
+    return received ? new DataView(buffer.buffer) : undefined
+  })
+}
+
 export async function setTestCommandWithParams(item: DeviceItem, deviceId: DualSenseTestDeviceId, actionId: DualSenseTestActionId, params: DataView) {
   return await testCommandLock(async () => {
     const data = new Uint8Array(2 + params.byteLength)
@@ -432,6 +499,30 @@ export async function getBtPatchInfo(item: DeviceItem) {
   const result = report.getUint32(31, true)
   hidLogger.debug('GetBtPatchInfo', report, result)
   return result
+}
+
+export async function getTouchpadId(item: DeviceItem) {
+  const report = await sendTestCommandPure(item, DualSenseTestDeviceId.TOUCH, DualSenseTestActionId.SOLOMON_UID, 8)
+  hidLogger.debug('GetTouchpadId', report)
+  return report
+}
+
+export async function getTouchpadFwVersion(item: DeviceItem) {
+  const report = await sendTestCommandPure(item, DualSenseTestDeviceId.TOUCH, DualSenseTestActionId.SOLOMON_VERSION, 8)
+  hidLogger.debug('GetTouchpadFwVersion', report)
+  return report
+}
+
+export async function getBatteryVoltage(item: DeviceItem) {
+  const report = await sendTestCommandPure(item, DualSenseTestDeviceId.ANALOG_DATA, DualSenseTestActionId.BATTERY, 4)
+  if (!report) {
+    hidLogger.debug('GetBatteryVoltage', report)
+    return undefined
+  }
+  // 原始单位 mV
+  const millivolts = report.getUint16(0, true)
+  hidLogger.debug('GetBatteryVoltage', report, millivolts)
+  return millivolts
 }
 
 export async function getIndividualDataVerifyStatus(item: DeviceItem) {
