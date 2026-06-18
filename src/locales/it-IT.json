@@ -27,8 +27,6 @@
   },
   "connect_panel": {
     "tips": "Connetti il DualSense al computer usando un <b>cavo USB</b> o il <b>Bluetooth</b>, poi clicca sul tasto \"Connetti\" in basso.",
-    "connect": "Connetti",
-    "disconnect": "Disconnetti",
     "not_connected": "Non connesso",
     "connected": "Connesso",
     "seq_num": "Sequenza No.",
@@ -276,7 +274,6 @@
     "headphone_1khz_sine_wave_test": "Cuffie onda sinusoidale da 1kHz",
     "speaker_1khz_sine_wave_test": "Altoparlante onda sinusoidale da 1kHz",
     "file_playback": "Play an audio file",
-    "file_playback_usb_only": "Audio file playback is only available over a USB connection for now.",
     "file_playback_unsupported": "Connect the controller over USB or Bluetooth to test playback.",
     "upload_file": "Upload audio file",
     "replace_file": "Replace",
@@ -299,8 +296,6 @@
   "haptic_panel": {
     "title": "Haptics",
     "coming_soon": "Haptics test is coming soon.",
-    "usb_only": "Haptics test is only available over a USB connection for now.",
-    "unsupported": "Connect the controller over USB or Bluetooth to test haptics.",
     "motor": "Motor",
     "target_both": "Both motors",
     "target_left": "Left motor",
@@ -315,7 +310,6 @@
     "offline_ready": "Quest'app ora può essere usata in modalità offline."
   },
   "git_version": {
-    "title": "Informazioni Commit",
     "warn_pr": "Questa è una versione in anteprima da PR. Si consiglia di usarlo con cautela poiché potrebbero esserci problemi.",
     "warn_dev": "Questa è una versione in anteprima dal ramo sviluppatore. Si consiglia di usarlo con cautela poiché potrebbero esserci problemi."
   },
