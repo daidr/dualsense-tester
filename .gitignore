@@ -38,3 +38,6 @@ coverage
 
 # Backup files
 *.bak
+
+# Local docs / implementation notes (not tracked)
+/docs/
