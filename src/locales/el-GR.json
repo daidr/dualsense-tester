@@ -27,8 +27,6 @@
   },
   "connect_panel": {
     "tips": "Συνδέστε το DualSense στον υπολογιστή σας χρησιμοποιώντας είτε ένα <b>καλώδιο USB</b> ή <b>Bluetooth</b>, στη συνέχεια κάντε κλικ στο κουμπί \"Προσθήκη συσκευής\" παραπάνω.",
-    "connect": "Συνδέστε",
-    "disconnect": "Αποσύνδεση",
     "not_connected": "Μη συνδεδεμένο",
     "connected": "Συνδεδεμένο",
     "seq_num": "Ακολουθία Αριθ.",
@@ -276,7 +274,6 @@
     "headphone_1khz_sine_wave_test": "Ημιτονοειδές κύμα ακουστικών 1kHz",
     "speaker_1khz_sine_wave_test": "Ημιτονοειδές κύμα ηχείου 1kHz",
     "file_playback": "Play an audio file",
-    "file_playback_usb_only": "Audio file playback is only available over a USB connection for now.",
     "file_playback_unsupported": "Connect the controller over USB or Bluetooth to test playback.",
     "upload_file": "Upload audio file",
     "replace_file": "Replace",
@@ -299,8 +296,6 @@
   "haptic_panel": {
     "title": "Haptics",
     "coming_soon": "Haptics test is coming soon.",
-    "usb_only": "Haptics test is only available over a USB connection for now.",
-    "unsupported": "Connect the controller over USB or Bluetooth to test haptics.",
     "motor": "Motor",
     "target_both": "Both motors",
     "target_left": "Left motor",
@@ -315,7 +310,6 @@
     "offline_ready": "Αυτή η εφαρμογή έχει αποθηκευτεί πλέον στην προσωρινή μνήμη για χρήση εκτός σύνδεσης."
   },
   "git_version": {
-    "title": "Πληροφορίες Υποβολής",
     "warn_pr": "Αυτή είναι μια έκδοση προεπισκόπησης από το PR. Παρακαλούμε χρησιμοποιήστε με προσοχή καθώς ενδέχεται να υπάρχουν προβλήματα.",
     "warn_dev": "Αυτή είναι μια έκδοση προεπισκόπησης από τον κλάδο ανάπτυξης. Παρακαλούμε χρησιμοποιήστε με προσοχή καθώς ενδέχεται να υπάρχουν προβλήματα."
   },
