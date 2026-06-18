@@ -27,8 +27,6 @@
   },
   "connect_panel": {
     "tips": "قم بتوصيل DualSense إلى جهاز الكمبيوتر الخاص بك إما باستخدام كابل <b>USB</b> أو <b>Bluetooth</b>، ثم انقر فوق زر \"اتصال\" أدناه.",
-    "connect": "اتصال",
-    "disconnect": "قطع الاتصال",
     "not_connected": "غير متصل",
     "connected": "متصل",
     "seq_num": "الرقم التسلسلي",
@@ -276,7 +274,6 @@
     "headphone_1khz_sine_wave_test": "موجة بتردد 1 كيلو هرتز لسماعات الرأس",
     "speaker_1khz_sine_wave_test": "موجة بتردد 1 كيلو هرتز للسماعة",
     "file_playback": "Play an audio file",
-    "file_playback_usb_only": "Audio file playback is only available over a USB connection for now.",
     "file_playback_unsupported": "Connect the controller over USB or Bluetooth to test playback.",
     "upload_file": "Upload audio file",
     "replace_file": "Replace",
@@ -299,8 +296,6 @@
   "haptic_panel": {
     "title": "Haptics",
     "coming_soon": "Haptics test is coming soon.",
-    "usb_only": "Haptics test is only available over a USB connection for now.",
-    "unsupported": "Connect the controller over USB or Bluetooth to test haptics.",
     "motor": "Motor",
     "target_both": "Both motors",
     "target_left": "Left motor",
@@ -315,7 +310,6 @@
     "offline_ready": "تم تهيئة التطبيق الآن لاستخدامه دون اتصال بالإنترنت."
   },
   "git_version": {
-    "title": "معلومات التحديث",
     "warn_pr": "هذه نسخة معاينة، يرجى استخدامها بحذر حيث قد توجد بعض المشاكل.",
     "warn_dev": "هذه نسخة معاينة من فرع التطوير. يرجى استخدام بحذر حيث أنه قد تكون هناك مشكلات."
   },
