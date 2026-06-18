@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeUnmount, useTemplateRef, watch } from 'vue'
+import { onBeforeUnmount, onMounted, useTemplateRef, watch } from 'vue'
 
 const props = defineProps<{
   analyser: AnalyserNode | null
@@ -101,6 +101,13 @@ watch(() => [props.active, props.analyser] as const, ([active, analyser]) => {
   }
   else {
     stopDraw()
+  }
+})
+
+// 条件挂载（仅播放时显示）时，挂载即处于激活态，watch 不会触发，这里补一次启动。
+onMounted(() => {
+  if (props.active && props.analyser) {
+    startDraw()
   }
 })
 

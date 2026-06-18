@@ -11,7 +11,6 @@ const ModelPanel = defineAsyncComponent(() => import('./views/ModelPanel.vue'))
 const GyroView = defineAsyncComponent(() => import('./views/_visualizerPanel/GyroView.vue'))
 const AccelView = defineAsyncComponent(() => import('./views/_visualizerPanel/AccelView.vue'))
 const AudioWidget = defineAsyncComponent(() => import('./views/AudioControlWidget.vue'))
-const HapticWidget = defineAsyncComponent(() => import('./views/HapticControlWidget.vue'))
 
 export default class DualSenseRouter extends BaseDeviceRouter {
   name = 'dualsense'
@@ -67,16 +66,8 @@ export default class DualSenseRouter extends BaseDeviceRouter {
         component: OutputPanel,
       },
       {
-        tabs: [
-          {
-            title: { key: 'audio_panel.title' },
-            component: AudioWidget,
-          },
-          {
-            title: { key: 'haptic_panel.title' },
-            component: HapticWidget,
-          },
-        ],
+        title: { key: 'audio_panel.title' },
+        component: AudioWidget,
       },
     ]
   }

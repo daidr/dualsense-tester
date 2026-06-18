@@ -15,6 +15,11 @@ const props = withDefaults(defineProps<{
   vertical: false,
 })
 
+const emit = defineEmits<{
+  /** 拖动结束（松手）时提交最终值；用于把高开销副作用推迟到拖动结束。 */
+  change: [number]
+}>()
+
 defineSlots<{
   default: (props: { value: number }) => any
 }>()
@@ -115,6 +120,7 @@ function onPointerUp(e: PointerEvent) {
   }
   isIndicatorShown.value = false;
   (e.target as HTMLDivElement).releasePointerCapture(e.pointerId)
+  emit('change', modelValue.value)
 }
 
 function getTrackScalePercentage() {

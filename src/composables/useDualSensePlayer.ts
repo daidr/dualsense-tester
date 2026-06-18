@@ -1,18 +1,20 @@
-import { onScopeDispose, ref, shallowRef } from 'vue'
+import type { Ref } from 'vue'
+import { onScopeDispose, ref, shallowRef, watch } from 'vue'
 import { uiLogger } from '@/utils/logger.util'
 
 /**
- * 通用的 DualSense 文件播放器内核（MVP 阶段仅实现 USB / setSinkId 路径）。
+ * USB 连接下的文件播放器内核（蓝牙由 useBtAudioPlayer 实现，两者接口兼容，
+ * 由 MediaFilePlayer 按连接类型分派）。
  *
- * 负责：解码音频文件 → AudioBuffer；基于 AudioBufferSourceNode 的播放/暂停/拖动；
- * AnalyserNode 频谱数据；通过 AudioContext.setSinkId 把音频路由到指定输出端点（DualSense 声卡）；
- * 可选的「同步在电脑播放」（第二个默认 sink 的 AudioContext 播同一 buffer）。
+ * 负责：解码音频 → AudioBuffer；基于 AudioBufferSourceNode 的播放/暂停/拖动；AnalyserNode 频谱；
+ * 通过 AudioContext.setSinkId 路由到 DualSense 声卡；按 audioEnabled/hapticEnabled 把音频送到
+ * 声卡前 2 声道(扬声器)、触觉送到后 2 声道(马达)；可选「同步在电脑播放」。
  *
- * 不含「扬声器/耳机」或「触觉声道」等设备特定的副作用，那些由集成层（widget）处理。
+ * 扬声器/耳机的 HID 音量切换属设备副作用，由集成层（widget）处理。
  */
-export function useDualSensePlayer(options: { haptic?: boolean } = {}) {
-  // 触觉模式：把音频路由到 USB 声卡的后 2 声道（ch2/ch3 = 左/右触觉马达），而非扬声器(ch0/1)。
-  const isHaptic = options.haptic ?? false
+export function useDualSensePlayer(options: { audioEnabled: Ref<boolean>, hapticEnabled: Ref<boolean> }) {
+  // 音频→声卡前 2 声道(ch0/ch1=扬声器)，触觉→后 2 声道(ch2/ch3=左右马达)，按开关组合。
+  const { audioEnabled, hapticEnabled } = options
 
   const fileName = ref('')
   const hasClip = ref(false)
@@ -52,6 +54,7 @@ export function useDualSensePlayer(options: { haptic?: boolean } = {}) {
   let startedAtCtxTime = 0
   let resumeOffset = 0
   let raf = 0
+  let startToken = 0 // 快速拖动时区分新旧 startFrom，丢弃过期的那次，避免并发产生多余 source
 
   function supportsSetSinkId(ctx: AudioContext): boolean {
     return typeof (ctx as unknown as { setSinkId?: unknown }).setSinkId === 'function'
@@ -126,14 +129,16 @@ export function useDualSensePlayer(options: { haptic?: boolean } = {}) {
     hapticMerger = null
   }
 
-  /** 构建输出图：音频经 analyser 出扬声器；触觉拆成 L/R 路由到声卡 ch2/ch3。 */
+  /** 构建输出图：频谱接 analyser；音频→声卡 ch0/ch1(扬声器)、触觉→ch2/ch3(马达)，按开关组合。 */
   function buildGraph(source: AudioBufferSourceNode, ctx: AudioContext) {
     source.connect(analyserNode!)
-    if (!isHaptic) {
+    const needHaptic = hapticEnabled.value
+    const maxChannels = ctx.destination.maxChannelCount
+    // 仅音频且声卡只有立体声：直连 analyser→destination 即可。
+    if (!needHaptic && maxChannels < 4) {
       analyserNode!.connect(ctx.destination)
       return
     }
-    const maxChannels = ctx.destination.maxChannelCount
     const channels = Math.min(4, maxChannels)
     try {
       ctx.destination.channelCount = channels
@@ -141,20 +146,27 @@ export function useDualSensePlayer(options: { haptic?: boolean } = {}) {
       ctx.destination.channelInterpretation = 'discrete'
     }
     catch (error) {
-      uiLogger.warn('haptic: set multi-channel destination failed', error)
+      uiLogger.warn('multi-channel destination failed', error)
     }
-    uiLogger.info(`haptic output: maxChannelCount=${maxChannels}, using ${channels}ch`)
+    uiLogger.info(`output graph: maxChannelCount=${maxChannels}, ch=${channels}, audio=${audioEnabled.value}, haptic=${needHaptic}`)
     const splitter = ctx.createChannelSplitter(2)
     const merger = ctx.createChannelMerger(channels)
     source.connect(splitter)
-    // 4 声道时路由到 ch2/ch3（触觉马达）；否则降级到 ch0/ch1。
-    const leftCh = channels >= 4 ? 2 : 0
-    const rightCh = channels >= 4 ? 3 : Math.min(1, channels - 1)
-    if (hapticChannel.value !== 'right') {
-      splitter.connect(merger, 0, leftCh)
+    if (audioEnabled.value) {
+      // 音频 → ch0/ch1（扬声器）
+      splitter.connect(merger, 0, 0)
+      splitter.connect(merger, 1, Math.min(1, channels - 1))
     }
-    if (hapticChannel.value !== 'left') {
-      splitter.connect(merger, 1, rightCh)
+    if (needHaptic) {
+      // 触觉 → ch2/ch3（4 声道时）；声卡 <4 声道则降级到 ch0/ch1
+      const leftCh = channels >= 4 ? 2 : 0
+      const rightCh = channels >= 4 ? 3 : Math.min(1, channels - 1)
+      if (hapticChannel.value !== 'right') {
+        splitter.connect(merger, 0, leftCh)
+      }
+      if (hapticChannel.value !== 'left') {
+        splitter.connect(merger, 1, rightCh)
+      }
     }
     merger.connect(ctx.destination)
     hapticSplitter = splitter
@@ -166,9 +178,13 @@ export function useDualSensePlayer(options: { haptic?: boolean } = {}) {
     if (!buffer) {
       return
     }
+    const token = ++startToken
     const ctx = ensureMainCtx()
     await ctx.resume()
     await applySinkId(ctx)
+    if (token !== startToken) {
+      return // 期间又触发了 seek/play，丢弃这次
+    }
 
     mainSource = ctx.createBufferSource()
     mainSource.buffer = buffer
@@ -263,15 +279,49 @@ export function useDualSensePlayer(options: { haptic?: boolean } = {}) {
     }
   }
 
-  /** 切换触觉声道路由（左/右/双马达）；播放中会从当前位置重连输出图。 */
-  function setHapticChannel(channel: 'left' | 'right' | 'both') {
-    hapticChannel.value = channel
+  /** 播放中从当前位置重连输出图（开关 / 声道变化时调用）。 */
+  function rebuildGraphIfPlaying() {
     if (isPlaying.value && mainCtx) {
       const offset = Math.min(resumeOffset + (mainCtx.currentTime - startedAtCtxTime), duration.value)
       teardownSources()
       void startFrom(offset)
     }
   }
+
+  /** 切换触觉声道路由（左/右/双马达）；播放中会从当前位置重连输出图。 */
+  function setHapticChannel(channel: 'left' | 'right' | 'both') {
+    hapticChannel.value = channel
+    rebuildGraphIfPlaying()
+  }
+
+  // 音频/震动开关变化时，播放中实时重连输出图（无需重新加载文件）。
+  watch([audioEnabled, hapticEnabled], rebuildGraphIfPlaying)
+
+  // 「同步在电脑播放」播放中切换：动态开/关第二路本地播放，不打断 DualSense 声卡输出。
+  watch(syncToPC, (v) => {
+    if (!isPlaying.value || !mainCtx || !buffer) {
+      return
+    }
+    if (v && !localSource) {
+      const offset = Math.min(resumeOffset + (mainCtx.currentTime - startedAtCtxTime), duration.value)
+      if (!localCtx) {
+        localCtx = new AudioContext()
+      }
+      void localCtx.resume()
+      localSource = localCtx.createBufferSource()
+      localSource.buffer = buffer
+      localSource.connect(localCtx.destination)
+      localSource.start(0, offset)
+    }
+    else if (!v && localSource) {
+      try {
+        localSource.stop()
+      }
+      catch { /* 可能已结束 */ }
+      localSource.disconnect()
+      localSource = null
+    }
+  })
 
   async function refreshOutputDevices() {
     if (!navigator.mediaDevices?.enumerateDevices) {
@@ -355,6 +405,8 @@ export function useDualSensePlayer(options: { haptic?: boolean } = {}) {
     currentTime,
     duration,
     syncToPC,
+    audioEnabled,
+    hapticEnabled,
     outputDevices,
     sinkId,
     sinkLabel,

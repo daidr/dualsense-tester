@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-import { useI18n } from 'vue-i18n'
 import HoldActiveButton from '@/components/common/HoldActiveButton.vue'
 import MediaFilePlayer from '@/components/common/MediaFilePlayer.vue'
 import { useConnectionType, useDevice } from '@/composables/useInjectValues'
@@ -9,40 +8,52 @@ import { controlWaveOut } from '@/utils/dualsense/ds.util'
 import { sleep } from '@/utils/time.util'
 import { useEventBusEmit } from '../_utils/eventbus.util'
 
-const { t } = useI18n()
 const device = useDevice()
 const connectionType = useConnectionType()
 const eventBusEmit = useEventBusEmit()
 
-// MVP 阶段，文件播放走 USB Audio Class 声卡端点（setSinkId），仅 USB 可用；蓝牙路径后续实现。
-const isFilePlaybackAvailable = computed(() => connectionType.value === DeviceConnectionType.USB)
+const isBluetooth = computed(() => connectionType.value === DeviceConnectionType.Bluetooth)
+const isFilePlaybackSupported = computed(() =>
+  connectionType.value === DeviceConnectionType.USB
+  || connectionType.value === DeviceConnectionType.Bluetooth,
+)
 
+// 音频 / 震动两个开关任意组合（MediaFilePlayer 内保证至少一个激活）。
+const audioEnabled = ref(true)
+const hapticEnabled = ref(false)
 const audioTarget = ref('speaker')
-const audioTargetOptions = computed(() => [
-  { value: 'speaker', label: t('audio_panel.target_speaker') },
-  { value: 'headphone', label: t('audio_panel.target_headphone') },
-])
+const audioVolume = ref(200)
 
-// 「扬声器/耳机」靠 HID 音量切换（与 1kHz 测试一致）：播放时存储原音量并应用目标音量，停止时恢复。
+// USB 下音量靠 HID 报告切换；蓝牙音量在 0x36 流报告内携带，跳过。
 let volumeStored = false
 
-function applyAudioTargetVolume() {
-  // 只设目标那一路：其 setter 会把 audioControl 路由位设到对应输出。
-  // 若再设另一路（哪怕设为 0），会把 audioControl 覆盖成另一路由，导致音频走错输出而静音。
-  if (audioTarget.value === 'headphone') {
+function applyVolume() {
+  if (hapticEnabled.value) {
+    // 触觉需要音频子系统满增益，两路都拉满（触觉走 ch2/ch3，不受 audioControl 路由影响）。
+    eventBusEmit('output:set-speaker-volume', 255)
     eventBusEmit('output:set-headphone-volume', 255)
+    // 音频同时开时，最后重设目标那一路，确保 audioControl 路由到目标输出（扬声器/耳机互斥）。
+    if (audioEnabled.value) {
+      eventBusEmit(audioTarget.value === 'headphone' ? 'output:set-headphone-volume' : 'output:set-speaker-volume', 255)
+    }
+  }
+  else if (audioTarget.value === 'headphone') {
+    eventBusEmit('output:set-headphone-volume', audioVolume.value)
   }
   else {
-    eventBusEmit('output:set-speaker-volume', 255)
+    eventBusEmit('output:set-speaker-volume', audioVolume.value)
   }
 }
 
 function onPlayingChange(playing: boolean) {
+  if (isBluetooth.value) {
+    return
+  }
   if (playing) {
     eventBusEmit('output:store-speaker-volume')
     eventBusEmit('output:store-headphone-volume')
     volumeStored = true
-    applyAudioTargetVolume()
+    applyVolume()
   }
   else if (volumeStored) {
     eventBusEmit('output:retrieve-speaker-volume')
@@ -51,12 +62,13 @@ function onPlayingChange(playing: boolean) {
   }
 }
 
-watch(audioTarget, () => {
+watch([audioTarget, audioEnabled, hapticEnabled, audioVolume], () => {
   if (volumeStored) {
-    applyAudioTargetVolume()
+    applyVolume()
   }
 })
 
+// 1kHz 正弦波硬件测试（与文件播放独立）。
 let hpResolver: () => void
 let spkResolver: () => void
 let hpLock = Promise.resolve()
@@ -134,14 +146,16 @@ async function stopSPKWaveout() {
     <div class="file-section">
       <span class="section-title">{{ $t('audio_panel.file_playback') }}</span>
       <MediaFilePlayer
-        v-if="isFilePlaybackAvailable"
-        v-model:target="audioTarget"
-        :target-options="audioTargetOptions"
+        v-if="isFilePlaybackSupported"
+        v-model:audio-enabled="audioEnabled"
+        v-model:haptic-enabled="hapticEnabled"
+        v-model:audio-target="audioTarget"
+        v-model:audio-volume="audioVolume"
         accept="audio/*"
         @playing-change="onPlayingChange"
       />
       <p v-else class="hint">
-        {{ $t('audio_panel.file_playback_usb_only') }}
+        {{ $t('audio_panel.file_playback_unsupported') }}
       </p>
     </div>
   </div>
