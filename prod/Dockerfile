@@ -2,7 +2,7 @@
 FROM oven/bun:1 AS base
 WORKDIR /app
 RUN apt-get update  && \
-    apt-get install --no-install-recommends -y git=1:2.39.5-0+deb12u2 && \
+    apt-get install --no-install-recommends -y git && \
     rm -rf /var/lib/apt/lists/*
 
 # Install dependencies
