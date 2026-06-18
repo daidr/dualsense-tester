@@ -27,8 +27,6 @@
   },
   "connect_panel": {
     "tips": "دسته‌ی دوال‌شوک یا دوال‌سنس را با استفاده از <b>کابل</b> یا <b>بلوتوث</b> به کامپیوتر خود متصل کنید، سپس روی دکمه \"افزودن دسته\" بالا کلیک کنید.",
-    "connect": "اتصال",
-    "disconnect": "قطع اتصال",
     "not_connected": "متصل نیست",
     "connected": "متصل شد",
     "seq_num": "شماره ترتیبی",
@@ -276,7 +274,6 @@
     "headphone_1khz_sine_wave_test": "موج سینوسی 1kHz هدفون",
     "speaker_1khz_sine_wave_test": "موج سینوسی 1kHz اسپیکر",
     "file_playback": "Play an audio file",
-    "file_playback_usb_only": "Audio file playback is only available over a USB connection for now.",
     "file_playback_unsupported": "Connect the controller over USB or Bluetooth to test playback.",
     "upload_file": "Upload audio file",
     "replace_file": "Replace",
@@ -299,8 +296,6 @@
   "haptic_panel": {
     "title": "Haptics",
     "coming_soon": "Haptics test is coming soon.",
-    "usb_only": "Haptics test is only available over a USB connection for now.",
-    "unsupported": "Connect the controller over USB or Bluetooth to test haptics.",
     "motor": "Motor",
     "target_both": "Both motors",
     "target_left": "Left motor",
@@ -315,7 +310,6 @@
     "offline_ready": "این برنامه اکنون بصورت آفلاین قابل استفاده است."
   },
   "git_version": {
-    "title": "جزئیات تغییرات",
     "warn_pr": "این نسخه پیش‌نمایشی از PR (Pull Request) است. لطفاً با احتیاط استفاده کنید، زیرا ممکن است مشکلاتی وجود داشته باشد.",
     "warn_dev": "این نسخه پیش‌نمایشی از شاخه توسعه (development branch) است. لطفاً با احتیاط استفاده کنید، زیرا ممکن است مشکلاتی وجود داشته باشد."
   },
