@@ -51,6 +51,20 @@ const FIELD_ICONS: Record<string, string> = {
   rightStickXDynamicRangeValue: 'i-fancy-controller-rs-solid',
   rightStickYRoundTripCount: 'i-fancy-controller-rs-solid',
   rightStickYDynamicRangeValue: 'i-fancy-controller-rs-solid',
+  stickModuleLeftSerialNumber: 'i-fancy-controller-ls-solid',
+  stickModuleLeftXRoundTripCount: 'i-fancy-controller-ls-solid',
+  stickModuleLeftXDynamicRangeValue: 'i-fancy-controller-ls-solid',
+  stickModuleLeftYRoundTripCount: 'i-fancy-controller-ls-solid',
+  stickModuleLeftYDynamicRangeValue: 'i-fancy-controller-ls-solid',
+  stickModuleLeftButtonPressCount: 'i-fancy-controller-ls-solid',
+  stickModuleLeftFunctionButtonPressCount: 'i-fancy-controller-ls-solid',
+  stickModuleRightSerialNumber: 'i-fancy-controller-rs-solid',
+  stickModuleRightXRoundTripCount: 'i-fancy-controller-rs-solid',
+  stickModuleRightXDynamicRangeValue: 'i-fancy-controller-rs-solid',
+  stickModuleRightYRoundTripCount: 'i-fancy-controller-rs-solid',
+  stickModuleRightYDynamicRangeValue: 'i-fancy-controller-rs-solid',
+  stickModuleRightButtonPressCount: 'i-fancy-controller-rs-solid',
+  stickModuleRightFunctionButtonPressCount: 'i-fancy-controller-rs-solid',
 }
 
 const usageFields: Field[] = [
@@ -197,15 +211,15 @@ const resolvedGroups = computed(() => {
     { title: 'group_usage', fields: usageFields, cols: 1 },
     { title: 'group_connection', fields: connectionFields, cols: 2 },
     { title: 'group_buttons', fields: props.isEdge ? edgeButtonFields : standardButtonFields, cols: 2 },
-    { title: 'group_sticks', fields: props.isEdge ? edgeStickFields : standardStickFields, cols: props.isEdge ? 1 : 2 },
+    { title: 'group_sticks', fields: props.isEdge ? edgeStickFields : standardStickFields, cols: 2 },
   ]
   return defs
     .map(group => ({
       title: `connect_panel.diagnostics.${group.title}`,
       cols: group.cols,
       items: group.fields
-        .map(field => ({ key: field.key, label: `connect_panel.diagnostics.${toSnake(field.key)}`, icon: FIELD_ICONS[field.key], value: formatValue(field) }))
-        .filter((item): item is { key: string, label: string, icon: string | undefined, value: string } => item.value !== null),
+        .map(field => ({ key: field.key, label: `connect_panel.diagnostics.${toSnake(field.key)}`, icon: FIELD_ICONS[field.key], wide: field.type === 'text', value: formatValue(field) }))
+        .filter((item): item is { key: string, label: string, icon: string | undefined, wide: boolean, value: string } => item.value !== null),
     }))
     .filter(group => group.items.length)
 })
@@ -246,7 +260,7 @@ onMounted(load)
           {{ $t(group.title) }}
         </div>
         <div class="grid gap-x-4" :class="group.cols === 2 ? 'grid-cols-2' : 'grid-cols-1'">
-          <div v-for="item in group.items" :key="item.key" class="cell">
+          <div v-for="item in group.items" :key="item.key" class="cell" :class="{ 'col-span-2': item.wide && group.cols === 2 }">
             <span class="cell-label">
               <span v-if="item.icon" class="cell-icon" :class="item.icon" />
               {{ $t(item.label) }}
