@@ -195,20 +195,20 @@
       "right_stick_x_dynamic_range_value": "X range",
       "right_stick_y_round_trip_count": "Y cycles",
       "right_stick_y_dynamic_range_value": "Y range",
-      "stick_module_left_serial_number": "Left module serial number",
-      "stick_module_left_x_round_trip_count": "Left module X round trips",
-      "stick_module_left_x_dynamic_range_value": "Left module X dynamic range",
-      "stick_module_left_y_round_trip_count": "Left module Y round trips",
-      "stick_module_left_y_dynamic_range_value": "Left module Y dynamic range",
-      "stick_module_left_button_press_count": "Left module button presses",
-      "stick_module_left_function_button_press_count": "Left module function button presses",
-      "stick_module_right_serial_number": "Right module serial number",
-      "stick_module_right_x_round_trip_count": "Right module X round trips",
-      "stick_module_right_x_dynamic_range_value": "Right module X dynamic range",
-      "stick_module_right_y_round_trip_count": "Right module Y round trips",
-      "stick_module_right_y_dynamic_range_value": "Right module Y dynamic range",
-      "stick_module_right_button_press_count": "Right module button presses",
-      "stick_module_right_function_button_press_count": "Right module function button presses"
+      "stick_module_left_serial_number": "Serial number",
+      "stick_module_left_x_round_trip_count": "X cycles",
+      "stick_module_left_x_dynamic_range_value": "X range",
+      "stick_module_left_y_round_trip_count": "Y cycles",
+      "stick_module_left_y_dynamic_range_value": "Y range",
+      "stick_module_left_button_press_count": "Presses",
+      "stick_module_left_function_button_press_count": "Fn presses",
+      "stick_module_right_serial_number": "Serial number",
+      "stick_module_right_x_round_trip_count": "X cycles",
+      "stick_module_right_x_dynamic_range_value": "X range",
+      "stick_module_right_y_round_trip_count": "Y cycles",
+      "stick_module_right_y_dynamic_range_value": "Y range",
+      "stick_module_right_button_press_count": "Presses",
+      "stick_module_right_function_button_press_count": "Fn presses"
     }
   },
   "profile_panel": {
@@ -264,10 +264,7 @@
       "end_pos": "نقطه پایان",
       "frequency": "تعداد تکرار",
       "force": "میزان شدت"
-    },
-    "headphone_volume": "حجم صدای هدفون",
-    "speaker_volume": "حجم صدای اسپیکر",
-    "haptic_volume": "حجم هپتیک"
+    }
   },
   "audio_panel": {
     "title": "صدا",
@@ -294,8 +291,6 @@
     "list_devices": "List devices"
   },
   "haptic_panel": {
-    "title": "Haptics",
-    "coming_soon": "Haptics test is coming soon.",
     "motor": "Motor",
     "target_both": "Both motors",
     "target_left": "Left motor",
