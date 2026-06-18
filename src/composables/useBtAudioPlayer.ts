@@ -15,6 +15,9 @@ import { hidLogger } from '@/utils/logger.util'
 // 每帧真实时长：音频重采样到 45k 后 480 样本/帧 = 480/45000 ≈ 10.667ms。
 const FRAME_DURATION_S = 480 / 45000
 const HAPTIC_GAIN = 1 // 触觉信号增益，音乐当触觉偏弱时可调大
+// 单个 tick 最多补发的帧数。切到后台时 RAF 暂停而音频时钟继续走，返回前台若把积压的全部帧
+// 一次性补发会瞬间灌一大批包；超过此阈值即视为积压，丢弃中间帧、从最新位置继续发。
+const MAX_CATCHUP_FRAMES = 8
 
 /**
  * 蓝牙文件播放器内核。接口与 useDualSensePlayer 兼容，供 MediaFilePlayer 复用。
@@ -128,6 +131,10 @@ export function useBtAudioPlayer(options: { audioEnabled: Ref<boolean>, hapticEn
         currentTime.value = Math.min(t, duration.value)
         // 按时钟追赶发送应发的帧（~10.667ms/帧）
         const targetFrame = Math.floor(currentTime.value / FRAME_DURATION_S)
+        // 积压过多（多见于切后台后返回）时丢弃中间帧，只从最新位置继续发。
+        if (targetFrame - lastSentFrame > MAX_CATCHUP_FRAMES) {
+          lastSentFrame = targetFrame - 1
+        }
         while (lastSentFrame < targetFrame) {
           lastSentFrame++
           sendFrame(lastSentFrame)
