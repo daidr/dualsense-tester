@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" vapor>
 import { useElementBounding } from '@vueuse/core'
 import { computed, ref } from 'vue'
 import { useIsRTL } from '@/store/page'

@@ -1,4 +1,4 @@
-<script setup lang="ts" generic="T extends string | number, U">
+<script setup lang="ts" vapor generic="T extends string | number, U">
 import {
   SelectContent,
   SelectItem,

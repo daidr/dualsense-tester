@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" vapor>
 import { Graphics } from 'pixi.js'
 import { nextTick, onMounted, ref, toRaw, useTemplateRef, watch, watchEffect } from 'vue'
 import { useIsRTL } from '@/store/page'
