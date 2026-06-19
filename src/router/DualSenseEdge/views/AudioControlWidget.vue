@@ -29,12 +29,23 @@ let volumeStored = false
 
 function applyVolume() {
   if (hapticEnabled.value) {
-    // 触觉需要音频子系统满增益，两路都拉满（触觉走 ch2/ch3，不受 audioControl 路由影响）。
-    eventBusEmit('output:set-speaker-volume', 255)
-    eventBusEmit('output:set-headphone-volume', 255)
-    // 音频同时开时，最后重设目标那一路，确保 audioControl 路由到目标输出（扬声器/耳机互斥）。
+    // 触觉走 ch2/ch3，强度吃音频子系统总增益，所以非音频目标的那一路拉满 255。
     if (audioEnabled.value) {
-      eventBusEmit(audioTarget.value === 'headphone' ? 'output:set-headphone-volume' : 'output:set-speaker-volume', 255)
+      // 音频同时开：目标那一路用 audioVolume（音量可调），另一路 255 给触觉；
+      // 目标路最后写，确保 audioControl 路由到目标输出（扬声器/耳机互斥）。
+      if (audioTarget.value === 'headphone') {
+        eventBusEmit('output:set-speaker-volume', 255)
+        eventBusEmit('output:set-headphone-volume', audioVolume.value)
+      }
+      else {
+        eventBusEmit('output:set-headphone-volume', 255)
+        eventBusEmit('output:set-speaker-volume', audioVolume.value)
+      }
+    }
+    else {
+      // 纯触觉：两路都拉满。
+      eventBusEmit('output:set-speaker-volume', 255)
+      eventBusEmit('output:set-headphone-volume', 255)
     }
   }
   else if (audioTarget.value === 'headphone') {
