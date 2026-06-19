@@ -11,6 +11,7 @@ import JoystickPreviewGraph from '@/components/common/JoystickPreviewGraph.vue'
 import SliderBox from '@/components/common/SliderBox.vue'
 import { usePageStore } from '@/store/page'
 import { DSEJoystickCurveMap, DSEJoystickCurvePos, DSEJoystickProfilePreset } from '../../profile'
+import CurvePointsEditor from './CurvePointsEditor.vue'
 
 defineProps<{
   current: number
@@ -83,7 +84,12 @@ const curveOptions = computed(() => [
 const adjustment = ref(0)
 const deadzone = ref(0)
 
+// 曲线图与数值表共享的激活控制点(0/1/2),实现两侧高亮联动
+const activePoint = ref<number | null>(null)
+
 const currentCurvePresetId = shallowRef(modelValue.value.preset)
+
+const isCustomCurve = computed(() => currentCurvePresetId.value === DSEJoystickProfilePreset.CUSTOM)
 
 const currentCurvePreset = computed(() => {
   return DSEJoystickCurveMap[currentCurvePresetId.value]
@@ -156,7 +162,7 @@ const throttleUpdateCurve = useThrottleFn(handleUpdateCurve, 16, true)
 </script>
 
 <template>
-  <div class="wrapper flex-col md:flex-row">
+  <div class="wrapper flex-col md:flex-row md:items-start">
     <div class="flex flex-col items-start gap-2">
       <div class="field">
         <label>{{ $t("profile_mode.joystick_curves_label") }}</label>
@@ -202,11 +208,20 @@ const throttleUpdateCurve = useThrottleFn(handleUpdateCurve, 16, true)
       </div>
     </div>
 
-    <JoystickCurveGraph
-      :default-curve="currentDefaultCurve" :current="current" :deadzone="deadzone / 100"
-      :curve="currentCurve" class="h-auto max-w-400px min-w-0 w-full flex-shrink"
-      :editable="currentCurvePresetId === DSEJoystickProfilePreset.CUSTOM" @update-curve="throttleUpdateCurve"
-    />
+    <div class="graph-col max-w-400px min-w-0 w-full flex flex-shrink flex-col gap-3">
+      <JoystickCurveGraph
+        v-model:active-point="activePoint"
+        :default-curve="currentDefaultCurve" :current="current" :deadzone="deadzone / 100"
+        :curve="currentCurve" class="h-auto w-full"
+        :editable="isCustomCurve" @update-curve="throttleUpdateCurve"
+      />
+      <CurvePointsEditor
+        v-if="isCustomCurve"
+        v-model:active-point="activePoint"
+        :curve="currentCurve"
+        @update-curve="handleUpdateCurve"
+      />
+    </div>
     <div class="min-w-0 w-full flex flex-shrink flex-grow">
       <JoystickPreviewGraph
         class="max-w-200px flex-shrink-0 flex-grow" :deadzone="deadzone / 100" :x="x" :y="y"

@@ -373,6 +373,18 @@
     "joystick_curves_adjust_label": "曲线调整",
     "joystick_deadzone_adjust_label": "死区调整",
     "joystick_preview_raw_input": "原始输入",
-    "joystick_preview_mapped_input": "映射输入"
+    "joystick_preview_mapped_input": "映射输入",
+    "joystick_curve_points": {
+      "label": "控制点",
+      "input": "输入",
+      "output": "输出",
+      "copy": "复制曲线",
+      "paste": "粘贴曲线",
+      "copied": "曲线已复制到剪贴板",
+      "copy_failed": "复制曲线失败",
+      "pasted": "已从剪贴板粘贴曲线",
+      "paste_invalid": "剪贴板内容不是有效的曲线数据",
+      "paste_failed": "读取剪贴板失败"
+    }
   }
 }

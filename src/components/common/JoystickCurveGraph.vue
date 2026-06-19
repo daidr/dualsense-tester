@@ -3,7 +3,8 @@ import type { FederatedPointerEvent } from 'pixi.js'
 import { useThrottleFn } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 import { Container, Graphics } from 'pixi.js'
-import { nextTick, onMounted, ref, shallowRef, useTemplateRef, watch } from 'vue'
+import { nextTick, onMounted, ref, useTemplateRef, watch } from 'vue'
+import { setCurvePoint } from '@/router/DualSenseEdge/views/_Profile/profile'
 import { usePageStore } from '@/store/page'
 import { usePixiApp } from '@/utils/pixi.util'
 
@@ -18,6 +19,12 @@ const props = defineProps<{
 const emit = defineEmits<{
   updateCurve: [curve: number[]]
 }>()
+
+/**
+ * 当前激活(hover / 拖拽 / 与数值表联动)的控制点序号(0/1/2 对应 point1/2/3),无则为 null。
+ * 用 model 双向同步:图上交互写回父级,父级(数值表)也能反向高亮此处的点。
+ */
+const activePoint = defineModel<number | null>('activePoint', { default: null })
 
 const CanvasRef = useTemplateRef('CanvasRef')
 
@@ -35,8 +42,6 @@ onMounted(async () => {
     return
   }
 
-  const currentPoint = shallowRef<Graphics>()
-
   const grid = new Graphics()
   const deadzone = new Graphics()
   const defaultCurve = new Graphics()
@@ -44,17 +49,8 @@ onMounted(async () => {
   const activeCurve = new Graphics()
 
   function updateCurve(index: number, valueX: number, valueY: number) {
-    const newIndex = index + 1
-    const newCurve = [...props.curve]
-    // 取出第一个点
-    const firstPointX = newCurve[0]
-    const lastPointX = 255
-    const prevPointX = newCurve[(newIndex - 1) * 2] || firstPointX
-    const nextPointX = newCurve[(newIndex + 1) * 2] || lastPointX
-
-    newCurve[newIndex * 2] = Math.max(prevPointX, Math.min(nextPointX, valueX))
-    newCurve[newIndex * 2 + 1] = Math.max(0, Math.min(255, 255 - valueY))
-    emit('updateCurve', newCurve)
+    // valueX / valueY 为屏幕映射后的 0-255 值,Y 轴向下,故传入 255 - valueY 转为输出值空间
+    emit('updateCurve', setCurvePoint(props.curve, index + 1, valueX, 255 - valueY))
   }
   const dragPoints = new Container()
   const dragPointsChildren: Graphics[] = []
@@ -62,26 +58,28 @@ onMounted(async () => {
     const point = new Graphics()
     let isDragging = false
     function handlePointerEnter(this: Graphics, _e: FederatedPointerEvent) {
-      if (currentPoint.value) {
+      if (activePoint.value !== null) {
         return
       }
-      currentPoint.value = this
+      activePoint.value = i
     }
 
     function handlePointerLeave(this: Graphics, _e: FederatedPointerEvent) {
-      if (!isDragging) {
-        currentPoint.value = undefined
+      if (!isDragging && activePoint.value === i) {
+        activePoint.value = null
       }
     }
 
     function handlePointerDown(this: Graphics, _e: FederatedPointerEvent) {
       isDragging = true
-      currentPoint.value = this
+      activePoint.value = i
     }
 
     function handlePointerUp(this: Graphics, _e: FederatedPointerEvent) {
       isDragging = false
-      currentPoint.value = undefined
+      if (activePoint.value === i) {
+        activePoint.value = null
+      }
     }
 
     function handlePointerMove(this: Graphics, e: FederatedPointerEvent) {
@@ -232,7 +230,7 @@ onMounted(async () => {
       }
       else if (x + clipX > x + realCurve[realCurve.length - 2]) {
         const lastX = x + realCurve[realCurve.length - 2]
-        const lastY = y + realCurve[realCurve.length - 1]
+        const lastY = y + realCurve.at(-1)
 
         if (lastX < w) {
           const t = (clipX - lastX) / (w - lastX)
@@ -272,8 +270,9 @@ onMounted(async () => {
     for (let i = 2; i < realCurve.length; i += 2) {
       const x = realCurve[i]
       const y = realCurve[i + 1]
-      const point = dragPointsChildren[i / 2 - 1]
-      const isActive = currentPoint.value === point
+      const ordinal = i / 2 - 1
+      const point = dragPointsChildren[ordinal]
+      const isActive = activePoint.value === ordinal
       point.clear()
       point.setStrokeStyle({
         color: isActive ? colorPalette.value.active : colorPalette.value.primary,
@@ -285,7 +284,7 @@ onMounted(async () => {
         color: colorPalette.value.background,
         alpha: 1,
       })
-      point.circle(x, y, 6)
+      point.circle(x, y, isActive ? 8 : 6)
       point.fill()
       point.stroke()
     }
@@ -300,7 +299,7 @@ onMounted(async () => {
     current: 0,
     colorMode: '',
     editable: false,
-    currentPoint: undefined as any,
+    activePoint: null as number | null,
   }
 
   function draw() {
@@ -340,7 +339,7 @@ onMounted(async () => {
     }
 
     // 检查是否需要绘制操作点
-    if (basicChanged || prevContext.curve !== props.curve || prevContext.editable !== props.editable || currentPoint.value !== prevContext.currentPoint) {
+    if (basicChanged || prevContext.curve !== props.curve || prevContext.editable !== props.editable || activePoint.value !== prevContext.activePoint) {
       drawDragPoints(props.curve, width, height)
     }
 
@@ -353,7 +352,7 @@ onMounted(async () => {
       current: props.current,
       colorMode: pageStore.colorModeState,
       editable: props.editable || false,
-      currentPoint: currentPoint.value,
+      activePoint: activePoint.value,
     }
   }
 
@@ -364,7 +363,7 @@ onMounted(async () => {
   })
 
   watch(
-    () => [props.curve, props.defaultCurve, props.deadzone, props.current, props.editable, pageStore.colorModeState, currentPoint.value],
+    () => [props.curve, props.defaultCurve, props.deadzone, props.current, props.editable, pageStore.colorModeState, activePoint.value],
     () => {
       throttledDraw()
     },
