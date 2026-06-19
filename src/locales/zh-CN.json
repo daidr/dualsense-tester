@@ -285,6 +285,7 @@
     "target_speaker": "扬声器",
     "target_headphone": "耳机",
     "volume": "音量",
+    "haptic_strength": "Haptic strength",
     "settings": "设置",
     "output_device": "输出设备",
     "output_default": "系统默认",
