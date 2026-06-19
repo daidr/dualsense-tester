@@ -373,6 +373,18 @@
     "joystick_curves_adjust_label": "Налаштування кривої",
     "joystick_deadzone_adjust_label": "Налаштування мертвої зони",
     "joystick_preview_raw_input": "Сирий ввід",
-    "joystick_preview_mapped_input": "Преобразований ввід"
+    "joystick_preview_mapped_input": "Преобразований ввід",
+    "joystick_curve_points": {
+      "label": "Control points",
+      "input": "Input",
+      "output": "Output",
+      "copy": "Copy curve",
+      "paste": "Paste curve",
+      "copied": "Curve copied to clipboard",
+      "copy_failed": "Failed to copy curve",
+      "pasted": "Curve pasted from clipboard",
+      "paste_invalid": "Clipboard does not contain a valid curve",
+      "paste_failed": "Failed to read clipboard"
+    }
   }
 }
