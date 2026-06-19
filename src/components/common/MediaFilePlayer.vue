@@ -33,6 +33,8 @@ const hapticEnabled = defineModel<boolean>('hapticEnabled', { default: false })
 const audioTarget = defineModel<string>('audioTarget', { default: 'speaker' })
 /** 音频音量 0–255：蓝牙写进 0x36 报告，USB 由父组件写 HID 音量。 */
 const audioVolume = defineModel<number>('audioVolume', { default: 200 })
+/** 触觉强度（百分比，100=原始振幅）：USB/蓝牙均在软件层缩放触觉 PCM 振幅，不走 HID。 */
+const hapticGain = ref(100)
 
 const { t } = useI18n()
 
@@ -41,8 +43,8 @@ const isBluetooth = computed(() => connectionType.value === DeviceConnectionType
 
 // 按连接类型选播放器内核：USB 走声卡端点（4 声道）；蓝牙走 Opus + 0x36 HID 报告。两者均按开关组合音频/触觉。
 const player: DualSensePlayer = connectionType.value === DeviceConnectionType.Bluetooth
-  ? useBtAudioPlayer({ audioEnabled, hapticEnabled, audioTarget, audioVolume })
-  : useDualSensePlayer({ audioEnabled, hapticEnabled })
+  ? useBtAudioPlayer({ audioEnabled, hapticEnabled, audioTarget, audioVolume, hapticGain })
+  : useDualSensePlayer({ audioEnabled, hapticEnabled, hapticGain })
 const {
   fileName,
   hasClip,
@@ -241,9 +243,17 @@ defineExpose({ player })
           </PopoverTrigger>
           <PopoverPortal to="#teleport-container">
             <PopoverContent class="settings-popover" align="end" :side-offset="8">
-              <div class="popover-row">
+              <div v-if="audioEnabled" class="popover-row">
                 <span class="field-label">{{ $t('audio_panel.volume') }}</span>
                 <SliderBox v-model="audioVolume" :min="0" :max="255" :digits="0" class="popover-volume" />
+              </div>
+              <div v-if="hapticEnabled" class="popover-row">
+                <span class="field-label">{{ $t('audio_panel.haptic_strength') }}</span>
+                <SliderBox v-model="hapticGain" :min="0" :max="200" :digits="0" class="popover-volume">
+                  <template #default="{ value }">
+                    {{ value }}%
+                  </template>
+                </SliderBox>
               </div>
               <div class="popover-row">
                 <span class="field-label">{{ $t('audio_panel.sync_to_pc') }}</span>

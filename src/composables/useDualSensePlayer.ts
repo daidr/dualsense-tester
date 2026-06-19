@@ -12,9 +12,9 @@ import { uiLogger } from '@/utils/logger.util'
  *
  * 扬声器/耳机的 HID 音量切换属设备副作用，由集成层（widget）处理。
  */
-export function useDualSensePlayer(options: { audioEnabled: Ref<boolean>, hapticEnabled: Ref<boolean> }) {
+export function useDualSensePlayer(options: { audioEnabled: Ref<boolean>, hapticEnabled: Ref<boolean>, hapticGain: Ref<number> }) {
   // 音频→声卡前 2 声道(ch0/ch1=扬声器)，触觉→后 2 声道(ch2/ch3=左右马达)，按开关组合。
-  const { audioEnabled, hapticEnabled } = options
+  const { audioEnabled, hapticEnabled, hapticGain } = options
 
   const fileName = ref('')
   const hasClip = ref(false)
@@ -48,8 +48,10 @@ export function useDualSensePlayer(options: { audioEnabled: Ref<boolean>, haptic
   let analyserNode: AnalyserNode | null = null
   let mainSource: AudioBufferSourceNode | null = null
   let localSource: AudioBufferSourceNode | null = null
-  let hapticSplitter: ChannelSplitterNode | null = null
-  let hapticMerger: ChannelMergerNode | null = null
+  // buildGraph 创建的中间节点，teardown 时统一断开。
+  let graphNodes: AudioNode[] = []
+  // 触觉通道的增益节点，单独留引用以便实时调强度（无需重建图）。
+  let hapticGainNode: GainNode | null = null
 
   let startedAtCtxTime = 0
   let resumeOffset = 0
@@ -123,10 +125,14 @@ export function useDualSensePlayer(options: { audioEnabled: Ref<boolean>, haptic
       localSource.disconnect()
       localSource = null
     }
-    hapticSplitter?.disconnect()
-    hapticMerger?.disconnect()
-    hapticSplitter = null
-    hapticMerger = null
+    graphNodes.forEach(node => node.disconnect())
+    graphNodes = []
+    hapticGainNode = null
+  }
+
+  // 触觉强度滑块（百分比）→ 增益系数；负数夹到 0。
+  function currentHapticGain(): number {
+    return Math.max(0, hapticGain.value / 100)
   }
 
   /** 构建输出图：频谱接 analyser；音频→声卡 ch0/ch1(扬声器)、触觉→ch2/ch3(马达)，按开关组合。 */
@@ -149,28 +155,36 @@ export function useDualSensePlayer(options: { audioEnabled: Ref<boolean>, haptic
       uiLogger.warn('multi-channel destination failed', error)
     }
     uiLogger.info(`output graph: maxChannelCount=${maxChannels}, ch=${channels}, audio=${audioEnabled.value}, haptic=${needHaptic}`)
-    const splitter = ctx.createChannelSplitter(2)
     const merger = ctx.createChannelMerger(channels)
-    source.connect(splitter)
+    graphNodes.push(merger)
     if (audioEnabled.value) {
-      // 音频 → ch0/ch1（扬声器）
-      splitter.connect(merger, 0, 0)
-      splitter.connect(merger, 1, Math.min(1, channels - 1))
+      // 音频 → ch0/ch1（扬声器），不经增益（音量走 HID）
+      const audioSplitter = ctx.createChannelSplitter(2)
+      source.connect(audioSplitter)
+      audioSplitter.connect(merger, 0, 0)
+      audioSplitter.connect(merger, 1, Math.min(1, channels - 1))
+      graphNodes.push(audioSplitter)
     }
     if (needHaptic) {
-      // 触觉 → ch2/ch3（4 声道时）；声卡 <4 声道则降级到 ch0/ch1
+      // 触觉 → ch2/ch3（4 声道时）；声卡 <4 声道则降级到 ch0/ch1。
+      // 触觉单独走一个 GainNode 做强度缩放，不影响音频通道。
       const leftCh = channels >= 4 ? 2 : 0
       const rightCh = channels >= 4 ? 3 : Math.min(1, channels - 1)
+      const gain = ctx.createGain()
+      gain.gain.value = currentHapticGain()
+      source.connect(gain)
+      const hapticSplitter = ctx.createChannelSplitter(2)
+      gain.connect(hapticSplitter)
       if (hapticChannel.value !== 'right') {
-        splitter.connect(merger, 0, leftCh)
+        hapticSplitter.connect(merger, 0, leftCh)
       }
       if (hapticChannel.value !== 'left') {
-        splitter.connect(merger, 1, rightCh)
+        hapticSplitter.connect(merger, 1, rightCh)
       }
+      hapticGainNode = gain
+      graphNodes.push(gain, hapticSplitter)
     }
     merger.connect(ctx.destination)
-    hapticSplitter = splitter
-    hapticMerger = merger
   }
 
   /** 从 offset 处开始实际播放（创建新的 source 节点）。 */
@@ -296,6 +310,13 @@ export function useDualSensePlayer(options: { audioEnabled: Ref<boolean>, haptic
 
   // 音频/震动开关变化时，播放中实时重连输出图（无需重新加载文件）。
   watch([audioEnabled, hapticEnabled], rebuildGraphIfPlaying)
+
+  // 触觉强度变化：直接调增益节点，无需重建图（播放中即时生效）。
+  watch(hapticGain, () => {
+    if (hapticGainNode) {
+      hapticGainNode.gain.value = currentHapticGain()
+    }
+  })
 
   // 「同步在电脑播放」播放中切换：动态开/关第二路本地播放，不打断 DualSense 声卡输出。
   watch(syncToPC, (v) => {

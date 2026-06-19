@@ -14,7 +14,6 @@ import { hidLogger } from '@/utils/logger.util'
 
 // 每帧真实时长：音频重采样到 45k 后 480 样本/帧 = 480/45000 ≈ 10.667ms。
 const FRAME_DURATION_S = 480 / 45000
-const HAPTIC_GAIN = 1 // 触觉信号增益，音乐当触觉偏弱时可调大
 // 单个 tick 最多补发的帧数。切到后台时 RAF 暂停而音频时钟继续走，返回前台若把积压的全部帧
 // 一次性补发会瞬间灌一大批包；超过此阈值即视为积压，丢弃中间帧、从最新位置继续发。
 const MAX_CATCHUP_FRAMES = 8
@@ -28,8 +27,8 @@ const MAX_CATCHUP_FRAMES = 8
  * hapticEnabled 决定触觉子包是信号还是全 0——切换开关即时生效、无需重新加载。
  * 「同步在电脑播放」时把本地源的增益开到 1，即可同时在电脑听到。
  */
-export function useBtAudioPlayer(options: { audioEnabled: Ref<boolean>, hapticEnabled: Ref<boolean>, audioTarget: Ref<string>, audioVolume: Ref<number> }) {
-  const { audioEnabled, hapticEnabled, audioTarget, audioVolume } = options
+export function useBtAudioPlayer(options: { audioEnabled: Ref<boolean>, hapticEnabled: Ref<boolean>, audioTarget: Ref<string>, audioVolume: Ref<number>, hapticGain: Ref<number> }) {
+  const { audioEnabled, hapticEnabled, audioTarget, audioVolume, hapticGain } = options
 
   const device = useDevice()
 
@@ -80,20 +79,27 @@ export function useBtAudioPlayer(options: { audioEnabled: Ref<boolean>, hapticEn
     return ctx
   }
 
-  // 触觉 PCM 为 L/R 交织（[L0,R0,L1,R1,...]）。左马达只留偶数字节(L)，右马达只留奇数字节(R)，双马达原样。
-  function maskHaptic(src: Uint8Array): Uint8Array {
+  // int8(二补码 byte) × 增益，clamp 回 ±127 再转回 byte。
+  function scaleInt8(byte: number, gain: number): number {
+    if (gain === 1) {
+      return byte
+    }
+    const signed = byte < 128 ? byte : byte - 256
+    const scaled = Math.round(signed * gain)
+    return Math.max(-127, Math.min(127, scaled)) & 0xFF
+  }
+
+  // 触觉 PCM 为 L/R 交织（[L0,R0,L1,R1,...]）的 int8。按强度增益缩放并做声道掩码：
+  // 左马达只留 L、右马达只留 R、双马达原样；增益=1 且双马达时原样返回，省去逐字节处理。
+  function processHaptic(src: Uint8Array): Uint8Array {
     const ch = hapticChannel.value
-    if (ch === 'both') {
+    const gain = Math.max(0, hapticGain.value / 100)
+    if (gain === 1 && ch === 'both') {
       return src
     }
-    maskedHaptic.set(src)
     for (let j = 0; j < HAPTIC_FRAME_BYTES; j += 2) {
-      if (ch === 'left') {
-        maskedHaptic[j + 1] = 0 // 清右声道
-      }
-      else {
-        maskedHaptic[j] = 0 // 清左声道
-      }
+      maskedHaptic[j] = ch === 'right' ? 0 : scaleInt8(src[j], gain)
+      maskedHaptic[j + 1] = ch === 'left' ? 0 : scaleInt8(src[j + 1], gain)
     }
     return maskedHaptic
   }
@@ -109,7 +115,7 @@ export function useBtAudioPlayer(options: { audioEnabled: Ref<boolean>, hapticEn
     let haptic = emptyHaptic
     if (hapticEnabled.value) {
       const src = hapticSignal[Math.min(index, hapticSignal.length - 1)]
-      haptic = src ? maskHaptic(src) : emptyHaptic
+      haptic = src ? processHaptic(src) : emptyHaptic
     }
     const target = audioTarget.value === 'headphone' ? 'headphone' : 'speaker'
     const payload = buildReportSix(opus, haptic, sendSeq, frameCounter, target, audioVolume.value)
@@ -230,7 +236,8 @@ export function useBtAudioPlayer(options: { audioEnabled: Ref<boolean>, hapticEn
     // 音频与触觉两路都预编码备好，发送时按开关实时选取。
     musicOpus = await encodeOpusFrames(buffer45k!)
     silentOpus = await encodeSilentOpusFrame()
-    hapticSignal = await extractHapticFrames(buffer48k, HAPTIC_GAIN)
+    // 触觉以原始振幅（增益 1）提取，强度由 processHaptic 在发送时实时缩放，拖动滑块即时生效。
+    hapticSignal = await extractHapticFrames(buffer48k)
     hidLogger.info(`bt audio: ${musicOpus.length} opus + ${hapticSignal.length} haptic frames ready`)
 
     resumeOffset = 0
