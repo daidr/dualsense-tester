@@ -373,6 +373,18 @@
     "joystick_curves_adjust_label": "Eğri ayarlaması",
     "joystick_deadzone_adjust_label": "Ölübölge ayarlaması",
     "joystick_preview_raw_input": "Saf Girdi",
-    "joystick_preview_mapped_input": "Düzenlenmiş Girdi"
+    "joystick_preview_mapped_input": "Düzenlenmiş Girdi",
+    "joystick_curve_points": {
+      "label": "Control points",
+      "input": "Input",
+      "output": "Output",
+      "copy": "Copy curve",
+      "paste": "Paste curve",
+      "copied": "Curve copied to clipboard",
+      "copy_failed": "Failed to copy curve",
+      "pasted": "Curve pasted from clipboard",
+      "paste_invalid": "Clipboard does not contain a valid curve",
+      "paste_failed": "Failed to read clipboard"
+    }
   }
 }
