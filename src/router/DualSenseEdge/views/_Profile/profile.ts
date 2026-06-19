@@ -376,6 +376,42 @@ export const DSEJoystickCurveMap: Record<DSEJoystickProfilePreset, DSEJoystickCu
   }),
 }
 
+/**
+ * 将曲线第 `pointIndex` 个点(1/2/3,point0 为死区点不在此处理)设为 (x, y),
+ * 并施加与拖拽完全一致的钳制:X 限制在 [前一点X, 后一点X](保持单调不减),Y 限制在 [0, 255]。
+ * 不修改入参,返回新的曲线数组。拖拽与数值输入共用此函数,确保两种交互行为一致。
+ */
+export function setCurvePoint(curve: number[], pointIndex: number, x: number, y: number): number[] {
+  const newCurve = [...curve]
+  const firstPointX = newCurve[0] ?? 0
+  const lastPointX = 255
+  const prevPointX = newCurve[(pointIndex - 1) * 2] ?? firstPointX
+  const nextPointX = newCurve[(pointIndex + 1) * 2] ?? lastPointX
+  newCurve[pointIndex * 2] = Math.round(Math.max(prevPointX, Math.min(nextPointX, x)))
+  newCurve[pointIndex * 2 + 1] = Math.round(Math.max(0, Math.min(255, y)))
+  return newCurve
+}
+
+/**
+ * 校验并规整一段粘贴进来的曲线数值:必须是 8 个有限数,逐项钳制到 [0, 255] 取整,
+ * 并强制 X(下标 0/2/4/6)单调不减。非法输入返回 null。
+ */
+export function normalizeCurvePoints(values: number[]): number[] | null {
+  if (!Array.isArray(values) || values.length !== 8) {
+    return null
+  }
+  if (values.some(v => typeof v !== 'number' || !Number.isFinite(v))) {
+    return null
+  }
+  const clamped = values.map(v => Math.round(Math.max(0, Math.min(255, v))))
+  for (let i = 2; i < 8; i += 2) {
+    if (clamped[i] < clamped[i - 2]) {
+      clamped[i] = clamped[i - 2]
+    }
+  }
+  return clamped
+}
+
 export enum DSEProfileButton {
   LB,
   RB,
