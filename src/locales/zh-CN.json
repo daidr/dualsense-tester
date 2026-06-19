@@ -264,10 +264,7 @@
       "end_pos": "结束位置",
       "frequency": "频率",
       "force": "强度"
-    },
-    "headphone_volume": "耳机音量",
-    "speaker_volume": "扬声器音量",
-    "haptic_volume": "触感反馈强度"
+    }
   },
   "audio_panel": {
     "title": "音频",
@@ -294,8 +291,6 @@
     "list_devices": "列出设备"
   },
   "haptic_panel": {
-    "title": "触感",
-    "coming_soon": "触感测试即将推出。",
     "motor": "马达",
     "target_both": "双马达",
     "target_left": "左马达",
