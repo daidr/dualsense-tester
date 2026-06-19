@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { DualSensePlayer } from '@/composables/useDualSensePlayer'
 import { AnimatePresence, m } from 'motion-v'
-import { HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger } from 'reka-ui'
+import { PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'reka-ui'
 import { computed, onMounted, ref, useTemplateRef, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import DouSelect from '@/components/base/DouSelect.vue'
@@ -232,15 +232,15 @@ defineExpose({ player })
           <span class="time-total">{{ formatTime(duration) }}</span>
         </span>
 
-        <HoverCardRoot :open-delay="100" :close-delay="200">
-          <HoverCardTrigger
+        <PopoverRoot>
+          <PopoverTrigger
             as="button" type="button" class="icon-btn settings-btn"
             :aria-label="$t('audio_panel.settings')"
           >
             <span class="i-mingcute-settings-3-line" />
-          </HoverCardTrigger>
-          <HoverCardPortal to="#teleport-container">
-            <HoverCardContent class="settings-popover" align="end" :side-offset="8">
+          </PopoverTrigger>
+          <PopoverPortal to="#teleport-container">
+            <PopoverContent class="settings-popover" align="end" :side-offset="8">
               <div class="popover-row">
                 <span class="field-label">{{ $t('audio_panel.volume') }}</span>
                 <SliderBox v-model="audioVolume" :min="0" :max="255" :digits="0" class="popover-volume" />
@@ -274,9 +274,9 @@ defineExpose({ player })
                   </button>
                 </template>
               </div>
-            </HoverCardContent>
-          </HoverCardPortal>
-        </HoverCardRoot>
+            </PopoverContent>
+          </PopoverPortal>
+        </PopoverRoot>
       </div>
 
       <div class="control-rows">
@@ -402,7 +402,7 @@ defineExpose({ player })
   @apply text-xs text-primary/70 whitespace-nowrap;
 }
 
-// HoverCardContent 经 Portal 渲染到组件作用域外，需用 :deep 让样式生效（与 DouSelect 弹出框一致）。
+// PopoverContent 经 Portal 渲染到组件作用域外，需用 :deep 让样式生效（与 DouSelect 弹出框一致）。
 :deep(.settings-popover) {
   @apply flex flex-col gap-2.5 p-3 min-w-64 z-10 select-none;
   @apply dou-sc-colorborder bg-white dark-bg-black rounded-2xl;
