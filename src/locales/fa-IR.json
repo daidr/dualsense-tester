@@ -373,6 +373,18 @@
     "joystick_curves_adjust_label": "تنظیم منحنی",
     "joystick_deadzone_adjust_label": "تنظیم ناحیهٔ مرده (Deadzone)",
     "joystick_preview_raw_input": "ورودی خام",
-    "joystick_preview_mapped_input": "ورودی نگاشت‌شده"
+    "joystick_preview_mapped_input": "ورودی نگاشت‌شده",
+    "joystick_curve_points": {
+      "label": "Control points",
+      "input": "Input",
+      "output": "Output",
+      "copy": "Copy curve",
+      "paste": "Paste curve",
+      "copied": "Curve copied to clipboard",
+      "copy_failed": "Failed to copy curve",
+      "pasted": "Curve pasted from clipboard",
+      "paste_invalid": "Clipboard does not contain a valid curve",
+      "paste_failed": "Failed to read clipboard"
+    }
   }
 }
