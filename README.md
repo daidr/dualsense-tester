@@ -194,3 +194,4 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
 * [Ohjurot/DualSense-Windows](https://github.com/Ohjurot/DualSense-Windows)
 * [flok/pydualsense](https://github.com/flok/pydualsense/)
 * [nondebug/dualsense](https://github.com/nondebug/dualsense)
+* [egormanga/SAxense](https://github.com/egormanga/SAxense)
