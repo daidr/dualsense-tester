@@ -286,18 +286,18 @@
     "target_headphone": "Fone de ouvido",
     "volume": "Volume",
     "haptic_strength": "Intensidade da resposta tátil",
-    "settings": "Settings",
-    "output_device": "Output device",
-    "output_default": "System default",
-    "output_generic": "Output {n}",
-    "sync_to_pc": "Also play on this PC",
-    "list_devices": "List devices"
+    "settings": "Configurações",
+    "output_device": "Dispositivo de saída",
+    "output_default": "Padrão do sistema",
+    "output_generic": "Saída {n}",
+    "sync_to_pc": "Reproduzir também neste PC",
+    "list_devices": "Listar dispositivos"
   },
   "haptic_panel": {
     "motor": "Motor",
-    "target_both": "Both motors",
-    "target_left": "Left motor",
-    "target_right": "Right motor"
+    "target_both": "Ambos os motores",
+    "target_left": "Motor esquerdo",
+    "target_right": "Motor direito"
   },
   "pwa": {
     "title": "Nova versão detectada",
@@ -376,16 +376,16 @@
     "joystick_preview_raw_input": "Entrada Bruta",
     "joystick_preview_mapped_input": "Entrada Mapeada",
     "joystick_curve_points": {
-      "label": "Control points",
-      "input": "Input",
-      "output": "Output",
-      "copy": "Copy curve",
-      "paste": "Paste curve",
-      "copied": "Curve copied to clipboard",
-      "copy_failed": "Failed to copy curve",
-      "pasted": "Curve pasted from clipboard",
-      "paste_invalid": "Clipboard does not contain a valid curve",
-      "paste_failed": "Failed to read clipboard"
+      "label": "Pontos de controle",
+      "input": "Entrada",
+      "output": "Saída",
+      "copy": "Copiar curva",
+      "paste": "Colar curva",
+      "copied": "Curva copiada para a área de transferência",
+      "copy_failed": "Falha ao copiar curva",
+      "pasted": "Curva colada da área de transferência",
+      "paste_invalid": "A área de transferência não contém uma curva válida",
+      "paste_failed": "Falha ao ler a área de transferência"
     }
   }
 }
