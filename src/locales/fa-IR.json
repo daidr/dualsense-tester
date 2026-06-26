@@ -253,6 +253,8 @@
     "player_led_all": "همه",
     "rumble_heavy": "ویبره (سنگین)",
     "rumble_soft": "ویبره (ملایم)",
+    "speaker_volume": "Speaker volume",
+    "headphone_volume": "Headphone volume",
     "left_trigger_mode": "تریگر چپ",
     "right_trigger_mode": "تریگر راست",
     "trigger_mode": {
