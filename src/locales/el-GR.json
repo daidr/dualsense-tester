@@ -253,6 +253,8 @@
     "player_led_all": "Όλα",
     "rumble_heavy": "Ταρακούνημα (βαρύ)",
     "rumble_soft": "Ταρακούνημα (ελαφρύ)",
+    "speaker_volume": "Speaker volume",
+    "headphone_volume": "Headphone volume",
     "left_trigger_mode": "Αριστερή σκανδάλη",
     "right_trigger_mode": "Δεξιά σκανδάλη",
     "trigger_mode": {
