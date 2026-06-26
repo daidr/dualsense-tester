@@ -253,6 +253,8 @@
     "player_led_all": "الكل",
     "rumble_heavy": "اهتزاز (ثقيل)",
     "rumble_soft": "اهتزاز (خفيف)",
+    "speaker_volume": "Speaker volume",
+    "headphone_volume": "Headphone volume",
     "left_trigger_mode": "الزناد الأيسر",
     "right_trigger_mode": "الزناد الأيمن",
     "trigger_mode": {
