@@ -253,6 +253,8 @@
     "player_led_all": "Усі",
     "rumble_heavy": "Вібрація (сильна)",
     "rumble_soft": "Вібрація (мʼяка)",
+    "speaker_volume": "Speaker volume",
+    "headphone_volume": "Headphone volume",
     "left_trigger_mode": "Лівий триґер",
     "right_trigger_mode": "Правий триґер",
     "trigger_mode": {
