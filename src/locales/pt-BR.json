@@ -253,6 +253,8 @@
     "player_led_all": "Todos",
     "rumble_heavy": "Vibração (forte)",
     "rumble_soft": "Vibração (suave)",
+    "speaker_volume": "Speaker volume",
+    "headphone_volume": "Headphone volume",
     "left_trigger_mode": "Gatilho esquerdo",
     "right_trigger_mode": "Gatilho direito",
     "trigger_mode": {
