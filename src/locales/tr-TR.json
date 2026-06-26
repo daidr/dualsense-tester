@@ -253,6 +253,8 @@
     "player_led_all": "Tamamı",
     "rumble_heavy": "Titreşim (Güçlü)",
     "rumble_soft": "Titreşim (Hafif)",
+    "speaker_volume": "Speaker volume",
+    "headphone_volume": "Headphone volume",
     "left_trigger_mode": "Sol Tetik",
     "right_trigger_mode": "Sağ Tetik",
     "trigger_mode": {
