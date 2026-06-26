@@ -253,6 +253,8 @@
     "player_led_all": "全部",
     "rumble_heavy": "震动 (重)",
     "rumble_soft": "震动 (轻)",
+    "speaker_volume": "扬声器音量",
+    "headphone_volume": "耳机音量",
     "left_trigger_mode": "自适应扳机（左）",
     "right_trigger_mode": "自适应扳机（右）",
     "trigger_mode": {
@@ -285,7 +287,7 @@
     "target_speaker": "扬声器",
     "target_headphone": "耳机",
     "volume": "音量",
-    "haptic_strength": "Haptic strength",
+    "haptic_strength": "触感强度",
     "settings": "设置",
     "output_device": "输出设备",
     "output_default": "系统默认",
