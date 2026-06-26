@@ -6,6 +6,7 @@ import { useI18n } from 'vue-i18n'
 import ColorInput from '@/components/common/ColorInput.vue'
 import GroupedButton from '@/components/common/GroupedButton.vue'
 import SelfResettingSlider from '@/components/common/SelfResettingSlider.vue'
+import SliderBox from '@/components/common/SliderBox.vue'
 import { useDevice } from '@/composables/useInjectValues'
 import { hexToRgb, rgbToHex } from '@/utils/color.util'
 import { MuteButtonLedControl, PlayerLedControl } from '@/utils/dualsense/ds.type'
@@ -417,6 +418,26 @@ useEventBusRegister('output:retrieve-headphone-volume', () => {
       </tr>
       <TriggerEffect is="left" :struct="struct" @effect-update="handleTriggerUpdate" />
       <TriggerEffect is="right" :struct="struct" @effect-update="handleTriggerUpdate" />
+      <tr>
+        <td class="label">
+          {{ $t('output_panel.speaker_volume') }}
+        </td>
+        <td class="value">
+          <div>
+            <SliderBox v-model="speakerVolume" class="w-full" :min="0" :max="255" />
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="label">
+          {{ $t('output_panel.headphone_volume') }}
+        </td>
+        <td class="value">
+          <div>
+            <SliderBox v-model="headphoneVolume" class="w-full" :min="0" :max="255" />
+          </div>
+        </td>
+      </tr>
     </tbody>
   </table>
 </template>

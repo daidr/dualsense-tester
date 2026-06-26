@@ -253,6 +253,8 @@
     "player_led_all": "All",
     "rumble_heavy": "Rumble (heavy)",
     "rumble_soft": "Rumble (soft)",
+    "speaker_volume": "Speaker volume",
+    "headphone_volume": "Headphone volume",
     "left_trigger_mode": "Left trigger",
     "right_trigger_mode": "Right trigger",
     "trigger_mode": {
