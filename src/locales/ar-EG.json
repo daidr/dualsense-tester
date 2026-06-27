@@ -97,10 +97,12 @@
         "god_of_war_ragnarok": "جود اوف وار راغناروك",
         "spider_man_2": "الرجل العنكبوت 2",
         "astro_bot": "أسترو بوت",
+        "astro_bot_joyful": "Astro Bot Joyful",
         "fortnite": "فورتنايت",
         "the_last_of_us": "ذا لاست أوف أس",
         "icon_blue_limited_edition": "Icon Blue Limited Edition",
-        "genshin_impact": "Genshin Impact"
+        "genshin_impact": "Genshin Impact",
+        "ghost_of_yotei": "Ghost of Yotei"
       },
       "assemble_parts_info": "معلومات أجزاء التجميع",
       "battery_barcode": "باركود البطارية",
@@ -251,6 +253,8 @@
     "player_led_all": "الكل",
     "rumble_heavy": "اهتزاز (ثقيل)",
     "rumble_soft": "اهتزاز (خفيف)",
+    "speaker_volume": "Speaker volume",
+    "headphone_volume": "Headphone volume",
     "left_trigger_mode": "الزناد الأيسر",
     "right_trigger_mode": "الزناد الأيمن",
     "trigger_mode": {
@@ -283,6 +287,7 @@
     "target_speaker": "Speaker",
     "target_headphone": "Headphone",
     "volume": "Volume",
+    "haptic_strength": "Haptic strength",
     "settings": "Settings",
     "output_device": "Output device",
     "output_default": "System default",
@@ -371,6 +376,18 @@
     "joystick_curves_adjust_label": "تعديل المنحنى",
     "joystick_deadzone_adjust_label": "تعديل منطقة الخمول",
     "joystick_preview_raw_input": "الإدخال الخام",
-    "joystick_preview_mapped_input": "الإدخال المعين"
+    "joystick_preview_mapped_input": "الإدخال المعين",
+    "joystick_curve_points": {
+      "label": "Control points",
+      "input": "Input",
+      "output": "Output",
+      "copy": "Copy curve",
+      "paste": "Paste curve",
+      "copied": "Curve copied to clipboard",
+      "copy_failed": "Failed to copy curve",
+      "pasted": "Curve pasted from clipboard",
+      "paste_invalid": "Clipboard does not contain a valid curve",
+      "paste_failed": "Failed to read clipboard"
+    }
   }
 }

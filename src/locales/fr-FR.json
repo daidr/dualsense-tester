@@ -97,10 +97,12 @@
         "god_of_war_ragnarok": "God of War Ragnarok",
         "spider_man_2": "Spider-Man 2",
         "astro_bot": "Astro Bot",
+        "astro_bot_joyful": "Astro Bot Joyful",
         "fortnite": "Fortnite",
         "the_last_of_us": "The Last of Us",
         "icon_blue_limited_edition": "Icon Blue Limited Edition",
-        "genshin_impact": "Genshin Impact"
+        "genshin_impact": "Genshin Impact",
+        "ghost_of_yotei": "Ghost of Yotei"
       },
       "assemble_parts_info": "Informations sur les composants",
       "battery_barcode": "Code-barres de la batterie",
@@ -251,6 +253,8 @@
     "player_led_all": "Tous",
     "rumble_heavy": "Vibration (forte)",
     "rumble_soft": "Vibration (faible)",
+    "speaker_volume": "Speaker volume",
+    "headphone_volume": "Headphone volume",
     "left_trigger_mode": "Gâchette gauche",
     "right_trigger_mode": "Gâchette droite",
     "trigger_mode": {
@@ -283,6 +287,7 @@
     "target_speaker": "Speaker",
     "target_headphone": "Headphone",
     "volume": "Volume",
+    "haptic_strength": "Haptic strength",
     "settings": "Settings",
     "output_device": "Output device",
     "output_default": "System default",
@@ -371,6 +376,18 @@
     "joystick_curves_adjust_label": "Ajustement de la courbe",
     "joystick_deadzone_adjust_label": "Ajustement de la zone morte",
     "joystick_preview_raw_input": "Entrée brute",
-    "joystick_preview_mapped_input": "Entrée mappée"
+    "joystick_preview_mapped_input": "Entrée mappée",
+    "joystick_curve_points": {
+      "label": "Control points",
+      "input": "Input",
+      "output": "Output",
+      "copy": "Copy curve",
+      "paste": "Paste curve",
+      "copied": "Curve copied to clipboard",
+      "copy_failed": "Failed to copy curve",
+      "pasted": "Curve pasted from clipboard",
+      "paste_invalid": "Clipboard does not contain a valid curve",
+      "paste_failed": "Failed to read clipboard"
+    }
   }
 }

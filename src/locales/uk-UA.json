@@ -97,10 +97,12 @@
         "god_of_war_ragnarok": "God of War: Ragnarok",
         "spider_man_2": "Обмежена серія Spider-Man 2",
         "astro_bot": "Обмежена серія Astro Bot",
+        "astro_bot_joyful": "Astro Bot Joyful",
         "fortnite": "Обмежена серія Fortnite",
         "the_last_of_us": "Обмежена серія The Last of Us",
         "icon_blue_limited_edition": "Обмежена серія Icon Blue",
-        "genshin_impact": "Обмежена серія Genshin Impact"
+        "genshin_impact": "Обмежена серія Genshin Impact",
+        "ghost_of_yotei": "Ghost of Yotei"
       },
       "assemble_parts_info": "Інфо про зібрані частини",
       "battery_barcode": "Штрихкод акумулятора",
@@ -251,6 +253,8 @@
     "player_led_all": "Усі",
     "rumble_heavy": "Вібрація (сильна)",
     "rumble_soft": "Вібрація (мʼяка)",
+    "speaker_volume": "Speaker volume",
+    "headphone_volume": "Headphone volume",
     "left_trigger_mode": "Лівий триґер",
     "right_trigger_mode": "Правий триґер",
     "trigger_mode": {
@@ -283,6 +287,7 @@
     "target_speaker": "Speaker",
     "target_headphone": "Headphone",
     "volume": "Volume",
+    "haptic_strength": "Haptic strength",
     "settings": "Settings",
     "output_device": "Output device",
     "output_default": "System default",
@@ -371,6 +376,18 @@
     "joystick_curves_adjust_label": "Налаштування кривої",
     "joystick_deadzone_adjust_label": "Налаштування мертвої зони",
     "joystick_preview_raw_input": "Сирий ввід",
-    "joystick_preview_mapped_input": "Преобразований ввід"
+    "joystick_preview_mapped_input": "Преобразований ввід",
+    "joystick_curve_points": {
+      "label": "Control points",
+      "input": "Input",
+      "output": "Output",
+      "copy": "Copy curve",
+      "paste": "Paste curve",
+      "copied": "Curve copied to clipboard",
+      "copy_failed": "Failed to copy curve",
+      "pasted": "Curve pasted from clipboard",
+      "paste_invalid": "Clipboard does not contain a valid curve",
+      "paste_failed": "Failed to read clipboard"
+    }
   }
 }
