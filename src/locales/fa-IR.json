@@ -350,6 +350,15 @@
     },
     "joystick_sensitivity_label": "حساسیت شوک",
     "custom_button_mapping_label": "تعیین عملکرد دکمه‌ها",
+    "custom_button_mapping": {
+      "disabled": "Disabled",
+      "enabled": "Enabled",
+      "stick": "Stick",
+      "stick_click": "Stick Press",
+      "swap_sticks": "Swap Sticks",
+      "touchpad": "Touchpad",
+      "touchpad_button": "Touchpad Button"
+    },
     "vibration_intensity_label": "شدت لرزش",
     "vibration_intensity_desc": "میزان قدرت لرزش کنترلر خود را تنظیم کنید.",
     "intensity_level": {

@@ -350,6 +350,15 @@
     },
     "joystick_sensitivity_label": "Analog Hassasiyeti",
     "custom_button_mapping_label": "Buton Düzenleme",
+    "custom_button_mapping": {
+      "disabled": "Disabled",
+      "enabled": "Enabled",
+      "stick": "Stick",
+      "stick_click": "Stick Press",
+      "swap_sticks": "Swap Sticks",
+      "touchpad": "Touchpad",
+      "touchpad_button": "Touchpad Button"
+    },
     "vibration_intensity_label": "Titreşim Yoğunluğu",
     "vibration_intensity_desc": "Kontrolcünün titreşim gücünü seçin.",
     "intensity_level": {

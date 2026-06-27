@@ -350,6 +350,15 @@
     },
     "joystick_sensitivity_label": "Sensibilité Joystick",
     "custom_button_mapping_label": "Mappage de bouton",
+    "custom_button_mapping": {
+      "disabled": "Disabled",
+      "enabled": "Enabled",
+      "stick": "Stick",
+      "stick_click": "Stick Press",
+      "swap_sticks": "Swap Sticks",
+      "touchpad": "Touchpad",
+      "touchpad_button": "Touchpad Button"
+    },
     "vibration_intensity_label": "Intensité du vibreur",
     "vibration_intensity_desc": "Définissez la force de vibration de votre manette.",
     "intensity_level": {
