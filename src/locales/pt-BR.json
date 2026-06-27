@@ -350,6 +350,15 @@
     },
     "joystick_sensitivity_label": "Sensibilidade do Analógico",
     "custom_button_mapping_label": "Mapeamento de Botões",
+    "custom_button_mapping": {
+      "disabled": "Disabled",
+      "enabled": "Enabled",
+      "stick": "Stick",
+      "stick_click": "Stick Press",
+      "swap_sticks": "Swap Sticks",
+      "touchpad": "Touchpad",
+      "touchpad_button": "Touchpad Button"
+    },
     "vibration_intensity_label": "Intensidade da Vibração",
     "vibration_intensity_desc": "Defina a intensidade da vibração do seu controle.",
     "intensity_level": {
