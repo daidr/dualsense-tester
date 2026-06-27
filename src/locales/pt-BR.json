@@ -40,7 +40,7 @@
       "discharging": "Não está carregando",
       "charging": "Carregando",
       "charging_complete": "Carregamento concluído",
-      "abnormal_voltage": "Voltagem anormal",
+      "abnormal_voltage": "Tensão Anormal",
       "abnormal_temperature": "Temperatura anormal",
       "charging_error": "Erro de carregamento",
       "unknown": "Desconhecido"
@@ -60,7 +60,7 @@
       "unknown": "Desconhecido"
     },
     "factory_info": {
-      "status": "Estado",
+      "status": "Status",
       "status_fake": "Falso",
       "joystick_barcode": "Código de Barras do Analógico",
       "build_time": "Data de Compilação",
@@ -110,7 +110,7 @@
       "unique_id": "ID Exclusivo",
       "bd_mac_address": "Endereço MAC do BD",
       "at_serial_number": "Número de Série dos Gatilhos Adaptáveis",
-      "at_motor_info": "Informações do Motor do AT",
+      "at_motor_info": "Informações do Motor dos Gatilhos Adaptáveis",
       "individual_data_verify": "Verificação de Dados Individuais",
       "individual_data": {
         "not_supported": "Não suportado",
@@ -118,7 +118,7 @@
         "start_error": "Erro ao iniciar",
         "get_error": "Erro ao obter",
         "successful": "Bem-sucedido",
-        "retry_timeout": "Tempo de espera esgotado",
+        "retry_timeout": "Tempo limite de nova tentativa",
         "fail": "Falha"
       },
       "board_version": "Versão da Placa",
@@ -130,13 +130,13 @@
     "diagnostics": {
       "unsupported": "O firmware deste controle não fornece contadores de diagnóstico.",
       "partial_hint": "Este firmware fornece apenas o tempo ativo total.",
-      "group_usage": "Tempo de uso",
-      "group_connection": "Conexão e bateria",
+      "group_usage": "Tempo de Uso",
+      "group_connection": "Conexão e Bateria",
       "group_buttons": "Contagem de Pressionamentos dos Botões",
       "group_sticks": "Analógicos",
       "total_record_count": "Contagem total de registros",
       "total_active_time": "Tempo ativo total",
-      "total_charge_time": "Tempo Totaltde carregamento",
+      "total_charge_time": "Tempo total de carregamento",
       "haptic_device_active_time": "Tempo ativo do motor tátil",
       "adaptive_trigger_left_active_time": "Tempo ativo do gatilho adaptável esquerdo",
       "adaptive_trigger_right_active_time": "Tempo ativo do gatilho adaptável direito",
@@ -154,7 +154,7 @@
       "battery_full_charge_count": "Cargas completas",
       "headset_detect_count": "Detecções de headset",
       "headphone_detect_count": "Detecções de fone de ouvido",
-      "battery_charge_voltage_error_count": "Erros de tensão",
+      "battery_charge_voltage_error_count": "Erros de Tensão",
       "battery_charge_temperature_error_count": "Erros de temperatura",
       "battery_charge_pmic_error_count": "Erros do PMIC",
       "subcpu_startup_error_count": "Erros da Sub-CPU",
