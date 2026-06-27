@@ -3,6 +3,7 @@ import type { ControlLayout } from '../components/buttonMappingLayout'
 import type { DSEProfile } from '../profile'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import DouButton from '@/components/base/DouButton.vue'
 import DouSwitch from '@/components/base/DouSwitch.vue'
 import { BUTTON_ICON, BUTTON_TEXT, CONTROL_ICON, CONTROL_TEXT, DISABLED_VALUE } from '../components/buttonMappingLayout'
 import ButtonMappingModel from '../components/ButtonMappingModel.vue'
@@ -10,6 +11,7 @@ import ControlGlyph from '../components/ControlGlyph.vue'
 import MappingCapsule from '../components/MappingCapsule.vue'
 import RemapTargetGrid from '../components/RemapTargetGrid.vue'
 import {
+  DSE_PROFILE_DEFAULT_DISABLE_BUTTONS,
   DSEProfileButton,
   DSEProfileButtonLabelMap,
   DSEProfileDisabledButtonBitMap,
@@ -49,6 +51,13 @@ function readBit(bit: DSEProfileDisabledButtonBitMap) {
 
 function writeBit(bit: DSEProfileDisabledButtonBitMap, value: boolean) {
   props.profile.disableButtons = setProfileButtonDisabled(props.profile.disableButtons, bit, value)
+}
+
+// Restore the factory default mapping: every button maps to itself, only the back
+// paddles disabled, sticks/touchpad enabled and no stick swap.
+function resetMapping() {
+  props.profile.buttonMapping = [...DSEProfileMappingButtons]
+  props.profile.disableButtons = DSE_PROFILE_DEFAULT_DISABLE_BUTTONS
 }
 
 // --- remap (also reused for the stick-press remap) ---
@@ -160,9 +169,11 @@ const touchpadButtonEnabled = computed({
 
 <template>
   <div class="flex flex-col gap-2">
-    <p class="text-sm opacity-70">
-      {{ $t('profile_mode.custom_button_mapping_label') }}
-    </p>
+    <div class="flex justify-end">
+      <DouButton small @click="resetMapping">
+        {{ $t('shared.reset') }}
+      </DouButton>
+    </div>
 
     <ButtonMappingModel>
       <template #capsule="{ control }">
