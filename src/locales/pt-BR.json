@@ -109,7 +109,7 @@
       "vcm_barcode": "Código de Barras do VCM",
       "unique_id": "ID Exclusivo",
       "bd_mac_address": "Endereço MAC do BD",
-      "at_serial_number": "Número de Série do AT",
+      "at_serial_number": "Número de Série dos Gatilhos Adaptáveis",
       "at_motor_info": "Informações do Motor do AT",
       "individual_data_verify": "Verificação de Dados Individuais",
       "individual_data": {
@@ -124,7 +124,7 @@
       "board_version": "Versão da Placa",
       "touchpad_id": "ID do Touchpad",
       "touchpad_fw_version": "Versão do FW do Touchpad",
-      "battery_voltage": "Tensão da bateria"
+      "battery_voltage": "Tensão da Bateria"
     },
     "diagnostics_title": "Diagnósticos",
     "diagnostics": {
