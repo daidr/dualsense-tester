@@ -76,7 +76,7 @@ export default defineConfig(async ({ mode }) => {
           background_color: '#ffffff',
           display_override: ['window-controls-overlay'],
         },
-        disable: !isVercelProduction,
+        disable: mode !== 'production',
       }),
     ],
     resolve: {
