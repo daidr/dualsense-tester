@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { TelemetryData } from '@/utils/dualsense/telemetry.util'
 import { computed, onMounted, ref, shallowRef } from 'vue'
+import MiddleEllipsis from '@/components/common/MiddleEllipsis.vue'
 import { useDevice } from '@/composables/useInjectValues'
 import { fetchTelemetry, formatDuration } from '@/utils/dualsense/telemetry.util'
 import { hidLogger } from '@/utils/logger.util'
@@ -265,7 +266,7 @@ onMounted(load)
           <div v-for="item in group.items" :key="item.key" class="cell" :class="{ 'col-span-2': item.wide && group.cols === 2 }">
             <span class="cell-label">
               <span v-if="item.icon" class="cell-icon" :class="item.icon" />
-              {{ $t(item.label) }}
+              <MiddleEllipsis :text="$t(item.label)" />
             </span>
             <span class="cell-value">{{ item.value }}</span>
           </div>
@@ -315,7 +316,7 @@ onMounted(load)
 }
 
 .cell-label {
-  @apply flex items-center gap-1 shrink-0 font-bold select-none;
+  @apply flex items-center gap-1 min-w-0 font-bold select-none;
 }
 
 .cell-icon {
@@ -323,7 +324,7 @@ onMounted(load)
 }
 
 .cell-value {
-  @apply text-end font-mono opacity-80 break-all;
+  @apply text-end font-mono opacity-80 break-keep shrink-0;
 }
 
 .hint {
