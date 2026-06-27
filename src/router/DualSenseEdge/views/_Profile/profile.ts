@@ -439,12 +439,14 @@ export enum DSEProfileButton {
   PADDLE_RIGHT = 0x0F,
   Options = 0x10,
   Touchpad = 0x11,
-  Create,
-  PS,
-  TouchpadButton,
-  LeftJoystick,
-  RightJoystick,
-  JOYSTICK_SWITCH,
+  // The entries below are not part of the 16-entry profile remap table and have
+  // no documented firmware byte values; they exist only for type-level use elsewhere.
+  Create = 0x12,
+  PS = 0x13,
+  TouchpadButton = 0x14,
+  LeftJoystick = 0x15,
+  RightJoystick = 0x16,
+  JOYSTICK_SWITCH = 0x17,
 }
 
 // The 16 firmware mapping-table positions, in order.  Position N in this array
