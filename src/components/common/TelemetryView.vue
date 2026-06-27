@@ -21,12 +21,14 @@ function f(key: string, type: FieldType = 'count'): Field {
   return { key, type }
 }
 
-// 部分按键配图标：PS 符号与肩键用 fancy-controller 图标集，方向键用 mingcute 箭头。
+// 部分按键配图标，统一使用 fancy-controller 图标集。
 const FIELD_ICONS: Record<string, string> = {
-  buttonDPadUp: 'i-mingcute-arrow-up-line',
-  buttonDPadDown: 'i-mingcute-arrow-down-line',
-  buttonDPadLeft: 'i-mingcute-arrow-left-line',
-  buttonDPadRight: 'i-mingcute-arrow-right-line',
+  buttonDPadUp: 'i-fancy-controller-up-solid',
+  buttonDPadDown: 'i-fancy-controller-down-solid',
+  buttonDPadLeft: 'i-fancy-controller-left-solid',
+  buttonDPadRight: 'i-fancy-controller-right-solid',
+  buttonOption: 'i-fancy-controller-options-solid',
+  buttonCreate: 'i-fancy-controller-create-solid',
   buttonTriangle: 'i-fancy-controller-triangle-solid',
   buttonCircle: 'i-fancy-controller-circle-solid',
   buttonCross: 'i-fancy-controller-x-solid',
