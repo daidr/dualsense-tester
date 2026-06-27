@@ -449,10 +449,10 @@ export enum DSEProfileButton {
   JOYSTICK_SWITCH = 0x17,
 }
 
-// The 16 firmware mapping-table positions, in order.  Position N in this array
-// corresponds to byte N in the profile's button-mapping block; the value stored
-// at that byte is the target button (also a DSEProfileButton byte value).
-// By default every button maps to itself.
+// The 16 mapping-table positions (the remappable *source* buttons), in order.
+// Position N corresponds to byte N in the profile's button-mapping block; the
+// value stored at that byte is the *target* button. By default every button maps
+// to itself.
 export const DSEProfileMappingButtons = [
   DSEProfileButton.UP,
   DSEProfileButton.LEFT,
@@ -472,6 +472,31 @@ export const DSEProfileMappingButtons = [
   DSEProfileButton.PADDLE_RIGHT,
 ] as const
 
+// The set of button byte values that may legally be stored as a remap *target*.
+// This differs from the source positions above: the back paddles are NOT valid
+// targets (you cannot make another button behave as a paddle), while Options
+// (0x10) and Touchpad (0x11) are. Disabling is tracked separately, see
+// DSEProfileDisabledButtonBitMap. Values outside this set are treated as
+// unassigned by normalizeProfileButtonMapping and fall back to the source identity.
+export const DSEProfileMappingTargets: DSEProfileButton[] = [
+  DSEProfileButton.UP,
+  DSEProfileButton.LEFT,
+  DSEProfileButton.DOWN,
+  DSEProfileButton.RIGHT,
+  DSEProfileButton.CIRCLE,
+  DSEProfileButton.CROSS,
+  DSEProfileButton.SQUARE,
+  DSEProfileButton.TRIANGLE,
+  DSEProfileButton.R1,
+  DSEProfileButton.R2,
+  DSEProfileButton.R3,
+  DSEProfileButton.L1,
+  DSEProfileButton.L2,
+  DSEProfileButton.L3,
+  DSEProfileButton.Options,
+  DSEProfileButton.Touchpad,
+]
+
 export const DSEProfileButtonLabelMap: Record<number, string> = {
   [DSEProfileButton.UP]: 'UP',
   [DSEProfileButton.LEFT]: 'LEFT',
@@ -489,6 +514,8 @@ export const DSEProfileButtonLabelMap: Record<number, string> = {
   [DSEProfileButton.L3]: 'L3',
   [DSEProfileButton.PADDLE_LEFT]: 'PADDLE LEFT',
   [DSEProfileButton.PADDLE_RIGHT]: 'PADDLE RIGHT',
+  [DSEProfileButton.Options]: 'OPTIONS',
+  [DSEProfileButton.Touchpad]: 'TOUCHPAD',
 }
 
 export interface DSEProfileButtonDef {
@@ -503,38 +530,85 @@ export const DSEProfileButtonDefMap = {
 
 }
 
+// Bit positions inside the profile's `disableButtons` field (a uint32 stored
+// little-endian at buffer2 offset 26-29, immediately after the 16-byte
+// buttonMapping block). A set bit means that physical control is disabled. The
+// factory default is 0x00C00000 (both back paddles disabled out of the box).
+//
+// Notes:
+// - CROSS and CIRCLE have NO disable bit (they are required for system
+//   navigation), so they can only be remapped.
+// - STICK_LEFT/RIGHT are the analog stick deflections; L3/R3 are the stick
+//   clicks (separate bits).
 export enum DSEProfileDisabledButtonBitMap {
-  LB = 16,
-  RB = 17,
-  UP = 7,
-  LEFT = 6,
-  DOWN = 5,
-  RIGHT = 4,
-  CIRCLE = 30,
-  CROSS = 31,
-  SQUARE = 1,
-  TRIANGLE = 0,
-  R1 = 23,
-  R2 = 19,
-  R3 = 21,
-  L1 = 20,
-  L2 = 22,
-  L3 = 18,
-  CREATE = 3,
-  OPTIONS = 2,
-  PS = 13,
-  TOUCHPAD = 9,
-  TOUCHPAD_BUTTON = 8,
-  LEFT_JOYSTICK = 15,
-  RIGHT_JOYSTICK = 14,
-  JOYSTICK_SWITCH = 24,
+  UP = 0,
+  LEFT = 1,
+  DOWN = 2,
+  RIGHT = 3,
+  CREATE = 4,
+  OPTIONS = 5,
+  SQUARE = 6,
+  TRIANGLE = 7,
+  STICK_LEFT = 8,
+  STICK_RIGHT = 9,
+  PS = 10,
+  TOUCHPAD = 13,
+  TOUCHPAD_BUTTON = 14,
+  R1 = 16,
+  R2 = 17,
+  R3 = 18,
+  L1 = 19,
+  L2 = 20,
+  L3 = 21,
+  PADDLE_LEFT = 22,
+  PADDLE_RIGHT = 23,
+  ENABLE_STICK_SWAPPING = 31,
 }
+
+// For each of the 16 remap *source* buttons (DSEProfileMappingButtons order),
+// the disableButtons bit that disables it — or undefined when the button cannot
+// be disabled. CROSS and CIRCLE have no disable bit (see above), so their remap
+// picker must not offer a "disabled" choice.
+export const DSEProfileMappingButtonDisableBit: Record<number, DSEProfileDisabledButtonBitMap | undefined> = {
+  [DSEProfileButton.UP]: DSEProfileDisabledButtonBitMap.UP,
+  [DSEProfileButton.LEFT]: DSEProfileDisabledButtonBitMap.LEFT,
+  [DSEProfileButton.DOWN]: DSEProfileDisabledButtonBitMap.DOWN,
+  [DSEProfileButton.RIGHT]: DSEProfileDisabledButtonBitMap.RIGHT,
+  [DSEProfileButton.CIRCLE]: undefined,
+  [DSEProfileButton.CROSS]: undefined,
+  [DSEProfileButton.SQUARE]: DSEProfileDisabledButtonBitMap.SQUARE,
+  [DSEProfileButton.TRIANGLE]: DSEProfileDisabledButtonBitMap.TRIANGLE,
+  [DSEProfileButton.R1]: DSEProfileDisabledButtonBitMap.R1,
+  [DSEProfileButton.R2]: DSEProfileDisabledButtonBitMap.R2,
+  [DSEProfileButton.R3]: DSEProfileDisabledButtonBitMap.R3,
+  [DSEProfileButton.L1]: DSEProfileDisabledButtonBitMap.L1,
+  [DSEProfileButton.L2]: DSEProfileDisabledButtonBitMap.L2,
+  [DSEProfileButton.L3]: DSEProfileDisabledButtonBitMap.L3,
+  [DSEProfileButton.PADDLE_LEFT]: DSEProfileDisabledButtonBitMap.PADDLE_LEFT,
+  [DSEProfileButton.PADDLE_RIGHT]: DSEProfileDisabledButtonBitMap.PADDLE_RIGHT,
+}
+
+// Factory default for the disableButtons field: both back paddles disabled.
+export const DSE_PROFILE_DEFAULT_DISABLE_BUTTONS = (1 << DSEProfileDisabledButtonBitMap.PADDLE_LEFT)
+  | (1 << DSEProfileDisabledButtonBitMap.PADDLE_RIGHT)
+
+export function isProfileButtonDisabled(disableButtons: number, bit: DSEProfileDisabledButtonBitMap): boolean {
+  return ((disableButtons >>> bit) & 1) === 1
+}
+
+export function setProfileButtonDisabled(disableButtons: number, bit: DSEProfileDisabledButtonBitMap, disabled: boolean): number {
+  const mask = 1 << bit
+  return (disabled ? (disableButtons | mask) : (disableButtons & ~mask)) >>> 0
+}
+
+// Matches the NUL padding in the fixed-width UTF-16 label buffer.
+// oxlint-disable-next-line no-control-regex
+const PROFILE_LABEL_NULL_REGEX = /\0/g
 
 const PROFILE_BUTTON_MAPPING_OFFSET = 10
 const PROFILE_BUTTON_MAPPING_LENGTH = 16
-const PROFILE_BUTTON_MAPPING_TAIL_OFFSET = PROFILE_BUTTON_MAPPING_OFFSET + PROFILE_BUTTON_MAPPING_LENGTH
-const PROFILE_BUTTON_MAPPING_TAIL_END = PROFILE_BUTTON_MAPPING_TAIL_OFFSET + 4
-const PROFILE_BUTTON_MAPPING_TAIL_DEFAULT = [0x00, 0x00, 0xC0, 0x00]
+// The disableButtons uint32 (little-endian) sits right after the 16-byte mapping.
+const PROFILE_DISABLE_BUTTONS_OFFSET = PROFILE_BUTTON_MAPPING_OFFSET + PROFILE_BUTTON_MAPPING_LENGTH
 
 function getDefaultProfileButtonMapping(): DSEProfileButton[] {
   return [...DSEProfileMappingButtons]
@@ -546,7 +620,7 @@ export function normalizeProfileButtonMapping(mapping: number[] | DSEProfileButt
   }
 
   return mapping.map((value, index) => {
-    if (DSEProfileMappingButtons.includes(value as DSEProfileButton)) {
+    if (DSEProfileMappingTargets.includes(value as DSEProfileButton)) {
       return value as DSEProfileButton
     }
     return DSEProfileMappingButtons[index]
@@ -634,6 +708,8 @@ export class DSEProfile {
   triggerDeadzone: DSETriggerProfile
 
   buttonMapping: DSEProfileButton[]
+  // uint32 bitmap of disabled controls; bit positions are DSEProfileDisabledButtonBitMap.
+  disableButtons: number
 
   leftJoystick: DSEJoystickProfile
   rightJoystick: DSEJoystickProfile
@@ -655,6 +731,7 @@ export class DSEProfile {
     switchButton?: DSEProfileSwitchButton
     triggerDeadzone?: DSETriggerProfile
     buttonMapping?: DSEProfileButton[]
+    disableButtons?: number
     leftJoystick?: DSEJoystickProfile
     rightJoystick?: DSEJoystickProfile
     vibrationIntensity?: DSEProfileIntensity
@@ -673,6 +750,7 @@ export class DSEProfile {
         right: [0, 100],
       },
       buttonMapping = getDefaultProfileButtonMapping(),
+      disableButtons = DSE_PROFILE_DEFAULT_DISABLE_BUTTONS,
       leftJoystick = {
         preset: DSEJoystickProfilePreset.DEFAULT,
         curvePoints: [0, 0, 128, 128, 196, 196, 225, 225],
@@ -693,6 +771,7 @@ export class DSEProfile {
     this.switchButton = switchButton
     this.triggerDeadzone = triggerDeadzone
     this.buttonMapping = normalizeProfileButtonMapping(buttonMapping)
+    this.disableButtons = disableButtons >>> 0
     this.leftJoystick = leftJoystick
     this.rightJoystick = rightJoystick
     this.vibrationIntensity = vibrationIntensity
@@ -789,14 +868,12 @@ export class DSEProfile {
     }
     // #endregion
 
-    // #region Copy button mapping setting
+    // #region Button mapping & disabled buttons
     {
       const normalizedMapping = normalizeProfileButtonMapping(this.buttonMapping)
-      const mappingTail = this.rawData[2]
-        ? new Uint8Array(this.rawData[2].buffer.slice(PROFILE_BUTTON_MAPPING_TAIL_OFFSET, PROFILE_BUTTON_MAPPING_TAIL_END))
-        : new Uint8Array(PROFILE_BUTTON_MAPPING_TAIL_DEFAULT)
       buffer2.set(normalizedMapping, PROFILE_BUTTON_MAPPING_OFFSET)
-      buffer2.set(mappingTail, PROFILE_BUTTON_MAPPING_TAIL_OFFSET)
+      // disableButtons: uint32 little-endian right after the 16-byte mapping.
+      new DataView(buffer2.buffer).setUint32(PROFILE_DISABLE_BUTTONS_OFFSET, this.disableButtons >>> 0, true)
     }
     // #endregion
 
@@ -831,8 +908,7 @@ export class DSEProfile {
         const labelBuffer = new Uint8Array(80)
         labelBuffer.set(new Uint8Array(rawData[0].buffer, 6, 54), 0)
         labelBuffer.set(new Uint8Array(rawData[1].buffer, 2, 26), 54)
-        // oxlint-disable-next-line no-control-regex
-        const decodedLabel = utf16LEDecoder.decode(labelBuffer).replace(/\0/g, '')
+        const decodedLabel = utf16LEDecoder.decode(labelBuffer).replace(PROFILE_LABEL_NULL_REGEX, '')
         newInstance.label = decodedLabel.trim()
       }
       // #endregion
@@ -915,6 +991,7 @@ export class DSEProfile {
     newInstance.buttonMapping = normalizeProfileButtonMapping(
       Array.from(new Uint8Array(rawData[2].buffer.slice(PROFILE_BUTTON_MAPPING_OFFSET, PROFILE_BUTTON_MAPPING_OFFSET + PROFILE_BUTTON_MAPPING_LENGTH))),
     )
+    newInstance.disableButtons = rawData[2].getUint32(PROFILE_DISABLE_BUTTONS_OFFSET, true)
 
     return newInstance
   }
@@ -927,6 +1004,7 @@ export class DSEProfile {
       switchButton: this.switchButton,
       triggerDeadzone: this.triggerDeadzone,
       buttonMapping: this.buttonMapping,
+      disableButtons: this.disableButtons,
       leftJoystick: this.leftJoystick,
       rightJoystick: this.rightJoystick,
       vibrationIntensity: this.vibrationIntensity,
@@ -947,6 +1025,7 @@ export class DSEProfile {
     profile.switchButton = parsedData.switchButton
     profile.triggerDeadzone = parsedData.triggerDeadzone
     profile.buttonMapping = normalizeProfileButtonMapping(parsedData.buttonMapping)
+    profile.disableButtons = (parsedData.disableButtons ?? DSE_PROFILE_DEFAULT_DISABLE_BUTTONS) >>> 0
     profile.leftJoystick = parsedData.leftJoystick
     profile.rightJoystick = parsedData.rightJoystick
     profile.vibrationIntensity = parsedData.vibrationIntensity

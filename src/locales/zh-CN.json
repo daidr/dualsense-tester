@@ -350,6 +350,15 @@
     },
     "joystick_sensitivity_label": "摇杆灵敏度",
     "custom_button_mapping_label": "按键映射",
+    "custom_button_mapping": {
+      "disabled": "禁用",
+      "enabled": "启用",
+      "stick": "摇杆",
+      "stick_click": "摇杆按下",
+      "swap_sticks": "交换左右摇杆",
+      "touchpad": "触摸板",
+      "touchpad_button": "触摸板按键"
+    },
     "vibration_intensity_label": "震动强度",
     "vibration_intensity_desc": "设定控制器震动的强度。",
     "intensity_level": {

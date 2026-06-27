@@ -14,6 +14,15 @@ export default defineConfig({
       },
     }),
   ],
+  // The default pipeline only scans .vue/.tsx-style files; include plain .ts/.js
+  // too so icon classes declared in shared TS maps (e.g. buttonMappingLayout.ts)
+  // are detected and generated. This mirrors UnoCSS's default include list (kept
+  // in sync, incl. vine.ts/marko) with `[jt]sx?` widened to also match .ts/.js.
+  content: {
+    pipeline: {
+      include: [/\.(vue|svelte|[jt]sx?|vine\.ts|mdx?|astro|elm|php|phtml|marko|html)($|\?)/],
+    },
+  },
   transformers: [transformerVariantGroup(), transformerDirectives()],
   theme: {
     colors: {
