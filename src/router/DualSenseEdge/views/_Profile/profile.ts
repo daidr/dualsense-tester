@@ -412,36 +412,46 @@ export function normalizeCurvePoints(values: number[]): number[] | null {
   return clamped
 }
 
+// Firmware byte values for each button in the DualSense Edge profile remapping table.
+// Source: https://github.com/steffalon/dualsense-edge-profile-web-application/blob/main/src/enum/Button.ts
+// Note: the HID input report exposes the d-pad as a hat-switch nibble, but the
+// profile remapping table uses its own flat byte index space where d-pad directions
+// are addressed as ordinary buttons (0x00–0x03).
 export enum DSEProfileButton {
-  LB,
-  RB,
-  UP,
-  LEFT,
-  DOWN,
-  RIGHT,
-  CIRCLE,
-  CROSS,
-  SQUARE,
-  TRIANGLE,
-  R1,
-  R2,
-  R3,
-  L1,
-  L2,
-  L3,
+  UP = 0x00,
+  LEFT = 0x01,
+  DOWN = 0x02,
+  RIGHT = 0x03,
+  CIRCLE = 0x04,
+  CROSS = 0x05,
+  SQUARE = 0x06,
+  TRIANGLE = 0x07,
+  R1 = 0x08,
+  R2 = 0x09,
+  R3 = 0x0A,
+  L1 = 0x0B,
+  L2 = 0x0C,
+  L3 = 0x0D,
+  // Back paddles are DualSense Edge exclusive. 0x0E / 0x0F are inferred from
+  // their position in the 16-entry mapping table; they have no documented target
+  // byte value and cannot be used as a remap destination.
+  PADDLE_LEFT = 0x0E,
+  PADDLE_RIGHT = 0x0F,
+  Options = 0x10,
+  Touchpad = 0x11,
   Create,
-  Options,
   PS,
-  Touchpad,
   TouchpadButton,
   LeftJoystick,
   RightJoystick,
   JOYSTICK_SWITCH,
 }
 
+// The 16 firmware mapping-table positions, in order.  Position N in this array
+// corresponds to byte N in the profile's button-mapping block; the value stored
+// at that byte is the target button (also a DSEProfileButton byte value).
+// By default every button maps to itself.
 export const DSEProfileMappingButtons = [
-  DSEProfileButton.LB,
-  DSEProfileButton.RB,
   DSEProfileButton.UP,
   DSEProfileButton.LEFT,
   DSEProfileButton.DOWN,
@@ -456,11 +466,11 @@ export const DSEProfileMappingButtons = [
   DSEProfileButton.L1,
   DSEProfileButton.L2,
   DSEProfileButton.L3,
+  DSEProfileButton.PADDLE_LEFT,
+  DSEProfileButton.PADDLE_RIGHT,
 ] as const
 
 export const DSEProfileButtonLabelMap: Record<number, string> = {
-  [DSEProfileButton.LB]: 'LB',
-  [DSEProfileButton.RB]: 'RB',
   [DSEProfileButton.UP]: 'UP',
   [DSEProfileButton.LEFT]: 'LEFT',
   [DSEProfileButton.DOWN]: 'DOWN',
@@ -475,6 +485,8 @@ export const DSEProfileButtonLabelMap: Record<number, string> = {
   [DSEProfileButton.L1]: 'L1',
   [DSEProfileButton.L2]: 'L2',
   [DSEProfileButton.L3]: 'L3',
+  [DSEProfileButton.PADDLE_LEFT]: 'PADDLE LEFT',
+  [DSEProfileButton.PADDLE_RIGHT]: 'PADDLE RIGHT',
 }
 
 export interface DSEProfileButtonDef {
