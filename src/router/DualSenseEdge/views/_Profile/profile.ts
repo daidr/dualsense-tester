@@ -412,31 +412,83 @@ export function normalizeCurvePoints(values: number[]): number[] | null {
   return clamped
 }
 
+// Firmware byte values for each button in the DualSense Edge profile remapping table.
+// Source: https://github.com/steffalon/dualsense-edge-profile-web-application/blob/main/src/enum/Button.ts
+// Note: the HID input report exposes the d-pad as a hat-switch nibble, but the
+// profile remapping table uses its own flat byte index space where d-pad directions
+// are addressed as ordinary buttons (0x00–0x03).
 export enum DSEProfileButton {
-  LB,
-  RB,
-  UP,
-  LEFT,
-  DOWN,
-  RIGHT,
-  CIRCLE,
-  CROSS,
-  SQUARE,
-  TRIANGLE,
-  R1,
-  R2,
-  R3,
-  L1,
-  L2,
-  L3,
-  Create,
-  Options,
-  PS,
-  Touchpad,
-  TouchpadButton,
-  LeftJoystick,
-  RightJoystick,
-  JOYSTICK_SWITCH,
+  UP = 0x00,
+  LEFT = 0x01,
+  DOWN = 0x02,
+  RIGHT = 0x03,
+  CIRCLE = 0x04,
+  CROSS = 0x05,
+  SQUARE = 0x06,
+  TRIANGLE = 0x07,
+  R1 = 0x08,
+  R2 = 0x09,
+  R3 = 0x0A,
+  L1 = 0x0B,
+  L2 = 0x0C,
+  L3 = 0x0D,
+  // Back paddles are DualSense Edge exclusive. 0x0E / 0x0F are inferred from
+  // their position in the 16-entry mapping table; they have no documented target
+  // byte value and cannot be used as a remap destination.
+  PADDLE_LEFT = 0x0E,
+  PADDLE_RIGHT = 0x0F,
+  Options = 0x10,
+  Touchpad = 0x11,
+  // The entries below are not part of the 16-entry profile remap table and have
+  // no documented firmware byte values; they exist only for type-level use elsewhere.
+  Create = 0x12,
+  PS = 0x13,
+  TouchpadButton = 0x14,
+  LeftJoystick = 0x15,
+  RightJoystick = 0x16,
+  JOYSTICK_SWITCH = 0x17,
+}
+
+// The 16 firmware mapping-table positions, in order.  Position N in this array
+// corresponds to byte N in the profile's button-mapping block; the value stored
+// at that byte is the target button (also a DSEProfileButton byte value).
+// By default every button maps to itself.
+export const DSEProfileMappingButtons = [
+  DSEProfileButton.UP,
+  DSEProfileButton.LEFT,
+  DSEProfileButton.DOWN,
+  DSEProfileButton.RIGHT,
+  DSEProfileButton.CIRCLE,
+  DSEProfileButton.CROSS,
+  DSEProfileButton.SQUARE,
+  DSEProfileButton.TRIANGLE,
+  DSEProfileButton.R1,
+  DSEProfileButton.R2,
+  DSEProfileButton.R3,
+  DSEProfileButton.L1,
+  DSEProfileButton.L2,
+  DSEProfileButton.L3,
+  DSEProfileButton.PADDLE_LEFT,
+  DSEProfileButton.PADDLE_RIGHT,
+] as const
+
+export const DSEProfileButtonLabelMap: Record<number, string> = {
+  [DSEProfileButton.UP]: 'UP',
+  [DSEProfileButton.LEFT]: 'LEFT',
+  [DSEProfileButton.DOWN]: 'DOWN',
+  [DSEProfileButton.RIGHT]: 'RIGHT',
+  [DSEProfileButton.CIRCLE]: 'CIRCLE',
+  [DSEProfileButton.CROSS]: 'CROSS',
+  [DSEProfileButton.SQUARE]: 'SQUARE',
+  [DSEProfileButton.TRIANGLE]: 'TRIANGLE',
+  [DSEProfileButton.R1]: 'R1',
+  [DSEProfileButton.R2]: 'R2',
+  [DSEProfileButton.R3]: 'R3',
+  [DSEProfileButton.L1]: 'L1',
+  [DSEProfileButton.L2]: 'L2',
+  [DSEProfileButton.L3]: 'L3',
+  [DSEProfileButton.PADDLE_LEFT]: 'PADDLE LEFT',
+  [DSEProfileButton.PADDLE_RIGHT]: 'PADDLE RIGHT',
 }
 
 export interface DSEProfileButtonDef {
@@ -476,6 +528,29 @@ export enum DSEProfileDisabledButtonBitMap {
   LEFT_JOYSTICK = 15,
   RIGHT_JOYSTICK = 14,
   JOYSTICK_SWITCH = 24,
+}
+
+const PROFILE_BUTTON_MAPPING_OFFSET = 10
+const PROFILE_BUTTON_MAPPING_LENGTH = 16
+const PROFILE_BUTTON_MAPPING_TAIL_OFFSET = PROFILE_BUTTON_MAPPING_OFFSET + PROFILE_BUTTON_MAPPING_LENGTH
+const PROFILE_BUTTON_MAPPING_TAIL_END = PROFILE_BUTTON_MAPPING_TAIL_OFFSET + 4
+const PROFILE_BUTTON_MAPPING_TAIL_DEFAULT = [0x00, 0x00, 0xC0, 0x00]
+
+function getDefaultProfileButtonMapping(): DSEProfileButton[] {
+  return [...DSEProfileMappingButtons]
+}
+
+export function normalizeProfileButtonMapping(mapping: number[] | DSEProfileButton[] | undefined): DSEProfileButton[] {
+  if (!Array.isArray(mapping) || mapping.length !== PROFILE_BUTTON_MAPPING_LENGTH) {
+    return getDefaultProfileButtonMapping()
+  }
+
+  return mapping.map((value, index) => {
+    if (DSEProfileMappingButtons.includes(value as DSEProfileButton)) {
+      return value as DSEProfileButton
+    }
+    return DSEProfileMappingButtons[index]
+  })
 }
 
 export type DSETriggerProfile = {
@@ -597,7 +672,7 @@ export class DSEProfile {
         left: [0, 100],
         right: [0, 100],
       },
-      buttonMapping = [],
+      buttonMapping = getDefaultProfileButtonMapping(),
       leftJoystick = {
         preset: DSEJoystickProfilePreset.DEFAULT,
         curvePoints: [0, 0, 128, 128, 196, 196, 225, 225],
@@ -617,7 +692,7 @@ export class DSEProfile {
     this.assigned = assigned
     this.switchButton = switchButton
     this.triggerDeadzone = triggerDeadzone
-    this.buttonMapping = buttonMapping
+    this.buttonMapping = normalizeProfileButtonMapping(buttonMapping)
     this.leftJoystick = leftJoystick
     this.rightJoystick = rightJoystick
     this.vibrationIntensity = vibrationIntensity
@@ -716,33 +791,12 @@ export class DSEProfile {
 
     // #region Copy button mapping setting
     {
-      if (this.rawData[2]) {
-        buffer2.set(new Uint8Array(this.rawData[2].buffer.slice(10, 30)), 10)
-      }
-      else {
-        buffer2.set(new Uint8Array([
-          0x00,
-          0x01,
-          0x02,
-          0x03,
-          0x04,
-          0x05,
-          0x06,
-          0x07,
-          0x08,
-          0x09,
-          0x0A,
-          0x0B,
-          0x0C,
-          0x0D,
-          0x0E,
-          0x0F,
-          0x00,
-          0x00,
-          0xC0,
-          0x00,
-        ]), 10)
-      }
+      const normalizedMapping = normalizeProfileButtonMapping(this.buttonMapping)
+      const mappingTail = this.rawData[2]
+        ? new Uint8Array(this.rawData[2].buffer.slice(PROFILE_BUTTON_MAPPING_TAIL_OFFSET, PROFILE_BUTTON_MAPPING_TAIL_END))
+        : new Uint8Array(PROFILE_BUTTON_MAPPING_TAIL_DEFAULT)
+      buffer2.set(normalizedMapping, PROFILE_BUTTON_MAPPING_OFFSET)
+      buffer2.set(mappingTail, PROFILE_BUTTON_MAPPING_TAIL_OFFSET)
     }
     // #endregion
 
@@ -858,6 +912,10 @@ export class DSEProfile {
       // #endregion
     }
 
+    newInstance.buttonMapping = normalizeProfileButtonMapping(
+      Array.from(new Uint8Array(rawData[2].buffer.slice(PROFILE_BUTTON_MAPPING_OFFSET, PROFILE_BUTTON_MAPPING_OFFSET + PROFILE_BUTTON_MAPPING_LENGTH))),
+    )
+
     return newInstance
   }
 
@@ -888,7 +946,7 @@ export class DSEProfile {
     profile.assigned = parsedData.assigned
     profile.switchButton = parsedData.switchButton
     profile.triggerDeadzone = parsedData.triggerDeadzone
-    profile.buttonMapping = parsedData.buttonMapping
+    profile.buttonMapping = normalizeProfileButtonMapping(parsedData.buttonMapping)
     profile.leftJoystick = parsedData.leftJoystick
     profile.rightJoystick = parsedData.rightJoystick
     profile.vibrationIntensity = parsedData.vibrationIntensity
