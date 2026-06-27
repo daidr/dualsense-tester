@@ -350,6 +350,15 @@
     },
     "joystick_sensitivity_label": "Ευαισθησία Μοχλού",
     "custom_button_mapping_label": "Αντιστοίχιση Κουμπιών",
+    "custom_button_mapping": {
+      "disabled": "Disabled",
+      "enabled": "Enabled",
+      "stick": "Stick",
+      "stick_click": "Stick Press",
+      "swap_sticks": "Swap Sticks",
+      "touchpad": "Touchpad",
+      "touchpad_button": "Touchpad Button"
+    },
     "vibration_intensity_label": "Ένταση Δόνησης",
     "vibration_intensity_desc": "Ορίστε την ισχύ της δόνησης του χειριστηρίου σας.",
     "intensity_level": {
