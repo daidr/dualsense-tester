@@ -130,9 +130,9 @@
     "diagnostics": {
       "unsupported": "该手柄固件不提供诊断计数。",
       "partial_hint": "该固件仅提供总活动时间。",
-      "group_usage": "Usage Time",
-      "group_connection": "Connection & Battery",
-      "group_buttons": "Button Press Counts",
+      "group_usage": "使用时间",
+      "group_connection": "连接与电池",
+      "group_buttons": "按键次数",
       "group_sticks": "摇杆",
       "total_record_count": "总记录数",
       "total_active_time": "总活动时间",
