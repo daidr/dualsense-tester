@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { TelemetryData } from '@/utils/dualsense/telemetry.util'
 import { computed, onMounted, ref, shallowRef } from 'vue'
-import MiddleEllipsis from '@/components/common/MiddleEllipsis.vue'
 import { useDevice } from '@/composables/useInjectValues'
 import { fetchTelemetry, formatDuration } from '@/utils/dualsense/telemetry.util'
 import { hidLogger } from '@/utils/logger.util'
@@ -266,7 +265,7 @@ onMounted(load)
           <div v-for="item in group.items" :key="item.key" class="cell" :class="{ 'col-span-2': item.wide && group.cols === 2 }">
             <span class="cell-label">
               <span v-if="item.icon" class="cell-icon" :class="item.icon" />
-              <MiddleEllipsis :text="$t(item.label)" />
+              <span class="label-text">{{ $t(item.label) }}</span>
             </span>
             <span class="cell-value">{{ item.value }}</span>
           </div>
@@ -308,7 +307,7 @@ onMounted(load)
 }
 
 .cell {
-  @apply flex justify-between gap-2 rounded-lg px-1 text-sm transform-gpu;
+  @apply flex items-start justify-between gap-2 rounded-lg px-1 text-sm transform-gpu;
 
   &:hover {
     @apply bg-primary/10 dark-bg-primary/30;
@@ -316,11 +315,15 @@ onMounted(load)
 }
 
 .cell-label {
-  @apply flex items-center gap-1 min-w-0 font-bold select-none;
+  @apply flex items-start gap-1 min-w-0 font-bold select-none;
 }
 
 .cell-icon {
-  @apply text-base text-primary shrink-0;
+  @apply mt-0.5 text-base text-primary shrink-0;
+}
+
+.label-text {
+  @apply min-w-0 break-words;
 }
 
 .cell-value {
