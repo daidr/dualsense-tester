@@ -130,9 +130,9 @@
     "diagnostics": {
       "unsupported": "Внутреннее ПО контроллера не поддерживает диагностические счётчики.",
       "partial_hint": "Внутреннее ПО контроллера может сообщать только общее время его работы.",
-      "group_usage": "Usage Time",
-      "group_connection": "Connection & Battery",
-      "group_buttons": "Button Press Counts",
+      "group_usage": "Время использования",
+      "group_connection": "Подключение и аккумулятор",
+      "group_buttons": "Счётчик нажатий кнопок",
       "group_sticks": "Мини-джойстики",
       "total_record_count": "Кол-во включений устройства",
       "total_active_time": "Общее время работы",
