@@ -130,9 +130,9 @@
     "diagnostics": {
       "unsupported": "This controller's firmware doesn't expose diagnostic counters.",
       "partial_hint": "This firmware only exposes the total active time.",
-      "group_usage": "Usage time",
-      "group_connection": "Connection & battery",
-      "group_buttons": "Button press counts",
+      "group_usage": "Usage Time",
+      "group_connection": "Connection & Battery",
+      "group_buttons": "Button Press Counts",
       "group_sticks": "Sticks",
       "total_record_count": "Total record count",
       "total_active_time": "Total active time",
