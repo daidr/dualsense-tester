@@ -130,9 +130,9 @@
     "diagnostics": {
       "unsupported": "O firmware deste controle não fornece contadores de diagnóstico.",
       "partial_hint": "Este firmware fornece apenas o tempo ativo total.",
-      "group_usage": "Tempo de Uso",
-      "group_connection": "Conexão e Bateria",
-      "group_buttons": "Contagem de Pressionamentos dos Botões",
+      "group_usage": "Usage Time",
+      "group_connection": "Connection & Battery",
+      "group_buttons": "Button Press Counts",
       "group_sticks": "Analógicos",
       "total_record_count": "Contagem total de registros",
       "total_active_time": "Tempo ativo total",
