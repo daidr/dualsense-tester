@@ -10,10 +10,10 @@ defineSlots<{
 
 <template>
   <div class="labeled-value flex justify-between gap-2 rounded-lg px-1 text-sm">
-    <div class="flex-shrink-0 select-none font-bold">
+    <div class="flex-shrink-1 select-none font-bold">
       {{ label }}
     </div>
-    <div class="flex-grow whitespace-pre-wrap break-all text-end font-mono opacity-80">
+    <div class="max-w-70% min-w-45% flex-grow whitespace-pre-wrap break-all text-end font-mono opacity-80">
       <slot />
     </div>
   </div>
