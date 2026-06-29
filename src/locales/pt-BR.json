@@ -240,7 +240,7 @@
   "output_panel": {
     "title": "Interação",
     "mic_mute_led": "Luz de status do microfone",
-    "mic_mute_led_off": "Desligado",
+    "mic_mute_led_off": "Desligada",
     "mic_mute_led_on": "Ligado",
     "mic_mute_led_blink": "Piscando",
     "lightbar_color": "Cor da barra de luz",
@@ -249,7 +249,7 @@
     "player_led_brightness_high": "Alto",
     "player_led_brightness_medium": "Médio",
     "player_led_brightness_low": "Baixo",
-    "player_led_off": "Desligado",
+    "player_led_off": "Desligada",
     "player_led_all": "Todos",
     "rumble_heavy": "Vibração (forte)",
     "rumble_soft": "Vibração (suave)",
