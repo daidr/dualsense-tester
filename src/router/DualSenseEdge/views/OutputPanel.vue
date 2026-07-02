@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import type { Ref } from 'vue'
 import type { PlayerLedBrightness } from '@/utils/dualsense/ds.type'
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import ColorInput from '@/components/common/ColorInput.vue'
 import GroupedButton from '@/components/common/GroupedButton.vue'
 import SelfResettingSlider from '@/components/common/SelfResettingSlider.vue'
 import SliderBox from '@/components/common/SliderBox.vue'
 import { useDevice } from '@/composables/useInjectValues'
-import { hexToRgb, rgbToHex } from '@/utils/color.util'
+import { hexToRgb, hsvToRgb, rgbToHex } from '@/utils/color.util'
 import { MuteButtonLedControl, PlayerLedControl } from '@/utils/dualsense/ds.type'
 import { sendOutputReportFactory } from '@/utils/dualsense/ds.util'
 import { bitShiftByte } from '@/utils/format.util'
 import { createAsyncLock } from '@/utils/lock.util'
+import { hidLogger } from '@/utils/logger.util'
 import { useEventBusRegister } from '../_utils/eventbus.util'
 import { OutputStruct } from './_OutputPanel/outputStruct'
 import TriggerEffect from './_OutputPanel/TriggerEffect.vue'
@@ -84,26 +85,95 @@ const micMuteBtnSets = computed(() => {
 // #endregion
 
 // #region Lightbar Color
+async function sendLightbarColor(r: number, g: number, b: number) {
+  struct.ledCRed.value = r
+  struct.ledCGreen.value = g
+  struct.ledCBlue.value = b
+  await sendOutputReport(
+    () => {
+      setValidFlag1(2)
+      clearValidFlag1(3)
+    },
+    () => {
+      clearValidFlag1(2)
+    },
+  )
+}
+
+type LightbarEffect = 'static' | 'rainbow'
+
+const lightbarEffect = ref<LightbarEffect>('static')
+
 const lightbarColorState = computed<string>({
   get() {
     return rgbToHex([struct.ledCRed.value, struct.ledCGreen.value, struct.ledCBlue.value])
   },
   async set(value) {
+    lightbarEffect.value = 'static'
     const colors = hexToRgb(value)
-
-    struct.ledCRed.value = colors[0]
-    struct.ledCGreen.value = colors[1]
-    struct.ledCBlue.value = colors[2]
-    await sendOutputReport(
-      () => {
-        setValidFlag1(2)
-        clearValidFlag1(3)
-      },
-      () => {
-        clearValidFlag1(2)
-      },
-    )
+    await sendLightbarColor(colors[0], colors[1], colors[2])
   },
+})
+
+const lightbarEffectSets = computed(() => {
+  return [
+    {
+      value: 'static' as LightbarEffect,
+      label: t('output_panel.lightbar_effect_static'),
+    },
+    {
+      value: 'rainbow' as LightbarEffect,
+      label: t('output_panel.lightbar_effect_rainbow'),
+    },
+  ]
+})
+
+const RAINBOW_INTERVAL_MS = 33
+let rainbowTimer: ReturnType<typeof setInterval> | undefined
+let rainbowBusy = false
+let rainbowHue = 0
+
+function stopRainbow() {
+  if (rainbowTimer !== undefined) {
+    clearInterval(rainbowTimer)
+    rainbowTimer = undefined
+  }
+  rainbowBusy = false
+}
+
+function startRainbow() {
+  stopRainbow()
+  rainbowTimer = setInterval(async () => {
+    if (rainbowBusy) {
+      return
+    }
+    rainbowBusy = true
+    const [r, g, b] = hsvToRgb(rainbowHue, 1, 1)
+    rainbowHue = (rainbowHue + 2) % 360
+    try {
+      await sendLightbarColor(r, g, b)
+    }
+    catch (error) {
+      hidLogger.error(error)
+      lightbarEffect.value = 'static'
+    }
+    finally {
+      rainbowBusy = false
+    }
+  }, RAINBOW_INTERVAL_MS)
+}
+
+watch(lightbarEffect, (effect) => {
+  if (effect === 'rainbow') {
+    startRainbow()
+  }
+  else {
+    stopRainbow()
+  }
+})
+
+onUnmounted(() => {
+  stopRainbow()
 })
 // #endregion
 
@@ -372,7 +442,17 @@ useEventBusRegister('output:retrieve-headphone-volume', () => {
         </td>
         <td class="value">
           <div>
-            <ColorInput v-model="lightbarColorState" />
+            <ColorInput v-model="lightbarColorState" :class="{ 'pointer-events-none opacity-40': lightbarEffect === 'rainbow' }" />
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="label">
+          {{ $t('output_panel.lightbar_effect') }}
+        </td>
+        <td class="value">
+          <div>
+            <GroupedButton v-model="lightbarEffect" :sets="lightbarEffectSets" />
           </div>
         </td>
       </tr>
