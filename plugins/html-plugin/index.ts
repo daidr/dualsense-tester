@@ -26,6 +26,7 @@ function htmlPlugin(): Plugin {
   }
 
   const umamiTemplate = readFileSync(path.resolve(__dirname, './umami.html'), 'utf-8')
+  const vibeloftTemplate = readFileSync(path.resolve(__dirname, './vibeloft.html'), 'utf-8')
 
   const umamiScript = umamiTemplate.replace('%REF%', ref)
 
@@ -35,7 +36,7 @@ function htmlPlugin(): Plugin {
     ga4Template = readFileSync(path.resolve(__dirname, './ga4.html'), 'utf-8')
   }
 
-  const finalScript = `${umamiScript}${ga4Template}`
+  const finalScript = `${umamiScript}${vibeloftTemplate}${ga4Template}`
 
   return {
     name: 'html-transform',
