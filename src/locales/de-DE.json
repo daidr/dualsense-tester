@@ -63,7 +63,7 @@
       "status": "Status",
       "status_fake": "Fälschung erkannt",
       "joystick_barcode": "Joystick Barcode",
-      "build_time": "Hergestellungsdatum",
+      "build_time": "Herstellungsdatum",
       "hw_info": "HW Info",
       "device_info": "Geräte Info",
       "fw_type": "FW Typ",
@@ -308,7 +308,7 @@
     "title": "Neue Version erkannt",
     "dismiss": "Verwerfen",
     "upgrade": "Upgrade",
-    "update_available": "Eine neue Version von DualSense Tester ist bereit! \nAktualisieren Sie, um das Upgrade abzuschließen.",
+    "update_available": "Eine neue Version von DualSense Tester ist bereit! \nAktualisieren Sie, um die Neusten Funktionen zu erhalten.",
     "upgrading": "Neue Version wird heruntergeladen...",
     "offline_ready": "Diese Anwendung ist jetzt zum Offline-Betrieb zwischengespeichert."
   },
