@@ -124,15 +124,15 @@
       "board_version": "Версія плати",
       "touchpad_id": "Touchpad ID",
       "touchpad_fw_version": "Touchpad FW version",
-      "battery_voltage": "Battery voltage"
+      "battery_voltage": "Напруга батареї"
     },
-    "diagnostics_title": "Diagnostics",
+    "diagnostics_title": "Діагностика",
     "diagnostics": {
       "unsupported": "This controller's firmware doesn't expose diagnostic counters.",
-      "partial_hint": "This firmware only exposes the total active time.",
-      "group_usage": "Usage Time",
-      "group_connection": "Connection & Battery",
-      "group_buttons": "Button Press Counts",
+      "partial_hint": "Ця прошивка показує лише загальний активний час.",
+      "group_usage": "Тривалість використання",
+      "group_connection": "Підключення і батарея",
+      "group_buttons": "Кількість натискань",
       "group_sticks": "Sticks",
       "total_record_count": "Total record count",
       "total_active_time": "Total active time",
