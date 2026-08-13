@@ -293,10 +293,16 @@
     "haptic_strength": "触感强度",
     "settings": "设置",
     "output_device": "输出设备",
+    "select_output_device": "请选择输出设备",
     "output_default": "系统默认",
     "output_generic": "输出 {n}",
     "sync_to_pc": "同时在本机播放",
-    "list_devices": "列出设备"
+    "list_devices": "授权并列出设备",
+    "device_access_hint": "需要麦克风权限才能列出输出设备。",
+    "error_device_access_denied": "设备权限被拒绝。请允许麦克风权限以列出输出设备。",
+    "error_output_device_required": "请先选择 DualSense 输出设备再播放。",
+    "error_output_routing_failed": "无法启用所选的输出设备。",
+    "error_quadraphonic_required": "DualSense 输出设备要求使用四声道。\n请在系统音频配置中将DualSense扬声器配置为四声道，并关闭音频增强。"
   },
   "haptic_panel": {
     "motor": "马达",

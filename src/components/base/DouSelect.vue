@@ -18,6 +18,7 @@ defineProps<{
     value: T
     label: string
     extra?: U
+    disabled?: boolean
   }[]
   label?: string
   placeholder?: string
@@ -61,7 +62,7 @@ const open = ref(false)
 
         <SelectViewport class="popup-content">
           <template v-for="option, index of options" :key="option.value">
-            <SelectItem :value="option.value" class="popup-label">
+            <SelectItem :value="option.value" :disabled="option.disabled" class="popup-label">
               <SelectItemText>
                 <template v-if="!$slots.default">
                   {{ option.label }}

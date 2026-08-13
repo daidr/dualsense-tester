@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import type { DualSensePlayer } from '@/composables/useDualSensePlayer'
+import type { DualSensePlayer, DualSensePlayerError } from '@/composables/useDualSensePlayer'
 import { AnimatePresence, m } from 'motion-v'
 import { PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'reka-ui'
-import { computed, onMounted, ref, useTemplateRef, watch } from 'vue'
+import { computed, h, onMounted, ref, useTemplateRef, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import DouSelect from '@/components/base/DouSelect.vue'
 import DouSwitch from '@/components/base/DouSwitch.vue'
 import { useBtAudioPlayer } from '@/composables/useBtAudioPlayer'
 import { useDualSensePlayer } from '@/composables/useDualSensePlayer'
 import { useConnectionType } from '@/composables/useInjectValues'
+import { useWarningModal } from '@/composables/useModal'
+import { useToast } from '@/composables/useToast'
 import { DeviceConnectionType } from '@/device-based-router/shared'
 import { uiLogger } from '@/utils/logger.util'
 import SliderBox from './SliderBox.vue'
@@ -37,6 +39,8 @@ const audioVolume = defineModel<number>('audioVolume', { default: 200 })
 const hapticGain = ref(100)
 
 const { t } = useI18n()
+const { open: openWarningModal } = useWarningModal()
+const toast = useToast()
 
 const connectionType = useConnectionType()
 const isBluetooth = computed(() => connectionType.value === DeviceConnectionType.Bluetooth)
@@ -91,18 +95,29 @@ const hapticChannelModel = computed({
   set: value => player.setHapticChannel(value as 'left' | 'right' | 'both'),
 })
 
-// reka-ui 的 SelectItem 不允许空字符串 value，用 sentinel 代表「系统默认」，传给 setSinkId 前转回 ''。
+// reka-ui 的 SelectItem 不允许空字符串 value，用 sentinel 分别代表「尚未选择」和「系统默认」。
+const OUTPUT_UNSELECTED = '__output_unselected__'
 const SYSTEM_DEFAULT = '__system_default__'
 
 const outputOptions = computed(() => {
   const list = outputDevices.value
-    .filter(device => device.deviceId)
+    .filter(device => device.deviceId && device.deviceId !== 'default' && device.deviceId !== 'communications')
     .map((device, index) => ({
       value: device.deviceId,
       label: device.label || t('audio_panel.output_generic', { n: index + 1 }),
     }))
-  return [{ value: SYSTEM_DEFAULT, label: t('audio_panel.output_default') }, ...list]
+  return [
+    { value: OUTPUT_UNSELECTED, label: t('audio_panel.select_output_device'), disabled: true },
+    { value: SYSTEM_DEFAULT, label: t('audio_panel.output_default') },
+    ...list,
+  ]
 })
+
+const playbackErrorMessages: Record<Exclude<DualSensePlayerError, 'quadraphonic-required'>, string> = {
+  'device-access-denied': 'audio_panel.error_device_access_denied',
+  'output-device-required': 'audio_panel.error_output_device_required',
+  'output-routing-failed': 'audio_panel.error_output_routing_failed',
+}
 
 // 拖动进度条时仅更新显示值，不每帧 seek —— 每次 seek 都会重建音频源（USB 还含 setSinkId
 // 切换硬件端点），高频重建会越拖越卡。松手提交时（@change）才真正 seek 一次。
@@ -132,14 +147,20 @@ function looksLikeDualSense(label: string): boolean {
   return l.includes('dualsense') || l.includes('wireless controller')
 }
 
+async function autoPickDualSenseOutput() {
+  if (sinkId.value !== null) {
+    return
+  }
+  const match = outputDevices.value.find(device => looksLikeDualSense(device.label))
+  if (match) {
+    const deviceId = match.deviceId === 'default' ? '' : match.deviceId
+    await player.setSinkDevice(deviceId, match.label)
+  }
+}
+
 async function refreshAndAutoPick() {
   await player.refreshOutputDevices()
-  if (!sinkId.value) {
-    const match = outputDevices.value.find(device => looksLikeDualSense(device.label))
-    if (match) {
-      await player.setSinkDevice(match.deviceId)
-    }
-  }
+  await autoPickDualSenseOutput()
 }
 
 function triggerUpload() {
@@ -174,10 +195,35 @@ function togglePlay() {
 }
 
 function onSelectOutput(deviceId: string) {
+  if (deviceId === OUTPUT_UNSELECTED) {
+    return
+  }
   void player.setSinkDevice(deviceId === SYSTEM_DEFAULT ? '' : deviceId)
 }
 
+async function onRequestDeviceAccess() {
+  if (await player.requestDeviceAccess()) {
+    await autoPickDualSenseOutput()
+  }
+}
+
 watch(isPlaying, value => emit('playingChange', value))
+watch(player.playbackError, (error) => {
+  if (!error) {
+    return
+  }
+  if (error === 'quadraphonic-required') {
+    openWarningModal({
+      content: h('span', {
+        class: 'block whitespace-pre-wrap text-left text-base font-normal',
+      }, t('audio_panel.error_quadraphonic_required')),
+      confirmText: t('shared.close'),
+      hideCancel: true,
+    })
+    return
+  }
+  toast.error({ content: t(playbackErrorMessages[error]), duration: 6000 })
+})
 
 onMounted(() => {
   void player.refreshOutputDevices()
@@ -259,29 +305,33 @@ defineExpose({ player })
                 <span class="field-label">{{ $t('audio_panel.sync_to_pc') }}</span>
                 <DouSwitch v-model="syncToPC" />
               </div>
-              <div v-if="!isBluetooth && audioEnabled" class="popover-row popover-output">
+              <div v-if="!isBluetooth" class="popover-row popover-output">
                 <span class="field-label">{{ $t('audio_panel.output_device') }}</span>
                 <button
                   v-if="outputPickerSupported" type="button" class="output-btn dou-sc-colorborder"
                   @click="player.selectOutputDevice()"
                 >
                   <span class="i-mingcute-volume-line shrink-0" />
-                  <span class="output-name">{{ sinkLabel || $t('audio_panel.output_default') }}</span>
+                  <span class="output-name">{{ sinkLabel || $t('audio_panel.select_output_device') }}</span>
                   <span class="i-mingcute-down-line shrink-0" />
                 </button>
                 <template v-else>
                   <div class="output-select">
                     <DouSelect
-                      :model-value="sinkId || SYSTEM_DEFAULT" :options="outputOptions"
+                      :model-value="sinkId === null ? OUTPUT_UNSELECTED : (sinkId || SYSTEM_DEFAULT)"
+                      :options="outputOptions"
                       @update:model-value="onSelectOutput"
                     />
                   </div>
                   <button
                     v-if="!player.hasNamedOutputs()" type="button" class="grant-btn"
-                    @click="player.requestDeviceAccess()"
+                    @click="onRequestDeviceAccess"
                   >
                     {{ $t('audio_panel.list_devices') }}
                   </button>
+                  <p v-if="!player.hasNamedOutputs()" class="output-hint">
+                    {{ $t('audio_panel.device_access_hint') }}
+                  </p>
                 </template>
               </div>
             </PopoverContent>
@@ -447,6 +497,10 @@ defineExpose({ player })
   .grant-btn {
     @apply shrink-0 text-xs text-primary px-2 py-0.5 rounded-full cursor-pointer;
     @apply dou-sc-colorborder transition active-bg-primary active-text-white;
+  }
+
+  .output-hint {
+    @apply text-xs text-primary/55 leading-snug;
   }
 
   .output-select {

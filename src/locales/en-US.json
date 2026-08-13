@@ -293,10 +293,16 @@
     "haptic_strength": "Haptic strength",
     "settings": "Settings",
     "output_device": "Output device",
+    "select_output_device": "Select an output device",
     "output_default": "System default",
     "output_generic": "Output {n}",
     "sync_to_pc": "Also play on this PC",
-    "list_devices": "List devices"
+    "list_devices": "Allow device access",
+    "device_access_hint": "Microphone permission is required to list output devices.",
+    "error_device_access_denied": "Device access was denied. Allow microphone access to list output devices.",
+    "error_output_device_required": "Select the DualSense output device before playing.",
+    "error_output_routing_failed": "The selected output device could not be activated.",
+    "error_quadraphonic_required": "The DualSense output device requires four-channel audio.\nIn your system audio settings, configure the DualSense speakers for quadraphonic output and disable audio enhancements."
   },
   "haptic_panel": {
     "motor": "Motor",
