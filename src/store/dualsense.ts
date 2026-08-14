@@ -4,6 +4,7 @@ import { computed, onMounted, onScopeDispose, onUnmounted, ref, shallowRef, watc
 import { RouterManager } from '@/device-based-router'
 import { registerRouters } from '@/device-based-router/register-entry'
 import { connectionTypeToString, DeviceConnectionType } from '@/device-based-router/shared'
+import { isBtMicAudioReport } from '@/utils/dualsense/microphoneProtocol'
 import { requestHIDDevice } from '@/utils/hid.util'
 import { hidLogger } from '@/utils/logger.util'
 import { track } from '@/utils/umami.util'
@@ -64,6 +65,10 @@ export const useDualSenseStore = defineStore('dualsense', () => {
 
   function inputReportHandlerFactory() {
     return (event: HIDInputReportEvent) => {
+      // Microphone audio frames do not contain controller state.
+      if (isBtMicAudioReport(event.reportId, event.data)) {
+        return
+      }
       if (currentAnimationFrame) {
         cancelAnimationFrame(currentAnimationFrame)
       }

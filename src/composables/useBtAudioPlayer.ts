@@ -1,4 +1,5 @@
 import type { Ref } from 'vue'
+import type { DualSensePlayerError } from '@/composables/useDualSensePlayer'
 import { onScopeDispose, ref, shallowRef, watch } from 'vue'
 import { useDevice } from '@/composables/useInjectValues'
 import {
@@ -45,6 +46,7 @@ export function useBtAudioPlayer(options: { audioEnabled: Ref<boolean>, hapticEn
   const sinkId = ref('')
   const sinkLabel = ref('')
   const outputPickerSupported = ref(false)
+  const playbackError = shallowRef<DualSensePlayerError | null>(null)
   const hapticChannel = ref<'left' | 'right' | 'both'>('both')
 
   let buffer48k: AudioBuffer | null = null
@@ -246,19 +248,21 @@ export function useBtAudioPlayer(options: { audioEnabled: Ref<boolean>, hapticEn
     hasClip.value = true
   }
 
-  async function play() {
+  async function play(): Promise<boolean> {
     if (!hasClip.value || isPlaying.value) {
-      return
+      return false
     }
     sendSeq = 0
     frameCounter = 0
     const offset = resumeOffset >= duration.value - 0.05 ? 0 : resumeOffset
     try {
       await startFrom(offset)
+      return true
     }
     catch (err) {
       hidLogger.error('bt audio play failed', err)
       isPlaying.value = false
+      return false
     }
   }
 
@@ -308,12 +312,18 @@ export function useBtAudioPlayer(options: { audioEnabled: Ref<boolean>, hapticEn
 
   // 蓝牙无关接口（与 useDualSensePlayer 对齐）的空实现。
   async function refreshOutputDevices() {}
-  async function requestDeviceAccess() {}
+  async function requestDeviceAccess() {
+    return false
+  }
   function hasNamedOutputs() {
     return false
   }
-  async function setSinkDevice(_deviceId: string, _label?: string) {}
-  async function selectOutputDevice() {}
+  async function setSinkDevice(_deviceId: string, _label?: string) {
+    return false
+  }
+  async function selectOutputDevice() {
+    return false
+  }
   function setHapticChannel(channel: 'left' | 'right' | 'both') {
     hapticChannel.value = channel
   }
@@ -340,6 +350,7 @@ export function useBtAudioPlayer(options: { audioEnabled: Ref<boolean>, hapticEn
     sinkId,
     sinkLabel,
     outputPickerSupported,
+    playbackError,
     hapticChannel,
     analyser,
     loadFile,

@@ -8,6 +8,7 @@
     "preview": "vite preview",
     "build": "bunx --bun vite build",
     "build-only": "bunx --bun vite build",
+    "test": "node node_modules/vitest/vitest.mjs run --pool=threads",
     "type-check": "vue-tsc --noEmit -p ./tsconfig.app.json --composite false",
     "lint": "bunx --bun oxlint . --fix && bunx --bun eslint . --fix",
     "lint:migrate": "bunx --bun @oxlint/migrate ./eslint.config.mjs"
@@ -41,9 +42,11 @@
     "@unocss/eslint-config": "^66.7.2",
     "@vitejs/plugin-vue": "^6.0.7",
     "@vitejs/plugin-vue-jsx": "^5.1.5",
+    "@vue/test-utils": "^2.4.11",
     "@vue/tsconfig": "^0.9.1",
     "eslint": "^9.39.4",
     "eslint-plugin-oxlint": "^1.70.0",
+    "happy-dom": "^20.11.2",
     "oxlint": "^1.70.0",
     "rollup-plugin-bundle-stats": "^4.22.2",
     "rollup-plugin-webbundle": "^0.2.0",
@@ -54,6 +57,7 @@
     "vite": "^8.0.16",
     "vite-plugin-pwa": "^1.3.0",
     "vite-plugin-vue-devtools": "^8.1.3",
+    "vitest": "^4.1.10",
     "vue-tsc": "3.3.5",
     "wbn-sign": "^0.3.1",
     "workbox-routing": "^7.4.1"

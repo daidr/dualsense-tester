@@ -2,6 +2,18 @@ import type { Ref } from 'vue'
 import { onScopeDispose, ref, shallowRef, watch } from 'vue'
 import { uiLogger } from '@/utils/logger.util'
 
+export type DualSensePlayerError
+  = | 'device-access-denied'
+    | 'output-device-required'
+    | 'output-routing-failed'
+    | 'quadraphonic-required'
+
+class DualSensePlayerFailure extends Error {
+  constructor(public readonly code: DualSensePlayerError, message: string) {
+    super(message)
+  }
+}
+
 /**
  * USB 连接下的文件播放器内核（蓝牙由 useBtAudioPlayer 实现，两者接口兼容，
  * 由 MediaFilePlayer 按连接类型分派）。
@@ -27,15 +39,19 @@ export function useDualSensePlayer(options: { audioEnabled: Ref<boolean>, haptic
 
   /** 可选的输出端点列表（audiooutput），label 需要媒体权限才可见。 */
   const outputDevices = shallowRef<MediaDeviceInfo[]>([])
-  /** 当前 setSinkId 目标设备 id，'' 表示系统默认输出。 */
-  const sinkId = ref('')
+  /** 当前 setSinkId 目标设备 id；null=尚未确认，''=用户明确选择系统默认输出。 */
+  const sinkId = shallowRef<string | null>(null)
   /** 当前输出端点的设备名（经 selectAudioOutput 选择后可得）。 */
   const sinkLabel = ref('')
+  /** 最近一次需要呈现给用户的播放/路由错误。 */
+  const playbackError = shallowRef<DualSensePlayerError | null>(null)
   /** 浏览器是否支持原生输出设备选择器。 */
-  const outputPickerSupported = ref(
+  const outputPickerSupported = shallowRef(
     typeof navigator !== 'undefined'
     && !!navigator.mediaDevices
-    && typeof (navigator.mediaDevices as unknown as { selectAudioOutput?: unknown }).selectAudioOutput === 'function',
+    && typeof (navigator.mediaDevices as unknown as { selectAudioOutput?: unknown }).selectAudioOutput === 'function'
+    && typeof AudioContext !== 'undefined'
+    && 'setSinkId' in AudioContext.prototype,
   )
 
   /** 供频谱组件读取的 AnalyserNode。 */
@@ -73,16 +89,39 @@ export function useDualSensePlayer(options: { audioEnabled: Ref<boolean>, haptic
     return mainCtx
   }
 
-  async function applySinkId(ctx: AudioContext) {
+  function errorCode(error: unknown, fallback: DualSensePlayerError): DualSensePlayerError {
+    return error instanceof DualSensePlayerFailure ? error.code : fallback
+  }
+
+  function reportFailure(error: unknown, fallback: DualSensePlayerError): false {
+    const code = errorCode(error, fallback)
+    playbackError.value = code
+    uiLogger.error(`DualSense player failed: ${code}`, error)
+    return false
+  }
+
+  async function applySinkId(ctx: AudioContext, deviceId: string) {
     if (!supportsSetSinkId(ctx)) {
-      return
+      throw new DualSensePlayerFailure('output-routing-failed', 'AudioContext.setSinkId is unavailable')
     }
-    try {
-      await (ctx as unknown as { setSinkId: (id: string) => Promise<void> }).setSinkId(sinkId.value)
+    await (ctx as unknown as { setSinkId: (id: string) => Promise<void> }).setSinkId(deviceId)
+  }
+
+  function assertQuadraphonicOutput(ctx: AudioContext) {
+    if (ctx.destination.maxChannelCount < 4) {
+      throw new DualSensePlayerFailure(
+        'quadraphonic-required',
+        `DualSense output requires four channels, got ${ctx.destination.maxChannelCount}`,
+      )
     }
-    catch (error) {
-      uiLogger.warn('setSinkId failed', error)
+  }
+
+  async function applySelectedSink(ctx: AudioContext) {
+    if (sinkId.value === null) {
+      throw new DualSensePlayerFailure('output-device-required', 'No output device has been confirmed')
     }
+    await applySinkId(ctx, sinkId.value)
+    assertQuadraphonicOutput(ctx)
   }
 
   function startRaf() {
@@ -140,11 +179,7 @@ export function useDualSensePlayer(options: { audioEnabled: Ref<boolean>, haptic
     source.connect(analyserNode!)
     const needHaptic = hapticEnabled.value
     const maxChannels = ctx.destination.maxChannelCount
-    // 仅音频且声卡只有立体声：直连 analyser→destination 即可。
-    if (!needHaptic && maxChannels < 4) {
-      analyserNode!.connect(ctx.destination)
-      return
-    }
+    assertQuadraphonicOutput(ctx)
     const channels = Math.min(4, maxChannels)
     try {
       ctx.destination.channelCount = channels
@@ -166,20 +201,18 @@ export function useDualSensePlayer(options: { audioEnabled: Ref<boolean>, haptic
       graphNodes.push(audioSplitter)
     }
     if (needHaptic) {
-      // 触觉 → ch2/ch3（4 声道时）；声卡 <4 声道则降级到 ch0/ch1。
+      // 触觉始终走 ch2/ch3；不足 4 声道已在输出确认阶段拒绝，绝不降级到可听声道。
       // 触觉单独走一个 GainNode 做强度缩放，不影响音频通道。
-      const leftCh = channels >= 4 ? 2 : 0
-      const rightCh = channels >= 4 ? 3 : Math.min(1, channels - 1)
       const gain = ctx.createGain()
       gain.gain.value = currentHapticGain()
       source.connect(gain)
       const hapticSplitter = ctx.createChannelSplitter(2)
       gain.connect(hapticSplitter)
       if (hapticChannel.value !== 'right') {
-        hapticSplitter.connect(merger, 0, leftCh)
+        hapticSplitter.connect(merger, 0, 2)
       }
       if (hapticChannel.value !== 'left') {
-        hapticSplitter.connect(merger, 1, rightCh)
+        hapticSplitter.connect(merger, 1, 3)
       }
       hapticGainNode = gain
       graphNodes.push(gain, hapticSplitter)
@@ -195,7 +228,7 @@ export function useDualSensePlayer(options: { audioEnabled: Ref<boolean>, haptic
     const token = ++startToken
     const ctx = ensureMainCtx()
     await ctx.resume()
-    await applySinkId(ctx)
+    await applySelectedSink(ctx)
     if (token !== startToken) {
       return // 期间又触发了 seek/play，丢弃这次
     }
@@ -252,18 +285,26 @@ export function useDualSensePlayer(options: { audioEnabled: Ref<boolean>, haptic
     hasClip.value = true
   }
 
-  async function play() {
+  function handlePlaybackFailure(error: unknown): false {
+    teardownSources()
+    isPlaying.value = false
+    stopRaf()
+    return reportFailure(error, 'output-routing-failed')
+  }
+
+  async function play(): Promise<boolean> {
     if (!hasClip.value || isPlaying.value) {
-      return
+      return false
     }
+    playbackError.value = null
     // 已播放到结尾则从头开始
     const offset = resumeOffset >= duration.value - 0.05 ? 0 : resumeOffset
     try {
       await startFrom(offset)
+      return true
     }
     catch (error) {
-      uiLogger.error('play failed', error)
-      isPlaying.value = false
+      return handlePlaybackFailure(error)
     }
   }
 
@@ -286,7 +327,7 @@ export function useDualSensePlayer(options: { audioEnabled: Ref<boolean>, haptic
     currentTime.value = target
     if (isPlaying.value) {
       teardownSources()
-      void startFrom(target)
+      void startFrom(target).catch(handlePlaybackFailure)
     }
     else {
       resumeOffset = target
@@ -298,7 +339,7 @@ export function useDualSensePlayer(options: { audioEnabled: Ref<boolean>, haptic
     if (isPlaying.value && mainCtx) {
       const offset = Math.min(resumeOffset + (mainCtx.currentTime - startedAtCtxTime), duration.value)
       teardownSources()
-      void startFrom(offset)
+      void startFrom(offset).catch(handlePlaybackFailure)
     }
   }
 
@@ -357,55 +398,139 @@ export function useDualSensePlayer(options: { audioEnabled: Ref<boolean>, haptic
     }
   }
 
-  /** 是否已拿到带名字的输出端点（无名字说明缺少媒体权限）。 */
+  /** 是否已拿到至少一个可单独选择的真实输出端点（排除浏览器的默认/通信占位项）。 */
   function hasNamedOutputs(): boolean {
-    return outputDevices.value.some(device => device.deviceId && device.label)
+    return outputDevices.value.some(device =>
+      device.deviceId
+      && device.deviceId !== 'default'
+      && device.deviceId !== 'communications'
+      && device.label,
+    )
   }
 
   /**
    * 无 selectAudioOutput 的浏览器回退：请求一次媒体权限以解锁设备名（audiooutput 的 label
    * 需要任意媒体权限才可见），随后刷新设备列表。
    */
-  async function requestDeviceAccess() {
+  async function requestDeviceAccess(): Promise<boolean> {
+    playbackError.value = null
     if (!navigator.mediaDevices?.getUserMedia) {
-      return
+      return reportFailure(
+        new DualSensePlayerFailure('device-access-denied', 'getUserMedia is unavailable'),
+        'device-access-denied',
+      )
     }
+    let stream: MediaStream | null = null
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+      stream = await navigator.mediaDevices.getUserMedia({ audio: true })
       stream.getTracks().forEach(track => track.stop())
+      stream = null
       await refreshOutputDevices()
+      return true
     }
     catch (error) {
-      uiLogger.warn('requestDeviceAccess denied', error)
+      return reportFailure(error, 'device-access-denied')
+    }
+    finally {
+      stream?.getTracks().forEach(track => track.stop())
     }
   }
 
   /** 设置 setSinkId 目标；播放中会即时切换端点。 */
-  async function setSinkDevice(deviceId: string, label = '') {
-    sinkId.value = deviceId
-    sinkLabel.value = label
-    if (mainCtx) {
-      await applySinkId(mainCtx)
+  async function setSinkDevice(deviceId: string, label = ''): Promise<boolean> {
+    playbackError.value = null
+    const ctx = ensureMainCtx()
+    const previousSinkId = sinkId.value
+    try {
+      await applySinkId(ctx, deviceId)
+      assertQuadraphonicOutput(ctx)
+      sinkId.value = deviceId
+      sinkLabel.value = label
+      return true
+    }
+    catch (error) {
+      let retainedPreviousSink = false
+      if (previousSinkId !== null && previousSinkId !== deviceId) {
+        try {
+          await applySinkId(ctx, previousSinkId)
+          assertQuadraphonicOutput(ctx)
+          retainedPreviousSink = true
+        }
+        catch (rollbackError) {
+          uiLogger.error('Failed to restore previous output device', rollbackError)
+        }
+      }
+      if (!retainedPreviousSink) {
+        teardownSources()
+        isPlaying.value = false
+        stopRaf()
+        sinkId.value = null
+        sinkLabel.value = ''
+      }
+      return reportFailure(error, 'output-routing-failed')
     }
   }
 
   /** 用浏览器原生选择器让用户选输出端点（用户手势触发，无需媒体权限即可拿到设备名）。 */
-  async function selectOutputDevice() {
+  async function selectOutputDevice(): Promise<boolean> {
+    playbackError.value = null
     const md = navigator.mediaDevices as unknown as { selectAudioOutput?: () => Promise<MediaDeviceInfo> }
     if (typeof md.selectAudioOutput !== 'function') {
-      return
+      return reportFailure(
+        new DualSensePlayerFailure('output-routing-failed', 'selectAudioOutput is unavailable'),
+        'output-routing-failed',
+      )
     }
     try {
       ensureMainCtx()
       const info = await md.selectAudioOutput()
-      await setSinkDevice(info.deviceId, info.label)
+      return await setSinkDevice(info.deviceId, info.label)
     }
     catch (error) {
-      uiLogger.warn('selectAudioOutput cancelled or failed', error)
+      return reportFailure(error, 'device-access-denied')
     }
   }
 
+  async function handleOutputDeviceChange() {
+    await refreshOutputDevices()
+    if (sinkId.value === null) {
+      return
+    }
+
+    let failure: unknown = null
+    if (
+      sinkId.value
+      && !outputDevices.value.some(device => device.deviceId === sinkId.value)
+    ) {
+      failure = new DualSensePlayerFailure(
+        'output-device-required',
+        'The selected output device is no longer available',
+      )
+    }
+    else if (mainCtx) {
+      try {
+        await applySelectedSink(mainCtx)
+      }
+      catch (error) {
+        failure = error
+      }
+    }
+
+    if (failure) {
+      teardownSources()
+      isPlaying.value = false
+      stopRaf()
+      sinkId.value = null
+      sinkLabel.value = ''
+      reportFailure(failure, 'output-routing-failed')
+    }
+  }
+
+  const mediaDevices = typeof navigator !== 'undefined' ? navigator.mediaDevices : undefined
+  mediaDevices?.addEventListener?.('devicechange', handleOutputDeviceChange)
+
   function dispose() {
+    mediaDevices?.removeEventListener?.('devicechange', handleOutputDeviceChange)
     stopRaf()
     teardownSources()
     void mainCtx?.close().catch(() => {})
@@ -431,6 +556,7 @@ export function useDualSensePlayer(options: { audioEnabled: Ref<boolean>, haptic
     outputDevices,
     sinkId,
     sinkLabel,
+    playbackError,
     outputPickerSupported,
     analyser,
     loadFile,
