@@ -141,7 +141,7 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
           <br />
           <sub><b>Maksym Abramov (sladkOy)</b></sub></a>
         <br />
-        <sub><b>368 words</b></sub>
+        <sub><b>443 words</b></sub>
         <br /><sub><b><code title="Ukrainian">uk</code></b></sub>
       </td>
       <td align="center" valign="top">
@@ -169,6 +169,14 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
         <br /><sub><b><code title="Russian">ru</code></b></sub>
       </td>
       <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/Free_Palestine"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17785327/medium/25bffe71bf905d6583ce5a5e9bbdfd5e.png" />
+          <br />
+          <sub><b>Free_Palestine</b></sub></a>
+        <br />
+        <sub><b>15 words</b></sub>
+        <br /><sub><b><code title="German">de</code></b></sub>
+      </td>
+      <td align="center" valign="top">
         <a href="https://crowdin.com/profile/OsakaRider"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17305750/medium/ddc95852f21f5e96c8830129a0cd4c53.png" />
           <br />
           <sub><b>OsakaRider</b></sub></a>
@@ -184,6 +192,8 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
         <sub><b>4 words</b></sub>
         <br /><sub><b><code title="Turkish">tr</code></b></sub>
       </td>
+    </tr>
+    <tr>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/Jacker_Gamer"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/16016445/medium/5834fb246cb37f192a7c8ede4287fe61.jpg" />
           <br />
