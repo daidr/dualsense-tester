@@ -67,7 +67,7 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
           <br />
           <sub><b>戴兜 (daidr)</b></sub></a>
         <br />
-        <sub><b>3442 words</b></sub>
+        <sub><b>3602 words</b></sub>
         <br /><sub><b><code title="Arabic">ar</code></b>, <b><code title="Arabic, Egypt">ar-EG</code></b>, <b><code title="Chinese Simplified">zh-CN</code></b>, <b><code title="French">fr</code></b>, <b><code title="German">de</code></b>, <b><code title="Greek">el</code></b>, <b><code title="Italian">it</code></b>, <b><code title="Persian">fa</code></b>, <b><code title="Portuguese, Brazilian">pt-BR</code></b>, <b><code title="Russian">ru</code></b>, <b><code title="Turkish">tr</code></b>, <b><code title="Ukrainian">uk</code></b></sub>
       </td>
       <td align="center" valign="top">
@@ -79,28 +79,28 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
         <br /><sub><b><code title="Arabic">ar</code></b>, <b><code title="Arabic, Egypt">ar-EG</code></b></sub>
       </td>
       <td align="center" valign="top">
-        <a href="https://crowdin.com/profile/Emertels"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/14322716/medium/b2ad68402ac45afff3ea3376b03797b8.jpg" />
+        <a href="https://crowdin.com/profile/Jacksoft87"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/15437446/medium/c2a764b94f1f3f766e304a650c700ec7_default.png" />
           <br />
-          <sub><b>Emertels</b></sub></a>
+          <sub><b>Jacksoft87</b></sub></a>
         <br />
-        <sub><b>914 words</b></sub>
-        <br /><sub><b><code title="Italian">it</code></b>, <b><code title="Portuguese, Brazilian">pt-BR</code></b></sub>
+        <sub><b>1070 words</b></sub>
+        <br /><sub><b><code title="Italian">it</code></b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/hargabt"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/14426098/medium/8d9f140158ee575545feedd642f44d8e.jpg" />
           <br />
           <sub><b>Robert Galoyan (hargabt)</b></sub></a>
         <br />
-        <sub><b>856 words</b></sub>
+        <sub><b>980 words</b></sub>
         <br /><sub><b><code title="Russian">ru</code></b></sub>
       </td>
       <td align="center" valign="top">
-        <a href="https://crowdin.com/profile/Jacksoft87"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/15437446/medium/c2a764b94f1f3f766e304a650c700ec7_default.png" />
+        <a href="https://crowdin.com/profile/Emertels"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/14322716/medium/b2ad68402ac45afff3ea3376b03797b8.jpg" />
           <br />
-          <sub><b>Jacksoft87</b></sub></a>
+          <sub><b>Emertels</b></sub></a>
         <br />
-        <sub><b>812 words</b></sub>
-        <br /><sub><b><code title="Italian">it</code></b></sub>
+        <sub><b>914 words</b></sub>
+        <br /><sub><b><code title="Italian">it</code></b>, <b><code title="Portuguese, Brazilian">pt-BR</code></b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/ironB0SS"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/15966143/medium/644944c91fa73dce082cccdfec5c7f3f.jpeg" />
