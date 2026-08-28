@@ -326,11 +326,11 @@
     "error_permission_denied": "O acesso ao microfone foi negado.",
     "error_input_device_required": "Selecione o microfone do DualSense antes de começar.",
     "error_input_unavailable": "Não foi possível iniciar o microfone selecionado.",
-    "error_bluetooth_codec_unsupported": "This browser cannot decode the DualSense Bluetooth microphone stream.",
-    "error_bluetooth_stream_failed": "The DualSense Bluetooth microphone stream could not be started.",
-    "error_recording_unsupported": "This browser does not support microphone recording.",
-    "error_recording_failed": "The microphone recording could not be saved.",
-    "error_playback_failed": "The recording could not be played."
+    "error_bluetooth_codec_unsupported": "Este navegador não consegue decodificar o fluxo de áudio do microfone Bluetooth do DualSense.",
+    "error_bluetooth_stream_failed": "Não foi possível iniciar o fluxo de áudio do microfone Bluetooth do DualSense.",
+    "error_recording_unsupported": "Este navegador não suporta gravação de microfone.",
+    "error_recording_failed": "Não foi possível salvar a gravação do microfone.",
+    "error_playback_failed": "Não foi possível reproduzir a gravação."
   },
   "haptic_panel": {
     "motor": "Motor",
