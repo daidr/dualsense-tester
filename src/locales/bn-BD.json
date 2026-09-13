@@ -21,15 +21,15 @@
     "refresh": "Refresh"
   },
   "common": {
-    "tips": "Tips",
+    "tips": "টিপস",
     "not_support_title": "Your browser does not support WebHID",
     "not_support_content": "Try to use the latest version of Google Chrome or Microsoft Edge"
   },
   "connect_panel": {
     "tips": "Connect the DualSense to your computer using either a <b>USB cable</b> or <b>Bluetooth</b>, then click the \"Add Device\" button above.",
     "not_connected": "পাওয়া যাই নি",
-    "connected": "Connected",
-    "seq_num": "ক্রমাগত তালিকা",
+    "connected": "সংযুক্ত",
+    "seq_num": "ক্রমাগত নম্বর",
     "charge_status_label": "চার্জ",
     "battery_level_label": "ব্যাটারী",
     "headphone_status_label": "হেডফোন",
@@ -55,7 +55,7 @@
       "level6": "60-69%",
       "level7": "70-79%",
       "level8": "80-89%",
-      "level9": "90-99%",
+      "level9": "৯০-৯৯%",
       "level10": "১০০%",
       "unknown": "Unknown"
     },
@@ -63,9 +63,9 @@
       "status": "Status",
       "status_fake": "Fake",
       "joystick_barcode": "Joystick Barcode",
-      "build_time": "Build Time",
-      "hw_info": "হার্ডওয়্যার তথ্য",
-      "device_info": "ডিভাইস নম্বর",
+      "build_time": "তৈরীর সময়",
+      "hw_info": "হার্ডওয়্যারের তথ্য",
+      "device_info": "ডিভাইসের তথ্য",
       "fw_type": "ফার্মওয়্যার ভার্সন",
       "sw_series": "সফটওয়্যার সিরিজ",
       "update_version": "আপডেট ভার্সন",
@@ -107,7 +107,7 @@
       "assemble_parts_info": "অ্যাসেম্বল পার্টের তথ্য",
       "battery_barcode": "ব্যাটারী বারকোড",
       "vcm_barcode": "ভিসিএম বারকোড",
-      "unique_id": "ইউনিক আই-ডি ",
+      "unique_id": "ইউনিক আই-ডি",
       "bd_mac_address": "বিডি MAC এড্রেস",
       "at_serial_number": "এ-টি সিরিয়াল নম্বর",
       "at_motor_info": "এ-টি মোটর তথ্য",
@@ -226,15 +226,15 @@
   "info_panel": {
     "tips": "Please connect your DualSense first",
     "stick_module_not_found": "Stick module lost",
-    "title_buttons": "Basic Buttons",
+    "title_buttons": "সাধারণ বাটনসমূহ",
     "title_accelerometer": "Accelerometer",
     "title_gyroscope": "Gyroscope",
     "pitch": "Pitch",
     "yaw": "Yaw",
     "roll": "Roll",
     "model_value": {
-      "on": "Value display on",
-      "off": "Value display off"
+      "on": "অতিরিক্ত সংখ্যা দেখান",
+      "off": "অতিরিক্ত সংখ্যা দেখাবেন না"
     }
   },
   "output_panel": {
