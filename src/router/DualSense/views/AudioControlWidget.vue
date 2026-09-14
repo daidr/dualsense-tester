@@ -5,6 +5,7 @@ import MediaFilePlayer from '@/components/common/MediaFilePlayer.vue'
 import { useConnectionType, useDevice } from '@/composables/useInjectValues'
 import { DeviceConnectionType } from '@/device-based-router/shared'
 import { controlWaveOut } from '@/utils/dualsense/ds.util'
+import { audioVolumePercentToDeviceValue, DUALSENSE_AUDIO_VOLUME_MAX } from '@/utils/dualsense/audioVolume'
 import { sleep } from '@/utils/time.util'
 import { useEventBusEmit } from '../_utils/eventbus.util'
 
@@ -22,37 +23,39 @@ const isFilePlaybackSupported = computed(() =>
 const audioEnabled = ref(true)
 const hapticEnabled = ref(false)
 const audioTarget = ref('speaker')
-const audioVolume = ref(200)
+const audioVolume = ref(100)
 
 // USB 下音量靠 HID 报告切换；蓝牙音量在 0x36 流报告内携带，跳过。
 let volumeStored = false
 
 function applyVolume() {
+  const target = audioTarget.value === 'headphone' ? 'headphone' : 'speaker'
+  const deviceVolume = audioVolumePercentToDeviceValue(target, audioVolume.value)
   if (hapticEnabled.value) {
-    // 触觉走 ch2/ch3，强度吃音频子系统总增益，所以非音频目标的那一路拉满 255。
+    // 触觉走 ch2/ch3，强度吃音频子系统总增益，所以非音频目标的那一路拉满。
     if (audioEnabled.value) {
       // 音频同时开：目标那一路用 audioVolume（音量可调），另一路 255 给触觉；
       // 目标路最后写，确保 audioControl 路由到目标输出（扬声器/耳机互斥）。
       if (audioTarget.value === 'headphone') {
-        eventBusEmit('output:set-speaker-volume', 255)
-        eventBusEmit('output:set-headphone-volume', audioVolume.value)
+        eventBusEmit('output:set-speaker-volume', DUALSENSE_AUDIO_VOLUME_MAX.speaker)
+        eventBusEmit('output:set-headphone-volume', deviceVolume)
       }
       else {
-        eventBusEmit('output:set-headphone-volume', 255)
-        eventBusEmit('output:set-speaker-volume', audioVolume.value)
+        eventBusEmit('output:set-headphone-volume', DUALSENSE_AUDIO_VOLUME_MAX.headphone)
+        eventBusEmit('output:set-speaker-volume', deviceVolume)
       }
     }
     else {
       // 纯触觉：两路都拉满。
-      eventBusEmit('output:set-speaker-volume', 255)
-      eventBusEmit('output:set-headphone-volume', 255)
+      eventBusEmit('output:set-speaker-volume', DUALSENSE_AUDIO_VOLUME_MAX.speaker)
+      eventBusEmit('output:set-headphone-volume', DUALSENSE_AUDIO_VOLUME_MAX.headphone)
     }
   }
   else if (audioTarget.value === 'headphone') {
-    eventBusEmit('output:set-headphone-volume', audioVolume.value)
+    eventBusEmit('output:set-headphone-volume', deviceVolume)
   }
   else {
-    eventBusEmit('output:set-speaker-volume', audioVolume.value)
+    eventBusEmit('output:set-speaker-volume', deviceVolume)
   }
 }
 

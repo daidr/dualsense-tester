@@ -2,6 +2,7 @@ import type { Ref } from 'vue'
 import type { DualSensePlayerError } from '@/composables/useDualSensePlayer'
 import { onScopeDispose, ref, shallowRef, watch } from 'vue'
 import { useDevice } from '@/composables/useInjectValues'
+import { audioVolumePercentToDeviceValue } from '@/utils/dualsense/audioVolume'
 import {
   buildReportSix,
   encodeOpusFrames,
@@ -120,7 +121,8 @@ export function useBtAudioPlayer(options: { audioEnabled: Ref<boolean>, hapticEn
       haptic = src ? processHaptic(src) : emptyHaptic
     }
     const target = audioTarget.value === 'headphone' ? 'headphone' : 'speaker'
-    const payload = buildReportSix(opus, haptic, sendSeq, frameCounter, target, audioVolume.value)
+    const deviceVolume = audioVolumePercentToDeviceValue(target, audioVolume.value)
+    const payload = buildReportSix(opus, haptic, sendSeq, frameCounter, target, deviceVolume)
     const hidDevice = device.value?.device
     if (!hidDevice) {
       // 设备已断连/切换，停止发送，避免 raf 回调解引用 undefined。
