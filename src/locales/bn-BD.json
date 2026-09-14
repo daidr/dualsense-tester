@@ -10,7 +10,7 @@
     "confirm": "গ্রহণ",
     "cancel": "বাতিল",
     "close": "বন্ধ",
-    "hold": "ধরুন",
+    "hold": "চাপুন",
     "reset": "রিসেট",
     "save": "সেভ",
     "warning": "সাবধান",
@@ -37,12 +37,12 @@
     "factory_info_title": "ফ্যাক্টরি প্রদাণিত তথ্য",
     "add_device": "ডিভাইস সংযোগ করুন",
     "charge_status": {
-      "discharging": "Not charging",
-      "charging": "Charging",
+      "discharging": "চার্জ সীমিত",
+      "charging": "চার্জ হচ্ছে",
       "charging_complete": "মার্জিত",
-      "abnormal_voltage": "Abnormal voltage",
-      "abnormal_temperature": "Abnormal temperature",
-      "charging_error": "Charging error",
+      "abnormal_voltage": "অস্বাভাবিক ভোল্টেজ",
+      "abnormal_temperature": "অস্বাভাবিক তাপমাত্রা",
+      "charging_error": "চার্জিং ",
       "unknown": "Unknown"
     },
     "battery_level": {
@@ -274,9 +274,9 @@
     }
   },
   "audio_panel": {
-    "title": "Audio",
-    "headphone_1khz_sine_wave_test": "Headphone 1kHz sine wave",
-    "speaker_1khz_sine_wave_test": "Speaker 1kHz sine wave",
+    "title": "অডিও",
+    "headphone_1khz_sine_wave_test": "হেডফোন 1KHz সাইন ওয়েভ",
+    "speaker_1khz_sine_wave_test": "স্পিকার 1KHz সাইন ওয়েভ",
     "file_playback": "Play an audio file",
     "file_playback_unsupported": "Connect the controller over USB or Bluetooth to test playback.",
     "upload_file": "Upload audio file",
