@@ -13,6 +13,7 @@ const LOCALES: Record<string, string> = {
   'de-DE': 'Deutsch',
   'fr-FR': 'Français',
   'bn-BD': 'Bangla',
+  'es-ES': 'Español',
 }
 
 export function getLocaleLabel(locale: string): string {
