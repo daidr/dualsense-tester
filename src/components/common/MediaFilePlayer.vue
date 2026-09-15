@@ -33,8 +33,8 @@ const audioEnabled = defineModel<boolean>('audioEnabled', { default: true })
 const hapticEnabled = defineModel<boolean>('hapticEnabled', { default: false })
 /** 音频目标（扬声器/耳机），USB 下父组件据此切 HID 音量。 */
 const audioTarget = defineModel<string>('audioTarget', { default: 'speaker' })
-/** 音频音量 0–255：蓝牙写进 0x36 报告，USB 由父组件写 HID 音量。 */
-const audioVolume = defineModel<number>('audioVolume', { default: 200 })
+/** 音频音量百分比：蓝牙写进 0x36 报告，USB 由父组件转换为 HID 音量。 */
+const audioVolume = defineModel<number>('audioVolume', { default: 100 })
 /** 触觉强度（百分比，100=原始振幅）：USB/蓝牙均在软件层缩放触觉 PCM 振幅，不走 HID。 */
 const hapticGain = ref(100)
 
@@ -291,7 +291,7 @@ defineExpose({ player })
             <PopoverContent class="settings-popover" align="end" :side-offset="8">
               <div v-if="audioEnabled" class="popover-row">
                 <span class="field-label">{{ $t('audio_panel.volume') }}</span>
-                <SliderBox v-model="audioVolume" :min="0" :max="255" :digits="0" class="popover-volume" />
+                <SliderBox v-model="audioVolume" :min="0" :max="100" :digits="0" class="popover-volume" />
               </div>
               <div v-if="hapticEnabled" class="popover-row">
                 <span class="field-label">{{ $t('audio_panel.haptic_strength') }}</span>

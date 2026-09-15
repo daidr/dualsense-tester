@@ -9,6 +9,7 @@ import SelfResettingSlider from '@/components/common/SelfResettingSlider.vue'
 import SliderBox from '@/components/common/SliderBox.vue'
 import { useDevice } from '@/composables/useInjectValues'
 import { hexToRgb, hsvToRgb, rgbToHex } from '@/utils/color.util'
+import { DUALSENSE_AUDIO_VOLUME_MAX } from '@/utils/dualsense/audioVolume'
 import { MuteButtonLedControl, PlayerLedControl } from '@/utils/dualsense/ds.type'
 import { sendOutputReportFactory } from '@/utils/dualsense/ds.util'
 import { bitShiftByte } from '@/utils/format.util'
@@ -501,7 +502,7 @@ useEventBusRegister('output:retrieve-headphone-volume', () => {
         </td>
         <td class="value">
           <div>
-            <SliderBox v-model="speakerVolume" class="w-full" :min="0" :max="255" />
+            <SliderBox v-model="speakerVolume" class="w-full" :min="0" :max="DUALSENSE_AUDIO_VOLUME_MAX.speaker" />
           </div>
         </td>
       </tr>
@@ -511,7 +512,7 @@ useEventBusRegister('output:retrieve-headphone-volume', () => {
         </td>
         <td class="value">
           <div>
-            <SliderBox v-model="headphoneVolume" class="w-full" :min="0" :max="255" />
+            <SliderBox v-model="headphoneVolume" class="w-full" :min="0" :max="DUALSENSE_AUDIO_VOLUME_MAX.headphone" />
           </div>
         </td>
       </tr>
