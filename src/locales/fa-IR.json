@@ -1,8 +1,8 @@
 {
   "application": {
-    "name": "گیم‌پد تستر",
+    "name": "دوال‌سنس تستر",
     "footer": {
-      "copyright": "© {year} {'|'} کد نویسی شده توسط {author} با ❤ | ترجمه توسط بازی بازار"
+      "copyright": "© {year} {'|'} کد نویسی شده توسط {author} با ❤ | بازی‌بازار"
     }
   },
   "shared": {
@@ -26,7 +26,7 @@
     "not_support_content": "از مرورگر دسکتاپ استفاده کنید"
   },
   "connect_panel": {
-    "tips": "دسته‌ی دوال‌شوک یا دوال‌سنس را با استفاده از <b>کابل</b> یا <b>بلوتوث</b> به کامپیوتر خود متصل کنید، سپس روی دکمه \"افزودن دسته\" بالا کلیک کنید.",
+    "tips": "دسته‌ی دوال‌سنس را با استفاده از <b>کابل</b> یا <b>بلوتوث</b> به کامپیوتر خود متصل کنید، سپس روی دکمه \"افزودن دسته\" بالا کلیک کنید.",
     "not_connected": "متصل نیست",
     "connected": "متصل شد",
     "seq_num": "شماره ترتیبی",
@@ -122,8 +122,8 @@
         "fail": "شکست"
       },
       "board_version": "سری بورد",
-      "touchpad_id": "تاچ پد آیدی",
-      "touchpad_fw_version": "فریمور تاچ پد",
+      "touchpad_id": "تاچ‌پد آیدی",
+      "touchpad_fw_version": "فریمور تاچ‌پد",
       "battery_voltage": "ولتاژ باتری"
     },
     "diagnostics_title": "عیب‌یابی",
@@ -137,19 +137,19 @@
       "total_record_count": "تعداد کل رکوردها",
       "total_active_time": "مجموع زمان فعال",
       "total_charge_time": "مجموع زمان شارژ",
-      "haptic_device_active_time": "مدت زمان فعالیت موتور لرزش",
-      "adaptive_trigger_left_active_time": "مدت زمان فعالیت تریگر چپ",
-      "adaptive_trigger_right_active_time": "مدت زمان فعالیت تریگر راست",
+      "haptic_device_active_time": "مجموع زمان فعالیت موتور لرزش",
+      "adaptive_trigger_left_active_time": "مجموع زمان فعالیت تریگر چپ",
+      "adaptive_trigger_right_active_time": "مجموع زمان فعالیت تریگر راست",
       "usb_connect_count": "اتصالات USB",
       "bluetooth_connect_count": "اتصالات بلوتوث",
-      "bluetooth_connect_timeout_count": "تایم اوت های بلوتوث",
+      "bluetooth_connect_timeout_count": "تایم‌اوت‌های بلوتوث",
       "usb_sdp_detect_count": "USB SDP",
       "usb_cdp_detect_count": "USB CDP",
       "usb_dcp_detect_count": "USB DCP",
       "usb_typec15_detect_count": "USB Type-C 1.5A",
       "usb_typec30_detect_count": "USB Type-C 3.0A",
       "usb_unknown_detect_count": "USB unknown",
-      "battery_charger_connect_count": "اتصال شارژر",
+      "battery_charger_connect_count": "اتصالات شارژر",
       "battery_charge_count": "چرخه‌های شارژ",
       "battery_full_charge_count": "شارژهای کامل",
       "headset_detect_count": "شناسایی هدست",
@@ -181,7 +181,7 @@
       "button_r2_short_stroke": "کورس کوتاه R2",
       "button_r2_middle_stroke": "کورس متوسط R2",
       "button_r2_full_stroke": "کورس کامل R2",
-      "touchpad_touch_detect": "لمس های تاچ‌پد",
+      "touchpad_touch_detect": "لمس‌های تاچ‌پد",
       "touchpad_press": "فشردن تاچ‌پد",
       "button_option": "Options",
       "button_create": "Create",
@@ -277,7 +277,7 @@
     "title": "صدا",
     "headphone_1khz_sine_wave_test": "موج سینوسی 1kHz هدفون",
     "speaker_1khz_sine_wave_test": "موج سینوسی 1kHz اسپیکر",
-    "file_playback": "پخش یک فایل صوتی",
+    "file_playback": "پخش فایل صوتی",
     "file_playback_unsupported": "دسته را از طریق USB یا بلوتوث متصل کنید تا پخش صدا را آزمایش کنید.",
     "upload_file": "آپلود فایل صوتی",
     "replace_file": "جایگزین",
@@ -285,8 +285,8 @@
     "pause": "توقف",
     "progress": "میزان پیشرفت پخش",
     "output_audio": "صدا",
-    "output_haptic": "هپتیک ها",
-    "target": "هدف",
+    "output_haptic": "هپتیک‌ها",
+    "target": "خروجی",
     "target_speaker": "اسپیکر",
     "target_headphone": "هدفون",
     "volume": "بلندی صدا",
@@ -300,7 +300,7 @@
     "list_devices": "اجازه دسترسی به دستگاه",
     "device_access_hint": "برای نمایش دستگاه‌های خروجی، اجازه دسترسی به میکروفون لازم است.",
     "error_device_access_denied": "دسترسی به دستگاه رد شد. برای نمایش دستگاه‌های خروجی، اجازه دسترسی به میکروفون را فعال کنید.",
-    "error_output_device_required": "پیش از پخش، دستگاه خروجی دوال‌سنس را انتخاب کنید.",
+    "error_output_device_required": "پیش از پخش، از طریق تنظیمات، نوع دستگاه خروجی را تعیین کنید.",
     "error_output_routing_failed": "دستگاه خروجی انتخاب‌شده فعال نشد.",
     "error_quadraphonic_required": "دستگاه خروجی دوال‌سنس به صدای چهارکاناله نیاز دارد.\nدر تنظیمات صدای سیستم، بلندگوهای دوال‌سنس را روی خروجی چهارکاناله تنظیم کرده و بهبودهای صوتی را غیرفعال کنید."
   },
