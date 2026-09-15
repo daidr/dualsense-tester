@@ -103,6 +103,14 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
         <br /><sub><b><code title="Italian">it</code></b></sub>
       </td>
       <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/YupItzAfi"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17836305/medium/8fa29f14b9c12ca886feb5032a67a5d1.png" />
+          <br />
+          <sub><b>Afif An Nafie (YupItzAfi)</b></sub></a>
+        <br />
+        <sub><b>1048 words</b></sub>
+        <br /><sub><b><code title="Bengali">bn</code></b></sub>
+      </td>
+      <td align="center" valign="top">
         <a href="https://crowdin.com/profile/hargabt"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/14426098/medium/8d9f140158ee575545feedd642f44d8e.jpg" />
           <br />
           <sub><b>Robert Galoyan (hargabt)</b></sub></a>
@@ -118,6 +126,8 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
         <sub><b>610 words</b></sub>
         <br /><sub><b><code title="French">fr</code></b>, <b><code title="Turkish">tr</code></b></sub>
       </td>
+    </tr>
+    <tr>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/fasoylada"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/14505702/medium/4e229055cb7145a9468cc818adf2432e.jpeg" />
           <br />
@@ -126,8 +136,6 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
         <sub><b>604 words</b></sub>
         <br /><sub><b><code title="Greek">el</code></b></sub>
       </td>
-    </tr>
-    <tr>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/cilgin"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17158452/medium/dd235d0476c59b8dae3b7c530e40377a_default.png" />
           <br />
@@ -184,6 +192,8 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
         <sub><b>8 words</b></sub>
         <br /><sub><b><code title="Arabic">ar</code></b></sub>
       </td>
+    </tr>
+    <tr>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/bipboo"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17306770/medium/9e691eced760d4aa6ccb91ca64bc19c7.jpeg" />
           <br />
@@ -192,8 +202,6 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
         <sub><b>4 words</b></sub>
         <br /><sub><b><code title="Turkish">tr</code></b></sub>
       </td>
-    </tr>
-    <tr>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/Jacker_Gamer"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/16016445/medium/5834fb246cb37f192a7c8ede4287fe61.jpg" />
           <br />
