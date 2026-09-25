@@ -262,7 +262,7 @@
     "right_trigger_mode": "Gatillo Derecho",
     "trigger_mode": {
       "off": "Apagado",
-      "resistance": "resistencia",
+      "resistance": "Resistencia",
       "trigger": "Gatillo",
       "auto_trigger": "Gatillo Automático"
     },
