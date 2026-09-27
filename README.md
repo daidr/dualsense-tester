@@ -123,7 +123,7 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
           <br />
           <sub><b>Robert Galoyan (hargabt)</b></sub></a>
         <br />
-        <sub><b>980 words</b></sub>
+        <sub><b>1026 words</b></sub>
         <br /><sub><b><code title="Russian">ru</code></b></sub>
       </td>
     </tr>
