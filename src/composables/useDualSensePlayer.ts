@@ -107,12 +107,32 @@ export function useDualSensePlayer(options: { audioEnabled: Ref<boolean>, haptic
     await (ctx as unknown as { setSinkId: (id: string) => Promise<void> }).setSinkId(deviceId)
   }
 
-  function assertQuadraphonicOutput(ctx: AudioContext) {
+  function configureQuadraphonicOutput(ctx: AudioContext) {
     if (ctx.destination.maxChannelCount < 4) {
       throw new DualSensePlayerFailure(
         'quadraphonic-required',
         `DualSense output requires four channels, got ${ctx.destination.maxChannelCount}`,
       )
+    }
+    try {
+      ctx.destination.channelCount = 4
+      ctx.destination.channelCountMode = 'explicit'
+      ctx.destination.channelInterpretation = 'discrete'
+    }
+    catch (error) {
+      throw new DualSensePlayerFailure(
+        'quadraphonic-required',
+        `Could not configure four discrete output channels: ${error}`,
+      )
+    }
+    // maxChannelCount is a capability, not the active channel count. Never start a
+    // haptic graph if the browser rejected or ignored the destination settings.
+    if (
+      ctx.destination.channelCount !== 4
+      || ctx.destination.channelCountMode !== 'explicit'
+      || ctx.destination.channelInterpretation !== 'discrete'
+    ) {
+      throw new DualSensePlayerFailure('quadraphonic-required', 'Four-channel output configuration was not retained')
     }
   }
 
@@ -121,7 +141,7 @@ export function useDualSensePlayer(options: { audioEnabled: Ref<boolean>, haptic
       throw new DualSensePlayerFailure('output-device-required', 'No output device has been confirmed')
     }
     await applySinkId(ctx, sinkId.value)
-    assertQuadraphonicOutput(ctx)
+    configureQuadraphonicOutput(ctx)
   }
 
   function startRaf() {
@@ -179,25 +199,31 @@ export function useDualSensePlayer(options: { audioEnabled: Ref<boolean>, haptic
     source.connect(analyserNode!)
     const needHaptic = hapticEnabled.value
     const maxChannels = ctx.destination.maxChannelCount
-    assertQuadraphonicOutput(ctx)
-    const channels = Math.min(4, maxChannels)
-    try {
-      ctx.destination.channelCount = channels
-      ctx.destination.channelCountMode = 'explicit'
-      ctx.destination.channelInterpretation = 'discrete'
-    }
-    catch (error) {
-      uiLogger.warn('multi-channel destination failed', error)
-    }
-    uiLogger.info(`output graph: maxChannelCount=${maxChannels}, ch=${channels}, audio=${audioEnabled.value}, haptic=${needHaptic}`)
-    const merger = ctx.createChannelMerger(channels)
+    configureQuadraphonicOutput(ctx)
+    uiLogger.info('USB output graph', {
+      state: ctx.state,
+      sampleRate: ctx.sampleRate,
+      maxChannelCount: maxChannels,
+      channelCount: ctx.destination.channelCount,
+      channelCountMode: ctx.destination.channelCountMode,
+      channelInterpretation: ctx.destination.channelInterpretation,
+      inputChannels: source.buffer!.numberOfChannels,
+      audio: audioEnabled.value,
+      haptic: needHaptic,
+      hapticChannel: hapticChannel.value,
+      hapticGain: currentHapticGain(),
+    })
+    const merger = ctx.createChannelMerger(4)
+    // Splitters use discrete interpretation: a mono input's output 1 is silent.
+    // Duplicate output 0 for mono, while preserving stereo separation.
+    const rightChannel = source.buffer!.numberOfChannels === 1 ? 0 : 1
     graphNodes.push(merger)
     if (audioEnabled.value) {
       // 音频 → ch0/ch1（扬声器），不经增益（音量走 HID）
       const audioSplitter = ctx.createChannelSplitter(2)
       source.connect(audioSplitter)
       audioSplitter.connect(merger, 0, 0)
-      audioSplitter.connect(merger, 1, Math.min(1, channels - 1))
+      audioSplitter.connect(merger, rightChannel, 1)
       graphNodes.push(audioSplitter)
     }
     if (needHaptic) {
@@ -212,7 +238,7 @@ export function useDualSensePlayer(options: { audioEnabled: Ref<boolean>, haptic
         hapticSplitter.connect(merger, 0, 2)
       }
       if (hapticChannel.value !== 'left') {
-        hapticSplitter.connect(merger, 1, 3)
+        hapticSplitter.connect(merger, rightChannel, 3)
       }
       hapticGainNode = gain
       graphNodes.push(gain, hapticSplitter)
@@ -443,7 +469,7 @@ export function useDualSensePlayer(options: { audioEnabled: Ref<boolean>, haptic
     const previousSinkId = sinkId.value
     try {
       await applySinkId(ctx, deviceId)
-      assertQuadraphonicOutput(ctx)
+      configureQuadraphonicOutput(ctx)
       sinkId.value = deviceId
       sinkLabel.value = label
       return true
@@ -453,7 +479,7 @@ export function useDualSensePlayer(options: { audioEnabled: Ref<boolean>, haptic
       if (previousSinkId !== null && previousSinkId !== deviceId) {
         try {
           await applySinkId(ctx, previousSinkId)
-          assertQuadraphonicOutput(ctx)
+          configureQuadraphonicOutput(ctx)
           retainedPreviousSink = true
         }
         catch (rollbackError) {
