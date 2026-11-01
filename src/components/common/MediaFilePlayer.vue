@@ -151,10 +151,16 @@ async function autoPickDualSenseOutput() {
   if (sinkId.value !== null) {
     return
   }
-  const match = outputDevices.value.find(device => looksLikeDualSense(device.label))
+  // Default/communications aliases can follow a different device later. Only
+  // auto-select a fixed endpoint; system default remains an explicit user choice.
+  const match = outputDevices.value.find(device =>
+    device.deviceId
+    && device.deviceId !== 'default'
+    && device.deviceId !== 'communications'
+    && looksLikeDualSense(device.label),
+  )
   if (match) {
-    const deviceId = match.deviceId === 'default' ? '' : match.deviceId
-    await player.setSinkDevice(deviceId, match.label)
+    await player.setSinkDevice(match.deviceId, match.label)
   }
 }
 

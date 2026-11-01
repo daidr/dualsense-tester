@@ -166,6 +166,42 @@ describe('MediaFilePlayer output controls', () => {
     )
   })
 
+  it('prefers a fixed controller endpoint over default and communications aliases', async () => {
+    const player = playerState.current
+    player.requestDeviceAccess.mockImplementation(async () => {
+      player.outputDevices.value = ['default', 'communications', 'dualsense-output'].map(deviceId => ({
+        kind: 'audiooutput',
+        deviceId,
+        label: 'Wireless Controller',
+      }))
+      return true
+    })
+    const wrapper = mountPlayer(DeviceConnectionType.USB)
+    const grantButton = wrapper.findAll('button')
+      .find(button => button.text().includes('audio_panel.list_devices'))
+
+    await grantButton!.trigger('click')
+    await flushPromises()
+
+    expect(player.setSinkDevice).toHaveBeenCalledWith('dualsense-output', 'Wireless Controller')
+  })
+
+  it('leaves system-default output selection to the user when no fixed endpoint is available', async () => {
+    const player = playerState.current
+    player.requestDeviceAccess.mockImplementation(async () => {
+      player.outputDevices.value = [{ kind: 'audiooutput', deviceId: 'default', label: 'Wireless Controller' }]
+      return true
+    })
+    const wrapper = mountPlayer(DeviceConnectionType.USB)
+    const grantButton = wrapper.findAll('button')
+      .find(button => button.text().includes('audio_panel.list_devices'))
+
+    await grantButton!.trigger('click')
+    await flushPromises()
+
+    expect(player.setSinkDevice).not.toHaveBeenCalled()
+  })
+
   it('blocks a stereo output selected before haptics are enabled and shows a modal', async () => {
     const player = createFakePlayer()
     player.outputDevices.value = [{
