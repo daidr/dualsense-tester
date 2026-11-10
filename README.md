@@ -67,7 +67,7 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
           <br />
           <sub><b>戴兜 (daidr)</b></sub></a>
         <br />
-        <sub><b>3602 words</b></sub>
+        <sub><b>3607 words</b></sub>
         <br /><sub><b><code title="Arabic">ar</code></b>, <b><code title="Arabic, Egypt">ar-EG</code></b>, <b><code title="Chinese Simplified">zh-CN</code></b>, <b><code title="French">fr</code></b>, <b><code title="German">de</code></b>, <b><code title="Greek">el</code></b>, <b><code title="Italian">it</code></b>, <b><code title="Persian">fa</code></b>, <b><code title="Portuguese, Brazilian">pt-BR</code></b>, <b><code title="Russian">ru</code></b>, <b><code title="Turkish">tr</code></b>, <b><code title="Ukrainian">uk</code></b></sub>
       </td>
       <td align="center" valign="top">
@@ -103,6 +103,14 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
         <br /><sub><b><code title="Italian">it</code></b></sub>
       </td>
       <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/TsuyoEcchi"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17895239/medium/ff399f6a10c592092c4bf8638bcea0f8.jpeg" />
+          <br />
+          <sub><b>Xavier Reyes TsuyoEcchi (TsuyoEcchi)</b></sub></a>
+        <br />
+        <sub><b>1053 words</b></sub>
+        <br /><sub><b><code title="Spanish">es-ES</code></b></sub>
+      </td>
+      <td align="center" valign="top">
         <a href="https://crowdin.com/profile/YupItzAfi"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17836305/medium/8fa29f14b9c12ca886feb5032a67a5d1.png" />
           <br />
           <sub><b>Afif An Nafie (YupItzAfi)</b></sub></a>
@@ -111,19 +119,11 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
         <br /><sub><b><code title="Bengali">bn</code></b></sub>
       </td>
       <td align="center" valign="top">
-        <a href="https://crowdin.com/profile/TsuyoEcchi"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17895239/medium/ff399f6a10c592092c4bf8638bcea0f8.jpeg" />
-          <br />
-          <sub><b>Xavier Reyes TsuyoEcchi (TsuyoEcchi)</b></sub></a>
-        <br />
-        <sub><b>1048 words</b></sub>
-        <br /><sub><b><code title="Spanish">es-ES</code></b></sub>
-      </td>
-      <td align="center" valign="top">
         <a href="https://crowdin.com/profile/hargabt"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/14426098/medium/8d9f140158ee575545feedd642f44d8e.jpg" />
           <br />
           <sub><b>Robert Galoyan (hargabt)</b></sub></a>
         <br />
-        <sub><b>1026 words</b></sub>
+        <sub><b>1031 words</b></sub>
         <br /><sub><b><code title="Russian">ru</code></b></sub>
       </td>
     </tr>
@@ -194,6 +194,14 @@ It might be due to a lack of permissions for the hidraw device. Go to the issue 
       </td>
     </tr>
     <tr>
+      <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/Saleh7rb"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17483002/medium/9a9eb07ba8d41b72a6e5de17dd5b8559_default.png" />
+          <br />
+          <sub><b>صالح الحربي (Saleh7rb)</b></sub></a>
+        <br />
+        <sub><b>12 words</b></sub>
+        <br /><sub><b><code title="Arabic">ar</code></b></sub>
+      </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/OsakaRider"><img alt="logo" style="width: 64px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17305750/medium/ddc95852f21f5e96c8830129a0cd4c53.png" />
           <br />
