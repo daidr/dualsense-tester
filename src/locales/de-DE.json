@@ -2,7 +2,7 @@
   "application": {
     "name": "DualSense Tester",
     "footer": {
-      "copyright": "© {year} {'|'} Coded by {author} with ❤"
+      "copyright": "©️ {year} {'|'} Programmiert von {author} mit ❤️"
     }
   },
   "shared": {
@@ -126,7 +126,7 @@
       "board_version": "Board-Version",
       "touchpad_id": "Touchpad ID",
       "touchpad_fw_version": "Touchpad FW version",
-      "battery_voltage": "Battery voltage"
+      "battery_voltage": "Akkuspannung"
     },
     "diagnostics_title": "Diagnostics",
     "diagnostics": {
@@ -199,7 +199,7 @@
       "right_stick_x_dynamic_range_value": "X range",
       "right_stick_y_round_trip_count": "Y cycles",
       "right_stick_y_dynamic_range_value": "Y range",
-      "stick_module_left_serial_number": "Serial number",
+      "stick_module_left_serial_number": "Seriennummer",
       "stick_module_left_x_round_trip_count": "X cycles",
       "stick_module_left_x_dynamic_range_value": "X range",
       "stick_module_left_y_round_trip_count": "Y cycles",
