@@ -2,7 +2,7 @@
   "application": {
     "name": "DualSense Tester",
     "footer": {
-      "copyright": "© {year} {'|'} Coded by {author} with ❤"
+      "copyright": "©️ {year} {'|'} Programmiert von {author} mit ❤️"
     }
   },
   "shared": {
@@ -93,12 +93,14 @@
         "chroma_teal": "Chroma Teal",
         "chroma_indigo": "Chroma Indigo",
         "chroma_pearl": "Chroma Pearl",
+        "techno_red": "Techno Red",
         "30th_anniversary": "30th Anniversary",
         "god_of_war_ragnarok": "God of War Ragnarok",
         "spider_man_2": "Spider-Man 2",
         "astro_bot": "Astro Bot",
         "astro_bot_joyful": "Astro Bot Joyful",
         "fortnite": "Fortnite",
+        "monster_hunter_wilds": "Monster Hunter Wilds",
         "the_last_of_us": "The Last of Us",
         "icon_blue_limited_edition": "Icon Blue Limited Edition",
         "genshin_impact": "Genshin Impact",
@@ -124,7 +126,7 @@
       "board_version": "Board-Version",
       "touchpad_id": "Touchpad ID",
       "touchpad_fw_version": "Touchpad FW version",
-      "battery_voltage": "Battery voltage"
+      "battery_voltage": "Akkuspannung"
     },
     "diagnostics_title": "Diagnostics",
     "diagnostics": {
@@ -197,7 +199,7 @@
       "right_stick_x_dynamic_range_value": "X range",
       "right_stick_y_round_trip_count": "Y cycles",
       "right_stick_y_dynamic_range_value": "Y range",
-      "stick_module_left_serial_number": "Serial number",
+      "stick_module_left_serial_number": "Seriennummer",
       "stick_module_left_x_round_trip_count": "X cycles",
       "stick_module_left_x_dynamic_range_value": "X range",
       "stick_module_left_y_round_trip_count": "Y cycles",
@@ -250,7 +252,7 @@
     "player_led": "Spieler Licht",
     "player_led_brightness": "Helligkeit",
     "player_led_brightness_high": "Hoch",
-    "player_led_brightness_medium": "Medium",
+    "player_led_brightness_medium": "Mittel",
     "player_led_brightness_low": "Schwach",
     "player_led_off": "Aus",
     "player_led_all": "Alle",
@@ -267,7 +269,7 @@
       "auto_trigger": "Automatischer Auslöser"
     },
     "trigger_values": {
-      "start_pos": "Start",
+      "start_pos": "Starten",
       "end_pos": "Ende",
       "frequency": "Frequenz",
       "force": "Kraft"
@@ -341,7 +343,7 @@
   "pwa": {
     "title": "Neue Version erkannt",
     "dismiss": "Verwerfen",
-    "upgrade": "Upgrade",
+    "upgrade": "Upgraden",
     "update_available": "Eine neue Version von DualSense Tester ist bereit! \nAktualisieren Sie, um die Neusten Funktionen zu erhalten.",
     "upgrading": "Neue Version wird heruntergeladen...",
     "offline_ready": "Diese Anwendung ist jetzt zum Offline-Betrieb zwischengespeichert."
