@@ -252,7 +252,7 @@
     "player_led": "Spieler Licht",
     "player_led_brightness": "Helligkeit",
     "player_led_brightness_high": "Hoch",
-    "player_led_brightness_medium": "Medium",
+    "player_led_brightness_medium": "Mittel",
     "player_led_brightness_low": "Schwach",
     "player_led_off": "Aus",
     "player_led_all": "Alle",
@@ -269,7 +269,7 @@
       "auto_trigger": "Automatischer Auslöser"
     },
     "trigger_values": {
-      "start_pos": "Start",
+      "start_pos": "Starten",
       "end_pos": "Ende",
       "frequency": "Frequenz",
       "force": "Kraft"
@@ -343,7 +343,7 @@
   "pwa": {
     "title": "Neue Version erkannt",
     "dismiss": "Verwerfen",
-    "upgrade": "Upgrade",
+    "upgrade": "Upgraden",
     "update_available": "Eine neue Version von DualSense Tester ist bereit! \nAktualisieren Sie, um die Neusten Funktionen zu erhalten.",
     "upgrading": "Neue Version wird heruntergeladen...",
     "offline_ready": "Diese Anwendung ist jetzt zum Offline-Betrieb zwischengespeichert."
